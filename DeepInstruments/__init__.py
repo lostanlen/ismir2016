@@ -7,15 +7,14 @@ dataset_dir = "/Users/vlostan/datasets/solosDb_kapokotrain"
 
 kapoko_dirs = ["Cl", "Co", "Fh", "Gt", "Ob", "Pn", "Tr", "Vl"]
 
-
 fmin = librosa.note_to_hz('A1')
 n_octaves = 7
 n_bins_per_octave = 24
 n_bins = n_octaves * n_bins_per_octave
 sr = 32000.0  # in Hertz
-hop_time = 0.020  # in seconds
+hop_time = 0.016  # in seconds
 hop_length = hop_time * sr
-decision_time = 2.000  # in seconds
+decision_time = 2.048  # in seconds
 decision_length = decision_time * sr / hop_length
 freqs = librosa.cqt_frequencies(
         bins_per_octave=n_bins_per_octave,
@@ -23,13 +22,16 @@ freqs = librosa.cqt_frequencies(
         n_bins=n_bins)
 instrument_dirs = kapoko_dirs
 n_instruments = len(instrument_dirs)
-id_instrument = 0
-instrument_dir = instrument_dirs[id_instrument]
-instrument_path = os.path.join(dataset_dir, instrument_dir)
-file_names = os.listdir(instrument_path)
-id_file = 0
-file_name = file_names[id_file]
-file_path = os.path.join(instrument_path, file_name)
+for id_instrument in range(n_instruments)
+    instrument_dir = instrument_dirs[id_instrument]
+    instrument_path = os.path.join(dataset_dir, instrument_dir)
+    file_names = os.listdir(instrument_path)
+    n_files = len(file_names)
+    for id_file in range(n_files)
+        file_name = file_names[id_file]
+        file_path = os.path.join(instrument_path, file_name)
+        file_features = perceptual_cqt(file_path, freqs, hop_length,
+            n_bins, n_bins_per_octave)
 
 
 def perceptual_cqt(
