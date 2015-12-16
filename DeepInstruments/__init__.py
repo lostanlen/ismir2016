@@ -1,8 +1,36 @@
-from joblib import Parallel, delayed
+from joblib import Memory, Parallel, delayed
 import glob
 import librosa
 import numpy as np
 import os
+
+dataset_dir = '~/datasets/solosDb8/train'
+memory = Memory(cachedir='solosDb8_train')
+cached_cqt = memory.cache(perceptual_cqt)
+
+fmin = 55  # in Hertz
+n_octaves = 7
+n_bins_per_octave = 24
+sr = 32000.0  # in Hertz
+hop_duration = 0.016  # in seconds
+decision_duration = 2.048  # in seconds
+file_paths = get_paths(dataset_dir, 'wav')
+
+# Run perceptual CQT in parallel with joblib
+# n_jobs = -1 means that all CPUs are used
+
+file_cqts = Parallel(n_jobs=-1, verbose=10)(delayed(cached_cqt)(
+        file_path,
+        decision_duration,
+        fmin,
+        hop_duration,
+        n_bins_per_octave,
+        n_octaves,
+        sr) for file_path in file_paths)
+
+# Reduce all CQTs into one
+cqts = np.vstack(file_cqts)
+
 
 def get_paths(dir, extension):
     dir = os.path.expanduser(dir)
@@ -47,25 +75,3 @@ def perceptual_cqt(
     new_shape = (n_windows, decision_length, n_bins)
     audio_features = np.reshape(audio_features, new_shape)
     return np.transpose(audio_features, (0, 2, 1))
-
-
-
-fmin = 55  # in Hertz
-n_octaves = 7
-n_bins_per_octave = 24
-sr = 32000.0  # in Hertz
-hop_duration = 0.016  # in seconds
-decision_duration = 2.048  # in seconds
-dataset_dir = '/~/datasets/solosDb8/train'
-file_paths = get_paths(dataset_dir, 'wav')
-
-file_paths = file_paths[0:2]
-# Run perceptual CQT in parallel with joblib
-# n_jobs = -1 means that all CPUs are used
-file_cqts = Parallel(n_jobs=-1,verbose=5)(delayed(perceptual_cqt)(
-    file_path,
-    decision_duration,
-    hop_duration,
-    n_bins_per_octave,
-    n_octaves,
-    sr) for file_path in file_paths)
