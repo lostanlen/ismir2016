@@ -1,48 +1,46 @@
+from joblib import Parallel, delayed
+import glob
 import librosa
-import matplotlib.pyplot as plt
 import numpy as np
 import os
+import sys
 
-dataset_dir = "/Users/vlostan/datasets/solosDb_kapokotrain"
+dataset_dir = '/Users/vlostan/datasets/solosDb8'
+wav_paths = get_paths(dataset_dir, 'wav')
 
-kapoko_dirs = ["Cl", "Co", "Fh", "Gt", "Ob", "Pn", "Tr", "Vl"]
 
-fmin = librosa.note_to_hz('A1')
+def get_paths(dir, extension):
+    walk = os.walk(dir)
+    regex = '*.' + extension
+    return [p for d in walk for p in glob.glob(os.path.join(d[0], regex))]
+
+
+fmin = 55  # in Hertz
 n_octaves = 7
 n_bins_per_octave = 24
-n_bins = n_octaves * n_bins_per_octave
 sr = 32000.0  # in Hertz
 hop_time = 0.016  # in seconds
-hop_length = hop_time * sr
 decision_time = 2.048  # in seconds
-decision_length = decision_time * sr / hop_length
-freqs = librosa.cqt_frequencies(
-        bins_per_octave=n_bins_per_octave,
-        fmin=fmin,
-        n_bins=n_bins)
-instrument_dirs = kapoko_dirs
-n_instruments = len(instrument_dirs)
-for id_instrument in range(n_instruments)
-    instrument_dir = instrument_dirs[id_instrument]
-    instrument_path = os.path.join(dataset_dir, instrument_dir)
-    file_names = os.listdir(instrument_path)
-    n_files = len(file_names)
-    for id_file in range(n_files)
-        file_name = file_names[id_file]
-        file_path = os.path.join(instrument_path, file_name)
-        file_features = perceptual_cqt(file_path, freqs, hop_length,
-            n_bins, n_bins_per_octave)
 
 
 def perceptual_cqt(
         file_path,
-        freqs,
-        hop_length,
+        decision_duration,
+        fmin,
+        hop_duration,
         n_bins,
-        n_bins_per_octave):
+        n_bins_per_octave,
+        sr):
     y, y_sr = librosa.load(file_path)
     if y_sr != sr:
         y = librosa.resample(y, y_sr, sr)
+    hop_length = hop_time * sr
+    decision_length = decision_time * sr / hop_length
+    n_bins = n_octaves * n_bins_per_octave
+    freqs = librosa.cqt_frequencies(
+            bins_per_octave=n_bins_per_octave,
+            fmin=fmin,
+            n_bins=n_bins)
     CQT = librosa.hybrid_cqt(
             y,
             bins_per_octave=n_bins_per_octave,
@@ -62,4 +60,3 @@ def perceptual_cqt(
     new_shape = (n_windows, decision_length, n_bins)
     audio_features = np.reshape(audio_features, new_shape)
     return np.transpose(audio_features, (0, 2, 1))
-
