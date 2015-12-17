@@ -26,6 +26,18 @@ n_instruments = len(instrument_list)
 
 input_shape = X_train.shape[1:]
 
+offset_dictionary = dict (Cl=librosa.note_to_midi('D3'),
+                          Co=librosa.note_to_midi('E1'),
+                          Fh=librosa.note_to_midi('D2'),
+                          Gt=librosa.note_to_midi('E2'),
+                          Ob=librosa.note_to_midi('Bb3'),
+                          Pn=librosa.note_to_midi('A0'),
+                          Tr=librosa.note_to_midi('F#3'),
+                          Vl=librosa.note_to_midi('G3'))
+
+
+
+
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
@@ -101,19 +113,11 @@ def expand_instruments(fs, ns):
     items = [ numpy.matlib.repmat(fs[i], ns[i], 1) for i in range(len(fs))]
     return np.vstack(items)
 
-offset_dictionary = dict (Cl=librosa.note_to_midi('D3'),
-                          Co=librosa.note_to_midi('E1'),
-                          Fh=librosa.note_to_midi('D2'),
-                          Gt=librosa.note_to_midi('E2'),
-                          Ob=librosa.note_to_midi('Bb3'),
-                          Pn=librosa.note_to_midi('A0'),
-                          Tr=librosa.note_to_midi('F#3'),
-                          Vl=librosa.note_to_midi('G3'))
-
 def get_RWC_midi (file_path, offset_dictionary):
     instrument_str = os.path.split(os.path.split(file_path)[0])[1]
     file_index = os.path.split(os.path.split(file_path)[1])[1].split('_')[1].split('.')[0]
-    return offset_dictionary[instrument_str]+int (file_index)
+    # we substract 1 because RWC has one-based indexing
+    return offset_dictionary[instrument_str] + int(file_index) - 1
 
 def perceptual_cqt(
         file_path,
