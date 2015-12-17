@@ -11,6 +11,8 @@ solosDb8test_dir = '~/datasets/solosDb8/test'
 memory = Memory(cachedir='solosDb8_train')
 cached_cqt = memory.cache(perceptual_cqt, verbose=0)
 
+rwc8_dir = '~/datasets/rwc8/'
+
 fmin = librosa.note_to_hz('A1')  # in Hertz
 n_octaves = 7
 n_bins_per_octave = 24
@@ -19,14 +21,19 @@ hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 n_instruments = len(instrument_list)
+train_paths = get_paths(solosDb8train_dir, instrument_list, 'wav')
+
+rwc_paths = get_paths(rwc8_dir, instrument_list, 'wav')
+pooling_strides = np.array([2, 2])
+
 (X_train, Y_train) = get_XY(
-        solosDb8train_dir,
+        train_paths,
         instrument_list,
         decision_duration, fmin, hop_duration, n_bins_per_octave, n_octaves, sr)
 
 input_shape = X_train.shape[1:]
 
-rwc_offsets = dict (Cl=librosa.note_to_midi('D3'),
+rwc_offsets = dict(Cl=librosa.note_to_midi('D3'),
                           Co=librosa.note_to_midi('E1'),
                           Fh=librosa.note_to_midi('D2'),
                           Gt=librosa.note_to_midi('E2'),
@@ -34,7 +41,6 @@ rwc_offsets = dict (Cl=librosa.note_to_midi('D3'),
                           Pn=librosa.note_to_midi('A0'),
                           Tr=librosa.note_to_midi('F#3'),
                           Vl=librosa.note_to_midi('G3'))
-
 
 
 
@@ -67,7 +73,7 @@ file_paths = get_paths('~/datasets/rwc8', instrument_list, 'wav')
 midis = [get_RWC_midi(p, rwc_offsets) for p in file_paths]
 
 def get_XY(
-        dataset_dir,
+        file_paths,
         instrument_list,
         decision_duration,
         fmin,
@@ -75,7 +81,6 @@ def get_XY(
         n_bins_per_octave,
         n_octaves,
         sr):
-    file_paths = get_paths(dataset_dir, instrument_list, 'wav')
     # Run perceptual CQT in parallel with joblib
     # n_jobs = -1 means that all CPUs are used
     file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
@@ -96,6 +101,25 @@ def get_XY(
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
     Y = expand_instruments(file_instruments, n_items_per_file)
     return (X, Y)
+
+def get_rwc_Z(
+        file_paths,
+        fmin,
+        n_bins_per_octave,
+        n_octaves,
+        pooling_strides,
+        rwc_offsets):
+    cqt_midimin = librosa.hz_to_midi(fmin)
+    n_bins = n_bins_per_octave * n_octaves
+    n_rows = n_bins / np.prod(pooling_strides)
+    midis = [ get_RWC_midi(p, rwc_offsets) for p in file_paths ]
+    n_files = len(file_paths)
+    onehots = np.zeros((n_files, n_rows))
+    for file_index in range(n_files):
+        midi = midis[file_index]
+        row = int(((midi - cqt_midimin) / n_bins) * n_rows)
+        onehots[file_index, row] = 1.0
+    return onehots
 
 def get_paths(dir, instrument_list, extension):
     dir = os.path.expanduser(dir)
