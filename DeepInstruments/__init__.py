@@ -43,11 +43,12 @@ def get_Y(dataset_dir, instrument_list):
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
     item_instruments = expand_instruments(file_instruments, n_items_per_file)
 
-def get_paths(dir, extension):
+def get_paths(dir, instrument_list, extension):
     dir = os.path.expanduser(dir)
     walk = os.walk(dir)
     regex = '*.' + extension
-    return [p for d in walk for p in glob.glob(os.path.join(d[0], regex))]
+    file_paths = [p for d in walk for p in glob.glob(os.path.join(d[0], regex))]
+    return [p for p in file_paths if os.path.split(os.path.split(p)[0])[1] in instrument_list]
 
 
 def get_instrument(file_path, instrument_list):
