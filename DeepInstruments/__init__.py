@@ -26,7 +26,7 @@ n_instruments = len(instrument_list)
 
 input_shape = X_train.shape[1:]
 
-offset_dictionary = dict (Cl=librosa.note_to_midi('D3'),
+rwc_offsets = dict (Cl=librosa.note_to_midi('D3'),
                           Co=librosa.note_to_midi('E1'),
                           Fh=librosa.note_to_midi('D2'),
                           Gt=librosa.note_to_midi('E2'),
@@ -62,6 +62,9 @@ sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd)
 
 model.fit(X_train, Y_train, batch_size=32, nb_epoch=1)
+
+file_paths = get_paths('~/datasets/rwc8', instrument_list, 'wav')
+midis = [get_RWC_midi(p, rwc_offsets) for p in file_paths]
 
 def get_XY(
         dataset_dir,
