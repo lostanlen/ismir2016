@@ -6,7 +6,8 @@ import numpy as np
 import numpy.matlib
 import os
 
-dataset_dir = '~/datasets/solosDb8/train'
+solosDb8train_dir = '~/datasets/solosDb8/train'
+solosDb8test_dir = '~/datasets/solosDb8/test'
 memory = Memory(cachedir='solosDb8_train')
 cached_cqt = memory.cache(perceptual_cqt, verbose=0)
 
@@ -17,25 +18,31 @@ sr = 32000.0  # in Hertz
 hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
-file_paths = get_paths(dataset_dir, 'wav')
 
-# Run perceptual CQT in parallel with joblib
-# n_jobs = -1 means that all CPUs are used
-file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
-        file_path,
-        decision_duration,
-        fmin,
-        hop_duration,
-        n_bins_per_octave,
-        n_octaves,
-        sr) for file_path in file_paths)
 
-# Reduce all CQTs into one
-item_cqts = np.vstack(file_cqts)
+def get_X(dataset_dir):
+    file_paths = get_paths(dataset_dir, 'wav')
 
-file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
-n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
-item_instruments = expand_instruments(file_instruments, n_items_per_file)
+    # Run perceptual CQT in parallel with joblib
+    # n_jobs = -1 means that all CPUs are used
+    file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
+            file_path,
+            decision_duration,
+            fmin,
+            hop_duration,
+            n_bins_per_octave,
+            n_octaves,
+            sr) for file_path in file_paths)
+
+    # Reduce all CQTs into one
+    return np.vstack(file_cqts)
+
+
+def get_Y(dataset_dir, instrument_list):
+    file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
+    n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
+    item_instruments = expand_instruments(file_instruments, n_items_per_file)
+
 
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation, Flatten
