@@ -18,10 +18,13 @@ sr = 32000.0  # in Hertz
 hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
-X_train = get_X(solosDb8train_dir)
-Y_train = get_Y(solosDb8rtain)
+(X_train, Y_train) = get_XY(
+        solosDb8train_dir,
+        instrument_list,
+        decision_duration, fmin, hop_duration, n_bins_per_octave, n_octaves, sr)
 
-def get_X(
+
+def get_XY(
         dataset_dir,
         instrument_list,
         decision_duration,
@@ -42,14 +45,11 @@ def get_X(
             n_octaves,
             sr) for file_path in file_paths)
     # Reduce all CQTs into one
-    return np.vstack(file_cqts)
-
-
-def get_Y(dataset_dir, instrument_list):
-    file_paths = get_paths(dataset_dir, instrument_list, 'wav')
+    X = np.vstack(file_cqts)
     file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
-    item_instruments = expand_instruments(file_instruments, n_items_per_file)
+    Y = expand_instruments(file_instruments, n_items_per_file)
+    return (X, Y)
 
 def get_paths(dir, instrument_list, extension):
     dir = os.path.expanduser(dir)
