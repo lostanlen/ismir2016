@@ -23,6 +23,14 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
         instrument_list,
         decision_duration, fmin, hop_duration, n_bins_per_octave, n_octaves, sr)
 
+input_shape = X_train.shape[1:]
+
+from keras.models import Sequential
+
+model = Sequential()
+model.add(Convolution2D(32, 3, 3, border_mode='full', input_shape = ()))
+
+
 
 def get_XY(
         dataset_dir,
