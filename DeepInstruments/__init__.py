@@ -21,7 +21,15 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 X_train = get_X(solosDb8train_dir)
 Y_train = get_Y(solosDb8rtain)
 
-def get_X(dataset_dir, instrument_list):
+def get_X(
+        dataset_dir,
+        instrument_list,
+        decision_duration,
+        fmin,
+        hop_duration,
+        n_bins_per_octave,
+        n_octaves,
+        sr):
     file_paths = get_paths(dataset_dir, instrument_list, 'wav')
     # Run perceptual CQT in parallel with joblib
     # n_jobs = -1 means that all CPUs are used
