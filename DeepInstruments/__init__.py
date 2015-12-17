@@ -18,10 +18,11 @@ sr = 32000.0  # in Hertz
 hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
+X_train = get_X(solosDb8train_dir)
+Y_train = get_Y(solosDb8rtain)
 
-
-def get_X(dataset_dir):
-    file_paths = get_paths(dataset_dir, 'wav')
+def get_X(dataset_dir, instrument_list):
+    file_paths = get_paths(dataset_dir, instrument_list, 'wav')
     # Run perceptual CQT in parallel with joblib
     # n_jobs = -1 means that all CPUs are used
     file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
@@ -37,35 +38,10 @@ def get_X(dataset_dir):
 
 
 def get_Y(dataset_dir, instrument_list):
+    file_paths = get_paths(dataset_dir, instrument_list, 'wav')
     file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
     item_instruments = expand_instruments(file_instruments, n_items_per_file)
-
-
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.layers.convolutional import Convolution2D, MaxPooling2D
-from keras.optimizers import SGD
-
-model = Sequential()
-
-conv1 = Convolution2D(32, 3, 3, input_shape=(1,100,100))
-model.add(conv1)
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2,2)))
-model.add(Dropout(0.25))
-
-model.add(Flatten())
-model.add(Dense(256))
-model.add(Activation('relu'))
-model.add(Dropout(0.5))
-
-model.add(Dense(10))
-model.add(Activation('softmax'))
-
-sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
-model.compile(loss='categorical_crossentropy', optimizer=sgd)
-
 
 def get_paths(dir, extension):
     dir = os.path.expanduser(dir)
