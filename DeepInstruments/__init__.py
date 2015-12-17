@@ -11,7 +11,7 @@ solosDb8test_dir = '~/datasets/solosDb8/test'
 memory = Memory(cachedir='solosDb8_train')
 cached_cqt = memory.cache(perceptual_cqt, verbose=0)
 
-fmin = 55  # in Hertz
+fmin = librosa.note_to_hz('A1')  # in Hertz
 n_octaves = 7
 n_bins_per_octave = 24
 sr = 32000.0  # in Hertz
@@ -22,7 +22,6 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 
 def get_X(dataset_dir):
     file_paths = get_paths(dataset_dir, 'wav')
-
     # Run perceptual CQT in parallel with joblib
     # n_jobs = -1 means that all CPUs are used
     file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
@@ -33,7 +32,6 @@ def get_X(dataset_dir):
             n_bins_per_octave,
             n_octaves,
             sr) for file_path in file_paths)
-
     # Reduce all CQTs into one
     return np.vstack(file_cqts)
 
