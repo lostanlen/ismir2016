@@ -18,6 +18,7 @@ sr = 32000.0  # in Hertz
 hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
+n_instruments = len(instrument_list)
 (X_train, Y_train) = get_XY(
         solosDb8train_dir,
         instrument_list,
@@ -26,12 +27,29 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 input_shape = X_train.shape[1:]
 
 from keras.models import Sequential
-from keras.layers.convolutional import Convolution2D
+from keras.layers.core import Dense, Dropout, Activation, Flatten
+from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.optimizers import SGD
 
 model = Sequential()
+
 model.add(Convolution2D(32, 3, 3, input_shape = input_shape))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Dropout(0.25))
 
+model.add(Flatten())
+model.add(Dense(256))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
 
+model.add(Dense(n_instruments))
+model.add(Activation('softmax'))
+
+sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+model.compile(loss='categorical_crossentropy', optimizer=sgd)
+
+model.fit(X_train, Y_train, batch_size=32, nb_epoch=1)
 
 def get_XY(
         dataset_dir,
