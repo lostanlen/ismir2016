@@ -26,9 +26,10 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 input_shape = X_train.shape[1:]
 
 from keras.models import Sequential
+from keras.layers.convolutional import Convolution2D
 
 model = Sequential()
-model.add(Convolution2D(32, 3, 3, border_mode='full', input_shape = ()))
+model.add(Convolution2D(32, 3, 3, input_shape = input_shape))
 
 
 
@@ -54,6 +55,10 @@ def get_XY(
             sr) for file_path in file_paths)
     # Reduce all CQTs into one
     X = np.vstack(file_cqts)
+    # Reshape to Theano-friendly format
+    new_shape = X.shape
+    new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
+    X = np.reshape(X, new_shape)
     file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
     Y = expand_instruments(file_instruments, n_items_per_file)
