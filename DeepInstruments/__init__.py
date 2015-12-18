@@ -87,8 +87,16 @@ def get_rwc_XY(
         n_bins_per_octave,
         n_octaves,
         sr) for file_path in file_paths)
-    #
-    file_cqts
+    # Get first window of each file and stack according to first dimension
+    X = np.vstack([file_cqt[0, :, :] for file_cqts in file_cqts])
+    # Reshape to Theano-friendly format
+    new_shape = X.shape
+    new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
+    X = np.reshape(X, new_shape)
+    file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
+    Y = np.vstack(file_instruments)
+    return (X, Y)
+
 
 def get_solosDb_XY(
         file_paths,
