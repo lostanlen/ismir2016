@@ -6,13 +6,16 @@ import numpy as np
 import numpy.matlib
 import os
 
+from keras.models import Sequential
+from keras.layers.core import Dense, Dropout, Activation, Flatten
+from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.optimizers import SGD
+
 solosDb8train_dir = '~/datasets/solosDb8/train'
 solosDb8test_dir = '~/datasets/solosDb8/test'
 memory = Memory(cachedir='solosDb8_train')
 cached_cqt = memory.cache(perceptual_cqt, verbose=0)
-
 rwc8_dir = '~/datasets/rwc8/'
-
 fmin = librosa.note_to_hz('A1')  # in Hertz
 n_octaves = 7
 n_bins_per_octave = 24
@@ -23,9 +26,6 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 n_instruments = len(instrument_list)
 train_paths = get_paths(solosDb8train_dir, instrument_list, 'wav')
 
-rwc_paths = get_paths(rwc8_dir, instrument_list, 'wav')
-pooling_strides = np.array([2, 2])
-
 (X_train, Y_train) = get_XY(
         train_paths,
         instrument_list,
@@ -33,6 +33,8 @@ pooling_strides = np.array([2, 2])
 
 input_shape = X_train.shape[1:]
 
+rwc_paths = get_paths(rwc8_dir, instrument_list, 'wav')
+pooling_strides = np.array([2, 2])
 rwc_offsets = dict(Cl=librosa.note_to_midi('D3'),
                           Co=librosa.note_to_midi('E1'),
                           Fh=librosa.note_to_midi('D2'),
@@ -42,12 +44,6 @@ rwc_offsets = dict(Cl=librosa.note_to_midi('D3'),
                           Tr=librosa.note_to_midi('F#3'),
                           Vl=librosa.note_to_midi('G3'))
 
-
-
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.layers.convolutional import Convolution2D, MaxPooling2D
-from keras.optimizers import SGD
 
 model = Sequential()
 
@@ -72,7 +68,7 @@ model.fit(X_train, Y_train, batch_size=32, nb_epoch=1)
 file_paths = get_paths('~/datasets/rwc8', instrument_list, 'wav')
 midis = [get_RWC_midi(p, rwc_offsets) for p in file_paths]
 
-def get_XY(
+def get_rwc_XY(
         file_paths,
         instrument_list,
         decision_duration,
@@ -84,13 +80,35 @@ def get_XY(
     # Run perceptual CQT in parallel with joblib
     # n_jobs = -1 means that all CPUs are used
     file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
-            file_path,
-            decision_duration,
-            fmin,
-            hop_duration,
-            n_bins_per_octave,
-            n_octaves,
-            sr) for file_path in file_paths)
+        file_path,
+        decision_duration,
+        fmin,
+        hop_duration,
+        n_bins_per_octave,
+        n_octaves,
+        sr) for file_path in file_paths)
+    #
+    file_cqts
+
+def get_solosDb_XY(
+        file_paths,
+        instrument_list,
+        decision_duration,
+        fmin,
+        hop_duration,
+        n_bins_per_octave,
+        n_octaves,
+        sr):
+    # Run perceptual CQT in parallel with joblib
+    # n_jobs = -1 means that all CPUs are used
+    file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
+        file_path,
+        decision_duration,
+        fmin,
+        hop_duration,
+        n_bins_per_octave,
+        n_octaves,
+        sr) for file_path in file_paths)
     # Reduce all CQTs into one
     X = np.vstack(file_cqts)
     # Reshape to Theano-friendly format
@@ -176,6 +194,10 @@ def perceptual_cqt(
             freqs,
             ref_power=1.0)
     n_hops = audio_features.shape[1]
+    if n_hops<decision_length:
+        padding = np.zeros(n_bins, decision_length - n_hops)
+        audio_features = np.hstack(audio_features, padding)
+        n_hops = decision_length
     n_windows = int(n_hops / decision_length)
     n_hops_truncated = n_windows * decision_length
     audio_features = np.transpose(audio_features)
