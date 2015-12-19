@@ -13,9 +13,9 @@ from keras.optimizers import SGD
 
 solosDb8train_dir = '~/datasets/solosDb8/train'
 solosDb8test_dir = '~/datasets/solosDb8/test'
-memory = Memory(cachedir='solosDb8_train')
-cached_cqt = memory.cache(perceptual_cqt, verbose=0)
 rwc8_dir = '~/datasets/rwc8/'
+memory = Memory()
+cached_cqt = memory.cache(perceptual_cqt, verbose=0)
 fmin = librosa.note_to_hz('A1')  # in Hertz
 n_octaves = 7
 n_bins_per_octave = 24
@@ -43,27 +43,6 @@ rwc_offsets = dict(Cl=librosa.note_to_midi('D3'),
                           Pn=librosa.note_to_midi('A0'),
                           Tr=librosa.note_to_midi('F#3'),
                           Vl=librosa.note_to_midi('G3'))
-
-
-model = Sequential()
-
-model.add(Convolution2D(32, 3, 3, input_shape = input_shape))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2,2)))
-model.add(Dropout(0.25))
-
-model.add(Flatten())
-model.add(Dense(256))
-model.add(Activation('relu'))
-model.add(Dropout(0.5))
-
-model.add(Dense(n_instruments))
-model.add(Activation('softmax'))
-
-sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
-model.compile(loss='categorical_crossentropy', optimizer=sgd)
-
-model.fit(X_train, Y_train, batch_size=32, nb_epoch=1)
 
 file_paths = get_paths('~/datasets/rwc8', instrument_list, 'wav')
 midis = [get_RWC_midi(p, rwc_offsets) for p in file_paths]
