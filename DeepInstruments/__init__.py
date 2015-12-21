@@ -24,9 +24,9 @@ hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 n_instruments = len(instrument_list)
-train_paths = get_paths(solosDb8train_dir, instrument_list, 'wav')
+solosDb_train_paths = get_paths(solosDb8train_dir, instrument_list, 'wav')
 
-(X_train, Y_train) = get_XY(
+(X_train, Y_train) = get_solosDb_XY(
         train_paths,
         instrument_list,
         decision_duration, fmin, hop_duration, n_bins_per_octave, n_octaves, sr)
