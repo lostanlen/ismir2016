@@ -14,7 +14,7 @@ from keras.optimizers import SGD
 solosDb8train_dir = '~/datasets/solosDb8/train'
 solosDb8test_dir = '~/datasets/solosDb8/test'
 rwc8_dir = '~/datasets/rwc8/'
-memory = Memory()
+memory = Memory(cachedir='/tmp/joblib')
 cached_cqt = memory.cache(perceptual_cqt, verbose=0)
 fmin = librosa.note_to_hz('A1')  # in Hertz
 n_octaves = 7
