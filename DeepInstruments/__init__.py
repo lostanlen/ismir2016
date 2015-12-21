@@ -33,6 +33,12 @@ solosDb_train_paths = get_paths(solosDb8train_dir, instrument_list, 'wav')
 
 input_shape = X_train.shape[1:]
 
+model = Sequential()
+model.add(Dense(8, input_shape=(21504,), init="uniform", activation="softmax"))
+sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+model.compile(loss='mean_squared_error', optimizer=sgd)
+model.fit(X_train, Y_train, batch_size=32, nb_epoch=1)
+
 rwc_paths = get_paths(rwc8_dir, instrument_list, 'wav')
 pooling_strides = np.array([2, 2])
 rwc_offsets = dict(Cl=librosa.note_to_midi('D3'),
