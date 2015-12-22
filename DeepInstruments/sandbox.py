@@ -1,3 +1,11 @@
+import librosa
+
+from keras.models import Sequential
+from keras.layers.core import Dense, Dropout, Activation, Flatten
+from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.optimizers import SGD
+
+import DeepInstruments
 
 fmin = librosa.note_to_hz('A1')  # in Hertz
 n_octaves = 7
