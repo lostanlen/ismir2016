@@ -32,7 +32,7 @@ def perceptual_cqt(
             freqs,
             ref_power=1.0)
     n_hops = audio_features.shape[1]
-    if n_hops<decision_length:
+    if n_hops < decision_length:
         padding = np.zeros(n_bins, decision_length - n_hops)
         audio_features = np.hstack(audio_features, padding)
         n_hops = decision_length
