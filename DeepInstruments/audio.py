@@ -2,6 +2,8 @@ import librosa
 from joblib import Parallel
 import numpy as np
 
+import DeepInstruments as di
+
 def check_silence_threshold(
         file_paths,
         decision_duration,
