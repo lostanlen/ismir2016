@@ -25,7 +25,7 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 n_instruments = len(instrument_list)
 solosDb_train_paths = get_paths(solosDb8train_dir, instrument_list, 'wav')
 
-(X_train, Y_train) = get_solosDb_XY(
+(X_train, Y_train) = solosdb.get_XY(
         train_paths,
         instrument_list,
         decision_duration, fmin, hop_duration, n_bins_per_octave, n_octaves, sr)
@@ -51,52 +51,3 @@ rwc_offsets = dict(Cl=librosa.note_to_midi('D3'),
 
 file_paths = get_paths('~/datasets/rwc8', instrument_list, 'wav')
 midis = [get_RWC_midi(p, rwc_offsets) for p in file_paths]
-
-def get_solosDb_XY(
-        file_paths,
-        instrument_list,
-        decision_duration,
-        fmin,
-        hop_duration,
-        n_bins_per_octave,
-        n_octaves,
-        sr):
-    # Run perceptual CQT in parallel with joblib
-    # n_jobs = -1 means that all CPUs are used
-    file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
-        file_path,
-        decision_duration,
-        fmin,
-        hop_duration,
-        n_bins_per_octave,
-        n_octaves,
-        sr) for file_path in file_paths)
-    # Reduce all CQTs into one
-    X = np.vstack(file_cqts)
-    # Reshape to Theano-friendly format
-    new_shape = X.shape
-    new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
-    X = np.reshape(X, new_shape)
-    file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
-    n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
-    Y = expand_instruments(file_instruments, n_items_per_file)
-    return (X, Y)
-
-def get_rwc_Z(
-        file_paths,
-        fmin,
-        n_bins_per_octave,
-        n_octaves,
-        pooling_strides,
-        rwc_offsets):
-    cqt_midimin = librosa.hz_to_midi(fmin)
-    n_bins = n_bins_per_octave * n_octaves
-    n_rows = n_bins / np.prod(pooling_strides)
-    midis = [ get_RWC_midi(p, rwc_offsets) for p in file_paths ]
-    n_files = len(file_paths)
-    onehots = np.zeros((n_files, n_rows))
-    for file_index in range(n_files):
-        midi = midis[file_index]
-        row = int(((midi - cqt_midimin) / n_bins) * n_rows)
-        onehots[file_index, row] = 1.0
-    return onehots
