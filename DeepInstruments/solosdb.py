@@ -2,6 +2,7 @@ from joblib import Memory, Parallel, delayed
 import numpy as np
 
 import audio
+import os
 import symbolic
 
 def get_XY(
@@ -16,7 +17,7 @@ def get_XY(
         sr):
     # Run perceptual CQT in parallel with joblib
     # n_jobs = -1 means that all CPUs are used
-    memory = Memory(cachedir='/tmp/joblib')
+    memory = Memory(cachedir=os.path.expanduser('~/joblib'))
     cached_cqt = memory.cache(audio.perceptual_cqt, verbose=0)
     file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
             file_path,
