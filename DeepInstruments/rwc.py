@@ -6,6 +6,15 @@ import os
 import audio
 import symbolic
 
+midi_offsets = dict(Cl=librosa.note_to_midi('D3'),
+                          Co=librosa.note_to_midi('E1'),
+                          Fh=librosa.note_to_midi('D2'),
+                          Gt=librosa.note_to_midi('E2'),
+                          Ob=librosa.note_to_midi('Bb3'),
+                          Pn=librosa.note_to_midi('A0'),
+                          Tr=librosa.note_to_midi('F#3'),
+                          Vl=librosa.note_to_midi('G3'))
+
 def get_midi(file_path, offset_dictionary):
     instrument_str = os.path.split(os.path.split(file_path)[0])[1]
     file_str = os.path.split(os.path.split(file_path)[1])[1]
