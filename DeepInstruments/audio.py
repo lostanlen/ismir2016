@@ -1,18 +1,17 @@
 import librosa
+from joblib import Parallel
 import numpy as np
 
-from DeepInstruments import audio
 def check_silence_threshold(
         file_paths,
         decision_duration,
-        hop_duration,
         silence_threshold,
         sr):
-    silences = [ audio.extract_silence(
+    silences = Parallel(n_jobs=-1, verbose=20)(di.audio.extract_silence(
         file_path,
         decision_duration,
         silence_threshold,
-        sr) for file_path in file_paths ]
+        sr) for file_path in file_paths)
 
 
 def extract_silence(
