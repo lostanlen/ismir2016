@@ -1,0 +1,34 @@
+def get_midi(file_path, offset_dictionary):
+    instrument_str = os.path.split(os.path.split(file_path)[0])[1]
+    file_index = os.path.split(os.path.split(file_path)[1])[1].split('_')[1].split('.')[0]
+    # we substract 1 because RWC has one-based indexing
+    return offset_dictionary[instrument_str] + int(file_index) - 1
+
+def get_XY(
+        file_paths,
+        instrument_list,
+        decision_duration,
+        fmin,
+        hop_duration,
+        n_bins_per_octave,
+        n_octaves,
+        sr):
+    # Run perceptual CQT in parallel with joblib
+    # n_jobs = -1 means that all CPUs are used
+    file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
+        file_path,
+        decision_duration,
+        fmin,
+        hop_duration,
+        n_bins_per_octave,
+        n_octaves,
+        sr) for file_path in file_paths)
+    # Get first window of each file and stack according to first dimension
+    X = np.vstack([file_cqt[0, :, :] for file_cqts in file_cqts])
+    # Reshape to Theano-friendly format
+    new_shape = X.shape
+    new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
+    X = np.reshape(X, new_shape)
+    file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
+    Y = np.vstack(file_instruments)
+    return (X, Y)
