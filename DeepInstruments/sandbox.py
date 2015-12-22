@@ -21,6 +21,8 @@ solosDb8train_dir = '~/datasets/solosDb8/train'
         di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav'),
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, sr)
+
+
 input_shape = X_train.shape[1:]
 
 rwc8_dir = '~/datasets/rwc8/'

@@ -9,7 +9,8 @@ def perceptual_cqt(
         hop_duration,
         n_bins_per_octave,
         n_octaves,
-        sr):
+        sr,
+        silence_threshold):
     y, y_sr = librosa.load(file_path)
     if y_sr != sr:
         y = librosa.resample(y, y_sr, sr)
