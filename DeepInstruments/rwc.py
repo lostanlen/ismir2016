@@ -7,9 +7,10 @@ import symbolic
 
 def get_midi(file_path, offset_dictionary):
     instrument_str = os.path.split(os.path.split(file_path)[0])[1]
-    file_index = os.path.split(os.path.split(file_path)[1])[1].split('_')[1].split('.')[0]
+    file_str = os.path.split(os.path.split(file_path)[1])[1]
+    pitch_str = file_str.split('_')[1].split('.')[0]
     # we substract 1 because RWC has one-based indexing
-    return offset_dictionary[instrument_str] + int(file_index) - 1
+    return offset_dictionary[instrument_str] + int(pitch_str) - 1
 
 def get_XY(
         file_paths,
