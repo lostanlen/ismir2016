@@ -12,20 +12,21 @@ def get_XY(
     memory = Memory(cachedir='/tmp/joblib')
     cached_cqt = memory.cache(audio.perceptual_cqt, verbose=0)
     file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
-        file_path,
-        decision_duration,
-        fmin,
-        hop_duration,
-        n_bins_per_octave,
-        n_octaves,
-        sr) for file_path in file_paths)
+            file_path,
+            decision_duration,
+            fmin,
+            hop_duration,
+            n_bins_per_octave,
+            n_octaves,
+            sr) for file_path in file_paths)
     # Reduce all CQTs into one
     X = np.vstack(file_cqts)
     # Reshape to Theano-friendly format
     new_shape = X.shape
     new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
     X = np.reshape(X, new_shape)
-    file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
+    file_instruments = [get_instrument(p, instrument_list) for p in
+                        file_paths]
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
     Y = expand_instruments(file_instruments, n_items_per_file)
     return (X, Y)
