@@ -23,7 +23,8 @@ def extract_silence(
     if y_sr != sr:
         y = librosa.resample(y, y_sr, sr)
     n_windows = int(len(y) / (decision_duration*sr))
-    y_abs = np.abs(y)[:n_windows * decision_duration * sr]
+    y_truncated = y[:n_windows * decision_duration * sr]
+    y_abs = np.abs(y_truncated)
     y_abs2 = y_abs**2
     y_abs2 = np.reshape(y_abs2, (n_windows, decision_duration * sr))
     y_levels = np.mean(y_abs2, axis=1)
@@ -31,7 +32,7 @@ def extract_silence(
     window_bools = np.reshape(y_levels, (len(y_levels),1)) > silence_threshold
     broadcaster = np.ones((1, decision_duration * sr), dtype = bool)
     sample_bools = np.ndarray.flatten(window_bools * broadcaster)
-    return y[np.logical_not(sample_bools)]
+    return y_truncated[np.logical_not(sample_bools)]
 
 def perceptual_cqt(
         file_path,
