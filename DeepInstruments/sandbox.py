@@ -16,10 +16,13 @@ decision_duration = 2.048  # in seconds
 silence_threshold = -30 # in dB
 
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
-
 solosDb8train_dir = '~/datasets/solosDb8/train'
+file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
+file_path = file_paths[0]
+
+
 (X_train, Y_train) = di.solosdb.get_XY(
-        di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav'),
+        file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
