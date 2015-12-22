@@ -13,8 +13,9 @@ n_bins_per_octave = 24
 sr = 32000.0  # in Hertz
 hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
+silence_threshold = 1e-3
+
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
-n_instruments = len(instrument_list)
 
 solosDb8train_dir = '~/datasets/solosDb8/train'
 (X_train, Y_train) = di.solosdb.get_XY(
@@ -23,8 +24,23 @@ solosDb8train_dir = '~/datasets/solosDb8/train'
         n_bins_per_octave, n_octaves, sr)
 
 
-input_shape = X_train.shape[1:]
 
-rwc8_dir = '~/datasets/rwc8/'
-rwc_paths = di.symbolic.get_paths(rwc8_dir, instrument_list, 'wav')
-midis = [ di.rwc.get_midi(p, di.rwc.midi_offsets) for p in rwc_paths ]
+conv1_width = 32
+conv1_height = 96
+conv1_channels = 50
+
+pool1_width = 8
+pool1_height = 8
+
+conv2_width = 8
+conv2_height = 8
+conv2_channels = 30
+
+pool2_width = 3
+pool2_height = 3
+
+drop_proportion = 0.5
+
+dense1_input = 256
+
+dense2_input = n_instruments
