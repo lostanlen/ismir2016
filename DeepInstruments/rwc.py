@@ -1,4 +1,5 @@
 from joblib import Memory, Parallel, delayed
+import librosa
 import numpy as np
 import os
 
@@ -42,3 +43,23 @@ def get_XY(
     file_instruments = [symbolic.get_instrument(p, instrument_list) for p in file_paths]
     Y = np.vstack(file_instruments)
     return (X, Y)
+
+
+def get_Z(
+        file_paths,
+        fmin,
+        n_bins_per_octave,
+        n_octaves,
+        pooling_strides,
+        rwc_offsets):
+    cqt_midimin = librosa.hz_to_midi(fmin)
+    n_bins = n_bins_per_octave * n_octaves
+    n_rows = n_bins / np.prod(pooling_strides)
+    midis = [ get_midi(p, rwc_offsets) for p in file_paths ]
+    n_files = len(file_paths)
+    onehots = np.zeros((n_files, n_rows))
+    for file_index in range(n_files):
+        midi = midis[file_index]
+        row = int(((midi - cqt_midimin) / n_bins) * n_rows)
+        onehots[file_index, row] = 1.0
+    return onehots
