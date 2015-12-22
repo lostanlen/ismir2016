@@ -1,3 +1,8 @@
+from joblib import Memory, Parallel, delayed
+import numpy as np
+
+import audio
+
 def get_XY(
         file_paths,
         instrument_list,
@@ -9,6 +14,8 @@ def get_XY(
         sr):
     # Run perceptual CQT in parallel with joblib
     # n_jobs = -1 means that all CPUs are used
+    memory = Memory(cachedir='/tmp/joblib')
+    cached_cqt = memory.cache(audio.perceptual_cqt, verbose=0)
     file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
         file_path,
         decision_duration,
