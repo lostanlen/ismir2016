@@ -12,6 +12,7 @@ def get_XY(
         hop_duration,
         n_bins_per_octave,
         n_octaves,
+        silence_threshold,
         sr):
     # Run perceptual CQT in parallel with joblib
     # n_jobs = -1 means that all CPUs are used

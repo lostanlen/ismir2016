@@ -43,8 +43,8 @@ def perceptual_cqt(
         hop_duration,
         n_bins_per_octave,
         n_octaves,
-        sr,
-        silence_threshold):
+        silence_threshold,
+        sr):
     y, y_sr = librosa.load(file_path)
     if y_sr != sr:
         y = librosa.resample(y, y_sr, sr)
@@ -80,8 +80,9 @@ def perceptual_cqt(
     y_abs = np.abs(y)[:n_windows * decision_duration * sr]
     y_abs2 = y_abs**2
     y_abs2 = np.reshape(y_abs2, (n_windows, decision_duration * sr))
-    y_levels = np.mean(y_abs2, axis=1)
+    y_levels = np.sqrt(np.sum(y_abs2, axis=1))
     y_levels = y_levels / np.max(y_levels)
-    window_bools = np.reshape(y_levels, (len(y_levels),1)) > silence_threshold
+    threshold_lin = 10^(silence_threshold / 10)
+    window_bools = np.reshape(y_levels, (len(y_levels),1)) > threshold_lin
     audio_features = audio_features[window_bools, :, :]
     return np.transpose(audio_features, (0, 2, 1))

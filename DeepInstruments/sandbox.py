@@ -13,7 +13,7 @@ n_bins_per_octave = 24
 sr = 32000.0  # in Hertz
 hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
-silence_threshold = 1e-3
+silence_threshold = -30 # in dB
 
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 
@@ -21,8 +21,7 @@ solosDb8train_dir = '~/datasets/solosDb8/train'
 (X_train, Y_train) = di.solosdb.get_XY(
         di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav'),
         instrument_list, decision_duration, fmin, hop_duration,
-        n_bins_per_octave, n_octaves, sr)
-
+        n_bins_per_octave, n_octaves, silence_threshold, sr)
 
 
 conv1_width = 32
