@@ -15,12 +15,12 @@ midi_offsets = dict(Cl=librosa.note_to_midi('D3'),
                           Tr=librosa.note_to_midi('F#3'),
                           Vl=librosa.note_to_midi('G3'))
 
-def get_midi(file_path, offset_dictionary):
+def get_midi(file_path, midi_offsets):
     instrument_str = os.path.split(os.path.split(file_path)[0])[1]
     file_str = os.path.split(os.path.split(file_path)[1])[1]
     pitch_str = file_str.split('_')[1].split('.')[0]
     # we substract 1 because RWC has one-based indexing
-    return offset_dictionary[instrument_str] + int(pitch_str) - 1
+    return midi_offsets[instrument_str] + int(pitch_str) - 1
 
 def get_XY(
         file_paths,
