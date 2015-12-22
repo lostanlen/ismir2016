@@ -53,36 +53,6 @@ rwc_offsets = dict(Cl=librosa.note_to_midi('D3'),
 file_paths = get_paths('~/datasets/rwc8', instrument_list, 'wav')
 midis = [get_RWC_midi(p, rwc_offsets) for p in file_paths]
 
-def get_rwc_XY(
-        file_paths,
-        instrument_list,
-        decision_duration,
-        fmin,
-        hop_duration,
-        n_bins_per_octave,
-        n_octaves,
-        sr):
-    # Run perceptual CQT in parallel with joblib
-    # n_jobs = -1 means that all CPUs are used
-    file_cqts = Parallel(n_jobs=-1, verbose=20)(delayed(cached_cqt)(
-        file_path,
-        decision_duration,
-        fmin,
-        hop_duration,
-        n_bins_per_octave,
-        n_octaves,
-        sr) for file_path in file_paths)
-    # Get first window of each file and stack according to first dimension
-    X = np.vstack([file_cqt[0, :, :] for file_cqts in file_cqts])
-    # Reshape to Theano-friendly format
-    new_shape = X.shape
-    new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
-    X = np.reshape(X, new_shape)
-    file_instruments = [get_instrument(p, instrument_list) for p in file_paths]
-    Y = np.vstack(file_instruments)
-    return (X, Y)
-
-
 def get_solosDb_XY(
         file_paths,
         instrument_list,
@@ -138,22 +108,4 @@ def get_paths(dir, instrument_list, extension):
     regex = '*.' + extension
     file_paths = [p for d in walk for p in glob.glob(os.path.join(d[0], regex))]
     return [p for p in file_paths if os.path.split(os.path.split(p)[0])[1] in instrument_list]
-
-
-def get_instrument(file_path, instrument_list):
-    instrument_str = os.path.split(os.path.split(file_path)[0])[1]
-    n_instruments = len(instrument_list)
-    instrument_onehot = np.zeros(n_instruments)
-    instrument_onehot[instrument_list.index(instrument_str)] = 1.0
-    return instrument_onehot
-
-def expand_instruments(fs, ns):
-    items = [ numpy.matlib.repmat(fs[i], ns[i], 1) for i in range(len(fs))]
-    return np.vstack(items)
-
-def get_RWC_midi (file_path, offset_dictionary):
-    instrument_str = os.path.split(os.path.split(file_path)[0])[1]
-    file_index = os.path.split(os.path.split(file_path)[1])[1].split('_')[1].split('.')[0]
-    # we substract 1 because RWC has one-based indexing
-    return offset_dictionary[instrument_str] + int(file_index) - 1
 
