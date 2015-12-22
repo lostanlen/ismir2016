@@ -24,5 +24,5 @@ solosDb8train_dir = '~/datasets/solosDb8/train'
 input_shape = X_train.shape[1:]
 
 rwc8_dir = '~/datasets/rwc8/'
-rwc_paths = symbolic.get_paths(rwc8_dir, instrument_list, 'wav')
-midis = [ rwc.get_midi(p, rwc.midi_offsets) for p in rwc_paths ]
+rwc_paths = di.symbolic.get_paths(rwc8_dir, instrument_list, 'wav')
+midis = [ di.rwc.get_midi(p, di.rwc.midi_offsets) for p in rwc_paths ]
