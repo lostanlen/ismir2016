@@ -1,8 +1,3 @@
-import numpy as np
-import numpy.matlib
-import os
-
-
 def expand_instruments(fs, ns):
     items = [ numpy.matlib.repmat(fs[i], ns[i], 1) for i in range(len(fs))]
     return np.vstack(items)

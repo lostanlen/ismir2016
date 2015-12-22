@@ -1,7 +1,3 @@
-import librosa
-import numpy as np
-
-
 def perceptual_cqt(
         file_path,
         decision_duration,

@@ -1,8 +1,3 @@
-from joblib import Memory, Parallel, delayed
-import numpy as np
-
-import audio
-
 def get_XY(
         file_paths,
         instrument_list,
