@@ -19,6 +19,7 @@ C. *Pitch supervision*
 D. *Evaluation*
 1. Write class-based accuracy measure
 2. Integrate the pipeline into a function so that the whole experiment can be ran in one step.
+3. Measure class imbalance. How many decision windows per class ?
 
 E. *Display*
 1. Export filters from conv1 as images for the three experiments. Are they learned note models ?
