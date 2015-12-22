@@ -2,6 +2,7 @@ from joblib import Memory, Parallel, delayed
 import numpy as np
 
 import audio
+import symbolic
 
 def get_XY(
         file_paths,
@@ -30,8 +31,8 @@ def get_XY(
     new_shape = X.shape
     new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
     X = np.reshape(X, new_shape)
-    file_instruments = [get_instrument(p, instrument_list) for p in
+    file_instruments = [symbolic.get_instrument(p, instrument_list) for p in
                         file_paths]
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
-    Y = expand_instruments(file_instruments, n_items_per_file)
+    Y = symbolic.expand_instruments(file_instruments, n_items_per_file)
     return (X, Y)
