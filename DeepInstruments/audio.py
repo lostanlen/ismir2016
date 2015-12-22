@@ -5,6 +5,7 @@ def extract_silence(
         file_path,
         decision_duration,
         hop_duration,
+        silence_folder,
         silence_threshold,
         sr):
     y, y_sr = librosa.load(file_path)
@@ -22,8 +23,6 @@ def extract_silence(
     broadcaster = np.ones((1, decision_duration * sr), dtype = bool)
     sample_bools = np.ndarray.flatten(window_bools * broadcaster)
     silence = y[np.logical_not(sample_bools)]
-    file_folder = os.path.split(file_path)[0]
-    silence_folder = file_folder + '_silence'
     file_name = os.path.split(file_path)[1]
     silence_path = os.path.join(silence_folder, file_name)
     librosa.output.write_wav(silence_path, silence, sr)
