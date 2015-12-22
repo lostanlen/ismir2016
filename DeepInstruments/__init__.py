@@ -101,11 +101,3 @@ def get_rwc_Z(
         row = int(((midi - cqt_midimin) / n_bins) * n_rows)
         onehots[file_index, row] = 1.0
     return onehots
-
-def get_paths(dir, instrument_list, extension):
-    dir = os.path.expanduser(dir)
-    walk = os.walk(dir)
-    regex = '*.' + extension
-    file_paths = [p for d in walk for p in glob.glob(os.path.join(d[0], regex))]
-    return [p for p in file_paths if os.path.split(os.path.split(p)[0])[1] in instrument_list]
-
