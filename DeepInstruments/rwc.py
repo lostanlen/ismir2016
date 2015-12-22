@@ -1,3 +1,10 @@
+from joblib import Memory, Parallel, delayed
+import numpy as np
+import os
+
+import audio
+import symbolic
+
 midi_offsets = dict(Cl=librosa.note_to_midi('D3'),
                           Co=librosa.note_to_midi('E1'),
                           Fh=librosa.note_to_midi('D2'),
