@@ -4,16 +4,12 @@ import numpy as np
 def extract_silence(
         file_path,
         decision_duration,
-        hop_duration,
-        silence_folder,
         silence_threshold,
         sr):
     y, y_sr = librosa.load(file_path)
     if y_sr != sr:
         y = librosa.resample(y, y_sr, sr)
-    hop_length = hop_duration * sr
-    decision_length = decision_duration * sr / hop_length
-    n_windows = int(n_hops / decision_length)
+    n_windows = int(len(y) / (decision_duration*sr))
     y_abs = np.abs(y)[:n_windows * decision_duration * sr]
     y_abs2 = y_abs**2
     y_abs2 = np.reshape(y_abs2, (n_windows, decision_duration * sr))
@@ -22,11 +18,7 @@ def extract_silence(
     window_bools = np.reshape(y_levels, (len(y_levels),1)) > silence_threshold
     broadcaster = np.ones((1, decision_duration * sr), dtype = bool)
     sample_bools = np.ndarray.flatten(window_bools * broadcaster)
-    silence = y[np.logical_not(sample_bools)]
-    file_name = os.path.split(file_path)[1]
-    silence_path = os.path.join(silence_folder, file_name)
-    librosa.output.write_wav(silence_path, silence, sr)
-
+    return y[np.logical_not(sample_bools)]
 
 def perceptual_cqt(
         file_path,
