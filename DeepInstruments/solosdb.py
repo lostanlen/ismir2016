@@ -26,6 +26,7 @@ def get_XY(
             hop_duration,
             n_bins_per_octave,
             n_octaves,
+            silence_threshold,
             sr) for file_path in file_paths)
     # Reduce all CQTs into one
     X = np.vstack(file_cqts)
