@@ -20,3 +20,9 @@ def build_graph(
         drop_proportion,
         dense1_channels,
         dense2_channels):
+    graph = Graph()
+
+    graph.add_input(name='X', input_shape=(1, X_height, X_width))
+
+    conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width)
+    graph.add_node(conv1, name="conv1", input="X")
