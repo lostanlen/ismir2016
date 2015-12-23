@@ -3,12 +3,14 @@
 
 A. *Audio features*
 1. [DONE] Review silence detection.
-2. Generate silenced frames in test set.
+2. Convert features to float32.
+3. Generate silenced frames in test set.
 
 B. *Deep learning*
 1. [DONE] Write Graph model without Z
 2. [DONE] Make it a function in module "learning"
-2. Add Z supervision
+3. Solve floating-point error
+4. Add Z supervision
 
 C. *Pitch supervision*
 1. Get Gt samples for RWC
