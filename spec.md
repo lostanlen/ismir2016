@@ -6,8 +6,8 @@ A. *Audio features*
 2. Generate silenced frames in test set.
 
 B. *Deep learning*
-1. Write Graph model without Z
-2. Make it a function in module "learning"
+1. [DONE] Write Graph model without Z
+2. [DONE] Make it a function in module "learning"
 2. Add Z supervision
 
 C. *Pitch supervision*
