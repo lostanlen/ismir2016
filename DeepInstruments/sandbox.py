@@ -40,4 +40,6 @@ graph = di.learning.build_graph(
     drop2_proportion = 0.5,
     dense2_channels = 8
 )
+
+adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
 graph.compile(loss={'Y':'mean_squared_error'}, optimizer=adagrad)
