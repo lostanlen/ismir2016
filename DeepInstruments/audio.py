@@ -83,6 +83,6 @@ def perceptual_cqt(
     y_levels = np.sqrt(np.sum(y_abs2, axis=1))
     y_levels /= np.max(y_levels)
     threshold_lin = 10.0**(silence_threshold / 10.0)
-    window_bools = np.reshape(y_levels, (len(y_levels),1)) > threshold_lin
+    window_bools = y_levels > threshold_lin
     audio_features = audio_features[window_bools, :, :]
     return np.transpose(audio_features, (0, 2, 1))
