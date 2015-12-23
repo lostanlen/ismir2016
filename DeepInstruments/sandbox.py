@@ -21,6 +21,9 @@ file_path = file_paths[0]
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
 
+X_height = X_train.shape[2]
+X_width = X_train.shape[3]
+
 conv1_width = 32
 conv1_height = 96
 conv1_channels = 50
@@ -35,8 +38,10 @@ conv2_channels = 30
 pool2_width = 3
 pool2_height = 3
 
-drop_proportion = 0.5
+drop1_proportion = 0.5
 
-dense1_input = 256
+dense1_channels = 256
 
-dense2_input = n_instruments
+drop2_proportion = 0.5
+
+dense2_channels = 8
