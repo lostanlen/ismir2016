@@ -1,10 +1,5 @@
 import librosa
 
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.layers.convolutional import Convolution2D, MaxPooling2D
-from keras.optimizers import SGD
-
 import DeepInstruments as di
 
 fmin = librosa.note_to_hz('A1')  # in Hertz
@@ -19,7 +14,6 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 solosDb8train_dir = '~/datasets/solosDb8/train'
 file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
 file_path = file_paths[0]
-
 
 (X_train, Y_train) = di.solosdb.get_XY(
         file_paths,
