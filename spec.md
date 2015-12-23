@@ -2,7 +2,7 @@
 22 dec 2015
 
 A. *Audio features*
-1. Review silence detection.
+1. [DONE] Review silence detection.
 2. Generate silenced frames in test set.
 
 B. *Deep learning*
