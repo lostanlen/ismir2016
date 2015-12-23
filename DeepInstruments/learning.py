@@ -42,7 +42,7 @@ def build_graph(
     graph.add_node(relu2, name="relu2", input="conv2")
 
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
-    graph.add_node(pool2, name="pool2", input="conv2")
+    graph.add_node(pool2, name="pool2", input="relu2")
 
     flatten = Flatten()
     graph.add_node(flatten, name="flatten", input="pool2")
