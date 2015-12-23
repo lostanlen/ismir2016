@@ -77,8 +77,8 @@ def perceptual_cqt(
     audio_features = audio_features[:n_hops_truncated, :]
     new_shape = (n_windows, decision_length, n_bins)
     audio_features = np.reshape(audio_features, new_shape)
-    y_abs = np.abs(y)[:n_windows * decision_duration * sr]
-    y_abs2 = y_abs**2
+    y_truncated = y[:n_windows * decision_duration * sr]
+    y_abs2 = y_truncated * y_truncated
     y_abs2 = np.reshape(y_abs2, (n_windows, decision_duration * sr))
     y_levels = np.sqrt(np.sum(y_abs2, axis=1))
     y_levels = y_levels / np.max(y_levels)
