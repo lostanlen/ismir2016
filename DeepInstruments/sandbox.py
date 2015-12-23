@@ -1,4 +1,5 @@
 import librosa
+import os
 
 import DeepInstruments as di
 
@@ -21,8 +22,8 @@ file_path = file_paths[0]
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
 
-X_height = X_train.shape[2]
-X_width = X_train.shape[3]
+X_height = 168
+X_width = 128
 
 conv1_width = 32
 conv1_height = 96
