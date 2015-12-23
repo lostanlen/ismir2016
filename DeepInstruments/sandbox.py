@@ -1,5 +1,6 @@
 import librosa
 import keras
+import numpy as np
 import os
 
 import DeepInstruments as di
@@ -21,6 +22,8 @@ file_path = file_paths[0]
         file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, silence_threshold, sr)
+X_train = X_train.astype(np.float32)
+Y_train = Y_train.astype(np.float32)
 
 graph = di.learning.build_graph(
     X_height = 168,
@@ -43,3 +46,4 @@ graph = di.learning.build_graph(
 
 adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
 graph.compile(loss={'Y':'mean_squared_error'}, optimizer=adagrad)
+history = graph.fit({'X':X_train, 'Y':Y_train}, nb_epoch=1)
