@@ -1,4 +1,5 @@
 import librosa
+import keras
 import os
 
 import DeepInstruments as di
@@ -21,28 +22,22 @@ file_path = file_paths[0]
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
-
-X_height = 168
-X_width = 128
-
-conv1_width = 32
-conv1_height = 96
-conv1_channels = 50
-
-pool1_width = 8
-pool1_height = 8
-
-conv2_width = 8
-conv2_height = 8
-conv2_channels = 30
-
-pool2_width = 3
-pool2_height = 3
-
-drop1_proportion = 0.5
-
-dense1_channels = 256
-
-drop2_proportion = 0.5
-
-dense2_channels = 8
+graph = di.learning.build_graph(
+    X_height = 168,
+    X_width = 128,
+    conv1_channels = 50,
+    conv1_height = 96,
+    conv1_width = 32,
+    pool1_height = 8,
+    pool1_width = 8,
+    conv2_channels = 30,
+    conv2_height = 8,
+    conv2_width = 8,
+    pool2_height = 3,
+    pool2_width = 3,
+    drop1_proportion = 0.5,
+    dense1_channels = 256,
+    drop2_proportion = 0.5,
+    dense2_channels = 8
+)
+graph.compile(loss={'Y':'mean_squared_error'}, optimizer=adagrad)
