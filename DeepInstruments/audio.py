@@ -69,7 +69,7 @@ def perceptual_cqt(
     n_hops = audio_features.shape[1]
     if n_hops < decision_length:
         padding = np.zeros(n_bins, decision_length - n_hops)
-        audio_features = np.hstack(audio_features, padding)
+        audio_features = np.hstack((audio_features, padding))
         n_hops = decision_length
     n_windows = int(n_hops / decision_length)
     n_hops_truncated = n_windows * decision_length
@@ -79,7 +79,7 @@ def perceptual_cqt(
     audio_features = np.reshape(audio_features, new_shape)
     if len(y)<(n_windows * decision_duration * sr):
         padding = np.zeros(n_windows * decision_duration * sr - len(y))
-        y = np.hstack(y, padding)
+        y = np.hstack((y, padding))
     y_truncated = y[:n_windows * decision_duration * sr]
     y_abs2 = y_truncated * y_truncated
     y_abs2 = np.reshape(y_abs2, (n_windows, decision_duration * sr))
