@@ -33,8 +33,14 @@ def get_XY(
     new_shape = X.shape
     new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
     X = np.reshape(X, new_shape)
+    # Convert data to single precision
+    X = X.astype(np.float32)
+    # Get instruments corresponding to all file paths
     file_instruments = [symbolic.get_instrument(p, instrument_list) for p in
                         file_paths]
+    # "Expand" the labels according to the number of windows per file
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
     Y = symbolic.expand_instruments(file_instruments, n_items_per_file)
+    # Convert labels to single precision
+    Y.astype(np.float32)
     return (X, Y)

@@ -22,8 +22,6 @@ file_path = file_paths[0]
         file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, silence_threshold, sr)
-X_train = X_train.astype(np.float32)
-Y_train = Y_train.astype(np.float32)
 
 X_train = np.reshape(X_train, (X_train.shape[0], np.prod(X_train.shape[1:])))
 

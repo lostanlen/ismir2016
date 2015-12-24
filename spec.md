@@ -3,7 +3,7 @@
 
 A. *Audio features*
 1. [DONE] Review silence detection.
-2. Convert features to float32.
+2. [DONE] Convert features to float32.
 3. Generate silenced frames in test set.
 
 B. *Deep learning*

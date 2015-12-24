@@ -49,8 +49,13 @@ def get_XY(
     new_shape = X.shape
     new_shape = (new_shape[0], 1, new_shape[1], new_shape[2])
     X = np.reshape(X, new_shape)
+    # Convert data to single precision
+    X = X.astype(np.float32)
+    # Get instruments corresponding to all file paths
     file_instruments = [symbolic.get_instrument(p, instrument_list) for p in file_paths]
+    # Convert labels to single precision
     Y = np.vstack(file_instruments)
+    Y = Y.astype(np.float32)
     return (X, Y)
 
 
