@@ -25,25 +25,28 @@ file_path = file_paths[0]
 X_train = X_train.astype(np.float32)
 Y_train = Y_train.astype(np.float32)
 
-graph = di.learning.build_graph(
-    X_height = 168,
-    X_width = 128,
-    conv1_channels = 50,
-    conv1_height = 96,
-    conv1_width = 32,
-    pool1_height = 8,
-    pool1_width = 8,
-    conv2_channels = 30,
-    conv2_height = 8,
-    conv2_width = 8,
-    pool2_height = 3,
-    pool2_width = 3,
-    drop1_proportion = 0.5,
-    dense1_channels = 256,
-    drop2_proportion = 0.5,
-    dense2_channels = 8
-)
+X_train = np.reshape(X_train, (X_train.shape[0], np.prod(X_train.shape[1:])))
 
+from keras.models import Sequential
+from keras.layers.core import Dense, Dropout, Activation
+from keras.optimizers import Adagrad
+
+model = Sequential()
+# Dense(64) is a fully-connected layer with 64 hidden units.
+# in the first layer, you must specify the expected input data shape:
+# here, 20-dimensional vectors.
+model.add(Dense(256, input_dim=21504, init='uniform'))
+model.add(Activation('tanh'))
+model.add(Dropout(0.5))
+model.add(Dense(128, init='uniform'))
+model.add(Activation('tanh'))
+model.add(Dropout(0.5))
+model.add(Dense(8, init='uniform'))
+model.add(Activation('softmax'))
 adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
+model.compile(loss='mean_squared_error', optimizer=adagrad)
+model.fit(X_train, Y_train, nb_epoch=10, batch_size=16)
+
+
 graph.compile(loss={'Y':'mean_squared_error'}, optimizer=adagrad)
 history = graph.fit({'X':X_train, 'Y':Y_train}, nb_epoch=1)
