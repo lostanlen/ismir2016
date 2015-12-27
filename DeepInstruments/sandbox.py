@@ -49,10 +49,12 @@ graph.compile(loss={'Y':'mean_squared_error'}, optimizer=adagrad)
 history = graph.fit({'X':X_train, 'Y':Y_train}, nb_epoch=1, batch_size=32)
 
 # Compute audio features on test set
-solosDb8
-test_file_paths =
-    di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav')
+solosDb8test_dir = '~/datasets/solosDb8/test'
+test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav')
 (X_test, Y_test) = di.solosdb.get_XY(
         test_file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, silence_threshold, sr)
+
+# Evaluate deep network
+score = model.evaluate(X_test, y_test, batch_size=16)
