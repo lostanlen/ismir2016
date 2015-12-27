@@ -1,8 +1,9 @@
 from keras.models import Graph
-
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
+import numpy as np
+import sklearn
 
 def build_graph(
         X_height,
@@ -61,3 +62,11 @@ def build_graph(
     graph.add_output(name="Y", input="dense2")
 
     return graph
+
+def confusion_matrix(Y_true, Y_predicted):
+    y_true = np.max(Y_true, axis=1)
+    y_predicted = np.max(Y_predicted, axis=1)
+    n_classes = size(Y_true, 1)
+    labels = range(n_classes)
+    cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
+    return cm / cm.sum(axis=1)[:, np.newaxis]
