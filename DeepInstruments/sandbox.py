@@ -57,4 +57,4 @@ test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav'
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
 # Evaluate deep network
-score = model.evaluate(X_test, y_test, batch_size=16)
+score = graph.evaluate(X_test, Y_test)
