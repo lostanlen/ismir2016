@@ -10,7 +10,7 @@ B. *Deep learning*
 1. [DONE] Write Graph model without Z
 2. [DONE] Make it a function in module "learning"
 3. [DONE] Solve floating-point error
-4. Install bleeding-edge Keras to solve #1031-like error
+4. [DONE] Install bleeding-edge Keras
 5. Add Z supervision
 
 C. *Pitch supervision*
