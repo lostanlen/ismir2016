@@ -37,8 +37,7 @@ graph = di.learning.build_graph(
 
 # Compute audio features on training set
 solosDb8train_dir = '~/datasets/solosDb8/train'
-train_file_paths =
-    di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
+train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
 (X_train, Y_train) = di.solosdb.get_XY(
         train_file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
@@ -48,3 +47,12 @@ train_file_paths =
 adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
 graph.compile(loss={'Y':'mean_squared_error'}, optimizer=adagrad)
 history = graph.fit({'X':X_train, 'Y':Y_train}, nb_epoch=1, batch_size=32)
+
+# Compute audio features on test set
+solosDb8
+test_file_paths =
+    di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav')
+(X_test, Y_test) = di.solosdb.get_XY(
+        test_file_paths,
+        instrument_list, decision_duration, fmin, hop_duration,
+        n_bins_per_octave, n_octaves, silence_threshold, sr)
