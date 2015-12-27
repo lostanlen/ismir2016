@@ -45,8 +45,8 @@ train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wa
 
 # Train deep network
 adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
-graph.compile(loss={'Y':'mean_squared_error'}, optimizer=adagrad)
-history = graph.fit({'X':X_train, 'Y':Y_train}, nb_epoch=1, batch_size=32)
+graph.compile(loss={'Y': 'mean_squared_error'}, optimizer=adagrad)
+history = graph.fit({'X': X_train, 'Y': Y_train}, nb_epoch=1, batch_size=32)
 
 # Compute audio features on test set
 solosDb8test_dir = '~/datasets/solosDb8/test'
@@ -57,4 +57,4 @@ test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav'
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
 # Evaluate deep network
-score = graph.evaluate({'X':X_test, 'Y':Y_test}, batch_size=32)
+score = graph.evaluate({'X': X_test, 'Y': Y_test}, batch_size=32)
