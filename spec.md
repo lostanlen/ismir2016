@@ -20,7 +20,7 @@ C. *Pitch supervision*
 4. Expand third dimension according to number of channels (link to ConvNet) ?
 
 D. *Evaluation*
-1. Write class-based accuracy measure
+1. [DONE] Write class-based accuracy measure
 2. Integrate the pipeline into a function so that the whole experiment can be ran in one step.
 3. Measure class imbalance. How many decision windows per class ?
 
