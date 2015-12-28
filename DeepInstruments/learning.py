@@ -18,10 +18,11 @@ def build_graph(
         conv2_width,
         pool2_height,
         pool2_width,
-        drop1_proportion,
         dense1_channels,
+        drop1_proportion,
+        dense2_channels,
         drop2_proportion,
-        dense2_channels):
+        dense3_channels):
     graph = Graph()
 
     # Input
@@ -50,22 +51,22 @@ def build_graph(
     flatten = Flatten()
     graph.add_node(flatten, name="flatten", input="pool2")
 
+    dense1 = Dense(dense1_channels, activation="relu")
+    graph.add_node(dense1, name="dense1", input="drop1")
+
     drop1 = Dropout(drop1_proportion)
     graph.add_node(drop1, name="drop1", input="flatten")
 
-    dense1 = Dense(dense1_channels, activation="relu")
-    graph.add_node(dense1, name="dense1", input="drop1")
+    dense2 = Dense(dense2_channels, activation="relu")
+    graph.add_node(dense2, name="dense2", input="drop2")
 
     drop2 = Dropout(drop2_proportion)
     graph.add_node(drop2, name="drop2", input="dense1")
 
-    dense2 = Dense(dense2_channels)
-    graph.add_node(dense2, name="dense2", input="drop2")
+    dense3 = Dense(dense2_channels, activation="softmax")
+    graph.add_node(dense3, name="dense3", input="drop2")
 
-    softmax = Activation("softmax")
-    graph.add_node(softmax, name="softmax", input="dense2")
-
-    graph.add_output(name="Y", input="softmax")
+    graph.add_output(name="Y", input="dense3")
 
     return graph
 
