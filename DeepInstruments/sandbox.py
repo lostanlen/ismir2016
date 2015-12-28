@@ -45,8 +45,7 @@ graph = di.learning.build_graph(
 
 # Train deep network
 adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
-sgd = keras.optimizers.SGD()
-graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer=sgd)
+graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer=adagrad)
 history = graph.fit(
         {'X': X_train, 'Y': Y_train},
         nb_epoch=1,
