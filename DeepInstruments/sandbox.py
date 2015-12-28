@@ -31,42 +31,67 @@ test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav'
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
-# Deep learning settings
-graph = di.learning.build_graph(
-    X_height = 168,
-    X_width = 128,
-    conv1_channels = 50,
-    conv1_height = 96,
-    conv1_width = 32,
-    pool1_height = 8,
-    pool1_width = 8,
-    conv2_channels = 30,
-    conv2_height = 7,
-    conv2_width = 7,
-    pool2_height = 3,
-    pool2_width = 3,
-    drop1_proportion = 0.5,
-    dense1_channels = 256,
-    drop2_proportion = 0.5,
-    dense2_channels = 8
-)
+
+
+from keras.models import Graph, Sequential
+from keras.layers.advanced_activations import LeakyReLU
+from keras.layers.core import Dense, Dropout, Activation, Flatten
+from keras.layers.convolutional import Convolution2D, MaxPooling2D
+import numpy as np
+import sklearn
+
+
+X_height = 168
+X_width = 128
+conv1_width = 32
+conv1_height = 96
+conv1_channels = 50
+pool1_width = 8
+pool1_height = 8
+conv2_width = 8
+conv2_height = 8
+conv2_channels = 30
+pool2_width = 3
+pool2_height = 3
+drop1_proportion = 0.5
+dense1_channels = 256
+drop2_proportion = 0.5
+dense2_channels = 8
+
+X = np.reshape(X_train, (X_train.shape[0], X_train.shape[2]*X_train.shape[3]))
+graph = Graph()
+graph.add_input(name="X", input_shape=(1, X_height, X_width))
+flatten = Flatten()
+graph.add_node(flatten, name="flatten", input="X")
+dense2 = Dense(8, activation="softmax")
+graph.add_node(dense2, name="dense2", input="flatten")
+graph.add_output(name="Y", input="dense2")
 
 # Train deep network
-adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
-graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer=adagrad)
+graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="rmsprop")
+
 history = graph.fit(
         {'X': X_train, 'Y': Y_train},
         nb_epoch=2,
-        batch_size=32,
+        batch_size=128,
         verbose=1)
 
+model = Sequential()
+model.add(Dense(output_dim=8, input_dim=21504, init="glorot_uniform"))
+model.add(Activation("tanh"))
+model.compile(loss="categorical_crossentropy", optimizer="sgd")
+
+model.fit(X_train, Y_train, nb_epoch=5, verbose=1)
+Y_train_predicted = model.predict(X_train, verbose=1)
+y_true = np.argmax(Y_train, axis=1)
+y_predicted = np.argmax(Y_train_predicted, axis=1)
+
 # Predict on training set
-train_prediction = graph.predict({'X': X_train}, batch_size=32, verbose=1)
+train_prediction = graph.predict({'X': X_train}, batch_size=1, verbose=1)
 Y_train_predicted = train_prediction["Y"]
 
-# Predict on test set
-test_prediction = graph.predict({'X': X_test}, batch_size=32, verbose=1)
-Y_test_predicted = test_prediction["Y"]
-
-# Evaluate deep network
-score = graph.evaluate({'X': X_test, 'Y': Y_test}, batch_size=32, verbose=1)
+y_true = np.argmax(Y_train, axis=1)
+y_predicted = np.argmax(Y_train_predicted, axis=1)
+n_classes = np.size(Y_train, 1)
+labels = range(n_classes)
+cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
