@@ -68,3 +68,11 @@ def build_graph(
     graph.add_output(name="Y", input="softmax")
 
     return graph
+
+def confusion_matrix(Y_true, Y_predicted):
+y_true = np.argmax(Y_true, axis=1)
+y_predicted = np.argmax(Y_predicted, axis=1)
+n_classes = np.size(Y_true, 1)
+labels = range(n_classes)
+cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
+    return cm / cm.sum(axis=1)[:, np.newaxis]
