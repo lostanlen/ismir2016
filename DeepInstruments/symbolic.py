@@ -19,7 +19,7 @@ def get_instrument(file_path, instrument_list):
 
 def get_paths(dir, instrument_list, extension):
     dir = os.path.expanduser(dir)
-    walk = os.walk(dir)
+    walk = os.walk(dir, topdown=True)
     regex = '*.' + extension
     file_paths = [p for d in walk for p in glob.glob(os.path.join(d[0], regex))]
     return [p for p in file_paths if os.path.split(os.path.split(p)[0])[1] in instrument_list]
