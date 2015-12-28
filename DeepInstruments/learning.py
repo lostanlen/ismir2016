@@ -65,6 +65,6 @@ def build_graph(
     softmax = Activation("softmax")
     graph.add_node(softmax, name="softmax", input="dense2")
 
-    graph.add_output(name="y", input="softmax")
+    graph.add_output(name="Y", input="softmax")
 
     return graph
