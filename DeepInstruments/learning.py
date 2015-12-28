@@ -59,7 +59,7 @@ def build_graph(
     drop2 = Dropout(drop2_proportion)
     graph.add_node(drop2, name="drop2", input="dense1")
 
-    dense2 = Dense(dense2_channels, activation="relu")
+    dense2 = Dense(dense2_channels)
     graph.add_node(dense2, name="dense2", input="drop2")
 
     softmax = Activation("softmax")
