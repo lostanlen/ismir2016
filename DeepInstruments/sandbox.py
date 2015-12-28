@@ -54,7 +54,8 @@ history = graph.fit(
         verbose=1)
 
 # Predict
-Y_predicted = graph.predict({'X': X_train}, batch_size=32)
+graph_prediction = graph.predict({'X': X_train}, batch_size=32)
+Y_predicted = graph_prediction("Y")
 
 # Compute audio features on test set
 solosDb8test_dir = '~/datasets/solosDb8/test'
