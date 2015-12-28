@@ -71,8 +71,10 @@ def build_graph(
 
     return graph
 
+
 class ConfusionMatrixHistory(Callback):
     def __init__(self, every_n_epoch):
+        super(self, ConfusionMatrixHistory ).__init__()
         self.every_n_epoch = every_n_epoch
 
 def confusion_matrix(Y_true, Y_predicted):
