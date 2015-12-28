@@ -24,8 +24,10 @@ def build_graph(
         dense2_channels):
     graph = Graph()
 
-    graph.add_input(name='X', input_shape=(1, X_height, X_width))
+    # Input
+    graph.add_input(name="X", input_shape=(1, X_height, X_width))
 
+    # Shared layers
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width)
     graph.add_node(conv1, name="conv1", input="X")
 
@@ -35,6 +37,7 @@ def build_graph(
     pool1 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1, name="pool1", input="relu1")
 
+    # Layers towards instrument target
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width)
     graph.add_node(conv2, name="conv2", input="pool1")
 
@@ -59,14 +62,9 @@ def build_graph(
     dense2 = Dense(dense2_channels, activation="relu")
     graph.add_node(dense2, name="dense2", input="drop2")
 
-    graph.add_output(name="Y", input="dense2")
+    softmax = Activation("softmax")
+    graph.add_node(softmax, name="softmax", input="dense2")
+
+    graph.add_output(name="y", input="softmax")
 
     return graph
-
-def confusion_matrix(Y_true, Y_predicted):
-    y_true = np.max(Y_true, axis=1)
-    y_predicted = np.max(Y_predicted, axis=1)
-    n_classes = size(Y_true, 1)
-    labels = range(n_classes)
-    cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
-    return cm / cm.sum(axis=1)[:, np.newaxis]
