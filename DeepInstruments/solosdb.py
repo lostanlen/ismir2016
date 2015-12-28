@@ -35,6 +35,9 @@ def get_XY(
     X = np.reshape(X, new_shape)
     # Convert data to single precision
     X = X.astype(np.float32)
+    # Normalize globally
+    X = X - np.mean(X)
+    X = X / np.var(X)
     # Get instruments corresponding to all file paths
     file_instruments = [symbolic.get_instrument(p, instrument_list) for p in
                         file_paths]
