@@ -42,5 +42,5 @@ def get_XY(
     n_items_per_file = [cqt.shape[0] for cqt in file_cqts]
     Y = symbolic.expand_instruments(file_instruments, n_items_per_file)
     # Convert labels to single precision
-    Y.astype(np.float32)
+    Y = Y.astype(np.float32)
     return (X, Y)
