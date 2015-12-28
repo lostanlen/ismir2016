@@ -11,7 +11,8 @@ B. *Deep learning*
 2. [DONE] Make it a function in module "learning"
 3. [DONE] Solve floating-point error
 4. [DONE] Install bleeding-edge Keras
-5. Add Z supervision
+5. Train on categorical cross-entropy
+6. Add Z supervision
 
 C. *Pitch supervision*
 1. Get Gt samples for RWC
