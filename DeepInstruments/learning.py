@@ -76,4 +76,5 @@ def confusion_matrix(Y_true, Y_predicted):
     n_classes = np.size(Y_true, 1)
     labels = range(n_classes)
     cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
+    cm = cm.astype('float64')
     return cm / cm.sum(axis=1)[:, np.newaxis]
