@@ -34,17 +34,17 @@ test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav'
 graph = di.learning.build_graph(
     X_height=168,
     X_width=128,
-    conv1_channels=50,
+    conv1_channels=100,
     conv1_height=96,
     conv1_width=32,
     pool1_height=8,
     pool1_width=8,
-    conv2_channels=30,
-    conv2_height=7,
-    conv2_width=7,
+    conv2_channels=100,
+    conv2_height=8,
+    conv2_width=8,
     pool2_height=3,
     pool2_width=3,
-    dense1_channels=256,
+    dense1_channels=512,
     drop1_proportion=0.25,
     dense2_channels=64,
     drop2_proportion=0.25,
@@ -53,16 +53,16 @@ graph = di.learning.build_graph(
 graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adagrad")
 history = graph.fit(
         {'X': X_train, 'Y': Y_train},
-        nb_epoch=10,
-        batch_size=32,
+        nb_epoch=100,
+        batch_size=128,
         verbose=1)
 
-# Predict on training set
-train_prediction = graph.predict({'X': X_train}, batch_size=1, verbose=1)
-Y_train_predicted = train_prediction["Y"]
+test_prediction = graph.predict({'X': X_test})
+Y_test_predicted = test_prediction["Y"]
 
-y_true = np.argmax(Y_train, axis=1)
-y_predicted = np.argmax(Y_train_predicted, axis=1)
+import sklearn
+y_test_true = np.argmax(Y_test, axis=1)
+y_test_predicted = np.argmax(Y_test_predicted, axis=1)
 n_classes = np.size(Y_train, 1)
 labels = range(n_classes)
-cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
+cm = sklearn.metrics.confusion_matrix(y_test_true, y_test_predicted, labels)
