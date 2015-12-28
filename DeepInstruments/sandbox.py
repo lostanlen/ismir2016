@@ -32,30 +32,29 @@ test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav'
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
 graph = di.learning.build_graph(
-    X_height = 168,
-    X_width = 128,
-    conv1_width = 32,
-    conv1_height = 96,
-    conv1_channels = 50,
-    pool1_width = 8,
-    pool1_height = 8,
-    conv2_width = 8,
-    conv2_height = 8,
-    conv2_channels = 30,
-    pool2_width = 3,
-    pool2_height = 3,
-    dense1_channels = 256,
-    drop1_proportion = 0.25,
-    dense2_channels = 64,
-    drop2_proportion = 0.25,
-    dense3_channels = 8)
-
+    X_height=168,
+    X_width=128,
+    conv1_channels=50,
+    conv1_height=96,
+    conv1_width=32,
+    pool1_height=8,
+    pool1_width=8,
+    conv2_channels=30,
+    conv2_height=7,
+    conv2_width=7,
+    pool2_height=3,
+    pool2_width=3,
+    dense1_channels=256,
+    drop1_proportion=0.25,
+    dense2_channels=64,
+    drop2_proportion=0.25,
+    dense3_channels=8)
 
 graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adagrad")
 history = graph.fit(
         {'X': X_train, 'Y': Y_train},
         nb_epoch=10,
-        batch_size=128,
+        batch_size=32,
         verbose=1)
 
 # Predict on training set
