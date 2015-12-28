@@ -9,7 +9,7 @@ A. *Audio features*
 B. *Deep learning*
 1. [DONE] Write Graph model without Z
 2. [DONE] Make it a function in module "learning"
-3. [DONE] Solve floating-point error
+3. [DONE] Solve core dump
 4. [DONE] Install bleeding-edge Keras
 5. Train on categorical cross-entropy
 6. Add Z supervision
