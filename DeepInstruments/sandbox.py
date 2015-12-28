@@ -23,6 +23,14 @@ train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wa
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, silence_threshold, sr)
 
+# Compute audio features on test set
+solosDb8test_dir = '~/datasets/solosDb8/test'
+test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav')
+(X_test, Y_test) = di.solosdb.get_XY(
+        test_file_paths,
+        instrument_list, decision_duration, fmin, hop_duration,
+        n_bins_per_octave, n_octaves, silence_threshold, sr)
+
 # Deep learning settings
 graph = di.learning.build_graph(
     X_height = 168,
@@ -48,22 +56,17 @@ adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
 graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer=adagrad)
 history = graph.fit(
         {'X': X_train, 'Y': Y_train},
-        nb_epoch=1,
+        nb_epoch=2,
         batch_size=32,
         verbose=1)
 
-# Predict
-graph_prediction = graph.predict({'X': X_train}, batch_size=32)
-Y_predicted = graph_prediction("Y")
+# Predict on training set
+train_prediction = graph.predict({'X': X_train}, batch_size=32, verbose=1)
+Y_train_predicted = train_prediction["Y"]
 
-# Compute audio features on test set
-solosDb8test_dir = '~/datasets/solosDb8/test'
-test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav')
-(X_test, Y_test) = di.solosdb.get_XY(
-        test_file_paths,
-        instrument_list, decision_duration, fmin, hop_duration,
-        n_bins_per_octave, n_octaves, silence_threshold, sr)
-
+# Predict on test set
+test_prediction = graph.predict({'X': X_test}, batch_size=32, verbose=1)
+Y_test_predicted = test_prediction["Y"]
 
 # Evaluate deep network
 score = graph.evaluate({'X': X_test, 'Y': Y_test}, batch_size=32, verbose=1)
