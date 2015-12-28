@@ -84,7 +84,6 @@ class ConfusionMatrixHistory(Callback):
         self.validation_accuracies = []
         self.validation_deviations = []
         self.validation_confusions = []
-        self.epoch = 0
 def confusion_matrix(Y_true, Y_predicted):
     y_true = np.argmax(Y_true, axis=1)
     y_predicted = np.argmax(Y_predicted, axis=1)
