@@ -15,6 +15,14 @@ decision_duration = 2.048  # in seconds
 silence_threshold = -30 # in dB
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 
+# Compute audio features on training set
+solosDb8train_dir = '~/datasets/solosDb8/train'
+train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
+(X_train, Y_train) = di.solosdb.get_XY(
+        train_file_paths,
+        instrument_list, decision_duration, fmin, hop_duration,
+        n_bins_per_octave, n_octaves, silence_threshold, sr)
+
 # Deep learning settings
 graph = di.learning.build_graph(
     X_height = 168,
@@ -35,18 +43,18 @@ graph = di.learning.build_graph(
     dense2_channels = 8
 )
 
-# Compute audio features on training set
-solosDb8train_dir = '~/datasets/solosDb8/train'
-train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
-(X_train, Y_train) = di.solosdb.get_XY(
-        train_file_paths,
-        instrument_list, decision_duration, fmin, hop_duration,
-        n_bins_per_octave, n_octaves, silence_threshold, sr)
-
 # Train deep network
 adagrad = keras.optimizers.Adagrad(lr=0.01, epsilon=1e-06)
-graph.compile(loss={'Y': 'mean_squared_error'}, optimizer=adagrad)
-history = graph.fit({'X': X_train, 'Y': Y_train}, nb_epoch=1, batch_size=32)
+sgd = keras.optimizers.SGD()
+graph.compile(loss={'Y': 'mse'}, optimizer=sgd)
+history = graph.fit(
+        {'X': X_train, 'Y': Y_train},
+        nb_epoch=1,
+        batch_size=32,
+        verbose=1)
+
+# Predict
+Y_predicted = graph.predict({'X': X_train}, batch_size=32)
 
 # Compute audio features on test set
 solosDb8test_dir = '~/datasets/solosDb8/test'
