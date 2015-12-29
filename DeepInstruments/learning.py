@@ -108,6 +108,7 @@ class ChunkGenerator(object):
         (n_bins, n_hops) = X_file.shape
         is_silence = True
         n_rejections = 0
+        X = np.zeros(n_bins, self.decision_length)
         while is_silence & n_rejections<10:
             onset = random.randint(0, n_hops - self.decision_length)
             offset = onset + self.decision_length
@@ -115,8 +116,7 @@ class ChunkGenerator(object):
             max_amplitude = np.max(np.mean(X, axis=0))
             is_silence = (max_amplitude < self.silence_threshold)
             n_rejections += 1
-        return np.reshape(X, (n_bins, 1, self.decision_length)
-
+        return np.reshape(X, (n_bins, 1, self.decision_length))
 
 
 def confusion_matrix(Y_true, Y_predicted):
