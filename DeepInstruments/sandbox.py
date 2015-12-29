@@ -95,13 +95,13 @@ graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adagrad")
 # Train model
 from keras.utils.generic_utils import Progbar
 
-n_epochs = 200
+n_epochs = 1000
 batch_size = 128
 epoch_size = 4096
-every_n_epoch = 5
+every_n_epoch = 10
 
 loss_history = []
-accuracies = []
+accuracies_history = []
 
 for epoch_id in range(n_epochs):
     dataflow = datagen.flow(
