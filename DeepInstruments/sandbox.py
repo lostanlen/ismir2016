@@ -19,18 +19,27 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 # Compute audio features on training set
 solosDb8train_dir = '~/datasets/solosDb8/train'
 train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
-(X_sdbtrain_list, Y_sdbtrain_list, X_train_mean, X_train_std) = di.solosdb.get_XY(
+(X_sdbtrain_list, Y_sdbtrain_list) = di.solosdb.get_XY(
         train_file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, sr)
 
+# Standardize globally the training set
+X_global = np.hstack(X_sdbtrain_list)
+X_mean = np.mean(X_global)
+X_var = np.std(X_global)
+X_sdbtrain_list = [(X-X_mean)/X_var for X in X_sdbtrain_list]
+
 # Compute audio features on test set
 solosDb8test_dir = '~/datasets/solosDb8/test'
 test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav')
-(X_sdbtest_list, Y_sdbtest_list, X_test_mean, X_test_std) = di.solosdb.get_XY(
+(X_sdbtest_list, Y_sdbtest_list) = di.solosdb.get_XY(
         test_file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, sr)
+
+# Standardize globally the test set according to mean and std of training set
+X_sdbtest_list = [(X-X_mean)/X_var for X in X_sdbtest_list]
 
 n_instruments = len(instrument_list)
 for instrument_id in range(n_instruments):
@@ -52,7 +61,6 @@ for instrument_id in range(n_instruments):
     Y_sdbtest_list[instrument_id] = Y_instrument
 
 X_test = np.vstack(X_sdbtest_list)
-X_test = (X_test - X_train_mean) / X_train_std
 X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1], X_test.shape[2]))
 Y_test = np.vstack(Y_sdbtest_list)
 
@@ -87,11 +95,13 @@ graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adagrad")
 # Train model
 from keras.utils.generic_utils import Progbar
 
-n_epochs = 100
+n_epochs = 200
 batch_size = 128
 epoch_size = 4096
 every_n_epoch = 5
 
+loss_history = []
+accuracies = []
 
 for epoch_id in range(n_epochs):
     dataflow = datagen.flow(
@@ -110,6 +120,10 @@ for epoch_id in range(n_epochs):
         loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
         progbar.update(batch_id * batch_size)
 
+    print "Training loss = ", loss
+    loss_history.append(loss)
+
     if np.mod(epoch_id+1, every_n_epoch) == 0:
-        di.learning.evaluate(graph, datagen, X_sdbtrain_list, Y_sdbtrain_list,
+        accuracies = di.learning.evaluate(graph, datagen, X_sdbtrain_list, Y_sdbtrain_list,
                              X_test, Y_test, batch_size, epoch_size)
+        accuracies_history.append(accuracies)
