@@ -1,6 +1,7 @@
 import librosa
 from joblib import Parallel
 import numpy as np
+import random
 
 import DeepInstruments as di
 
@@ -89,3 +90,12 @@ def perceptual_cqt(
     window_bools = y_levels > threshold_lin
     audio_features = audio_features[window_bools, :, :]
     return np.transpose(audio_features, (0, 2, 1))
+
+
+class ChunkGenerator(object):
+    def __init__(self,
+                 hop_length
+                 decision_duration,
+                 sr):
+        chunk_length = decision_duration * sr / hop_length
+        self.chunk_length = chunk_length
