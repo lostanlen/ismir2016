@@ -36,9 +36,4 @@ def get_XY(
     Y_list = [np.zeros((1, n_instruments), dtype=np.float32) for i in instr_range]
     for i in instr_range:
         Y_list[i][0, i] = 1.0
-    # Standardize globally
-    X_global = np.hstack(X_files)
-    X_mean = np.mean(X_global)
-    X_var = np.std(X_global)
-    X_list = [(X-X_mean)/X_var for X in X_list]
-    return (X_list, Y_list, X_mean, X_var)
+    return (X_list, Y_list)
