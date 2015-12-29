@@ -86,7 +86,7 @@ class ChunkGenerator(object):
              X_list,
              Y_list,
              batch_size=32,
-             seed=None, 
+             seed=None,
              epoch_size=4096):
         if seed:
             random.seed(seed)
