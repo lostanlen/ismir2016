@@ -16,7 +16,7 @@ B. *Deep learning*
 
 C. *Pitch supervision*
 	1. Get Gt samples for RWC
-	2. Check MIDI offsets in RWC dict
+	2. [DONE] Check MIDI offsets in RWC dict
 	3. Write conversion from MIDI to ConvNet axis.
 	4. Expand third dimension according to number of channels (link to ConvNet) ?
 
