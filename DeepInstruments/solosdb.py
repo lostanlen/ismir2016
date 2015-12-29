@@ -41,4 +41,4 @@ def get_XY(
     X_mean = np.mean(X_global)
     X_var = np.std(X_global)
     X_list = [(X-X_mean)/X_var for X in X_list]
-    return (X_list, Y_list)
+    return (X_list, Y_list, X_mean, X_var)
