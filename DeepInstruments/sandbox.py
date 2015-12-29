@@ -22,3 +22,4 @@ train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wa
         train_file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, sr)
+

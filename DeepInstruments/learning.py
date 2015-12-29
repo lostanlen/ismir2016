@@ -3,7 +3,9 @@ from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
+import math
 import numpy as np
+import random
 import sklearn
 
 def build_graph(
@@ -72,18 +74,51 @@ def build_graph(
     return graph
 
 
-class ConfusionMatrixHistory(Callback):
-    def __init__(self, every_n_epoch):
-        super(ConfusionMatrixHistory, self).__init__()
-        self.every_n_epoch = every_n_epoch
+class ChunkGenerator(object):
+    def __init__(self,
+                 decision_duration,
+                 hop_duration,
+                 silence_threshold):
+        self.decision_length = int(decision_duration / hop_duration)
+        self.silence_threshold = silence_threshold
 
-    def on_train_begin(self, logs={}):
-        self.training_accuracies = []
-        self.training_deviations = []
-        self.training_confusions = []
-        self.validation_accuracies = []
-        self.validation_deviations = []
-        self.validation_confusions = []
+    def flow(self,
+             X_list,
+             Y_list,
+             batch_size=32,
+             seed=None, 
+             epoch_size=4096):
+        if seed:
+            random.seed(seed)
+
+        n_batches = int(math.ceil(float(epoch_size)/batch_size))
+        n_instruments = len(Y_list)
+        n_bins = X_list[0].shape[0]
+        X_epoch = np.zeros((batch_size, 1, n_bins, self.decision_length), np.float32)
+        Y_epoch = np.zeros((batch_size, n_instruments), np.float32)
+
+        for b in range(n_batches):
+            y = random.randint(0,n_instruments-1)
+            Y_epoch[b, :] = Y_list[y]
+            X_epoch[b, :, :, :] = self.random_crop(X_list[y])
+
+        yield X_epoch, Y_epoch
+
+    def random_crop(self, X_file):
+        (n_bins, n_hops) = X_file.shape
+        is_silence = True
+        n_rejections = 0
+        while is_silence & n_rejections<10:
+            onset = random.randint(0, n_hops - self.decision_length)
+            offset = onset + self.decision_length
+            X = X_file[:, onset:offset]
+            max_amplitude = np.max(np.mean(X, axis=0))
+            is_silence = (max_amplitude < self.silence_threshold)
+            n_rejections += 1
+        return np.reshape(X, (n_bins, 1, self.decision_length)
+
+
+
 def confusion_matrix(Y_true, Y_predicted):
     y_true = np.argmax(Y_true, axis=1)
     y_predicted = np.argmax(Y_predicted, axis=1)
