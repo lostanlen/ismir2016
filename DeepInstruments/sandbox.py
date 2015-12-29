@@ -2,6 +2,7 @@ import librosa
 import keras
 import numpy as np
 import os
+import sklearn
 
 import DeepInstruments as di
 
@@ -22,6 +23,39 @@ train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wa
         train_file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, sr)
+
+# Compute audio features on test set
+solosDb8test_dir = '~/datasets/solosDb8/test'
+test_file_paths = di.symbolic.get_paths(solosDb8test_dir, instrument_list, 'wav')
+(X_sdbtest_list, Y_sdbtest_list) = di.solosdb.get_XY(
+        test_file_paths,
+        instrument_list, decision_duration, fmin, hop_duration,
+        n_bins_per_octave, n_octaves, sr)
+
+n_instruments = len(instrument_list)
+for instrument_id in range(n_instruments):
+    X_instrument = X_sdbtest_list[instrument_id]
+    X_instrument = np.transpose(X_instrument)
+    (n_hops, n_bins) = X_instrument.shape
+    hop_length = hop_duration * sr
+    decision_length = decision_duration * sr / hop_length
+    n_windows = int(n_hops / decision_length)
+    n_hops_truncated = n_windows * decision_length
+    X_instrument = X_instrument[:n_hops_truncated, :]
+    new_shape = (n_windows, decision_length, n_bins)
+    X_instrument = np.reshape(X_instrument, new_shape)
+    X_instrument = np.transpose(X_instrument, (0, 2, 1))
+    X_sdbtest_list[instrument_id] = X_instrument
+    # TODO: discard silent windows
+    Y_instrument = Y_sdbtest_list[instrument_id]
+    Y_instrument = np.ones((n_windows, 1)) * Y_instrument
+    Y_sdbtest_list[instrument_id] = Y_instrument
+
+X_test = np.vstack(X_sdbtest_list)
+X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1], X_test.shape[2]))
+Y_test = np.vstack(Y_sdbtest_list)
+
+
 
 # Build generator
 datagen = di.learning.ChunkGenerator(decision_duration, hop_duration, silence_threshold)
@@ -60,21 +94,21 @@ labels = range(len(instrument_list))
 
 
 for epoch_id in range(n_epochs):
-dataflow = datagen.flow(
-    X_sdbtrain_list,
-    Y_sdbtrain_list,
-    batch_size=batch_size,
-    seed=None,
-    epoch_size=epoch_size)
-print 'Epoch ', 1 + epoch_id
-progbar = keras.utils.generic_utils.Progbar(epoch_size)
-batch_id = 0
-for (X_batch, Y_batch) in dataflow:
-    batch_id += 1
-    loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
-    progbar.update(batch_id * batch_size)
+    dataflow = datagen.flow(
+        X_sdbtrain_list,
+        Y_sdbtrain_list,
+        batch_size=batch_size,
+        seed=None,
+        epoch_size=epoch_size)
+    print 'Epoch ', 1 + epoch_id
+    progbar = keras.utils.generic_utils.Progbar(epoch_size)
+    batch_id = 0
+    for (X_batch, Y_batch) in dataflow:
+        batch_id += 1
+        loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
+        progbar.update(batch_id * batch_size)
 
-    if np.mod(epoch_id, every_n_epoch)==0:
+    if np.mod(epoch_id, every_n_epoch) == 0:
         # Get training accuracy
         dataflow = datagen.flow(
             X_sdbtrain_list,
@@ -82,27 +116,32 @@ for (X_batch, Y_batch) in dataflow:
             batch_size=batch_size,
             seed=None,
             epoch_size=epoch_size)
-        y_train_true = np.zeros(epoch_size)
-        y_train_predicted = np.zeros(epoch_size)
+        y_train_true = np.zeros(epoch_size, dtype=int)
+        y_train_predicted = np.zeros(epoch_size, dtype=int)
         batch_id = 0
         for (X_batch, Y_batch) in dataflow:
-            batch_id += 1
             Y_batch_predicted = graph.predict_on_batch({"X": X_batch})
+            Y_batch_predicted = np.hstack(Y_batch_predicted)
             y_batch_predicted = np.argmax(Y_batch_predicted, axis=1)
-            batch_range = range(batch_id*batch_size, (batch_id+1)*batch_size)
-            y_train_predicted[batch_range] = y_batch_predicted[1, batch_range]
+            batch_range = xrange(batch_id*batch_size, (batch_id+1)*batch_size)
+            y_train_predicted[batch_range] = y_batch_predicted
             y_batch_true = np.argmax(Y_batch, axis=1)
-            y_train_true[batch_range] = y_batch_true[1, batch_range]
+            y_train_true[batch_range] = y_batch_true
+            batch_id += 1
+
         cm = sklearn.metrics.confusion_matrix(y_train_true, y_train_predicted, labels)
+        cm = cm.astype(np.float64)
+        cm = cm / cm.sum(axis=1)[:, np.newaxis]
         train_accuracy = np.mean(np.diag(cm))
         print "train accuracy = ", train_accuracy
 
         # Get test accracy
-        Y_test_predicted = graph.predict({"X": X_test})
+        test_prediction = graph.predict({"X": X_test})
+        Y_test_predicted = test_prediction["Y"]
         y_test_predicted = np.argmax(Y_test_predicted, axis=1)
-        n_classes = np.size(Y_train, 1)
-        labels = range(n_classes)
-        cm = sklearn.metrics.confusion_matrix(y_test_true, y_test_predicted, labels) 
-
-        accuracy = np.mean(np.diag (cm))
-        print "test accuracy = ", accuracy
+        y_test_true = np.argmax(Y_test, axis=1)
+        cm = sklearn.metrics.confusion_matrix(y_test_true, y_test_predicted, labels)
+        cm = cm.astype(np.float64)
+        cm = cm / cm.sum(axis=1)[:, np.newaxis]
+        test_accuracy = np.mean(np.diag(cm))
+        print "test accuracy = ", test_accuracy
