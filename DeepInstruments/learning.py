@@ -131,13 +131,13 @@ def confusion_matrix(Y_true, Y_predicted):
 
 
 def evaluate(graph,
-                datagen,
-                X_train_list,
-                Y_train_list,
-                X_test,
-                Y_test,
-                batch_size,
-                epoch_size):
+             datagen,
+             X_train_list,
+             Y_train_list,
+             X_test,
+             Y_test,
+             batch_size,
+             epoch_size):
     labels = range(Y_test.shape[1])
 
     # Get training accuracy

@@ -111,11 +111,5 @@ for epoch_id in range(n_epochs):
         progbar.update(batch_id * batch_size)
 
     if np.mod(epoch_id+1, every_n_epoch) == 0:
-        di.learning.evaluate(
-                graph,
-                X_sdbtrain_list,
-                Y_sdbtrain_list,
-                X_test,
-                Y_test,
-                batch_size,
-                epoch_size)
+        di.learning.evaluate(graph, datagen, X_sdbtrain_list, Y_sdbtrain_list,
+                             X_test, Y_test, batch_size, epoch_size)
