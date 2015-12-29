@@ -27,7 +27,7 @@ train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wa
 generator = di.learning.ChunkGenerator(decision_duration, hop_duration, silence_threshold)
 f = generator.flow(
         X_sdbtrain_list,
-        Ys_sdbtrain_list,
+        Y_sdbtrain_list,
         batch_size=32,
         seed=None,
         epoch_size=4096)
