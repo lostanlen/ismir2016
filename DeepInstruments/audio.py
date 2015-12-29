@@ -5,38 +5,6 @@ import random
 
 import DeepInstruments as di
 
-def check_silence_threshold(
-        file_paths,
-        decision_duration,
-        silence_threshold,
-        sr):
-    silences = Parallel(n_jobs=-1, verbose=20)(di.audio.extract_silence(
-        file_path,
-        decision_duration,
-        silence_threshold,
-        sr) for file_path in file_paths)
-
-
-def extract_silence(
-        file_path,
-        decision_duration,
-        silence_threshold,
-        sr):
-    y, y_sr = librosa.load(file_path)
-    if y_sr != sr:
-        y = librosa.resample(y, y_sr, sr)
-    n_windows = int(len(y) / (decision_duration*sr))
-    y_truncated = y[:n_windows * decision_duration * sr]
-    y_abs = np.abs(y_truncated)
-    y_abs2 = y_abs**2
-    y_abs2 = np.reshape(y_abs2, (n_windows, decision_duration * sr))
-    y_levels = np.mean(y_abs2, axis=1)
-    y_levels = y_levels / np.max(y_levels)
-    window_bools = np.reshape(y_levels, (len(y_levels),1)) > silence_threshold
-    broadcaster = np.ones((1, decision_duration * sr), dtype = bool)
-    sample_bools = np.ndarray.flatten(window_bools * broadcaster)
-    return y_truncated[np.logical_not(sample_bools)]
-
 def perceptual_cqt(
         file_path,
         decision_duration,
@@ -44,7 +12,6 @@ def perceptual_cqt(
         hop_duration,
         n_bins_per_octave,
         n_octaves,
-        silence_threshold,
         sr):
     y, y_sr = librosa.load(file_path)
     if y_sr != sr:
