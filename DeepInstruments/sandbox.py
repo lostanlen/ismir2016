@@ -19,7 +19,7 @@ instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 # Compute audio features on training set
 solosDb8train_dir = '~/datasets/solosDb8/train'
 train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
-(X_sdbtrain_list, Y_sdbtrain_list) = di.solosdb.get_XY(
+(X_sdbtrain_list, Y_sdbtrain_list, Xtrain_mean, Xtrain_std) = di.solosdb.get_XY(
         train_file_paths,
         instrument_list, decision_duration, fmin, hop_duration,
         n_bins_per_octave, n_octaves, sr)
@@ -52,6 +52,7 @@ for instrument_id in range(n_instruments):
     Y_sdbtest_list[instrument_id] = Y_instrument
 
 X_test = np.vstack(X_sdbtest_list)
+X_test = (X_test - X_train_mean) / X_train_std
 X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1], X_test.shape[2]))
 Y_test = np.vstack(Y_sdbtest_list)
 
@@ -86,10 +87,10 @@ graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adagrad")
 # Train model
 from keras.utils.generic_utils import Progbar
 
-n_epochs = 1
-batch_size = 32
-epoch_size = 128
-every_n_epoch = 1
+n_epochs = 100
+batch_size = 128
+epoch_size = 4096
+every_n_epoch = 5
 labels = range(len(instrument_list))
 
 
