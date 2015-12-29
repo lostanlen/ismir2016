@@ -163,8 +163,10 @@ def evaluate(graph,
     cm = sklearn.metrics.confusion_matrix(y_train_true, y_train_predicted, labels)
     cm = cm.astype(np.float64)
     cm = cm / cm.sum(axis=1)[:, np.newaxis]
-    train_accuracy = np.mean(np.diag(cm))
-    print "train accuracy = ", train_accuracy
+    train_accuracies = np.diag(cm)
+    train_mean_accuracy = np.mean(train_accuracies)
+    train_std_accuracy = np.std(train_accuracies)
+    print "train mean accuracy = ", train_mean_accuracy
 
     # Get test accuracy
     test_prediction = graph.predict({"X": X_test})
@@ -174,5 +176,9 @@ def evaluate(graph,
     cm = sklearn.metrics.confusion_matrix(y_test_true, y_test_predicted, labels)
     cm = cm.astype(np.float64)
     cm = cm / cm.sum(axis=1)[:, np.newaxis]
-    test_accuracy = np.mean(np.diag(cm))
-    print "test accuracy = ", test_accuracy
+    test_accuracies = np.diag(cm)
+    test_mean_accuracy = np.mean(test_accuracies)
+    test_std_accuracy = np.std(test_accuracies)
+    print "test mean accuracy = ", test_mean_accuracy
+
+    return train_accuracies, test_accuracies
