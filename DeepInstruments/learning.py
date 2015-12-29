@@ -104,14 +104,14 @@ class ChunkGenerator(object):
 
         yield X_epoch, Y_epoch
 
-    def random_crop(self, X_file):
-        (n_bins, n_hops) = X_file.shape
+    def random_crop(self, X_instrument):
+        (n_bins, n_hops) = X_instrument.shape
         is_silence = True
         n_rejections = 0
-        while is_silence & n_rejections<10:
+        while is_silence & (n_rejections<10):
             onset = random.randint(0, n_hops - self.decision_length)
             offset = onset + self.decision_length
-            X = X_file[:, onset:offset]
+            X = X_instrument[:, onset:offset]
             max_amplitude = np.max(np.mean(X, axis=0))
             is_silence = (max_amplitude < self.silence_threshold)
             n_rejections += 1
