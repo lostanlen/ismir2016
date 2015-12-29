@@ -39,4 +39,5 @@ def perceptual_cqt(
         padding = np.zeros(n_bins, decision_length - n_hops)
         audio_features = np.hstack((audio_features, padding))
         n_hops = decision_length
-    return np.transpose(audio_features)
+    audio_features = audio_features.astype(np.float32)
+    return audio_features
