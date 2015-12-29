@@ -108,6 +108,7 @@ class ChunkGenerator(object):
         (n_bins, n_hops) = X_instrument.shape
         is_silence = True
         n_rejections = 0
+        X = np.zeros((n_bins, self.decision_length), dtype=np.float32)
         while is_silence & (n_rejections<10):
             onset = random.randint(0, n_hops - self.decision_length)
             offset = onset + self.decision_length
