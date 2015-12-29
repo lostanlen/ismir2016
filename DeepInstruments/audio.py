@@ -40,11 +40,3 @@ def perceptual_cqt(
         audio_features = np.hstack((audio_features, padding))
         n_hops = decision_length
     return np.transpose(audio_features)
-
-class ChunkGenerator(object):
-    def __init__(self,
-                 hop_length
-                 decision_duration,
-                 sr):
-        chunk_length = decision_duration * sr / hop_length
-        self.chunk_length = chunk_length
