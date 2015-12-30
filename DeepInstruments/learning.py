@@ -86,22 +86,19 @@ class ChunkGenerator(object):
              X_list,
              Y_list,
              batch_size=32,
-             seed=None,
              epoch_size=4096):
-
         n_batches = int(math.ceil(float(epoch_size)/batch_size))
         n_instruments = len(Y_list)
         n_bins = X_list[0].shape[0]
         X_batch = np.zeros((batch_size, 1, n_bins, self.decision_length), np.float32)
         Y_batch = np.zeros((batch_size, n_instruments), np.float32)
 
+        y_epoch = np.random.randint(0, n_instruments, size=epoch_size)
         for b in range(n_batches):
-            rand_uniform = np.random.uniform(size=batch_size)
-            rand_y = np.floor(rand_uniform * n_instruments)
-            rand_y = rand_y.astype(np.int)
             for sample_id in range(batch_size):
-                Y_batch[sample_id, :] = Y_list[rand_y[sample_id]]
-                X_batch[sample_id, :, :, :] = self.random_crop(X_list[rand_y[sample_id]])
+                y = y_epoch[b*batch_size + sample_id]
+                Y_batch[sample_id, :] = Y_list[y]
+                X_batch[sample_id, :, :, :] = self.random_crop(X_list[y])
 
             yield X_batch, Y_batch
 

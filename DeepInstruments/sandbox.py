@@ -104,6 +104,7 @@ accuracies_history = []
 # Build generator
 import DeepInstruments as di
 datagen = di.learning.ChunkGenerator(decision_duration, hop_duration, silence_threshold)
+batch_size = 128
 dataflow = datagen.flow(
         X_sdbtrain_list,
         Y_sdbtrain_list,
