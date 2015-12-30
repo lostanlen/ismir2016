@@ -3,7 +3,8 @@
 
 A. *Audio features*
 	1. [DONE] Review silence detection.
-	1. [DONE] Convert features to float32.
+	2. [DONE] Convert features to float32.
+	3. Discard introductory speech in Tp samples.
 	2. Generate silenced frames in test set.
 
 B. *Deep learning*
