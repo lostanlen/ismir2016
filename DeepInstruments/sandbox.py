@@ -66,8 +66,6 @@ Y_test = np.vstack(Y_sdbtest_list)
 
 
 
-# Build generator
-datagen = di.learning.ChunkGenerator(decision_duration, hop_duration, silence_threshold)
 
 # Build graph model
 graph = di.learning.build_graph(
@@ -102,6 +100,23 @@ every_n_epoch = 10
 
 loss_history = []
 accuracies_history = []
+
+# Build generator
+import DeepInstruments as di
+datagen = di.learning.ChunkGenerator(decision_duration, hop_duration, silence_threshold)
+dataflow = datagen.flow(
+        X_sdbtrain_list,
+        Y_sdbtrain_list,
+        batch_size=batch_size,
+        seed=None,
+        epoch_size=4096)
+Y = np.vstack([X[1] for X in dataflow])
+avg = np.sum(Y, axis=0)
+print np.std(avg)
+
+y = np.random.randint(0, 8, size=4096)
+count = [np.sum(y==i) for i in xrange(0, 8)]
+print np.std(count)
 
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(
