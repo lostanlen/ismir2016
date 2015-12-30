@@ -142,7 +142,6 @@ def evaluate(graph,
     dataflow = datagen.flow(X_train_list,
         Y_train_list,
         batch_size=batch_size,
-        seed=None,
         epoch_size=epoch_size)
     y_train_true = np.zeros(epoch_size, dtype=int)
     y_train_predicted = np.zeros(epoch_size, dtype=int)
