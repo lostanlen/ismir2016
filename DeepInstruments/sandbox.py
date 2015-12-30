@@ -1,3 +1,4 @@
+import imp
 import librosa
 import keras
 import numpy as np
@@ -13,8 +14,13 @@ n_bins_per_octave = 24
 sr = 32000.0  # in Hertz
 hop_duration = 0.016  # in seconds
 decision_duration = 2.048  # in seconds
-silence_threshold = -30 # in dB
+silence_threshold = -0.7
+n_epochs = 1000
+batch_size = 128
+epoch_size = 4096
+every_n_epoch = 10
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
+
 
 # Compute audio features on training set
 solosDb8train_dir = '~/datasets/solosDb8/train'
@@ -29,6 +35,22 @@ X_global = np.hstack(X_sdbtrain_list)
 X_mean = np.mean(X_global)
 X_var = np.std(X_global)
 X_sdbtrain_list = [(X-X_mean)/X_var for X in X_sdbtrain_list]
+
+# Build generator
+imp.reload(di)
+datagen = di.learning.ChunkGenerator(decision_duration, hop_duration, silence_threshold)
+batch_size = 128
+dataflow = datagen.flow(
+        X_sdbtrain_list,
+        Y_sdbtrain_list,
+        batch_size=batch_size,
+        epoch_size=4096)
+X = np.vstack([X[0] for X in dataflow])
+
+y = np.random.randint(0, 8, size=100000)
+count = [np.sum(y==i) for i in xrange(0, 8)]
+print np.std(count)
+
 
 # Compute audio features on test set
 solosDb8test_dir = '~/datasets/solosDb8/test'
@@ -91,28 +113,8 @@ graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adagrad")
 # Train model
 from keras.utils.generic_utils import Progbar
 
-n_epochs = 1000
-batch_size = 128
-epoch_size = 4096
-every_n_epoch = 10
-
 loss_history = []
 accuracies_history = []
-
-# Build generator
-import DeepInstruments as di
-datagen = di.learning.ChunkGenerator(decision_duration, hop_duration, silence_threshold)
-batch_size = 128
-dataflow = datagen.flow(
-        X_sdbtrain_list,
-        Y_sdbtrain_list,
-        batch_size=batch_size,
-        epoch_size=4096)
-X = np.vstack([X[0] for X in dataflow])
-
-y = np.random.randint(0, 8, size=100000)
-count = [np.sum(y==i) for i in xrange(0, 8)]
-print np.std(count)
 
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(
