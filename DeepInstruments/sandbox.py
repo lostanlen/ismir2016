@@ -65,8 +65,6 @@ X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1], X_test.shape[2
 Y_test = np.vstack(Y_sdbtest_list)
 
 
-
-
 # Build graph model
 graph = di.learning.build_graph(
     X_height=168,
@@ -109,13 +107,10 @@ dataflow = datagen.flow(
         X_sdbtrain_list,
         Y_sdbtrain_list,
         batch_size=batch_size,
-        seed=None,
         epoch_size=4096)
-Y = np.vstack([X[1] for X in dataflow])
-avg = np.sum(Y, axis=0)
-print np.std(avg)
+X = np.vstack([X[0] for X in dataflow])
 
-y = np.random.randint(0, 8, size=4096)
+y = np.random.randint(0, 8, size=100000)
 count = [np.sum(y==i) for i in xrange(0, 8)]
 print np.std(count)
 
