@@ -25,7 +25,7 @@ C. *Pitch supervision*
 D. *Evaluation*
 	1. [DONE] Write class-based accuracy measure
 	2. [DONE] Write callbacks to monitor test error
-	2. Integrate the pipeline into a function so that the whole experiment can be ran in one step.
+	2. [DONE] Integrate the pipeline into a function so that the whole experiment can be ran in one step.
 	3. [DONE] Measure class imbalance. How many decision windows per class ?
 
 E. *Display*
