@@ -1,5 +1,5 @@
 import DeepInstruments.audio
 import DeepInstruments.learning
-import DeepInstruments.rwc
-import DeepInstruments.solosdb
+import DeepInstruments.main
 import DeepInstruments.symbolic
+import DeepInstruments.wrangling
