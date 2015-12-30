@@ -114,7 +114,6 @@ class ChunkGenerator(object):
             X = X_instrument[:, onset:offset]
             max_amplitude = np.max(np.mean(X, axis=0))
             is_silence = (max_amplitude < self.silence_threshold)
-            print n_rejectionsuuuuuu
             n_rejections += 1
         return np.reshape(X, (1, n_bins, self.decision_length))
 
