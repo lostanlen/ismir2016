@@ -2,7 +2,7 @@ import DeepInstruments as di
 import joblib
 import sacred
 
-ex = sacred.Experiment("DeepInstruments")
+ex = sacred.Experiment("solosdb")
 
 
 @ex.config
