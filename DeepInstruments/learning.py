@@ -1,4 +1,3 @@
-from keras.callbacks import Callback
 from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Activation, Flatten
