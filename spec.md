@@ -16,10 +16,10 @@ B. *Deep learning*
 	6. Add Z supervision
 
 C. *Pitch supervision*
-	1. Get Gt samples for RWC
+	1. [CLOSED] Get Gt samples for RWC
 	2. [DONE] Check MIDI offsets in RWC dict
-	3. Write conversion from MIDI to ConvNet axis.
-	4. Expand third dimension according to number of channels (link to ConvNet) ?
+	3. [DONE] Write conversion from MIDI to ConvNet axis.
+	4. Expand third dimension according to number of channels
 
 D. *Evaluation*
 	1. [DONE] Write class-based accuracy measure
@@ -30,3 +30,8 @@ D. *Evaluation*
 E. *Display*
 	1. Export filters from conv1 as images for the three experiments. Are they learned note models ?
 	2. Make a figure for the architecture.
+
+F. *Dataset*
+1. Get the full MedleyDB dataset
+2. Update wrangling so that it lists files, not classes
+3. Restrict to 	a certain number of classes
