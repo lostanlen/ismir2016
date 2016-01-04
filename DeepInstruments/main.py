@@ -24,10 +24,8 @@ def run(batch_size,
         optimizer,
         silence_threshold,
         sr,
-        train_dirs,
         test_dirs,
-        input_height,
-        input_width,
+        train_dirs,
         conv1_channels,
         conv1_height,
         conv1_width,
@@ -78,6 +76,8 @@ def run(batch_size,
                                                    hop_duration, sr)
 
     # Build deep learning model as a Keras graph
+    input_height = n_bins_per_octave * n_octaves
+    input_width = decision_duration / hop_duration
     graph = \
         di.learning.build_graph(input_height, input_width,
                                 conv1_channels, conv1_height, conv1_width,
@@ -91,7 +91,7 @@ def run(batch_size,
     # Compile model
     graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
-    # Train model, monitor accuracy on test set
+    # Train model, monitor accuracy
     report = di.learning.run_graph(X_train_list, Y_train_list, X_test, Y_test,
                                    batch_size, datagen, epoch_size,
                                    every_n_epoch, graph, n_epochs)
