@@ -22,19 +22,8 @@ every_n_epoch = 1
 instrument_list = ['Cl', 'Co', 'Fh', 'Gt', 'Ob', 'Pn', 'Tr', 'Vl']
 
 
-# Compute audio features on training set
-solosDb8train_dir = '~/datasets/solosDb8/train'
-train_file_paths = di.symbolic.get_paths(solosDb8train_dir, instrument_list, 'wav')
-(X_sdbtrain_list, Y_sdbtrain_list) = di.solosdb.get_XY(
-        train_file_paths,
-        instrument_list, decision_duration, fmin, hop_duration,
-        n_bins_per_octave, n_octaves, sr)
-
 # Standardize globally the training set
-X_global = np.hstack(X_sdbtrain_list)
-X_mean = np.mean(X_global)
-X_var = np.std(X_global)
-X_sdbtrain_list = [(X-X_mean)/X_var for X in X_sdbtrain_list]
+
 
 # Build generator
 datagen = di.learning.ChunkGenerator(decision_duration, hop_duration, silence_threshold)
