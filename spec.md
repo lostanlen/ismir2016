@@ -4,7 +4,7 @@
 A. *Audio features*
 	1. [DONE] Review silence detection.
 	2. [DONE] Convert features to float32.
-	2. Generate silenced frames in test set.
+	3. Generate silenced frames in test set.
 
 B. *Deep learning*
 	1. [DONE] Write Graph model without Z
@@ -36,5 +36,5 @@ E. *Display*
 F. *Dataset*
 1. Get the full MedleyDB dataset
 2. Update wrangling so that it lists files, not classes
-3. Restrict to 	a certain number of classes
+3. [DONE] Restrict to a certain number of classes
 4. Write a function that outputs Y from the Medley instrument activations, called by generator
