@@ -2,6 +2,7 @@ from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.utils.generic_utils import Progbar
 import math
 import numpy as np
 import random
