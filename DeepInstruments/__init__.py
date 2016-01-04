@@ -1,6 +1,6 @@
 import DeepInstruments.audio
-import DeepInstruments.evaluation
 import DeepInstruments.learning
 import DeepInstruments.main
+import DeepInstruments.singlelabel
 import DeepInstruments.symbolic
 import DeepInstruments.wrangling
