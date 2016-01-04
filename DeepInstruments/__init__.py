@@ -1,4 +1,5 @@
 import DeepInstruments.audio
+import DeepInstruments.evaluation
 import DeepInstruments.learning
 import DeepInstruments.main
 import DeepInstruments.symbolic
