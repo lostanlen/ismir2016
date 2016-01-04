@@ -122,7 +122,8 @@ def run_graph(X_train_list, Y_train_list, X_test, Y_test,
               batch_size, datagen, epoch_size, every_n_epoch,
               graph, n_epochs):
     loss_history = []
-    accuracies_history = []
+    train_accuracies_history = []
+    test_accuracies_history = []
     for epoch_id in xrange(n_epochs):
         dataflow = datagen.flow(
             X_train_list,
@@ -139,7 +140,11 @@ def run_graph(X_train_list, Y_train_list, X_test, Y_test,
         print "Training loss = ", loss
         loss_history.append(loss)
         if np.mod(epoch_id+1, every_n_epoch) == 0:
-            accuracies = di.evaluation.evaluate(graph, datagen,
-                                                X_train_list, Y_train_list,
-                                 X_test, Y_test, batch_size, epoch_size)
-            accuracies_history.append(accuracies)
+            train_accuracies = di.evaluation.train_accuracy(
+                    X_train_list, Y_train_list,
+                    batch_size, datagen, epoch_size, graph)
+            train_accuracies_history.append(train_accuracies)
+            test_accuracies = di.evaluation.test_accuracy(
+                    X_test, Y_test, batch_size, epoch_size, graph)
+            test_accuracies_history.append(test_accuracies)
+    return loss_history, train_accuracies_history, test_accuracies_history
