@@ -1,8 +1,9 @@
+import DeepInstruments as di
+import keras
 from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
-from keras.utils.generic_utils import Progbar
 import math
 import numpy as np
 import random
@@ -118,5 +119,27 @@ class ChunkGenerator(object):
 
 
 def run_graph(X_train_list, Y_train_list, X_test, Y_test,
-              batch_size, datagen, epoch_size, graph):
-    pass
+              batch_size, datagen, epoch_size, every_n_epoch,
+              graph, n_epochs):
+    loss_history = []
+    accuracies_history = []
+    for epoch_id in xrange(n_epochs):
+        dataflow = datagen.flow(
+            X_train_list,
+            Y_train_list,
+            batch_size=batch_size,
+            epoch_size=epoch_size)
+        print 'Epoch ', 1 + epoch_id
+        progbar = keras.utils.generic_utils.Progbar(epoch_size)
+        batch_id = 0
+        for (X_batch, Y_batch) in dataflow:
+            batch_id += 1
+            loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
+            progbar.update(batch_id * batch_size)
+        print "Training loss = ", loss
+        loss_history.append(loss)
+        if np.mod(epoch_id+1, every_n_epoch) == 0:
+            accuracies = di.evaluation.evaluate(graph, datagen,
+                                                X_train_list, Y_train_list,
+                                 X_test, Y_test, batch_size, epoch_size)
+            accuracies_history.append(accuracies)
