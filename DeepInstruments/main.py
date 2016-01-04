@@ -2,11 +2,15 @@ import DeepInstruments as di
 import joblib
 import numpy as np
 import os
+import sacred
+
+ex = sacred.Experiment("DeepInstruments")
 
 memory = joblib.Memory(cachedir=os.path.expanduser('~/joblib'))
-cached_run = joblib.delayed(di.main.run)
 
 
+@ex.automain
+@memory.cache
 def run(batch_size,
         decision_duration,
         epoch_size,
