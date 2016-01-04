@@ -4,29 +4,7 @@ import numpy as np
 import os
 import sacred
 
-ex = sacred.Experiment("DeepInstruments")
-
 memory = joblib.Memory(cachedir=os.path.expanduser('~/joblib'))
-
-
-@ex.automain
-def delayed_run(batch_size, decision_duration, epoch_size, every_n_epoch,
-                fmin, hop_duration, instrument_list, n_bins_per_octave,
-                n_epochs, n_octaves, optimizer, silence_threshold,
-                sr, test_dirs, train_dirs,
-                conv1_channels, conv1_height, pool1_width, pool1_height,
-                conv2_channels, conv2_height, pool2_width, pool2_height,
-                dense1_channels, drop1_proportion,
-                dense2_channels, drop2_proportion):
-    return joblib.delayed(di.main.run)(
-        batch_size, decision_duration, epoch_size, every_n_epoch,
-        fmin, hop_duration, instrument_list, n_bins_per_octave,
-        n_epochs, n_octaves, optimizer, silence_threshold,
-        sr, test_dirs, train_dirs,
-        conv1_channels, conv1_height, pool1_width, pool1_height,
-        conv2_channels, conv2_height, pool2_width, pool2_height,
-        dense1_channels, drop1_proportion,
-        dense2_channels, drop2_proportion)
 
 
 @memory.cache
