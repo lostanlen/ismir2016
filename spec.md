@@ -26,6 +26,8 @@ D. *Evaluation*
 	2. [DONE] Write callbacks to monitor test error
 	2. [DONE] Integrate the pipeline into a function so that the whole experiment can be ran in one step.
 	3. [DONE] Measure class imbalance. How many decision windows per class ?
+	4. Use MIR metrics for multi-label classif.
+	5. Make a 80/20 file-based split for the retained instruments.
 
 E. *Display*
 	1. Export filters from conv1 as images for the three experiments. Are they learned note models ?
@@ -35,4 +37,4 @@ F. *Dataset*
 1. Get the full MedleyDB dataset
 2. Update wrangling so that it lists files, not classes
 3. Restrict to 	a certain number of classes
-4. Write a function that outputs Y from the instrument activations
+4. Write a function that outputs Y from the Medley instrument activations, called by generator
