@@ -93,11 +93,8 @@ loss_history = []
 accuracies_history = []
 
 for epoch_id in xrange(n_epochs):
-    dataflow = datagen.flow(
-        X_sdbtrain_list,
-        Y_sdbtrain_list,
-        batch_size=batch_size,
-        epoch_size=epoch_size)
+    dataflow = datagen.flow(X_train_list, Y_train_list,
+                            batch_size=batch_size, epoch_size=epoch_size)
     print 'Epoch ', 1 + epoch_id
     progbar = keras.utils.generic_utils.Progbar(epoch_size)
     batch_id = 0
@@ -108,6 +105,12 @@ for epoch_id in xrange(n_epochs):
     print "Training loss = ", loss
     loss_history.append(loss)
     if np.mod(epoch_id+1, every_n_epoch) == 0:
+        train_accuracies = di.evaluation.train_accuracy(
+                X_train_list, Y_train_list,
+                batch_size, datagen, epoch_size, graph)
+        test_accuracies = di.evaluation.test_accuracy(
+                X_test, Y_test, batch_size, epoch_size, graph)
+
         accuracies = di.learning.evaluate(graph, datagen, X_sdbtrain_list, Y_sdbtrain_list,
                              X_test, Y_test, batch_size, epoch_size)
         accuracies_history.append(accuracies)
