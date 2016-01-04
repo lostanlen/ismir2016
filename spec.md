@@ -35,3 +35,4 @@ F. *Dataset*
 1. Get the full MedleyDB dataset
 2. Update wrangling so that it lists files, not classes
 3. Restrict to 	a certain number of classes
+4. Write a function that outputs Y from the instrument activations
