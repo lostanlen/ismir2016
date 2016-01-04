@@ -93,6 +93,7 @@ def run(batch_size,
 
     # Train model, monitor accuracy on test set
     report = di.learning.run_graph(X_train_list, Y_train_list, X_test, Y_test,
-                                   batch_size, datagen, epoch_size, graph)
+                                   batch_size, datagen, epoch_size,
+                                   every_n_epoch, graph, n_epochs)
 
     return report
