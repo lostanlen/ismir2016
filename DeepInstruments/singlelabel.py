@@ -37,7 +37,7 @@ def train_accuracy(X_train_list, Y_train_list,
     train_accuracies = np.diag(cm)
     mean_accuracy = np.mean(train_accuracies)
     std_accuracy = np.std(train_accuracies)
-    print "train accuracy = ", mean_accuracy, " ± ", std_accuracy
+    print "train accuracy = ", mean_accuracy, " +/- ", std_accuracy
     return train_accuracies
 
 
@@ -54,5 +54,5 @@ def test_accuracy(X_test, Y_test, batch_size, epoch_size, graph):
     test_accuracies = np.diag(cm)
     mean_accuracy = np.mean(test_accuracies)
     std_accuracy = np.std(test_accuracies)
-    print "test mean accuracy = ", mean_accuracy, " ± ", std_accuracy
+    print "test mean accuracy = ", mean_accuracy, " +/- ", std_accuracy
     return test_accuracies
