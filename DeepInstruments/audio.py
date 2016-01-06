@@ -13,17 +13,15 @@ def get_X(
     (sr, x_stereo) = track.audio_data
     x_stereo = x_stereo.astype(np.float32)
     x_mono = np.sum(x_stereo, axis=1) / (32768.0 * 2)
-    if x_mono.shape[0] < (decision_duration * sr):
-        padding_length = x_mono.shape[0] - decision_duration * sr
-        padding = np.zeros(padding_length, dtype=np.float32)
+    if x_mono.shape[0] < decision_length:
+        padding = np.zeros(x_mono.shape[0] - decision_length, dtype=np.float32)
         x_mono = np.hstack((x_mono, padding))
     n_bins = n_octaves * n_bins_per_octave
-    hop_length = hop_duration * sr
     freqs = librosa.cqt_frequencies(
             bins_per_octave=n_bins_per_octave,
             fmin=fmin,
             n_bins=n_bins)
-    CQT = librosa.hybrid_cqt(
+    CQT = librosa.cqt(
             x_mono,
             bins_per_octave=n_bins_per_octave,
             fmin=fmin,
