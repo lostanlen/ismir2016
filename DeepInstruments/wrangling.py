@@ -58,6 +58,7 @@ def get_activations(names, track):
                 np.max(instrument_stem_activations, axis=1)
     return activations
 
+
 def get_pianorolls(fmin, melodic_names, n_bins_per_octave, n_octaves, track):
     # get melodic activations
     activation_hop_length = 2048.0
