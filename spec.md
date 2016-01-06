@@ -38,4 +38,5 @@ F. *Dataset*
 1. Get the full MedleyDB dataset
 2. Update wrangling so that it lists files, not classes
 3. [DONE] Restrict to a certain number of classes
+4. Take the max of stems activations that play the same instrument
 4. Write a function that outputs Y from the Medley instrument activations, called by generator
