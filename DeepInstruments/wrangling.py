@@ -53,7 +53,7 @@ def get_activations(instrument_names, track):
         instrument_stems = instrument_matches[instrument_index]
         if instrument_stems:
             instrument_stem_activations = stem_activations[:, instrument_stems]
-            activations[:, instrument_index] =
+            activations[:, instrument_index] = \
                 np.max(instrument_stem_activations, axis=1)
     return activations
 
@@ -72,3 +72,8 @@ def instrument_stems(instrument_names, track):
                 instrument_match.append(stem_index)
         instrument_matches.append(instrument_match)
     return instrument_matches
+
+def union(list_A, list_B):
+    list_AB = [x for x in set(list_A) | set(list_B)]
+    list_AB.sort()
+    return list_AB
