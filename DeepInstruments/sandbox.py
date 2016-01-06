@@ -61,43 +61,20 @@ drop2_proportion = 0.5
 
 session = medleydb.sql.session()
 tracks = session.query(medleydb.sql.model.Track).all()
-track = tracks[0]
+track = tracks[1]
 
+# X (audio representation)
+X = di.audio.get_X(decision_length, fmin, hop_length, n_bins_per_octave,
+                   n_octaves, track)
 
-X = di.audio.get_X(decision_length,
-                   fmin,
-                   hop_length,
-                   n_bins_per_octave,
-                   n_octaves,
-                   track)
-
+# Y (all instrument activations)
 activations = di.wrangling.get_activations(instrument_names, track)
 
-melodic_activations = di.wrangling.get_activations(melodic_names, track)
+
+# Melodic Z (piano-rolls, i.e. time-frequency activations)
+pianorolls = di.wrangling.get_pianorolls(fmin, melodic_names,
+                                         n_bins_per_octave, n_octaves, track)
+
+
+# Non-melodic Z (non-melodic activations)
 nonmelodic_activations = di.wrangling.get_activations(nonmelodic_names, track)
-
-stems = track.stems.all()
-ranks = [ stem.rank for stem in stems ]
-
-
-
-melody0 = track.melodies[0]
-melody0 = np.vstack(melody0.annotation_data)[:,1:]
-
-n_bins = n_bins_per_octave * n_octaves
-freqs = librosa.cqt_frequencies(bins_per_octave=n_bins_per_octave,
-                                fmin=fmin,
-                                n_bins=n_bins)
-midis = librosa.hz_to_midi(freqs)
-# for melody in track.melodies
-melody = track.melodies[0]
-
-melody_f0s = np.vstack(melody.annotation_data)[:, 1:]
-melody_pitches = librosa.hz_to_midi(melody_f0s)
-melody_pitches[np.isinf(melody_pitches)] = 0.0
-
-
-
-
-matching = [ s in instrument_list for s in stem_instruments]
-n_frames = len(y)
