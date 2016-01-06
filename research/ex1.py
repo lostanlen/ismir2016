@@ -31,7 +31,6 @@ def config():
     conv2_height = 8
     conv2_width = 8
     pool2_height = 4
-    pool2_height = 8
     dense1_channels = 512
     drop1_proportion = 0.25
     dense2_channels = 64
