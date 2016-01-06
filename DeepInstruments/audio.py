@@ -2,14 +2,12 @@ import librosa
 import numpy as np
 
 
-def get_X(
-        file_path,
-        decision_duration,
-        fmin,
-        hop_duration,
-        n_bins_per_octave,
-        n_octaves,
-        track):
+def get_X(decision_length,
+          fmin,
+          hop_length,
+          n_bins_per_octave,
+          n_octaves,
+          track):
     (sr, x_stereo) = track.audio_data
     x_stereo = x_stereo.astype(np.float32)
     x_mono = np.sum(x_stereo, axis=1) / (32768.0 * 2)
