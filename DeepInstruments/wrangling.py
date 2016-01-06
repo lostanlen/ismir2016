@@ -42,7 +42,8 @@ def get_XY(file_paths,
     return (X_list, Y_list)
 
 
-def instrument_stems(instrument_names, stem_names):
+def instrument_stems(instrument_names, track):
+    stem_names = [s.instrument.name for s in track.stems]
     n_instruments = len(instrument_names)
     n_stems = len(stem_names)
     instrument_matches = []
