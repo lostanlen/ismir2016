@@ -5,13 +5,25 @@ import os
 os.environ["MEDLEYDB_PATH"] = os.path.expanduser("~/datasets/MedleyDB")
 import medleydb.sql
 
-melodic_names = [u'clean electric guitar',
-                 u'female singer',
-                 u'violin']
 
-nonmelodic_names = [u'acoustic guitar']
+melodic_set = set()
+nonmelodic_set = set()
+instrument_set = set()
+for multitrack in medleydb.load_melody_multitracks():
+    for melody_track in multitrack.melody_tracks():
+        melodic_set.add(melody_track.instrument)
+    for stem_instrument in multitrack.stem_instruments:
+        if medleydb.is_valid_instrument(stem_instrument):
+            instrument_set.add(stem_instrument)
 
-instrument_names = di.wrangling.union(melodic_names, nonmelodic_names)
+
+melodic_names = [i for i in melodic_set]
+melodic_names.sort()
+
+nonmelodic_names = [i for i in instrument_set if i not in melodic_set]
+nonmelodic_names.sort()
+
+
 
 batch_size = 32
 decision_length = 131072 # in samples
@@ -55,6 +67,9 @@ X = di.audio.get_X(decision_length,
                    track)
 
 activations = di.wrangling.get_activations(instrument_names, track)
+
+melodic_activations = di.wrangling.get_activations(melodic_names, track)
+nonmelodic_activations = di.wrangling.get_activations(nonmelodic_names, track)
 
 stems = track.stems.all()
 ranks = [ stem.rank for stem in stems ]

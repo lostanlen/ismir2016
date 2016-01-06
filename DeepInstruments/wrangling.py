@@ -72,8 +72,3 @@ def instrument_stems(instrument_names, track):
                 instrument_match.append(stem_index)
         instrument_matches.append(instrument_match)
     return instrument_matches
-
-def union(list_A, list_B):
-    list_AB = [x for x in set(list_A) | set(list_B)]
-    list_AB.sort()
-    return list_AB
