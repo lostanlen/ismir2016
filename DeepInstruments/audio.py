@@ -12,7 +12,8 @@ def get_X(decision_length,
     x_stereo = x_stereo.astype(np.float32)
     x_mono = np.sum(x_stereo, axis=1) / (32768.0 * 2)
     if x_mono.shape[0] < decision_length:
-        padding = np.zeros(x_mono.shape[0] - decision_length, dtype=np.float32)
+        padding_length = x_mono.shape[0] - decision_length
+        padding = np.zeros(padding_length, dtype=np.float32)
         x_mono = np.hstack((x_mono, padding))
     n_bins = n_octaves * n_bins_per_octave
     freqs = librosa.cqt_frequencies(
