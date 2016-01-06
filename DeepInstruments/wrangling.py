@@ -40,3 +40,18 @@ def get_XY(file_paths,
         X_list.append(np.hstack(X_instrument))
         Y_list.append(Y_instrument)
     return (X_list, Y_list)
+
+
+def instrument_stems(instrument_names, stem_names):
+    n_instruments = len(instrument_names)
+    n_stems = len(stem_names)
+    instrument_matches = []
+    for instrument_index in range(n_instruments):
+        instrument_name = instrument_names[instrument_index]
+        instrument_match = []
+        for stem_index in range(n_stems):
+            stem_name = stem_names[stem_index]
+            if stem_name == instrument_name:
+                instrument_match.append(stem_index)
+        instrument_matches.append(instrument_match)
+    return instrument_matches
