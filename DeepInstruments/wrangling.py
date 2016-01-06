@@ -1,5 +1,6 @@
 import DeepInstruments as di
 import joblib
+import librosa
 import numpy as np
 import os
 
@@ -56,6 +57,52 @@ def get_activations(names, track):
             activations[:, instrument_index] = \
                 np.max(instrument_stem_activations, axis=1)
     return activations
+
+def get_pianorolls(fmin, melodic_names, n_bins_per_octave, n_octaves, track):
+    # get melodic activations
+    activation_hop_length = 2048.0
+    melodic_activations = di.wrangling.get_activations(melodic_names, track)
+
+    # get melodic f0s
+    melody_3rd_definition = track.melodies[2]
+    melodic_f0s = np.vstack(melody_3rd_definition.annotation_data)[:, 1:]
+    melody_hop_length = 256.0
+    downsampling_factor = int(activation_hop_length / melody_hop_length)
+    n_melody_samples = melodic_f0s.shape[0]
+    downsampling_range = range(0, n_melody_samples, downsampling_factor)
+    melodic_f0s = melodic_f0s[downsampling_range, :]
+
+    # converts f0s to MIDI pitches and to CQT bin indices
+    # After this conversion, silent frames correspond to the value -inf
+    melodic_pitches = librosa.hz_to_midi(melodic_f0s)
+    melodic_bins = np.round(melodic_pitches) - librosa.hz_to_midi(fmin)
+
+    # Initialize piano-rolls as a tensor of zeroes
+    n_melodic_instruments = len(melodic_names)
+    n_bins = n_bins_per_octave * n_octaves
+    n_frames, n_melodies = melodic_bins.shape
+    pianorolls_shape = (n_melodic_instruments, n_bins, n_frames)
+    pianorolls = np.zeros(pianorolls_shape, dtype=np.float32)
+
+    # Find ranks of stems in melody annotation
+    stems = track.stems.all()
+    ranks = [ stem.rank for stem in stems ]
+
+    # For each annotated melody
+    for melody_index in range(n_melodies):
+        # Get the name of the corresponding instrument
+        name = stems[ranks.index(melody_index+1)].instrument.name
+        # Match this name to the list of melodic instruments
+        name_index = melodic_names.index(name)
+        # Write its melody activations at the right bins, frame by frame
+        for frame_index in range(n_frames):
+            melodic_bin = melodic_bins[frame_index, melody_index]
+            if not np.isinf(melodic_bin):
+                activation = melodic_activations[frame_index, name_index]
+                pianorolls[name_index, melodic_bin, frame_index] = activation
+
+    # Return all piano-rolls as a Numpy tensor
+    return pianorolls
 
 
 def instrument_stems(instrument_names, track):
