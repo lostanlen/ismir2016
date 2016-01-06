@@ -10,7 +10,7 @@ epoch_size = 4096
 every_n_epoch = 1
 fmin = 55 # in Hz
 hop_length = 1024 # in samples
-instrument_list = ['female_singer', 'acoustic_guitar', 'violin']
+instrument_names = [u'female singer', u'acoustic guitar', u'violin']
 n_bins_per_octave = 16
 n_epochs = 1
 n_octaves = 8
@@ -37,10 +37,27 @@ drop2_proportion = 0.5
 session = medleydb.sql.session()
 track = session.query(medleydb.sql.model.Track).first()
 
-from DeepInstruments.audio import get_X
 X = di.audio.get_X(decision_length,
                    fmin,
                    hop_length,
                    n_bins_per_octave,
                    n_octaves,
                    track)
+
+stem_activations = track.activations_data
+stem_activations = np.vstack(stem_activations)
+stem_names = [s.instrument.name for s in track.stems]
+
+instrument_matches = di.wrangling.instrument_stems(instrument_names,
+                                                   stem_names)
+n_instruments = len(instrument_names)
+
+for instrument_index in range(n_instruments):
+    instrument_match = instrument_matches[instrument_index]
+    instrument_activations = stem_activations[instrument_match]
+
+
+
+
+matching = [ s in instrument_list for s in stem_instruments]
+n_frames = len(y)
