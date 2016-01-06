@@ -16,7 +16,6 @@ Y
 
 Z
 * Original is at 172Hz, that is 5.8 ms. 256 audio samples.
-* Available at 
 * Stems' names can be retrieved by stem.instrument
 * We subsample it by a factor 16. We get a hop size of 4096 samples, that is 93 ms.
 * Original yields f0 in Hz. We convert it (with librosa tools) to MIDI index, and quantize to ConvNet index. For this, we need: fmin, n_filters_per_octave, pool1_height.
