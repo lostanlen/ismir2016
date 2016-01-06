@@ -1,8 +1,17 @@
 import DeepInstruments as di
+import librosa
 import numpy as np
 import os
 os.environ["MEDLEYDB_PATH"] = os.path.expanduser("~/datasets/MedleyDB")
 import medleydb.sql
+
+melodic_names = [u'clean electric guitar',
+                 u'female singer',
+                 u'violin']
+
+nonmelodic_names = [u'acoustic guitar']
+
+instrument_names = di.wrangling.union(melodic_names, nonmelodic_names)
 
 batch_size = 32
 decision_length = 131072 # in samples
@@ -10,8 +19,7 @@ epoch_size = 4096
 every_n_epoch = 1
 fmin = 55 # in Hz
 hop_length = 1024 # in samples
-instrument_names = [u'female singer', u'acoustic guitar', u'violin']
-n_bins_per_octave = 16
+n_bins_per_octave = 12
 n_epochs = 1
 n_octaves = 8
 optimizer = "adagrad"
@@ -35,7 +43,9 @@ drop2_proportion = 0.5
 
 
 session = medleydb.sql.session()
-track = session.query(medleydb.sql.model.Track).first()
+tracks = session.query(medleydb.sql.model.Track).all()
+track = tracks[0]
+
 
 X = di.audio.get_X(decision_length,
                    fmin,
@@ -44,17 +54,27 @@ X = di.audio.get_X(decision_length,
                    n_octaves,
                    track)
 
-stem_activations = track.activations_data
-stem_activations = np.vstack(stem_activations)
-stem_names = [s.instrument.name for s in track.stems]
+activations = di.wrangling.get_activations(instrument_names, track)
 
-instrument_matches = di.wrangling.instrument_stems(instrument_names,
-                                                   stem_names)
-n_instruments = len(instrument_names)
+stems = track.stems.all()
+ranks = [ stem.rank for stem in stems ]
 
-for instrument_index in range(n_instruments):
-    instrument_match = instrument_matches[instrument_index]
-    instrument_activations = stem_activations[instrument_match]
+
+
+melody0 = track.melodies[0]
+melody0 = np.vstack(melody0.annotation_data)[:,1:]
+
+n_bins = n_bins_per_octave * n_octaves
+freqs = librosa.cqt_frequencies(bins_per_octave=n_bins_per_octave,
+                                fmin=fmin,
+                                n_bins=n_bins)
+midis = librosa.hz_to_midi(freqs)
+# for melody in track.melodies
+melody = track.melodies[0]
+
+melody_f0s = np.vstack(melody.annotation_data)[:, 1:]
+melody_pitches = librosa.hz_to_midi(melody_f0s)
+melody_pitches[np.isinf(melody_pitches)] = 0.0
 
 
 
