@@ -42,19 +42,20 @@ def get_XY(file_paths,
     return (X_list, Y_list)
 
 
-def get_Y(instrument_names, track):
+def get_activations(instrument_names, track):
     instrument_matches = di.wrangling.instrument_stems(instrument_names, track)
     stem_activations = track.activations_data
     stem_activations = np.vstack(stem_activations)[:, 1:]
     n_frames = stem_activations.shape[0]
     n_instruments = len(instrument_matches)
-    Y = np.zeros((n_frames, n_instruments), dtype=np.float32)
+    activations = np.zeros((n_frames, n_instruments), dtype=np.float32)
     for instrument_index in range(n_instruments):
         instrument_stems = instrument_matches[instrument_index]
         if instrument_stems:
             instrument_stem_activations = stem_activations[:, instrument_stems]
-            Y[:, instrument_index] = np.max(instrument_stem_activations, axis=1)
-    return Y
+            activations[:, instrument_index] =
+                np.max(instrument_stem_activations, axis=1)
+    return activations
 
 
 def instrument_stems(instrument_names, track):
