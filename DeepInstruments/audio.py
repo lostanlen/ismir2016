@@ -1,11 +1,8 @@
 import librosa
-from joblib import Parallel
 import numpy as np
-import random
 
-import DeepInstruments as di
 
-def perceptual_cqt(
+def get_X(
         file_path,
         decision_duration,
         fmin,
