@@ -1,7 +1,13 @@
+import joblib
 import librosa
 import numpy as np
+import os
+
+cachedir = os.path.expanduser('~/joblib')
+memory = joblib.Memory(cachedir=cachedir, verbose=0)
 
 
+@memory.cache
 def get_X(decision_length,
           fmin,
           hop_length,
