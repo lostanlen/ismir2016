@@ -1,10 +1,13 @@
+import os
+os.environ["MEDLEYDB_PATH"] = os.path.expanduser("~/datasets/MedleyDB")
+
 import DeepInstruments as di
 import librosa
 import matplotlib.pyplot as plt
 import numpy as np
-import os
-os.environ["MEDLEYDB_PATH"] = os.path.expanduser("~/datasets/MedleyDB")
 import medleydb.sql
+
+
 
 batch_size = 32
 decision_length = 131072 # in samples
