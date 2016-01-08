@@ -1,7 +1,13 @@
 import collections
+import joblib
 import medleydb
 import numpy as np
+import os
 import sklearn
+
+
+cachedir = os.path.expanduser('~/joblib')
+memory = joblib.Memory(cachedir=cachedir, verbose=0)
 
 
 def confusion_matrix(Y_true, Y_predicted):
@@ -14,6 +20,7 @@ def confusion_matrix(Y_true, Y_predicted):
     return cm / cm.sum(axis=1)[:, np.newaxis]
 
 
+@memory.cache
 def melody_annotation_durations():
     session = medleydb.sql.session()
     stems = session.query(medleydb.sql.model.Stem).all()
