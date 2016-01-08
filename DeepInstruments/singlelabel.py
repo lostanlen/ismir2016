@@ -1,3 +1,5 @@
+import collections
+import medleydb
 import numpy as np
 import sklearn
 
@@ -10,6 +12,34 @@ def confusion_matrix(Y_true, Y_predicted):
     cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
     cm = cm.astype('float64')
     return cm / cm.sum(axis=1)[:, np.newaxis]
+
+
+def melody_annotation_durations():
+    session = medleydb.sql.session()
+    stems = session.query(medleydb.sql.model.Stem).all()
+    melodic_stems = \
+        [stem for stem in stems if stem.rank and not stem.track.has_bleed]
+    melodic_stem_names = [stem.instrument.name for stem in melodic_stems]
+    unique_melodic_names = np.unique(melodic_stem_names)
+    n_melodic_names = len(unique_melodic_names)
+    n_melodic_stems = len(melodic_stems)
+    melodic_counts = np.zeros(n_melodic_names)
+    for stem_index in range(n_melodic_stems):
+        name = melodic_stem_names[stem_index]
+        stem = melodic_stems[stem_index]
+        melody_3rd_definition = stem.track.melodies[2]
+        f0 = np.vstack(melody_3rd_definition.annotation_data)[:, stem.rank]
+        melodic_counts[unique_melodic_names==name] += (f0 > 0).sum()
+    sorting = melodic_counts.argsort()
+    sorted_melodic_names = unique_melodic_names[sorting]
+    sorted_melodic_counts = melodic_counts[sorting]
+    sorted_melodic_durations = sorted_melodic_counts * 256.0 / 44100
+    counter = collections.Counter(melodic_stem_names)
+    n_files_per_name = [ counter[name] for name in sorted_melodic_names ]
+    tuples = (sorted_melodic_names,
+              n_files_per_name,
+              sorted_melodic_durations)
+    return np.transpose(np.vstack(tuples))
 
 
 def train_accuracy(X_train_list, Y_train_list,
