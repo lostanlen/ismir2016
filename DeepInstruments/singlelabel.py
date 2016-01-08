@@ -5,6 +5,15 @@ import numpy as np
 import os
 import sklearn
 
+names = [u'clarinet',
+         u'clean electric guitar',
+         u'distorted electric guitar',
+         u'female singer',
+         u'male singer',
+         u'piano',
+         u'trumpet',
+         u'violin']
+
 
 cachedir = os.path.expanduser('~/joblib')
 memory = joblib.Memory(cachedir=cachedir, verbose=0)
