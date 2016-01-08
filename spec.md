@@ -2,40 +2,40 @@
 22 dec 2015
 
 A. *Audio features*
-	1. [DONE] Review silence detection.
-	2. [DONE] Convert features to float32.
-	3. Generate silenced frames in test set.
-	4. [DONE] Review perceptual loudness reference in get_X
+    1. [DONE] Review silence detection.
+    2. [DONE] Convert features to float32.
+    3. Generate silenced frames in test set.
+    4. [DONE] Review perceptual loudness reference in get_X
 
 B. *Deep learning*
-	1. [DONE] Write Graph model without Z
-	2. [DONE] Make it a function in module "learning"
-	3. [DONE] Solve core dump
-	4. [DONE] Install bleeding-edge Keras
-	5. [DONE] Train on categorical cross-entropy
-	6. [DONE] Write data generator
-	6. Add Z supervision
+    1. [DONE] Write Graph model without Z
+    2. [DONE] Make it a function in module "learning"
+    3. [DONE] Solve core dump
+    4. [DONE] Install bleeding-edge Keras
+    5. [DONE] Train on categorical cross-entropy
+    6. [DONE] Write data generator
+    6. Add Z supervision
 
 C. *Pitch supervision*
-	1. [CLOSED] Get Gt samples for RWC
-	2. [DONE] Check MIDI offsets in RWC dict
-	3. [DONE] Write conversion from MIDI to ConvNet axis.
-	4. Expand third dimension according to number of channels
+    1. [CLOSED] Get Gt samples for RWC
+    2. [DONE] Check MIDI offsets in RWC dict
+    3. [DONE] Write conversion from MIDI to ConvNet axis.
+    4. Expand third dimension according to number of channels
 
 D. *Evaluation*
-	1. [DONE] Write class-based accuracy measure
-	2. [DONE] Write callbacks to monitor test error
-	2. [DONE] Integrate the pipeline into a function so that the whole experiment can be ran in one step.
-	3. [DONE] Measure class imbalance. How many decision windows per class ?
-	4. Use MIR metrics for multi-label classif.
-	5. Make a 80/20 file-based split for the retained instruments.
+    1. [DONE] Write class-based accuracy measure
+    2. [DONE] Write callbacks to monitor test error
+    2. [DONE] Integrate the pipeline into a function so that the whole experiment can be ran in one step.
+    3. [DONE] Measure class imbalance. How many decision windows per class ?
+    4. Use MIR metrics for multi-label classif.
+    5. Make a 80/20 file-based split for the retained instruments.
 
 E. *Display*
-	1. Export filters from conv1 as images for the three experiments. Are they learned note models ?
-	2. Make a figure for the architecture.
+    1. Export filters from conv1 as images for the three experiments. Are they learned note models ?
+    2. Make a figure for the architecture.
 
 F. *Dataset*
-1. Get the full MedleyDB dataset
+1. [DONE] Get the full MedleyDB dataset
 2. Update wrangling so that it lists files, not classes
 3. [DONE] Restrict to a certain number of classes
 4. [DONE] Take the max of stems activations that play the same instrument
