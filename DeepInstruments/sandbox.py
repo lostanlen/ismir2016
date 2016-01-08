@@ -1,34 +1,10 @@
 import DeepInstruments as di
 import librosa
+import matplotlib.pyplot as plt
 import numpy as np
 import os
 os.environ["MEDLEYDB_PATH"] = os.path.expanduser("~/datasets/MedleyDB")
 import medleydb.sql
-
-
-melodic_set = set()
-nonmelodic_set = set()
-instrument_set = set()
-for multitrack in medleydb.load_melody_multitracks():
-    melodic_tracks = multitrack.melody_tracks()
-    melodic_instruments = [ track.instrument for track in melodic_tracks]
-    melodic_set = melodic_set | set(melodic_instruments)
-    for stem_instrument in multitrack.stem_instruments:
-        if medleydb.is_valid_instrument(stem_instrument):
-            instrument_set.add(stem_instrument)
-            if stem_instrument not in melodic_instruments:
-                nonmelodic_set.add(stem_instrument)
-
-
-melodic_names = [i for i in melodic_set]
-melodic_names.sort()
-
-nonmelodic_names = [i for i in nonmelodic_set]
-nonmelodic_names.sort()
-
-instrument_names = [i for i in instrument_set]
-instrument_names.sort()
-
 
 batch_size = 32
 decision_length = 131072 # in samples
