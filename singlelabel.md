@@ -5,7 +5,8 @@
 * Violin
 * Clean electric guitar
 * Distorted electric guitar
-* Piano Clarinet
+* Piano
+* Clarinet
 * Trumpet
 
 
