@@ -7,7 +7,54 @@ import matplotlib.pyplot as plt
 import numpy as np
 import medleydb.sql
 
+session = medleydb.sql.session()
+stems = session.query(medleydb.sql.model.Stem).all()
+training_paths = []
+test_paths = []
+for name in di.singlelabel.names:
+    instrument_stems = [ stem for stem in stems
+                         if stem.instrument.name == name ]
+    training_paths.append([ os.path.split(stem.audio_path)[1]
+                            for stem in instrument_stems
+                            if stem.rank ])
+    test_paths.append([ os.path.split(stem.audio_path)[1]
+                        for stem in instrument_stems
+                        if not stem.rank ])
 
+training_discarded = [
+    # Clean electric guitar
+    u'CelestialShore_DieForUs_STEM_05.wav'  # has overdubs and shoegaze effects
+    # Distorted electric guitar
+    u'Meaxic_TakeAStep_STEM_03.wav'  # has overdubs (left/right channels)
+    u'TheSoSoGLos_Emergency_STEM_04.wav' # has overdubs
+    
+
+]
+
+discarded = [
+    # Clarinet
+    u'MusicDelta_Beethoven_STEM_09.wav',  # same song in training
+    # Clean electric guitar
+    u'AlexanderRoss_GoodbyeBolero_STEM_02.wav',  # same song in training
+    u'CelestialShore_DieForUs_STEM_05.wav',  # has shoegaze effects
+    u'AlexanderRoss_VelvetCurtain_STEM_10.wav',  # is actually a reverb track
+    u'TheDistricts_Vermont_STEM_06.wav'  # same song in training
+    # Distorted electric guitar
+    u'AClassicEducation_NightOwl_STEM_03.wav',  # same song in training
+    u'AClassicEducation_NightOwl_STEM_06.wav',  # same song in training
+    u'AClassicEducation_NightOwl_STEM_07.wav'  # same song in training
+    u'BigTroubles_Phantom_STEM_03.wav',  # same song in training
+    u'BigTroubles_Phantom_STEM_03.wav',  # same song in training
+    u'Creepoid_OldTree_STEM_05.wav',  # same song in training
+    u'HopAlong_SisterCities_STEM_08',  # same song in training
+    u'MusicDelta_Britpop_STEM_03.wav',  # is arguably not distorted at all
+    u'MusicDelta_Rockabilly_STEM_03.wav',  # is overdrive, not distortion
+    u'MusicDelta_SpeedMetal_STEM_03.wav',  # same song in training
+    u'MusicDelta_Zeppelin_STEM_03.wav',  # same song in training
+    u'PurlingHiss_Lolita_STEM_04.wav',  # same song in training
+    u'TheScarletBrand_LesFleursDuMal_STEM_05.wav'  # same song in training
+
+]
 
 batch_size = 32
 decision_length = 131072 # in samples
