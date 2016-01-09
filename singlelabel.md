@@ -11,33 +11,33 @@
 
 
 *Male singer*
-36 files
-2540 seconds
+36 annotated files
+2540 annotated seconds
 
 *Female singer*
-19 files
-1400 seconds
+19 annotated files
+1400 annotated seconds
 
 *Violin*
-5 files
-649 seconds
+5 annotated files
+649 annotated seconds
 
 *Clean electric guitar*
-10 files
-627 seconds
+10 annotated files
+627 annotated seconds
 
 *Distorted electric guitar*
-10 files
-520 seconds
+10 annotated files
+520 annotated seconds
 
 *Piano*
 8 files
-313 seconds
+313 annotated seconds
 
 *Clarinet*
 4 files
-299 seconds
+299 annotated seconds
 
 *Trumpet*
 6 files
-272 seconds
+272 annotated seconds
