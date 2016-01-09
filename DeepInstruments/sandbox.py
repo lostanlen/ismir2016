@@ -23,15 +23,39 @@ for name in di.singlelabel.names:
 
 training_discarded = [
     # Clean electric guitar
-    u'CelestialShore_DieForUs_STEM_05.wav'  # has overdubs and shoegaze effects
+    u'CelestialShore_DieForUs_STEM_05.wav'  # overdubs and shoegaze effects
     # Distorted electric guitar
-    u'Meaxic_TakeAStep_STEM_03.wav'  # has overdubs (left/right channels)
-    u'TheSoSoGLos_Emergency_STEM_04.wav' # has overdubs
-    
+    u'Meaxic_TakeAStep_STEM_03.wav'  # overdubs
+    u'TheSoSoGLos_Emergency_STEM_04.wav' # overdubs
+    # Female singer
+    # Male singer
+    # Piano
+    # Trumpet
+    # (empty)
+    # Violin
+    # (empty)
 
 ]
 
-discarded = [
+training_to_set = [
+    # Clean electric guitar
+    # (empty)
+    # Distorted electric guitar
+    # (empty)
+    # Female singer
+    # Male singer
+    # Piano
+    # Trumpet
+    u'MusicDelta_Beethoven_STEM_14.wav',
+    u'MusicDelta_FusionJazz_STEM_05.wav',
+    u'MusicDelta_ModalJazz_STEM_05.wav',
+    # Violin
+    u'JoelHelander_Definition_STEM_02.wav',
+    u'JoelHelander_ExcessiveResistancetoChange_STEM_13.wav',
+    u'JoelHelander_IntheAtticBedroom_STEM_01.wav'
+]
+
+test_discarded = [
     # Clarinet
     u'MusicDelta_Beethoven_STEM_09.wav',  # same song in training
     # Clean electric guitar
@@ -52,8 +76,14 @@ discarded = [
     u'MusicDelta_SpeedMetal_STEM_03.wav',  # same song in training
     u'MusicDelta_Zeppelin_STEM_03.wav',  # same song in training
     u'PurlingHiss_Lolita_STEM_04.wav',  # same song in training
-    u'TheScarletBrand_LesFleursDuMal_STEM_05.wav'  # same song in training
-
+    u'TheScarletBrand_LesFleursDuMal_STEM_05.wav',  # same song in training
+    # Female singer
+    # Male singer
+    # Piano
+    # Trumpet
+    # (empty)
+    # Violin
+    # (empty)
 ]
 
 batch_size = 32
