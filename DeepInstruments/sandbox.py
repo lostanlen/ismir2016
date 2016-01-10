@@ -9,6 +9,8 @@ import medleydb.sql
 
 session = medleydb.sql.session()
 stems = session.query(medleydb.sql.model.Stem).all()
+stems = [ stem for stem in stems if not stem.track.has_bleed]
+
 training_paths = []
 test_paths = []
 for name in di.singlelabel.names:
