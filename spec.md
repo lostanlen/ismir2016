@@ -49,5 +49,5 @@ F. *Dataset*
 
 G. Single-label classification
 1. Write get_melody_gate
-2. Write get_activation
+2. [DONE] Write get_activation
 3. Write get_melody
