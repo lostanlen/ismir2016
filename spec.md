@@ -46,3 +46,8 @@ F. *Dataset*
 8. [DONE] If there are several stems of the same instrument in a given track,
    discard non-annotated stems from test set
 9. [DONE] Separate singers between training set and test set to avoid artist bias
+
+G. Single-label classification
+1. Write get_melody_gate
+2. Write get_activation
+3. Write get_melody
