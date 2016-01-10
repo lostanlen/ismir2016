@@ -110,7 +110,7 @@ def confusion_matrix(Y_true, Y_predicted):
 def get_activation(stem):
     track_activations = np.vstack(stem.track.activations_data)[:, 1:]
     stem_id = int(stem.name[1:])
-    return track_activations[stem_id - 1]
+    return track_activations[:, stem_id - 1]
 
 
 @memory.cache
