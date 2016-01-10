@@ -136,6 +136,23 @@ def melody_annotation_durations():
     return np.transpose(np.vstack(tuples))
 
 
+def test_accuracy(X_test, Y_test, batch_size, epoch_size, graph):
+    labels = range(Y_test.shape[1])
+    test_prediction = graph.predict({"X": X_test})
+    Y_test_predicted = test_prediction["Y"]
+    y_test_predicted = np.argmax(Y_test_predicted, axis=1)
+    y_test_true = np.argmax(Y_test, axis=1)
+    cm = sklearn.metrics.confusion_matrix(y_test_true, y_test_predicted,
+                                          labels)
+    cm = cm.astype(np.float64)
+    cm = cm / cm.sum(axis=1)[:, np.newaxis]
+    test_accuracies = np.diag(cm)
+    mean_accuracy = np.mean(test_accuracies)
+    std_accuracy = np.std(test_accuracies)
+    print "test mean accuracy = ", mean_accuracy, " +/- ", std_accuracy
+    return test_accuracies
+
+
 def train_accuracy(X_train_list, Y_train_list,
                    batch_size, datagen, epoch_size, graph):
     labels = len(Y_train_list)
@@ -165,23 +182,7 @@ def train_accuracy(X_train_list, Y_train_list,
     return train_accuracies
 
 
-def test_accuracy(X_test, Y_test, batch_size, epoch_size, graph):
-    labels = range(Y_test.shape[1])
-    test_prediction = graph.predict({"X": X_test})
-    Y_test_predicted = test_prediction["Y"]
-    y_test_predicted = np.argmax(Y_test_predicted, axis=1)
-    y_test_true = np.argmax(Y_test, axis=1)
-    cm = sklearn.metrics.confusion_matrix(y_test_true, y_test_predicted,
-                                          labels)
-    cm = cm.astype(np.float64)
-    cm = cm / cm.sum(axis=1)[:, np.newaxis]
-    test_accuracies = np.diag(cm)
-    mean_accuracy = np.mean(test_accuracies)
-    std_accuracy = np.std(test_accuracies)
-    print "test mean accuracy = ", mean_accuracy, " +/- ", std_accuracy
-    return test_accuracies
-
-
+@memory.cache
 def split_stems(names,
                 test_discarded,
                 training_discarded,
