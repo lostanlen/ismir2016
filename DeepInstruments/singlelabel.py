@@ -184,8 +184,8 @@ def test_accuracy(X_test, Y_test, batch_size, epoch_size, graph):
 
 def split_stems(names,
                 test_discarded,
-                training_to_test,
                 training_discarded,
+                training_to_test,
                 stems):
     training_stems = []
     test_stems = []
