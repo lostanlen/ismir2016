@@ -43,6 +43,6 @@ F. *Dataset*
    activations, called by generator
 6. Upload MedleyDB on di and cerfeuil
 7. [DONE] Extract annotated vs non-annotated files for single-label classes
-8. If there are several stems of the same instrument in a given track,
+8. [DONE] If there are several stems of the same instrument in a given track,
    discard non-annotated stems from test set
-9. Separate singers between training set and test set to avoid artist bias
+9. [DONE] Separate singers between training set and test set to avoid artist bias
