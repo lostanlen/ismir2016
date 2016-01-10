@@ -11,17 +11,6 @@ session = medleydb.sql.session()
 stems = session.query(medleydb.sql.model.Stem).all()
 stems = [ stem for stem in stems if not stem.track.has_bleed]
 
-training_paths = []
-test_paths = []
-for name in di.singlelabel.names:
-    instrument_stems = [ stem for stem in stems
-                         if stem.instrument.name == name ]
-    training_paths.append([ os.path.split(stem.audio_path)[1]
-                            for stem in instrument_stems
-                            if stem.rank ])
-    test_paths.append([ os.path.split(stem.audio_path)[1]
-                        for stem in instrument_stems
-                        if not stem.rank ])
 
 batch_size = 32
 decision_length = 131072 # in samples

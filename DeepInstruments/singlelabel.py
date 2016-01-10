@@ -1,4 +1,5 @@
 import collections
+import DeepInstruments as di
 import joblib
 import medleydb
 import numpy as np
@@ -33,7 +34,7 @@ training_discarded = [
 
 ]
 
-training_to_set = [
+training_to_test = [
     # Clean electric guitar
     # (empty)
     # Distorted electric guitar
@@ -179,3 +180,34 @@ def test_accuracy(X_test, Y_test, batch_size, epoch_size, graph):
     std_accuracy = np.std(test_accuracies)
     print "test mean accuracy = ", mean_accuracy, " +/- ", std_accuracy
     return test_accuracies
+
+
+def split_stems(names,
+                test_discarded,
+                training_to_test,
+                training_discarded,
+                stems):
+    training_stems = []
+    test_stems = []
+    for name in names:
+        instrument_stems = [ stem for stem in stems
+                             if stem.instrument.name == name ]
+        training_instrument_stems = []
+        test_instrument_stems = []
+        for stem in instrument_stems:
+            stem_filename = os.path.split(stem.audio_path)[1]
+            if stem.rank:
+                if stem_filename in training_discarded:
+                    pass
+                elif stem_filename in training_to_test:
+                    test_instrument_stems.append(stem)
+                else:
+                    training_instrument_stems.append(stem)
+            else:
+                if stem_filename in test_discarded:
+                    pass
+                else:
+                    test_instrument_stems.append(stem)
+        training_stems.append(training_instrument_stems)
+        test_stems.append(test_instrument_stems)
+    return test_stems, training_stems
