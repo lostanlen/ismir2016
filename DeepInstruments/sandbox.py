@@ -25,15 +25,18 @@ for name in di.singlelabel.names:
 
 training_discarded = [
     # Clean electric guitar
-    u'CelestialShore_DieForUs_STEM_05.wav'  # overdubs and shoegaze effects
+    u'CelestialShore_DieForUs_STEM_05.wav',  # overdubs and shoegaze effects
     # Distorted electric guitar
-    u'Meaxic_TakeAStep_STEM_03.wav'  # overdubs
-    u'TheSoSoGLos_Emergency_STEM_04.wav' # overdubs
+    u'Meaxic_TakeAStep_STEM_03.wav',  # overdubs
+    u'TheSoSoGLos_Emergency_STEM_04.wav',  # overdubs
     # Female singer
+    u'BrandonWebster_DontHearAThing_STEM_02.wav',  # has bleed
     # Male singer
     # Piano
+    u'ClaraBerryAndWooldog_Boys_STEM_05.wav',  # has bleed
+    u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
     # Trumpet
-    # (empty)
+    u'MusicDelta_FusionJazz_STEM_06.wav'  # has sordina
     # Violin
     # (empty)
 
@@ -45,12 +48,19 @@ training_to_set = [
     # Distorted electric guitar
     # (empty)
     # Female singer
+    u'HopAlong_SisterCities_STEM_07',  # to enrich test set
+    u'LizNelson_Coldwar_STEM_02.wav',  # to avoid artist bias
+    u'LizNelson_ImComingHome_STEM_01.wav',  # to avoid artist bias
+    u'LizNelson_ImComingHome_STEM_04.wav',  # to avoid artist bias
+    u'LizNelson_Rainfall_STEM_01.wav',  # to avoid artist bias
     # Male singer
+    u'BigTroubles_Phantom_STEM_04.wav'  # to avoid artist bias
+    u'HeladoNegro_MitadDelMundo_STEM_08.wav',  # to avoid artist bias
+    u'StevenClark_Bounty_STEM_08.wav',  # to avoid artist bias
     # Piano
     # Trumpet
-    u'MusicDelta_Beethoven_STEM_14.wav',
-    u'MusicDelta_FusionJazz_STEM_05.wav',
-    u'MusicDelta_ModalJazz_STEM_05.wav',
+    u'MusicDelta_Beethoven_STEM_14.wav',  # to avoid song bias
+    u'MusicDelta_ModalJazz_STEM_05.wav',  # to enrich test set
     # Violin
     u'JoelHelander_Definition_STEM_02.wav',
     u'JoelHelander_ExcessiveResistancetoChange_STEM_13.wav',
@@ -72,7 +82,7 @@ test_discarded = [
     u'BigTroubles_Phantom_STEM_03.wav',  # same song in training
     u'BigTroubles_Phantom_STEM_03.wav',  # same song in training
     u'Creepoid_OldTree_STEM_05.wav',  # same song in training
-    u'HopAlong_SisterCities_STEM_08',  # same song in training
+    u'HopAlong_SisterCities_STEM_08.wav',  # same song in training
     u'MusicDelta_Britpop_STEM_03.wav',  # is arguably not distorted at all
     u'MusicDelta_Rockabilly_STEM_03.wav',  # is overdrive, not distortion
     u'MusicDelta_SpeedMetal_STEM_03.wav',  # same song in training
@@ -80,7 +90,10 @@ test_discarded = [
     u'PurlingHiss_Lolita_STEM_04.wav',  # same song in training
     u'TheScarletBrand_LesFleursDuMal_STEM_05.wav',  # same song in training
     # Female singer
+    u'ClaraBerryAndWooldog_AirTraffic_STEM_07.wav',  # to avoid artist bias
+    u'LizNelson_ImComingHome_STEM_02.wav',  # has bleed
     # Male singer
+    u'Creepoid_OldTree_STEM_09.wav',  # is a vocal FX track
     # Piano
     # Trumpet
     # (empty)
