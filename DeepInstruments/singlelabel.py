@@ -188,7 +188,6 @@ def train_accuracy(X_train_list, Y_train_list,
     return train_accuracies
 
 
-@memory.cache
 def split_stems(names,
                 test_discarded,
                 training_discarded,
@@ -197,8 +196,8 @@ def split_stems(names,
     training_stems = []
     test_stems = []
     for name in names:
-        instrument_stems = [ stem for stem in stems
-                             if stem.instrument.name == name ]
+        instrument_stems = [stem for stem in stems
+                            if stem.instrument.name == name]
         training_instrument_stems = []
         test_instrument_stems = []
         for stem in instrument_stems:
