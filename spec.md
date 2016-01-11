@@ -46,6 +46,7 @@ F. *Dataset*
 8. [DONE] If there are several stems of the same instrument in a given track,
    discard non-annotated stems from test set
 9. [DONE] Separate singers between training set and test set to avoid artist bias
+10. [DONE] Report misnomer of CroqueMadame_Pilot(Lakelot)_ACTIVATION_CONF.lab
 
 G. Single-label classification
 1. Write get_melody_gate
