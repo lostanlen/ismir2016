@@ -8,12 +8,17 @@ import numpy as np
 import medleydb.sql
 
 session = medleydb.sql.session()
-stems = session.query(medleydb.sql.model.Stem).all()
-stems = [stem for stem in stems if not stem.track.has_bleed]
+stems = session.query(medleydb.sql.model.Stem).filter(
+    medleydb.sql.model.Track.has_bleed == False
+)
 (test_stems, training_stems) = di.singlelabel.split_stems(
     di.singlelabel.names, di.singlelabel.test_discarded,
     di.singlelabel.training_discarded, di.singlelabel.training_to_test,
     stems)
+
+
+
+
 
 batch_size = 32
 decision_length = 131072 # in samples
