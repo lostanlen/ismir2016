@@ -74,50 +74,6 @@ def build_graph(
     return graph
 
 
-class ChunkGenerator(object):
-    def __init__(self,
-                 decision_duration,
-                 hop_duration,
-                 silence_threshold):
-        self.decision_length = int(decision_duration / hop_duration)
-        self.silence_threshold = silence_threshold
-
-    def flow(self,
-             X_list,
-             Y_list,
-             batch_size=32,
-             epoch_size=4096):
-        n_batches = int(math.ceil(float(epoch_size)/batch_size))
-        n_instruments = len(Y_list)
-        n_bins = X_list[0].shape[0]
-        X_batch = np.zeros((batch_size, 1, n_bins, self.decision_length), np.float32)
-        Y_batch = np.zeros((batch_size, n_instruments), np.float32)
-
-        y_epoch = np.random.randint(0, n_instruments, size=epoch_size)
-        for b in range(n_batches):
-            for sample_id in range(batch_size):
-                y = y_epoch[b*batch_size + sample_id]
-                Y_batch[sample_id, :] = Y_list[y]
-                X_batch[sample_id, :, :, :] = self.random_crop(X_list[y])
-
-            yield X_batch, Y_batch
-
-
-    def random_crop(self, X_instrument):
-        (n_bins, n_hops) = X_instrument.shape
-        is_silence = True
-        n_rejections = 0
-        X = np.zeros((n_bins, self.decision_length), dtype=np.float32)
-        while is_silence & (n_rejections < 10):
-            onset = random.randint(0, n_hops - self.decision_length)
-            offset = onset + self.decision_length
-            X = X_instrument[:, onset:offset]
-            max_amplitude = np.max(np.mean(X, axis=0))
-            is_silence = (max_amplitude < self.silence_threshold)
-            n_rejections += 1
-        return np.reshape(X, (1, n_bins, self.decision_length))
-
-
 def run_graph(X_train_list, Y_train_list, X_test, Y_test,
               batch_size, datagen, epoch_size, every_n_epoch,
               graph, n_epochs):
