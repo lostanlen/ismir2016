@@ -7,18 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import medleydb.sql
 
-session = medleydb.sql.session()
-stems = session.query(medleydb.sql.model.Stem).filter(
-    medleydb.sql.model.Track.has_bleed == False
-)
-(test_stems, training_stems) = di.singlelabel.split_stems(
-    di.singlelabel.names, di.singlelabel.test_discarded,
-    di.singlelabel.training_discarded, di.singlelabel.training_to_test,
-    stems)
-
-for stem_class in test_stems:
-    for stem in stem_class:
-        melody = di.singlelabel.get_melody(stem)
 
 batch_size = 32
 decision_length = 131072 # in samples
@@ -50,21 +38,42 @@ drop2_proportion = 0.5
 
 
 session = medleydb.sql.session()
+stems = session.query(medleydb.sql.model.Stem).filter(
+    medleydb.sql.model.Track.has_bleed == False
+)
+(test_stems, training_stems) = di.singlelabel.split_stems(
+    di.singlelabel.names, di.singlelabel.test_discarded,
+    di.singlelabel.training_discarded, di.singlelabel.training_to_test,
+    stems)
+
+
+# Compute audio features on test set
+X_classes = []
+for class_stems in training_stems:
+    X_files = []
+    for stem in class_stems:
+        X = di.audio.get_X(decision_length, fmin, hop_length,
+                           n_bins_per_octave, n_octaves, stem)
+        X_files.append(X)
+    X_classes.append(X_files)
+
+activations_classes = []
+for class_stems in training_stems:
+    activations_files = map(di.singlelabel.get_activation, class_stems)
+    activations_classes.append(activations_files)
+
+
+full_X = np.hstack([np.hstack(X_class) for X_class in X_classes])
+X_mean = np.mean(full_X)
+X_std = np.std(full_X)
+
+n_classes = len(X_classes)
+for class_id in range(n_classes):
+    n_files = len(X_classes[class_id])
+    for file_id in range(X_classes[class_id]):
+        X[class_id][file_id] = (X[class_id][file_id] - X_mean) / X_std
+
+
+session = medleydb.sql.session()
 tracks = session.query(medleydb.sql.model.Track).all()
 track = tracks[1]
-
-# X (audio representation)
-X = di.audio.get_X(decision_length, fmin, hop_length, n_bins_per_octave,
-                   n_octaves, track)
-
-# Y (all instrument activations)
-activations = di.wrangling.get_activations(instrument_names, track)
-
-
-# Melodic Z (piano-rolls, i.e. time-frequency activations)
-pianorolls = di.wrangling.get_pianorolls(fmin, melodic_names,
-                                         n_bins_per_octave, n_octaves, track)
-
-
-# Non-melodic Z (non-melodic activations)
-nonmelodic_activations = di.wrangling.get_activations(nonmelodic_names, track)
