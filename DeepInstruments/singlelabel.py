@@ -145,6 +145,9 @@ class ChunkGenerator(object):
         return np.reshape(X, (1, n_bins, self.decision_length))
 
 
+def activation_indices(activation):
+    return np.hstack(np.argwhere(np.greater_equal(activation, 0.5)))
+
 
 def confusion_matrix(Y_true, Y_predicted):
     y_true = np.argmax(Y_true, axis=1)
