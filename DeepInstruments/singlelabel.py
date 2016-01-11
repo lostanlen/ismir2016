@@ -113,6 +113,14 @@ def get_activation(stem):
     return track_activations[:, stem_id - 1]
 
 
+def get_melody(stem):
+    melody_3rd_definition = stem.track.melodies[2]
+    melodic_f0s = np.vstack(melody_3rd_definition.annotation_data)[:, 1:]
+    if stem.rank:
+        return melodic_f0s[:, stem.rank]
+    else:
+        return np.zeros(melodic_f0s.shape[0])
+
 @memory.cache
 def melody_annotation_durations():
     session = medleydb.sql.session()

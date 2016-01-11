@@ -59,16 +59,6 @@ def get_activations(names, track):
     return activations
 
 
-def get_melody(stem):
-    activation = di.singlelabel.get_activation(stem)
-    melody_3rd_definition = stem.track.melodies[2]
-    melodic_f0s = np.vstack(melody_3rd_definition.annotation_data)[:, 1:]
-    if stem.rank:
-        return melodic_f0s[:, stem.rank]
-    else:
-        return np.zeros(melodic_f0s.shape[0])
-    
-
 def get_pianorolls(fmin, melodic_names, n_bins_per_octave, n_octaves, track):
     # get melodic activations
     activation_hop_length = 2048.0
