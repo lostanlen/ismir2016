@@ -16,9 +16,9 @@ stems = session.query(medleydb.sql.model.Stem).filter(
     di.singlelabel.training_discarded, di.singlelabel.training_to_test,
     stems)
 
-
-
-
+for stem_class in test_stems:
+    for stem in stem_class:
+        melody = di.singlelabel.get_melody(stem)
 
 batch_size = 32
 decision_length = 131072 # in samples

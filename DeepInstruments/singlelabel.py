@@ -115,11 +115,16 @@ def get_activation(stem):
 
 def get_melody(stem):
     melody_3rd_definition = stem.track.melodies[2]
-    melodic_f0s = np.vstack(melody_3rd_definition.annotation_data)[:, 1:]
-    if stem.rank:
-        return melodic_f0s[:, stem.rank]
+    if melody_3rd_definition.annotation_data:
+        melodic_f0s = np.vstack(melody_3rd_definition.annotation_data)[:, 1:]
+        if stem.rank:
+            melody = melodic_f0s[:, stem.rank - 1]
+        else:
+            melody = np.zeros(melodic_f0s.shape[0])
     else:
-        return np.zeros(melodic_f0s.shape[0])
+        melody = np.zeros(len(stem.track.activations_data))
+    return melody
+
 
 @memory.cache
 def melody_annotation_durations():
