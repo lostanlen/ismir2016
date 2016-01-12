@@ -144,6 +144,7 @@ class ChunkGenerator(object):
             n_rejections += 1
         return np.reshape(X, (1, n_bins, self.decision_length))
 
+
 def get_indices(activations_classes, decision_length):
     indices_classes = []
     for class_activations in activations_classes:
@@ -160,6 +161,7 @@ def get_indices(activations_classes, decision_length):
         indices_classes.append(indices_files)
     return indices_classes
 
+
 def confusion_matrix(Y_true, Y_predicted):
     y_true = np.argmax(Y_true, axis=1)
     y_predicted = np.argmax(Y_predicted, axis=1)
@@ -170,10 +172,13 @@ def confusion_matrix(Y_true, Y_predicted):
     return cm / cm.sum(axis=1)[:, np.newaxis]
 
 
-def get_activation(stem):
+def get_Y(stem):
     track_activations = np.vstack(stem.track.activations_data)[:, 1:]
     stem_id = int(stem.name[1:])
-    return track_activations[:, stem_id - 1]
+    activations = np.zeros(track_activations.shape[0])
+    instrument_id = di.singlelabel.names.index(stem.instrument.name)
+    activations[:, instrument_id] = track_activations[:, stem_id - 1]
+    return activations
 
 
 def get_melody(stem):
