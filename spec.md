@@ -49,6 +49,6 @@ F. *Dataset*
 10. [DONE] Report misnomer of CroqueMadame_Pilot(Lakelot)_ACTIVATION_CONF.lab
 
 G. Single-label classification
-1. Write get_melody_gate
-2. [DONE] Write get_activation
+1. [DONE] Write get_activation
+2. [DONE] Write get_indices (with boundary trimming)
 3. [DONE] Write get_melody
