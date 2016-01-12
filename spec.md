@@ -41,7 +41,7 @@ F. *Dataset*
 4. [DONE] Take the max of stems activations that play the same instrument
 5. Write a function that outputs Y from the Medley instrument
    activations, called by generator
-6. Upload MedleyDB on di and cerfeuil
+6. [DONE] Upload MedleyDB on di and cerfeuil
 7. [DONE] Extract annotated vs non-annotated files for single-label classes
 8. [DONE] If there are several stems of the same instrument in a given track,
    discard non-annotated stems from test set
