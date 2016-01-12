@@ -77,8 +77,9 @@ for class_stems in training_stems:
     melody_classes.append(melody_files)
 
 
-# Sample activations at random
+# Draw a chunk at random
 n_classes = len(training_stems)
+half_activation_hop = (decision_length / 2048) / 2
 random_class = np.random.randint(n_classes)
 indices_files = indices_classes[random_class]
 file_lengths = map(len, indices_files)
@@ -88,6 +89,22 @@ random_file = np.random.choice(n_files, p=file_probabilities)
 indices = indices_files[random_file]
 random_index = np.random.choice(indices)
 
+# Get corresponding activation
+activation_start = random_index - half_activation_hop
+activation_stop = random_index + half_activation_hop
+activation_range = range(activation_start, activation_stop)
+activation_class = activations_classes[random_class]
+activation_file = activation_class[random_file]
+activation = activation_file[activation_range]
+
+# Get corresponding melody
+melody_start = activation_start * 2048 / 256
+melody_stop = activation_stop * 2048 / 256
+melody_range = range(melody_start, melody_stop)
+melody_class = melody_classes[random_class]
+melody_file = melody_class[random_file]
+melody = melody_file[melody_range]
+melody_gate = np.greater(melody, 0)
 
 full_X = np.hstack([np.hstack(X_class) for X_class in X_classes])
 X_mean = np.mean(full_X)
