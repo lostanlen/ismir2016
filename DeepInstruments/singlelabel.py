@@ -175,7 +175,9 @@ def confusion_matrix(Y_true, Y_predicted):
 def get_Y(stem):
     track_activations = np.vstack(stem.track.activations_data)[:, 1:]
     stem_id = int(stem.name[1:])
-    activations = np.zeros(track_activations.shape[0])
+    n_frames = track_activations.shape[0]
+    n_instruments = len(di.singlelabel.names)
+    activations = np.zeros((n_frames, n_instruments))
     instrument_id = di.singlelabel.names.index(stem.instrument.name)
     activations[:, instrument_id] = track_activations[:, stem_id - 1]
     return activations
