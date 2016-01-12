@@ -52,3 +52,4 @@ G. Single-label classification
 1. [DONE] Write get_activation
 2. [DONE] Write get_indices (with boundary trimming)
 3. [DONE] Write get_melody
+4. Memoize X with joblib
