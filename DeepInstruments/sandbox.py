@@ -47,7 +47,7 @@ stems = session.query(medleydb.sql.model.Stem).filter(
     stems)
 
 
-# Compute audio features on test set
+# Compute audio features
 X_classes = []
 for class_stems in training_stems:
     X_files = []
@@ -57,10 +57,36 @@ for class_stems in training_stems:
         X_files.append(X)
     X_classes.append(X_files)
 
+
+# Measure activations
 activations_classes = []
 for class_stems in training_stems:
     activations_files = map(di.singlelabel.get_activation, class_stems)
     activations_classes.append(activations_files)
+
+
+# Find indices of activated instruments
+indices_classes = di.singlelabel.get_indices(activations_classes,
+                                             decision_length)
+
+
+# Get melodies
+melody_classes = []
+for class_stems in training_stems:
+    melody_files = map(di.singlelabel.get_melody, class_stems)
+    melody_classes.append(melody_files)
+
+
+# Sample activations at random
+n_classes = len(training_stems)
+random_class = np.random.randint(n_classes)
+indices_files = indices_classes[random_class]
+file_lengths = map(len, indices_files)
+file_probabilities = map(float, file_lengths) / np.sum(file_lengths)
+n_files = len(indices_files)
+random_file = np.random.choice(n_files, p=file_probabilities)
+indices = indices_files[random_file]
+random_index = np.random.choice(indices)
 
 
 full_X = np.hstack([np.hstack(X_class) for X_class in X_classes])
