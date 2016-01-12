@@ -28,7 +28,7 @@ D. *Evaluation*
     2. [DONE] Integrate the pipeline into a function so that the whole experiment can be ran in one step.
     3. [DONE] Measure class imbalance. How many decision windows per class ?
     4. Use MIR metrics for multi-label classif.
-    5. Make a 80/20 file-based split for the retained instruments.
+    5. [DONE] Make a 80/20 file-based split for the retained instruments.
 
 E. *Display*
     1. Export filters from conv1 as images for the three experiments. Are they learned note models ?
