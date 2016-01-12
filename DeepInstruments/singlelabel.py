@@ -158,6 +158,7 @@ def get_indices(activations_classes, decision_length):
                     np.less(indices, right_bound))[0]]
             indices_files.append(indices)
         indices_classes.append(indices_files)
+    return indices_classes
 
 def confusion_matrix(Y_true, Y_predicted):
     y_true = np.argmax(Y_true, axis=1)
