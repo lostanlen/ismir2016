@@ -144,10 +144,20 @@ class ChunkGenerator(object):
             n_rejections += 1
         return np.reshape(X, (1, n_bins, self.decision_length))
 
-
-def activation_indices(activation):
-    return np.hstack(np.argwhere(np.greater_equal(activation, 0.5)))
-
+def get_indices(activations_classes, decision_length):
+    indices_classes = []
+    for class_activations in activations_classes:
+        indices_files = []
+        half_trimming_length = 0.5 * (decision_length / 256)
+        for activation in class_activations:
+            left_bound = half_trimming_length
+            right_bound = len(activation) - half_trimming_length
+            indices = np.where(np.greater_equal(activation, 0.5))[0]
+            indices = indices[np.where(
+                    np.greater(indices, left_bound) &
+                    np.less(indices, right_bound))[0]]
+            indices_files.append(indices)
+        indices_classes.append(indices_files)
 
 def confusion_matrix(Y_true, Y_predicted):
     y_true = np.argmax(Y_true, axis=1)
