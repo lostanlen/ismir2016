@@ -226,6 +226,38 @@ def melody_annotation_durations():
     return np.transpose(np.vstack(tuples))
 
 
+@memory.cache
+def split_stems(names,
+                test_discarded,
+                training_discarded,
+                training_to_test,
+                stems):
+    training_stems = []
+    test_stems = []
+    for name in names:
+        instrument_stems = [stem for stem in stems
+                            if stem.instrument.name == name]
+        training_instrument_stems = []
+        test_instrument_stems = []
+        for stem in instrument_stems:
+            stem_filename = os.path.split(stem.audio_path)[1]
+            if stem.rank:
+                if stem_filename in training_discarded:
+                    pass
+                elif stem_filename in training_to_test:
+                    test_instrument_stems.append(stem)
+                else:
+                    training_instrument_stems.append(stem)
+            else:
+                if stem_filename in test_discarded:
+                    pass
+                else:
+                    test_instrument_stems.append(stem)
+        training_stems.append(training_instrument_stems)
+        test_stems.append(test_instrument_stems)
+    return test_stems, training_stems
+
+
 def test_accuracy(X_test, Y_test, batch_size, epoch_size, graph):
     labels = range(Y_test.shape[1])
     test_prediction = graph.predict({"X": X_test})
@@ -270,34 +302,3 @@ def train_accuracy(X_train_list, Y_train_list,
     std_accuracy = np.std(train_accuracies)
     print "train accuracy = ", mean_accuracy, " +/- ", std_accuracy
     return train_accuracies
-
-
-def split_stems(names,
-                test_discarded,
-                training_discarded,
-                training_to_test,
-                stems):
-    training_stems = []
-    test_stems = []
-    for name in names:
-        instrument_stems = [stem for stem in stems
-                            if stem.instrument.name == name]
-        training_instrument_stems = []
-        test_instrument_stems = []
-        for stem in instrument_stems:
-            stem_filename = os.path.split(stem.audio_path)[1]
-            if stem.rank:
-                if stem_filename in training_discarded:
-                    pass
-                elif stem_filename in training_to_test:
-                    test_instrument_stems.append(stem)
-                else:
-                    training_instrument_stems.append(stem)
-            else:
-                if stem_filename in test_discarded:
-                    pass
-                else:
-                    test_instrument_stems.append(stem)
-        training_stems.append(training_instrument_stems)
-        test_stems.append(test_instrument_stems)
-    return test_stems, training_stems
