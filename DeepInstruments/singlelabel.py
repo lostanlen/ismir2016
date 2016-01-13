@@ -145,6 +145,16 @@ class ChunkGenerator(object):
         return np.reshape(X, (1, n_bins, self.decision_length))
 
 
+def confusion_matrix(Y_true, Y_predicted):
+    y_true = np.argmax(Y_true, axis=1)
+    y_predicted = np.argmax(Y_predicted, axis=1)
+    n_classes = np.size(Y_true, 1)
+    labels = range(n_classes)
+    cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
+    cm = cm.astype('float64')
+    return cm / cm.sum(axis=1)[:, np.newaxis]
+
+
 def get_indices(activations_classes, decision_length):
     indices_classes = []
     for class_activations in activations_classes:
@@ -162,27 +172,6 @@ def get_indices(activations_classes, decision_length):
     return indices_classes
 
 
-def confusion_matrix(Y_true, Y_predicted):
-    y_true = np.argmax(Y_true, axis=1)
-    y_predicted = np.argmax(Y_predicted, axis=1)
-    n_classes = np.size(Y_true, 1)
-    labels = range(n_classes)
-    cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
-    cm = cm.astype('float64')
-    return cm / cm.sum(axis=1)[:, np.newaxis]
-
-
-def get_Y(stem):
-    track_activations = np.vstack(stem.track.activations_data)[:, 1:]
-    stem_id = int(stem.name[1:])
-    n_frames = track_activations.shape[0]
-    n_instruments = len(di.singlelabel.names)
-    activations = np.zeros((n_frames, n_instruments))
-    instrument_id = di.singlelabel.names.index(stem.instrument.name)
-    activations[:, instrument_id] = track_activations[:, stem_id - 1]
-    return activations
-
-
 def get_melody(stem):
     melody_3rd_definition = stem.track.melodies[2]
     if melody_3rd_definition.annotation_data:
@@ -194,6 +183,17 @@ def get_melody(stem):
     else:
         melody = np.zeros(len(stem.track.activations_data))
     return melody
+
+
+def get_Y(stem):
+    track_activations = np.vstack(stem.track.activations_data)[:, 1:]
+    stem_id = int(stem.name[1:])
+    n_frames = track_activations.shape[0]
+    n_instruments = len(di.singlelabel.names)
+    activations = np.zeros((n_frames, n_instruments))
+    instrument_id = di.singlelabel.names.index(stem.instrument.name)
+    activations[:, instrument_id] = track_activations[:, stem_id - 1]
+    return activations
 
 
 @memory.cache
