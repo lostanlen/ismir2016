@@ -186,7 +186,6 @@ def get_melody(stem):
 
 
 def get_Y(stem):
-    print(stem.track.name)
     track_activations = np.vstack(stem.track.activations_data)[:, 1:]
     stem_id = int(stem.name[1:])
     n_frames = track_activations.shape[0]
