@@ -52,15 +52,6 @@ for class_stems in training_stems:
     melody_classes.append(melody_files)
 
 
-# Get corresponding activation
-activation_start = random_index - half_activation_hop
-activation_stop = random_index + half_activation_hop
-activation_range = range(activation_start, activation_stop)
-activation_class = activations_classes[random_class]
-activation_file = activation_class[random_file]
-activation = activation_file[activation_range]
-
-
 # Get corresponding melody
 melody_start = activation_start * 2048 / 256
 melody_stop = activation_stop * 2048 / 256
