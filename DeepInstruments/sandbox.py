@@ -60,6 +60,7 @@ Y_classes = []
 for class_stems in training_stems:
     Y_files = []
     for stem in class_stems:
+        print(stem.track.artist)
         print(stem.track.name)
         Y_files.append(di.singlelabel.get_Y(stem))
     Y_classes.append(Y_files)
