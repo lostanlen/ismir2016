@@ -1,6 +1,3 @@
-import os
-os.environ["MEDLEYDB_PATH"] = os.path.expanduser("~/datasets/MedleyDB")
-
 import DeepInstruments as di
 import librosa
 import matplotlib.pyplot as plt
