@@ -1,3 +1,4 @@
+import DeepInstruments as di
 import joblib
 import librosa
 import numpy as np
@@ -5,9 +6,9 @@ import os
 
 cachedir = os.path.expanduser('~/joblib')
 memory = joblib.Memory(cachedir=cachedir, verbose=0)
+cached_get_X = memory.cache(di.audio.get_X)
 
 
-@memory.cache
 def get_X(decision_length,
           fmin,
           hop_length,
