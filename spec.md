@@ -55,3 +55,4 @@ G. Single-label classification
 3. [DONE] Write get_melody
 4. [DONE] Memoize X with joblib
 5. [DONE] Write a dedicated generator
+6. [DONE] Standardize X in the generator
