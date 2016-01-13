@@ -118,6 +118,12 @@ class ChunkGenerator(object):
                 for stem in class_stems
             ))
             Y.append([ di.singlelabel.get_Y(stem) for stem in class_stems])
+        X_mat = np.hstack([X_file for X_class in X for X_file in X_class])
+        self.X_mean = np.mean(X_mat)
+        self.X_std = np.std(X_mat)
+        for instrument_id in range(len(X)):
+            X[instrument_id] = [(X_file-self.X_mean) / self.X_std
+                                for X_file in X[instrument_id]]
         self.X = X
         self.Y = Y
         self.indices = di.singlelabel.get_indices(Y, decision_length)
