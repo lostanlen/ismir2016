@@ -6,6 +6,7 @@ A. *Audio features*
     2. [DONE] Convert features to float32.
     3. Generate silenced frames in test set.
     4. [DONE] Review perceptual loudness reference in get_X
+    5. Explicitly ignore WavFileWarning
 
 B. *Deep learning*
     1. [DONE] Write Graph model without Z
