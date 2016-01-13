@@ -90,7 +90,7 @@ X_range = xrange(X_middle-half_X_hop, X_middle+half_X_hop)
 X = X_classes[random_class][random_file][:, X_range]
 
 # Get Y
-Y = Y_classes[random_class][random_file][random_index, :]
+Y = Y_classes[random_class][random_file][:, random_index]
 
 
 

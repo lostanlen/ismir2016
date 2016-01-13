@@ -20,7 +20,6 @@ C. *Pitch supervision*
     1. [CLOSED] Get Gt samples for RWC
     2. [DONE] Check MIDI offsets in RWC dict
     3. [DONE] Write conversion from MIDI to ConvNet axis.
-    4. Expand third dimension according to number of channels
 
 D. *Evaluation*
     1. [DONE] Write class-based accuracy measure
@@ -39,7 +38,7 @@ F. *Dataset*
 2. Update wrangling so that it lists files, not classes
 3. [DONE] Restrict to a certain number of classes
 4. [DONE] Take the max of stems activations that play the same instrument
-5. Write a function that outputs Y from the Medley instrument
+5. [DONE] Write a function that outputs Y from the Medley instrument
    activations, called by generator
 6. [DONE] Upload MedleyDB on di and cerfeuil
 7. [DONE] Extract annotated vs non-annotated files for single-label classes
