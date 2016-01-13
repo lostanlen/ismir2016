@@ -3,11 +3,13 @@ os.environ["MEDLEYDB_PATH"] = os.path.join(os.path.expanduser("~"),
                                            "datasets", "MedleyDB")
 
 wrong_names = [
-    "CroqueMadame_Pilot(Lakelot)"
+    "CroqueMadame_Pilot(Lakelot)",
+    "Phoenix_BrokenPledge-ChicagoReel"
 ]
 
 fixed_names = [
-    "CroqueMadame_Pilot"
+    "CroqueMadame_Pilot",
+    "Phoenix_BrokenPledgeChicagoReel"
 ]
 
 suffix = "_ACTIVATION_CONF.lab"
