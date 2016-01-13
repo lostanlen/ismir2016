@@ -160,7 +160,8 @@ def get_indices(activations_classes, decision_length):
     for class_activations in activations_classes:
         indices_files = []
         half_trimming_length = 0.5 * (decision_length / 2048)
-        for activation in class_activations:
+        for activations in class_activations:
+            activation = np.max(activations, axis=0)
             left_bound = half_trimming_length
             right_bound = len(activation) - half_trimming_length
             indices = np.where(np.greater_equal(activation, 0.5))[0]
