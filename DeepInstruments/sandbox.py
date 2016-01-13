@@ -60,22 +60,12 @@ Y_classes = []
 for class_stems in training_stems:
     Y_files = []
     for stem in class_stems:
-        print(stem.track.artist)
-        print(stem.track.name)
         Y_files.append(di.singlelabel.get_Y(stem))
     Y_classes.append(Y_files)
 
 
-stems = training_stems
 # Find indices of activated instruments
-indices_classes = di.singlelabel.get_indices(stems, decision_length)
-
-
-# Get melodies
-melody_classes = []
-for class_stems in training_stems:
-    melody_files = map(di.singlelabel.get_melody, class_stems)
-    melody_classes.append(melody_files)
+indices_classes = di.singlelabel.get_indices(Y_classes, decision_length)
 
 
 # Draw a chunk at random
@@ -100,7 +90,16 @@ X_range = xrange(X_middle-half_X_hop, X_middle+half_X_hop)
 X = X_classes[random_class][random_file][:, X_range]
 
 # Get Y
-Y = Y_classes[random_class][random_file][:, random_index]
+Y = Y_classes[random_class][random_file][random_index, :]
+
+
+
+# Compute melodies Z
+melody_classes = []
+for class_stems in training_stems:
+    melody_files = map(di.singlelabel.get_melody, class_stems)
+    melody_classes.append(melody_files)
+
 
 # Get corresponding activation
 activation_start = random_index - half_activation_hop
