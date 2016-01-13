@@ -4,10 +4,6 @@ import librosa
 import numpy as np
 import os
 
-cachedir = os.path.expanduser('~/joblib')
-memory = joblib.Memory(cachedir=cachedir, verbose=0)
-cached_get_X = memory.cache(di.audio.get_X)
-
 
 def get_X(decision_length,
           fmin,
@@ -40,3 +36,8 @@ def get_X(decision_length,
             ref_power=1.0)
     X = X.astype(np.float32)
     return X
+
+
+cachedir = os.path.expanduser('~/joblib')
+memory = joblib.Memory(cachedir=cachedir, verbose=0)
+cached_get_X = memory.cache(get_X)
