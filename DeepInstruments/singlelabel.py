@@ -129,12 +129,11 @@ class ChunkGenerator(object):
         self.durations = durations
 
     def flow(self, batch_size=32, epoch_size=4096):
-        half_activation_hop = int(0.5 * (self.decision_length / 2048))
         half_X_hop = int(0.5 * self.decision_length / self.hop_length)
         n_batches = int(math.ceil(float(epoch_size) / batch_size))
         n_bins = self.X[0][0].shape[0]
         n_instruments = self.Y[0][0].shape[0]
-        X_batch_size = (batch_size, 1, n_bins, self.decision_length)
+        X_batch_size = (batch_size, 1, n_bins, 2 * half_X_hop)
         X_batch = np.zeros(X_batch_size, np.float32)
         Y_batch_size = (batch_size, n_instruments)
         Y_batch = np.zeros(Y_batch_size, np.float32)
@@ -145,12 +144,14 @@ class ChunkGenerator(object):
                 instrument_id = y_epoch[batch_id, sample_id]
                 n_files = len(self.indices[instrument_id])
                 durations = self.durations[instrument_id]
-                file_id = np.random.choice(n_files, durations)
+                file_id = np.random.choice(n_files, p=durations)
                 Y_id = np.random.choice(self.indices[instrument_id][file_id])
                 X_id = int(Y_id * self.hop_length / 2048)
                 X_range = xrange(X_id-half_X_hop, X_id+half_X_hop)
-                X_batch[sample_id] = self.X[instrument_id][file_id][:, X_range]
-                Y_batch[sample_id] = self.Y[instrument_id][file_id][:, X_id]
+                X_batch[sample_id, :, :] = \
+                    self.X[instrument_id][file_id][:, X_range]
+                Y_batch[sample_id, :] = \
+                    self.Y[instrument_id][file_id][:, X_id]
             yield X_batch, Y_batch
 
 
