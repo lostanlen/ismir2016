@@ -101,48 +101,24 @@ memory = joblib.Memory(cachedir=cachedir, verbose=0)
 
 class ChunkGenerator(object):
     def __init__(self,
-                 decision_duration,
-                 hop_duration,
-                 silence_threshold):
-        self.decision_length = int(decision_duration / hop_duration)
-        self.silence_threshold = silence_threshold
+                 decision_length,
+                 fmin,
+                 hop_length,
+                 n_bins_per_octave,
+                 n_octaves,
+                 stems):
+        self.decision_length = decision_length
+        X = []
+        delayed_get_X = joblib.delayed(di.audio.cached_get_X)
+        for class_stems in stems:
+            X.append(joblib.Parallel(n_jobs=-1, verbose=10)(
+                delayed_get_X(decision_length, fmin, hop_length,
+                              n_bins_per_octave, n_octaves, stem)
+                for stem in class_stems
+            ))
 
-    def flow(self,
-             X_list,
-             Y_list,
-             batch_size=32,
-             epoch_size=4096):
-        n_batches = int(math.ceil(float(epoch_size)/batch_size))
-        n_instruments = len(Y_list)
-        n_bins = X_list[0].shape[0]
-        X_batch_size = (batch_size, 1, n_bins, self.decision_length)
-        X_batch = np.zeros(X_batch_size, np.float32)
-        Y_batch_size  (batch_size, n_instruments)
-        Y_batch = np.zeros(Y_batch_size, np.float32)
+        self.X = X
 
-        y_epoch = np.random.randint(0, n_instruments, size=epoch_size)
-        for b in range(n_batches):
-            for sample_id in range(batch_size):
-                y = y_epoch[b*batch_size + sample_id]
-                Y_batch[sample_id, :] = Y_list[y]
-                X_batch[sample_id, :, :, :] = self.random_crop(X_list[y])
-
-            yield X_batch, Y_batch
-
-
-    def random_crop(self, X_instrument):
-        (n_bins, n_hops) = X_instrument.shape
-        is_silence = True
-        n_rejections = 0
-        X = np.zeros((n_bins, self.decision_length), dtype=np.float32)
-        while is_silence & (n_rejections < 10):
-            onset = random.randint(0, n_hops - self.decision_length)
-            offset = onset + self.decision_length
-            X = X_instrument[:, onset:offset]
-            max_amplitude = np.max(np.mean(X, axis=0))
-            is_silence = (max_amplitude < self.silence_threshold)
-            n_rejections += 1
-        return np.reshape(X, (1, n_bins, self.decision_length))
 
 
 def confusion_matrix(Y_true, Y_predicted):
@@ -230,8 +206,11 @@ def melody_annotation_durations():
 def split_stems(names,
                 test_discarded,
                 training_discarded,
-                training_to_test,
-                stems):
+                training_to_test):
+    session = medleydb.sql.session()
+    stems = session.query(medleydb.sql.model.Stem).filter(
+        medleydb.sql.model.Track.has_bleed == False
+    ).all()
     training_stems = []
     test_stems = []
     for name in names:

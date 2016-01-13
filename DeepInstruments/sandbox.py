@@ -34,14 +34,9 @@ dense2_channels = 64
 drop2_proportion = 0.5
 
 
-session = medleydb.sql.session()
-stems = session.query(medleydb.sql.model.Stem).filter(
-    medleydb.sql.model.Track.has_bleed == False
-)
 (test_stems, training_stems) = di.singlelabel.split_stems(
     di.singlelabel.names, di.singlelabel.test_discarded,
-    di.singlelabel.training_discarded, di.singlelabel.training_to_test,
-    stems)
+    di.singlelabel.training_discarded, di.singlelabel.training_to_test)
 
 
 # Compute audio features X
