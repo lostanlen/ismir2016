@@ -54,4 +54,4 @@ G. Single-label classification
 2. [DONE] Write get_indices (with boundary trimming)
 3. [DONE] Write get_melody
 4. [DONE] Memoize X with joblib
-5. Write a dedicated generator
+5. [DONE] Write a dedicated generator
