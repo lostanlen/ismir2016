@@ -1,8 +1,5 @@
 import DeepInstruments as di
-import librosa
-import matplotlib.pyplot as plt
-import numpy as np
-import medleydb.sql
+import keras
 
 
 batch_size = 32
@@ -42,36 +39,52 @@ datagen = di.singlelabel.ChunkGenerator(decision_length, fmin,
                                         hop_length, n_bins_per_octave,
                                         n_octaves, training_stems)
 
+graph = di.learning.build_graph(
+    X_height=96,
+    X_width=128,
+    conv1_channels=100,
+    conv1_height=48,
+    conv1_width=32,
+    pool1_height=7,
+    pool1_width=7,
+    conv2_channels=100,
+    conv2_height=8,
+    conv2_width=8,
+    pool2_height=3,
+    pool2_width=3,
+    dense1_channels=512,
+    drop1_proportion=0.25,
+    dense2_channels=64,
+    drop2_proportion=0.25,
+    dense3_channels=8)
+
+graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adagrad")
 
 
+# Train model
+from keras.utils.generic_utils import Progbar
 
-# Compute melodies Z
-melody_classes = []
-for class_stems in training_stems:
-    melody_files = map(di.singlelabel.get_melody, class_stems)
-    melody_classes.append(melody_files)
+loss_history = []
+accuracies_history = []
 
+for epoch_id in xrange(n_epochs):
+    dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
+    print 'Epoch ', 1 + epoch_id
+    progbar = keras.utils.generic_utils.Progbar(epoch_size)
+    batch_id = 0
+    for (X_batch, Y_batch) in dataflow:
+        batch_id += 1
+        loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
+        progbar.update(batch_id * batch_size)
+    print "Training loss = ", loss
+    loss_history.append(loss)
+    if np.mod(epoch_id+1, every_n_epoch) == 0:
+        train_accuracies = di.singlelabel.train_accuracy(
+                X_train_list, Y_train_list,
+                batch_size, datagen, epoch_size, graph)
+        test_accuracies = di.singlelabel.test_accuracy(
+                X_test, Y_test, batch_size, epoch_size, graph)
 
-# Get corresponding melody
-melody_start = activation_start * 2048 / 256
-melody_stop = activation_stop * 2048 / 256
-melody_range = range(melody_start, melody_stop)
-melody_class = melody_classes[random_class]
-melody_file = melody_class[random_file]
-melody = melody_file[melody_range]
-melody_gate = np.greater(melody, 0)
-
-full_X = np.hstack([np.hstack(X_class) for X_class in X_classes])
-X_mean = np.mean(full_X)
-X_std = np.std(full_X)
-
-n_classes = len(X_classes)
-for class_id in range(n_classes):
-    n_files = len(X_classes[class_id])
-    for file_id in range(X_classes[class_id]):
-        X[class_id][file_id] = (X[class_id][file_id] - X_mean) / X_std
-
-
-session = medleydb.sql.session()
-tracks = session.query(medleydb.sql.model.Track).all()
-track = tracks[1]
+        accuracies = di.learning.evaluate(graph, datagen, X_sdbtrain_list, Y_sdbtrain_list,
+                             X_test, Y_test, batch_size, epoch_size)
+        accuracies_history.append(accuracies)
