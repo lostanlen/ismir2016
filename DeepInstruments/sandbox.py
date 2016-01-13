@@ -38,30 +38,10 @@ drop2_proportion = 0.5
     di.singlelabel.names, di.singlelabel.test_discarded,
     di.singlelabel.training_discarded, di.singlelabel.training_to_test)
 
+datagen = di.singlelabel.ChunkGenerator(decision_length, fmin,
+                                        hop_length, n_bins_per_octave,
+                                        n_octaves, training_stems)
 
-# Draw a chunk at random
-n_classes = len(training_stems)
-half_activation_hop = int(0.5 * (float(decision_length) / 2048))
-random_class = np.random.randint(n_classes)
-indices_files = indices_classes[random_class]
-file_lengths = map(len, indices_files)
-file_probabilities = map(float, file_lengths) / np.sum(file_lengths)
-n_files = len(indices_files)
-random_file = np.random.choice(n_files, p=file_probabilities)
-indices = indices_files[random_file]
-random_index = np.random.choice(indices)
-
-
-# Get X
-X_middle = int(random_index * float(hop_length) / 2048)
-half_X_hop = int(0.5 * float(decision_length) / hop_length)
-X_start = X_middle - half_X_hop
-X_stop = X_middle + half_X_hop
-X_range = xrange(X_middle-half_X_hop, X_middle+half_X_hop)
-X = X_classes[random_class][random_file][:, X_range]
-
-# Get Y
-Y = Y_classes[random_class][random_file][:, random_index]
 
 
 
