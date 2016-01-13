@@ -4,12 +4,20 @@ os.environ["MEDLEYDB_PATH"] = os.path.join(os.path.expanduser("~"),
 
 wrong_names = [
     "CroqueMadame_Pilot(Lakelot)",
-    "Phoenix_BrokenPledge-ChicagoReel"
+    "JoelHelander_IntheAtticBedroom(SuitePartThree)",
+    "Phoenix_BrokenPledge-ChicagoReel",
+    "Phoenix_Elzic'sFarewell",
+    "Phoenix_LarkOnTheStrand-DrummondCastle",
+    "Phoenix_SeanCaughlin's-TheScartaglen"
 ]
 
 fixed_names = [
     "CroqueMadame_Pilot",
-    "Phoenix_BrokenPledgeChicagoReel"
+    "JoelHelander_IntheAtticBedroom",
+    "Phoenix_BrokenPledgeChicagoReel",
+    "Phoenix_ElzicsFarewell",
+    "Phoenix_LarkOnTheStrandDrummondCastle",
+    "Phoenix_SeanCaughlinsTheScartaglen",
 ]
 
 suffix = "_ACTIVATION_CONF.lab"
