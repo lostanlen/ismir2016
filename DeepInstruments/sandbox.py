@@ -39,30 +39,6 @@ drop2_proportion = 0.5
     di.singlelabel.training_discarded, di.singlelabel.training_to_test)
 
 
-# Compute audio features X
-X_classes = []
-for class_stems in training_stems:
-    X_files = []
-    for stem in class_stems:
-        X = di.audio.get_X(decision_length, fmin, hop_length,
-                           n_bins_per_octave, n_octaves, stem)
-        X_files.append(X)
-    X_classes.append(X_files)
-
-
-# Compute activations Y
-Y_classes = []
-for class_stems in training_stems:
-    Y_files = []
-    for stem in class_stems:
-        Y_files.append(di.singlelabel.get_Y(stem))
-    Y_classes.append(Y_files)
-
-
-# Find indices of activated instruments
-indices_classes = di.singlelabel.get_indices(Y_classes, decision_length)
-
-
 # Draw a chunk at random
 n_classes = len(training_stems)
 half_activation_hop = int(0.5 * (float(decision_length) / 2048))

@@ -106,18 +106,21 @@ class ChunkGenerator(object):
                  hop_length,
                  n_bins_per_octave,
                  n_octaves,
-                 stems):
+                 training_stems):
         self.decision_length = decision_length
         X = []
+        Y = []
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
-        for class_stems in stems:
-            X.append(joblib.Parallel(n_jobs=-1, verbose=10)(
+        for class_stems in training_stems:
+            X.append(joblib.Parallel(n_jobs=-1)(
                 delayed_get_X(decision_length, fmin, hop_length,
                               n_bins_per_octave, n_octaves, stem)
                 for stem in class_stems
             ))
-
+            Y.append([ di.singlelabel.get_Y(stem) for stem in class_stems])
         self.X = X
+        self.Y = Y
+        self.indices = di.singlelabel.get_indices(Y, decision_length)
 
 
 
@@ -131,12 +134,12 @@ def confusion_matrix(Y_true, Y_predicted):
     return cm / cm.sum(axis=1)[:, np.newaxis]
 
 
-def get_indices(activations_classes, decision_length):
+def get_indices(Y, decision_length):
     indices_classes = []
-    for class_activations in activations_classes:
+    for Y_class in Y:
         indices_files = []
         half_trimming_length = 0.5 * (decision_length / 2048)
-        for activations in class_activations:
+        for activations in Y_class:
             activation = np.max(activations, axis=0)
             left_bound = half_trimming_length
             right_bound = len(activation) - half_trimming_length
