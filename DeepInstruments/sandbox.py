@@ -47,7 +47,7 @@ stems = session.query(medleydb.sql.model.Stem).filter(
     stems)
 
 
-# Compute audio features
+# Compute audio features X
 X_classes = []
 for class_stems in training_stems:
     X_files = []
@@ -58,16 +58,19 @@ for class_stems in training_stems:
     X_classes.append(X_files)
 
 
-# Measure activations
-activations_classes = []
+# Compute activations Y
+Y_classes = []
 for class_stems in training_stems:
-    activations_files = map(di.singlelabel.get_activation, class_stems)
-    activations_classes.append(activations_files)
+    Y_files = []
+    for stem in class_stems:
+        print(stem.track.name)
+        Y_files.append(di.singlelabel.get_Y(stem))
+    Y_classes.append(Y_files)
 
 
+stems = training_stems
 # Find indices of activated instruments
-indices_classes = di.singlelabel.get_indices(activations_classes,
-                                             decision_length)
+indices_classes = di.singlelabel.get_indices(stems, decision_length)
 
 
 # Get melodies
@@ -79,7 +82,7 @@ for class_stems in training_stems:
 
 # Draw a chunk at random
 n_classes = len(training_stems)
-half_activation_hop = (decision_length / 2048) / 2
+half_activation_hop = int(0.5 * (float(decision_length) / 2048))
 random_class = np.random.randint(n_classes)
 indices_files = indices_classes[random_class]
 file_lengths = map(len, indices_files)
@@ -89,6 +92,18 @@ random_file = np.random.choice(n_files, p=file_probabilities)
 indices = indices_files[random_file]
 random_index = np.random.choice(indices)
 
+
+# Get X
+X_middle = int(random_index * float(hop_length) / 2048)
+half_X_hop = int(0.5 * float(decision_length) / hop_length)
+X_start = X_middle - half_X_hop
+X_stop = X_middle + half_X_hop
+X_range = xrange(X_middle-half_X_hop, X_middle+half_X_hop)
+X = X_classes[random_class][random_file][:, X_range]
+
+# Get Y
+Y = Y_classes[random_class][random_file][:, random_index]
+
 # Get corresponding activation
 activation_start = random_index - half_activation_hop
 activation_stop = random_index + half_activation_hop
@@ -96,6 +111,7 @@ activation_range = range(activation_start, activation_stop)
 activation_class = activations_classes[random_class]
 activation_file = activation_class[random_file]
 activation = activation_file[activation_range]
+
 
 # Get corresponding melody
 melody_start = activation_start * 2048 / 256
