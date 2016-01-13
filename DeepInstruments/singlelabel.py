@@ -190,9 +190,9 @@ def get_Y(stem):
     stem_id = int(stem.name[1:])
     n_frames = track_activations.shape[0]
     n_instruments = len(di.singlelabel.names)
-    activations = np.zeros((n_frames, n_instruments))
+    activations = np.zeros((n_instruments, n_frames))
     instrument_id = di.singlelabel.names.index(stem.instrument.name)
-    activations[:, instrument_id] = track_activations[:, stem_id - 1]
+    activations[instrument_id, :] = track_activations[:, stem_id - 1]
     return activations
 
 
