@@ -1,11 +1,13 @@
 import DeepInstruments as di
 import keras
+from librosa.display import specshow
+import matplotlib.pyplot as plt
 import numpy as np
 
 
 batch_size = 512
 decision_length = 131072  # in samples
-epoch_size = 512
+epoch_size = 8192
 every_n_epoch = 10
 fmin = 55 # in Hz
 hop_length = 1024 #  in samples
