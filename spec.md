@@ -38,7 +38,7 @@ E. *Display*
 
 F. *Dataset*
 1. [DONE] Get the full MedleyDB dataset
-2. Update wrangling so that it lists files, not classes
+2. [CLOSED] Update wrangling so that it lists files, not classes
 3. [DONE] Restrict to a certain number of classes
 4. [DONE] Take the max of stems activations that play the same instrument
 5. [DONE] Write a function that outputs Y from the Medley instrument
