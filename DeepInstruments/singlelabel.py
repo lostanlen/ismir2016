@@ -153,7 +153,7 @@ class ChunkGenerator(object):
                 durations = self.durations[instrument_id]
                 file_id = np.random.choice(n_files, p=durations)
                 Y_id = np.random.choice(self.indices[instrument_id][file_id])
-                X_id = int(Y_id * 2048.0 / hop_length)
+                X_id = int(Y_id * 2048.0 / self.hop_length)
                 X_range = xrange(X_id-half_X_hop, X_id+half_X_hop)
                 X_batch[sample_id, :, :] = \
                     self.X[instrument_id][file_id][:, X_range]
