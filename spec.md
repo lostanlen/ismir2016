@@ -15,7 +15,8 @@ B. *Deep learning*
     4. [DONE] Install bleeding-edge Keras
     5. [DONE] Train on categorical cross-entropy
     6. [DONE] Write data generator
-    6. Add Z supervision
+    7. Add Z supervision
+    8. Report mean and variance of loss after each epoch 
 
 C. *Pitch supervision*
     1. [CLOSED] Get Gt samples for RWC
