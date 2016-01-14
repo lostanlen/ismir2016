@@ -25,6 +25,7 @@ training_discarded = [
     # Female singer
     # (empty)
     # Male singer
+    u'MusicDelta_Disco_STEM_04.wav',  # falsetto
     # Piano
     u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
     # Trumpet
@@ -40,23 +41,22 @@ training_to_test = [
     # Distorted electric guitar
     # (empty)
     # Female singer
-    u'HopAlong_SisterCities_STEM_07',  # to enrich test set
+    u'HopAlong_SisterCities_STEM_07.wav',  # to enrich test set
     u'LizNelson_Coldwar_STEM_02.wav',  # to avoid artist bias
     u'LizNelson_ImComingHome_STEM_01.wav',  # to avoid artist bias
     u'LizNelson_ImComingHome_STEM_04.wav',  # to avoid artist bias
     u'LizNelson_Rainfall_STEM_01.wav',  # to avoid artist bias
     # Male singer
-    u'BigTroubles_Phantom_STEM_04.wav'  # to avoid artist bias
+    u'BigTroubles_Phantom_STEM_04.wav',  # to avoid artist bias
     u'HeladoNegro_MitadDelMundo_STEM_08.wav',  # to avoid artist bias
     u'StevenClark_Bounty_STEM_08.wav',  # to avoid artist bias
     # Piano
+    # (empty)
     # Trumpet
     u'MusicDelta_Beethoven_STEM_14.wav',  # to avoid song bias
     u'MusicDelta_ModalJazz_STEM_05.wav',  # to enrich test set
     # Violin
-    u'JoelHelander_Definition_STEM_02.wav',  # to avoid artist bias
-    u'JoelHelander_ExcessiveResistancetoChange_STEM_13.wav',  # artist bias
-    u'JoelHelander_IntheAtticBedroom_STEM_01.wav',  # to avoid artist bias
+    # (empty)
 ]
 
 test_discarded = [
@@ -87,7 +87,6 @@ test_discarded = [
     # Male singer
     u'AClassicEducation_NightOwl_STEM_08.wav',  # to avoid song bias
     u'Creepoid_OldTree_STEM_09.wav',  # is a vocal FX track
-    u'MusicDelta_Disco_STEM_04.wav',  # falsetto
     # Piano
     # (empty)
     # Trumpet
@@ -295,6 +294,7 @@ def split_stems(names,
                 if stem_filename in training_discarded:
                     pass
                 elif stem_filename in training_to_test:
+                    print(stem.audio_path)
                     test_instrument_stems.append(stem)
                 else:
                     training_instrument_stems.append(stem)
