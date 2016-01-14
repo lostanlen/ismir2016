@@ -4,20 +4,11 @@ import numpy as np
 import os
 import shutil
 
-dataset_path = os.path.join(os.path.expanduser("~"),
-                            "datasets",
-                            "medleydb-single-instruments")
-decision_hop = 65536
-decision_length = 131072
-activation_hop = 2048
-
-(test_stems, training_stems) = di.singlelabel.split_stems(
-    di.singlelabel.names, di.singlelabel.test_discarded,
-    di.singlelabel.training_discarded, di.singlelabel.training_to_test)
-
-
-# Get waveforms from training set
-def chunk_waveforms(training_or_test):
+def chunk_waveforms(dataset_path,
+                    decision_hop,
+                    decision_length,
+                    training_or_test):
+    activation_hop = 2048
     (test_stems, training_stems) = di.singlelabel.split_stems(
         di.singlelabel.names, di.singlelabel.test_discarded,
         di.singlelabel.training_discarded, di.singlelabel.training_to_test)
@@ -86,3 +77,13 @@ def chunk_waveforms(training_or_test):
                     Y_id += Y_hop
                     chunk_id += 1
                 Y_id += Y_hop
+
+
+def export_singlelabel_dataset():
+    dataset_path = os.path.join(os.path.expanduser("~"),
+                                "datasets",
+                                "medleydb-single-instruments")
+    decision_hop = 65536
+    decision_length = 131072
+    chunk_waveforms(dataset_path, decision_hop, decision_length, "training")
+    chunk_waveforms(dataset_path, decision_hop, decision_length, "test")
