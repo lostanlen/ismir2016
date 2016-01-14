@@ -3,14 +3,14 @@ import keras
 import numpy as np
 
 
-batch_size = 32
-decision_length = 131072 # in samples
-epoch_size = 4096
-every_n_epoch = 1
+batch_size = 512
+decision_length = 131072  # in samples
+epoch_size = 512
+every_n_epoch = 10
 fmin = 55 # in Hz
-hop_length = 1024 # in samples
+hop_length = 1024 #  in samples
 n_bins_per_octave = 12
-n_epochs = 1
+n_epochs = 10
 n_octaves = 8
 optimizer = "adagrad"
 silence_threshold = -0.7
@@ -20,8 +20,8 @@ train_dirs = ["~/datasets/solosDb8/train"]
 conv1_channels = 100
 conv1_height = 96
 conv1_width = 32
-pool1_height = 7
-pool1_width = 7
+pool1_height = 3
+pool1_width = 3
 conv2_channels = 100
 conv2_height = 8
 conv2_width = 8
