@@ -202,18 +202,6 @@ class ScalogramGenerator(object):
         return X_chunks, Y_chunks
 
 
-
-
-def confusion_matrix(Y_true, Y_predicted):
-    y_true = np.argmax(Y_true, axis=1)
-    y_predicted = np.argmax(Y_predicted, axis=1)
-    n_classes = np.size(Y_true, 1)
-    labels = range(n_classes)
-    cm = sklearn.metrics.confusion_matrix(y_true, y_predicted, labels)
-    cm = cm.astype('float64')
-    return cm / cm.sum(axis=1)[:, np.newaxis]
-
-
 def get_indices(Y, decision_length):
     indices_classes = []
     activation_hop = 2048
@@ -319,20 +307,6 @@ def split_stems(names,
         training_stems.append(training_instrument_stems)
         test_stems.append(test_instrument_stems)
     return test_stems, training_stems
-
-
-def test_accuracy(X_test, Y_test_true, graph):
-    y_test_predicted = np.argmax(graph.predict({"X": X_test})["Y"], axis=1)
-    y_test_true = np.argmax(Y_test_true, axis=1)
-    cm = sklearn.metrics.confusion_matrix(y_test_true, y_test_predicted,
-                                          range(Y_test_true.shape[1]))
-    cm = cm.astype(np.float64)
-    cm = cm / cm.sum(axis=1)[:, np.newaxis]
-    test_accuracies = 100 * np.diag(cm)
-    mean_accuracy = np.mean(test_accuracies)
-    std_accuracy = np.std(test_accuracies)
-    print "test mean accuracy = ", mean_accuracy, " +/- ", std_accuracy
-    return test_accuracies
 
 
 def train_accuracy(batch_size, datagen, epoch_size, graph):
