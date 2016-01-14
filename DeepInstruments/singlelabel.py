@@ -168,6 +168,7 @@ class ScalogramGenerator(object):
             Y = []
             delayed_get_X = joblib.delayed(di.audio.cached_get_X)
             for class_stems in test_stems:
+                print([stem.track.name for stem in class_stems])
                 X.append(joblib.Parallel(n_jobs=-1)(
                     delayed_get_X(self.decision_length,
                                   self.fmin,
