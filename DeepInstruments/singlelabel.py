@@ -281,9 +281,8 @@ def split_stems(names,
                 training_discarded,
                 training_to_test):
     session = medleydb.sql.session()
-    stems = session.query(medleydb.sql.model.Stem).filter(
-        medleydb.sql.model.Track.has_bleed == False
-    ).all()
+    stems = session.query(medleydb.sql.model.Stem).all()
+    stems = [ stem for stem in stems if not stem.track.has_bleed]
     training_stems = []
     test_stems = []
     for name in names:
