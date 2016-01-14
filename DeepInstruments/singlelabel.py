@@ -189,7 +189,6 @@ class ScalogramGenerator(object):
         for instrument_id in range(len(X)):
             for file_id in range(len(X[instrument_id])):
                 Y_id = Y_hop
-                print instrument_id, file_id
                 last_index = indices[instrument_id][file_id][-1]
                 while Y_id < last_index:
                     Y_chunk = Y[instrument_id][file_id][:, Y_id]
