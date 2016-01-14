@@ -135,7 +135,7 @@ class ChunkGenerator(object):
             durations.append(file_lengths / np.sum(file_lengths))
         self.durations = durations
 
-    def flow(self, batch_size=32, epoch_size=4096):
+    def flow(self, batch_size=512, epoch_size=4096):
         half_X_hop = int(0.5 * self.decision_length / self.hop_length)
         n_batches = int(math.ceil(float(epoch_size) / batch_size))
         n_bins = self.X[0][0].shape[0]
