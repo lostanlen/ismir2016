@@ -3,6 +3,7 @@ import DeepInstruments as di
 import joblib
 import math
 import medleydb
+import medleydb.sql
 import numpy as np
 import os
 import sklearn
@@ -117,7 +118,7 @@ class ChunkGenerator(object):
                               n_bins_per_octave, n_octaves, stem)
                 for stem in class_stems
             ))
-            Y.append([ di.singlelabel.get_Y(stem) for stem in class_stems])
+            Y.append([di.singlelabel.get_Y(stem) for stem in class_stems])
         X_mat = np.hstack([X_file for X_class in X for X_file in X_class])
         self.X_mean = np.mean(X_mat)
         self.X_std = np.std(X_mat)
@@ -152,12 +153,12 @@ class ChunkGenerator(object):
                 durations = self.durations[instrument_id]
                 file_id = np.random.choice(n_files, p=durations)
                 Y_id = np.random.choice(self.indices[instrument_id][file_id])
-                X_id = int(Y_id * self.hop_length / 2048)
+                X_id = int(Y_id * 2048.0 / hop_length)
                 X_range = xrange(X_id-half_X_hop, X_id+half_X_hop)
                 X_batch[sample_id, :, :] = \
                     self.X[instrument_id][file_id][:, X_range]
                 Y_batch[sample_id, :] = \
-                    self.Y[instrument_id][file_id][:, X_id]
+                    self.Y[instrument_id][file_id][:, Y_id]
             yield X_batch, Y_batch
 
 
