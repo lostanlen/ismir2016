@@ -275,7 +275,6 @@ def melody_annotation_durations():
     return np.transpose(np.vstack(tuples))
 
 
-@memory.cache
 def split_stems(names,
                 test_discarded,
                 training_discarded,
