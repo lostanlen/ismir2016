@@ -56,7 +56,7 @@ G. Single-label classification
 4. [DONE] Memoize X with joblib
 5. [DONE] Write a dedicated generator
 6. [DONE] Standardize X in the generator
-7. Train deep neural network on X and Y
+7. [DONE] Train deep neural network on X and Y
 8. Report class-wise accuracy with error bars
 
 H.  Descriptors + Random forests baseline
