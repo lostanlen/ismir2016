@@ -184,16 +184,16 @@ class ScalogramGenerator(object):
         X_chunks = []
         Y_chunks = []
         half_X_hop = int(0.5 * self.decision_length / self.hop_length)
-        Y_hop = int(0.5 * float(self.decision_length))
+        Y_hop = int(0.5 * float(self.decision_length) / 2048)
         indices = di.singlelabel.get_indices(Y, self.decision_length)
         for instrument_id in range(len(X)):
-            for file_id in range(len(Y)):
+            for file_id in range(len(X[instrument_id])):
                 Y_id = Y_hop
                 print instrument_id, file_id
                 last_index = indices[instrument_id][file_id][-1]
                 while Y_id < last_index:
                     Y_chunk = Y[instrument_id][file_id][:, Y_id]
-                    if np.max(Y_chunk, axis=1) > 0.5:
+                    if np.max(Y_chunk) > 0.5:
                         X_id = int(Y_id * 2048.0 / self.hop_length)
                         X_range = xrange(X_id-half_X_hop, X_id+half_X_hop)
                         X_chunk = X[instrument_id][file_id][:, X_range]
