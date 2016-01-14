@@ -98,8 +98,7 @@ test_discarded = [
 cachedir = os.path.expanduser('~/joblib')
 memory = joblib.Memory(cachedir=cachedir, verbose=0)
 
-
-class TrainingGenerator(object):
+class ScalogramGenerator(object):
     def __init__(self,
                  decision_length,
                  fmin,
@@ -108,7 +107,10 @@ class TrainingGenerator(object):
                  n_octaves,
                  training_stems):
         self.decision_length = float(decision_length)
+        self.fmin = fmin
         self.hop_length = float(hop_length)
+        self.n_bins_per_octave = n_bins_per_octave
+        self.n_octaves = n_octaves
         X = []
         Y = []
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
@@ -161,6 +163,46 @@ class TrainingGenerator(object):
                     self.Y[instrument_id][file_id][:, Y_id]
             yield X_batch, Y_batch
 
+        def chunk(self, test_stems):
+            X = []
+            Y = []
+            delayed_get_X = joblib.delayed(di.audio.cached_get_X)
+            for class_stems in test_stems:
+                X.append(joblib.Parallel(n_jobs=-1)(
+                    delayed_get_X(self.decision_length,
+                                  self.fmin,
+                                  self.hop_length,
+                                  self.n_bins_per_octave,
+                                  self.n_octaves,
+                                  stem)
+                    for stem in class_stems
+                ))
+                Y.append([di.singlelabel.get_Y(stem) for stem in class_stems])
+            for instrument_id in range(len(X)):
+                X[instrument_id] = [(X_file-self.X_mean) / self.X_std
+                                    for X_file in X[instrument_id]]
+            X_chunks = []
+            Y_chunks = []
+            half_X_hop = int(0.5 * self.decision_length / self.hop_length)
+            Y_hop = int(0.5 * float(self.decision_length))
+            indices = di.singlelabel.get_indices(Y, self.decision_length)
+            for instrument_id in range(len(X)):
+                for file_id in range(len(Y)):
+                    Y_id = Y_hop
+                    last_index = indices[instrument_id][file_id][-1]
+                    while Y_id < last_index:
+                        Y_chunk = Y[instrument_id][file_id][:, Y_id]
+                        if np.max(Y_chunk, axis=1) > 0.5:
+                            X_id = int(Y_id * 2048.0 / self.hop_length)
+                            X_range = xrange(X_id-half_X_hop, X_id+half_X_hop)
+                            X_chunk = X[instrument_id][file_id][:, X_range]
+                            X_chunks.append(X_chunk)
+                            Y_chunks.append(Y_chunk)
+                        Y_id += Y_hop
+            return X_chunks, Y_chunks
+
+
+
 
 def confusion_matrix(Y_true, Y_predicted):
     y_true = np.argmax(Y_true, axis=1)
@@ -174,9 +216,10 @@ def confusion_matrix(Y_true, Y_predicted):
 
 def get_indices(Y, decision_length):
     indices_classes = []
+    activation_hop = 2048
+    half_trimming_length = int(0.5 * (decision_length / activation_hop))
     for Y_class in Y:
         indices_files = []
-        half_trimming_length = 0.5 * (decision_length / 2048)
         for activations in Y_class:
             activation = np.max(activations, axis=0)
             left_bound = half_trimming_length

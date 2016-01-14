@@ -38,9 +38,11 @@ drop2_proportion = 0.5
     di.singlelabel.names, di.singlelabel.test_discarded,
     di.singlelabel.training_discarded, di.singlelabel.training_to_test)
 
-datagen = di.singlelabel.TrainingGenerator(decision_length, fmin,
-                                           hop_length, n_bins_per_octave,
-                                           n_octaves, training_stems)
+datagen = di.singlelabel.ScalogramGenerator(decision_length, fmin,
+                                            hop_length, n_bins_per_octave,
+                                            n_octaves, training_stems)
+
+X_chunks, Y_chunks = datagen.chunk(test_stems)
 
 graph = di.learning.build_graph(
     X_height=96,
