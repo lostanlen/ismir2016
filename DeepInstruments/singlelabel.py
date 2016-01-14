@@ -28,11 +28,18 @@ training_discarded = [
     # Male singer
     # Piano
     u'ClaraBerryAndWooldog_Boys_STEM_05.wav',  # has bleed
+    u'Debussy_LenfantProdigue_STEM_02.wav',  # has bleed
+    u'Handel_TornamiAVagheggiar_STEM_02.wav',  # has bleed
     u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
+    u'Mozart_BesterJungling_STEM_02.wav',  # has bleed
+    u'Mozart_DiesBildnis_STEM_02.wav',  # has bleed
+    u'Schubert_Erstarrung_STEM_02.wav',  # has bleed
+    u'Wolf_DieBekherte_STEM_02.wav',  # has bleed
     # Trumpet
-    u'MusicDelta_FusionJazz_STEM_06.wav'  # has sordina
+    u'MusicDelta_FusionJazz_STEM_06.wav',  # has sordina
     # Violin
-    # (empty)
+    u'MichaelKropf_AllGoodThings_STEM_02.wav'  # has substantial piano bleed
+    # NB we keep violin stems by Phoenix although they have some rhythm bleed
 
 ]
 
@@ -58,7 +65,7 @@ training_to_test = [
     # Violin
     u'JoelHelander_Definition_STEM_02.wav',
     u'JoelHelander_ExcessiveResistancetoChange_STEM_13.wav',
-    u'JoelHelander_IntheAtticBedroom_STEM_01.wav'
+    u'JoelHelander_IntheAtticBedroom_STEM_01.wav',
 ]
 
 test_discarded = [
@@ -92,6 +99,7 @@ test_discarded = [
     u'Creepoid_OldTree_STEM_09.wav',  # is a vocal FX track
     u'MusicDelta_Disco_STEM_04.wav',  # falsetto
     # Piano
+    u'MichaelKropf_AllGoodThings_STEM_01.wav',  # has bleed
     u'Schumann_Mignon_STEM_01.wav',  # has bleed
     # Trumpet
     # (empty)
