@@ -188,7 +188,7 @@ class ScalogramGenerator(object):
         indices = di.singlelabel.get_indices(Y, self.decision_length)
         for instrument_id in range(len(X)):
             for file_id in range(len(X[instrument_id])):
-                Y_id = Y_hop
+                Y_id = Y_hop - 1
                 last_index = indices[instrument_id][file_id][-1]
                 while Y_id < last_index:
                     Y_chunk = Y[instrument_id][file_id][:, Y_id]
