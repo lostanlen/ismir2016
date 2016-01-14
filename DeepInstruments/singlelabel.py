@@ -86,9 +86,13 @@ test_discarded = [
     # Female singer
     u'ClaraBerryAndWooldog_AirTraffic_STEM_07.wav',  # to avoid artist bias
     u'LizNelson_ImComingHome_STEM_02.wav',  # has bleed
+    u'Schumann_Mignon_STEM_02.wav',  # has bleed
     # Male singer
+    u'AClassicEducation_NightOwl_STEM_08.wav',  # has bleed and song bias
     u'Creepoid_OldTree_STEM_09.wav',  # is a vocal FX track
+    u'MusicDelta_Disco_STEM_04.wav',  # falsetto
     # Piano
+    u'Schumann_Mignon_STEM_01.wav',  # has bleed
     # Trumpet
     # (empty)
     # Violin
