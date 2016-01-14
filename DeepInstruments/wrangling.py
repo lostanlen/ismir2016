@@ -17,7 +17,7 @@ activation_hop = 2048
 
 
 # Get waveforms from training set
-for instrument_id in range(len(training_stems))
+for instrument_id in range(len(training_stems)):
     instrument_name = training_stems[instrument_id][0].instrument.name
     instrument_id_str = repr('%(i)02d' % {"i": instrument_id})[1:-1]
     instrument_folder = instrument_id_str + "_" + instrument_name
@@ -27,7 +27,7 @@ for instrument_id in range(len(training_stems))
     except OSError:
         shutil.rmtree(instrument_folder_path)
         os.makedirs(instrument_folder_path)
-    for file_id in range(len(training_stems[instrument_id]))
+    for file_id in range(len(training_stems[instrument_id])):
         file_id_str = repr('%(i)02d' % {"i": file_id})[1:-1]
         stem = training_stems[instrument_id][file_id]
         track_name = stem.track.name
