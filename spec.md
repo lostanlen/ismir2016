@@ -4,7 +4,7 @@
 A. *Audio features*
     1. [DONE] Review silence detection.
     2. [DONE] Convert features to float32.
-    3. Generate silenced frames in test set.
+    3. [CLOSED] Generate silenced frames in test set.
     4. [DONE] Review perceptual loudness reference in get_X
     5. [DONE] Explicitly ignore WavFileWarning
 
