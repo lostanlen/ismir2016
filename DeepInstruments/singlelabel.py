@@ -294,7 +294,6 @@ def split_stems(names,
                 if stem_filename in training_discarded:
                     pass
                 elif stem_filename in training_to_test:
-                    print(stem.audio_path)
                     test_instrument_stems.append(stem)
                 else:
                     training_instrument_stems.append(stem)
