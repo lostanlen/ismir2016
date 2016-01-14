@@ -31,7 +31,6 @@ for instrument_id in range(len(training_stems)):
         file_id_str = repr('%(i)02d' % {"i": file_id})[1:-1]
         stem = training_stems[instrument_id][file_id]
         track_name = stem.track.name
-        print(track_name)
         stem_name = stem.name
         file_folder = file_id_str + "_" + track_name + "_" + stem_name
         file_folder_path = os.path.join(dataset_path,
@@ -48,7 +47,7 @@ for instrument_id in range(len(training_stems)):
         Y_id = Y_hop - 1
         chunk_id = 0
         sr, x = stem.audio_data
-        while Y_id < (len(Y) - decision_hop):
+        while Y_id < (len(Y) - Y_hop):
             if Y[Y_id] > 0.5:
                 x_id = int(Y_id * 2048.0)
                 x_range = xrange(x_id-half_x_hop, x_id+half_x_hop)
