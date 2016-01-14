@@ -21,25 +21,16 @@ training_discarded = [
     # Clean electric guitar
     u'CelestialShore_DieForUs_STEM_05.wav',  # overdubs and shoegaze effects
     # Distorted electric guitar
-    u'Meaxic_TakeAStep_STEM_03.wav',  # overdubs
-    u'TheSoSoGLos_Emergency_STEM_04.wav',  # overdubs
+    # (empty)
     # Female singer
-    u'BrandonWebster_DontHearAThing_STEM_02.wav',  # has bleed
+    # (empty)
     # Male singer
     # Piano
-    u'ClaraBerryAndWooldog_Boys_STEM_05.wav',  # has bleed
-    u'Debussy_LenfantProdigue_STEM_02.wav',  # has bleed
-    u'Handel_TornamiAVagheggiar_STEM_02.wav',  # has bleed
     u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
-    u'Mozart_BesterJungling_STEM_02.wav',  # has bleed
-    u'Mozart_DiesBildnis_STEM_02.wav',  # has bleed
-    u'Schubert_Erstarrung_STEM_02.wav',  # has bleed
-    u'Wolf_DieBekherte_STEM_02.wav',  # has bleed
     # Trumpet
     u'MusicDelta_FusionJazz_STEM_06.wav',  # has sordina
     # Violin
-    u'MichaelKropf_AllGoodThings_STEM_02.wav'  # has substantial piano bleed
-    # NB we keep violin stems by Phoenix although they have some rhythm bleed
+    # (empty)
 
 ]
 
@@ -63,9 +54,9 @@ training_to_test = [
     u'MusicDelta_Beethoven_STEM_14.wav',  # to avoid song bias
     u'MusicDelta_ModalJazz_STEM_05.wav',  # to enrich test set
     # Violin
-    u'JoelHelander_Definition_STEM_02.wav',
-    u'JoelHelander_ExcessiveResistancetoChange_STEM_13.wav',
-    u'JoelHelander_IntheAtticBedroom_STEM_01.wav',
+    u'JoelHelander_Definition_STEM_02.wav',  # to avoid artist bias
+    u'JoelHelander_ExcessiveResistancetoChange_STEM_13.wav',  # artist bias
+    u'JoelHelander_IntheAtticBedroom_STEM_01.wav',  # to avoid artist bias
 ]
 
 test_discarded = [
@@ -93,14 +84,12 @@ test_discarded = [
     # Female singer
     u'ClaraBerryAndWooldog_AirTraffic_STEM_07.wav',  # to avoid artist bias
     u'LizNelson_ImComingHome_STEM_02.wav',  # has bleed
-    u'Schumann_Mignon_STEM_02.wav',  # has bleed
     # Male singer
-    u'AClassicEducation_NightOwl_STEM_08.wav',  # has bleed and song bias
+    u'AClassicEducation_NightOwl_STEM_08.wav',  # to avoid song bias
     u'Creepoid_OldTree_STEM_09.wav',  # is a vocal FX track
     u'MusicDelta_Disco_STEM_04.wav',  # falsetto
     # Piano
-    u'MichaelKropf_AllGoodThings_STEM_01.wav',  # has bleed
-    u'Schumann_Mignon_STEM_01.wav',  # has bleed
+    # (empty)
     # Trumpet
     # (empty)
     # Violin
