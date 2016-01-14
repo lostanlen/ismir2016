@@ -1,5 +1,6 @@
 import DeepInstruments as di
 import keras
+import numpy as np
 
 
 batch_size = 32
@@ -44,9 +45,9 @@ graph = di.learning.build_graph(
     X_width=128,
     conv1_channels=100,
     conv1_height=48,
-    conv1_width=32,
-    pool1_height=7,
-    pool1_width=7,
+    conv1_width=48,
+    pool1_height=3,
+    pool1_width=3,
     conv2_channels=100,
     conv2_height=8,
     conv2_width=8,
