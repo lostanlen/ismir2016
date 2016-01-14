@@ -55,11 +55,12 @@ G. Single-label classification
 1. [DONE] Write get_activation
 2. [DONE] Write get_indices (with boundary trimming)
 3. [DONE] Write get_melody
-4. [DONE] Memoize X with joblib
+4. [DONE] Memoize training X with joblib
 5. [DONE] Write a dedicated generator
 6. [DONE] Standardize X in the generator
 7. [DONE] Train deep neural network on X and Y
-8. Report class-wise accuracy with error bars
+8. [DONE] Memoize test X with joblib
+9. Report class-wise accuracy with error bars
 
 H.  Descriptors + Random forests baseline
 1. Compute MFCCs on the training data
