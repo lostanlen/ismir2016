@@ -12,12 +12,14 @@ def chunk_waveforms(dataset_path,
     (test_stems, training_stems) = di.singlelabel.split_stems(
         di.singlelabel.names, di.singlelabel.test_discarded,
         di.singlelabel.training_discarded, di.singlelabel.training_to_test)
+    print(training_or_test)
     if training_or_test == "training":
         stems = training_stems
     elif training_or_test == "test":
         stems = test_stems
     else:
         raise ValueError("Input to chunk_waveforms must be training or test")
+    print(stems)
     for instrument_id in range(len(stems)):
         instrument_name = training_stems[instrument_id][0].instrument.name
         instrument_id_str = repr('%(i)02d' % {"i": instrument_id})[1:-1]
@@ -73,7 +75,8 @@ def chunk_waveforms(dataset_path,
                     print(chunk_path)
                     librosa.output.write_wav(chunk_path,
                                              x_chunk,
-                                             sr, norm=False)
+                                             sr,
+                                             norm=False)
                     Y_id += Y_hop
                     chunk_id += 1
                 Y_id += Y_hop
