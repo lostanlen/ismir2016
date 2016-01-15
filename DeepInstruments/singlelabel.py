@@ -18,6 +18,8 @@ names = [u'clarinet',
          u'violin']
 
 training_discarded = [
+    # Clarinet
+    # (empty)
     # Clean electric guitar
     u'AimeeNorwich_Flying_STEM_05.wav',  # overdrive
     u'CelestialShore_DieForUs_STEM_05.wav',  # shoegaze effects
@@ -41,6 +43,8 @@ training_discarded = [
 ]
 
 training_to_test = [
+    # Clarinet
+    # (empty)
     # Clean electric guitar
     # (empty)
     # Distorted electric guitar
@@ -66,7 +70,7 @@ training_to_test = [
 
 test_discarded = [
     # Clarinet
-    u'MusicDelta_Beethoven_STEM_09.wav',  # same song in training
+    u'MusicDelta_InTheHalloftheMountainKing_STEM_09.wav',  # 2 players
     # Clean electric guitar
     u'AlexanderRoss_GoodbyeBolero_STEM_02.wav',  # same song in training
     u'CelestialShore_DieForUs_STEM_05.wav',  # has shoegaze effects
