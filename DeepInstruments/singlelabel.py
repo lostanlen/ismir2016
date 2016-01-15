@@ -19,7 +19,12 @@ names = [u'clarinet',
 
 training_discarded = [
     # Clean electric guitar
-    u'CelestialShore_DieForUs_STEM_05.wav',  # overdubs and shoegaze effects
+    u'AimeeNorwich_Flying_STEM_05.wav',  # overdrive
+    u'CelestialShore_DieForUs_STEM_05.wav',  # shoegaze effects
+    u'CelestialShore_DieForUs_STEM_08.wav',  # shoegaze effects
+    u'EthanHein_GirlOnABridge_STEM_05.wav',  # overdrive
+    u'SecretMountains_HighHorse_STEM_05.wav',  # overdrive
+    u'TheDistricts_Vermont_STEM_07.wav',  # overdrive
     # Distorted electric guitar
     # (empty)
     # Female singer
@@ -66,7 +71,7 @@ test_discarded = [
     u'AlexanderRoss_GoodbyeBolero_STEM_02.wav',  # same song in training
     u'CelestialShore_DieForUs_STEM_05.wav',  # has shoegaze effects
     u'AlexanderRoss_VelvetCurtain_STEM_10.wav',  # is actually a reverb track
-    u'TheDistricts_Vermont_STEM_06.wav',  # same song in training
+    u'TheDistricts_Vermont_STEM_06.wav',  # has overdrive
     u'TablaBreakbeatScience_Vger_STEM_06.wav',  # has distortion
     u'Snowmine_Curfews_STEM_07.wav',  # is sometimes inactive
     u'Snowmine_Curfews_STEM_08.wav',  # has overdrive
