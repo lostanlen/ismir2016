@@ -78,6 +78,7 @@ test_discarded = [
     u'PortStWillow_StayEven_STEM_05.wav',  # has shoegaze effects
     u'PortStWillow_StayEven_STEM_06.wav',  # has shoegaze effects
     u'PortStWillow_StayEven_STEM_07.wav',  # has shoegaze effects
+    u'MusicDelta_Rock_STEM_04.wav',  # has overdrive
     # Distorted electric guitar
     u'AClassicEducation_NightOwl_STEM_03.wav',  # same song in training
     u'AClassicEducation_NightOwl_STEM_06.wav',  # same song in training
