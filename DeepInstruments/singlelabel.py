@@ -73,6 +73,7 @@ test_discarded = [
     u'MusicDelta_Country2_STEM_03.wav',  # has overdrive
     u'TheScarletBrand_LesFleursDuMal_STEM_03.wav',  # has distortion
     u'Lushlife_ToynbeeSuite_STEM_12.wav',  # has bleed
+    u'MusicDelta_Britpop_STEM_06.wav',  # has overdrive
     u'MusicDelta_Beatles_STEM_03.wav',  # has overdrive
     u'PortStWillow_StayEven_STEM_05.wav',  # has shoegaze effects
     u'PortStWillow_StayEven_STEM_06.wav',  # has shoegaze effects
