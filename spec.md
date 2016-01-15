@@ -23,6 +23,7 @@ C. *Pitch supervision*
     1. [CLOSED] Get Gt samples for RWC
     2. [DONE] Check MIDI offsets in RWC dict
     3. [DONE] Write conversion from MIDI to ConvNet axis.
+    4. Patch rankings for The Districts, Vermont
 
 D. *Evaluation*
     1. [DONE] Write class-based accuracy measure
