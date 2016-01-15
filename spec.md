@@ -51,6 +51,7 @@ F. *Dataset*
 9. [DONE] Separate singers between training set and test set to avoid artist bias
 10. [DONE] Report misnomer of CroqueMadame_Pilot(Lakelot)_ACTIVATION_CONF.lab
 11. [DONE] Make a patch script in __init_.py to handle all misnomers
+12. [DONE] Discard overdrive, shoegaze, bleed and inactivity in clean electric guitar
 
 G. Single-label classification
 1. [DONE] Write get_activation
