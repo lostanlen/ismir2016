@@ -66,9 +66,10 @@ graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="sgd")
 # Train model
 from keras.utils.generic_utils import Progbar
 
-loss_history = []
+mean_training_loss_history = []
 
 dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
+batch_losses = np.zeros(batch_size)
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
     print 'Epoch ', 1 + epoch_id
@@ -77,5 +78,9 @@ for epoch_id in xrange(n_epochs):
     for (X_batch, Y_batch) in dataflow:
         batch_id += 1
         loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
-        print "Training loss = ", loss
-    loss_history.append(loss)
+        batch_losses[batch_id] = loss
+        progbar.update(batch_id * batch_size)
+    mean_loss = np.mean(batch_losses)
+    std_loss = np.std(batch_losses)
+    print "Training loss = ", mean_loss, " +/- ", std_loss
+    mean_training_loss_history.append(mean_loss)
