@@ -1,4 +1,5 @@
 import os
+import shutil
 os.environ["MEDLEYDB_PATH"] = os.path.join(os.path.expanduser("~"),
                                            "datasets", "MedleyDB")
 
@@ -37,6 +38,15 @@ for name_index in range(n_wrong_names):
         if not os.path.exists(fixed_path):
             raise e
 
+
+source_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                           "patched_annotations",
+                           "TheDistricts_Vermont_RANKING.txt")
+destination_path = os.path.join(os.environ["MEDLEYDB_PATH"],
+                                "Annotations",
+                                "Stem_Rankings",
+                                "TheDistricts_Vermont_RANKING.txt")
+shutil.copyfile(source_path, destination_path)
 
 
 import DeepInstruments.audio
