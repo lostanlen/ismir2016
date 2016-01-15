@@ -67,7 +67,7 @@ test_discarded = [
     u'CelestialShore_DieForUs_STEM_05.wav',  # has shoegaze effects
     u'AlexanderRoss_VelvetCurtain_STEM_10.wav',  # is actually a reverb track
     u'TheDistricts_Vermont_STEM_06.wav',  # same song in training
-    u'TablaBreakBeatScience_Vger_STEM_06.wav',  # has distortion
+    u'TablaBreakbeatScience_Vger_STEM_06.wav',  # has distortion
     u'Snowmine_Curfews_STEM_07.wav',  # is sometimes inactive
     u'Snowmine_Curfews_STEM_08.wav',  # has overdrive
     u'MusicDelta_Country2_STEM_03.wav',  # has overdrive
@@ -81,7 +81,7 @@ test_discarded = [
     # Distorted electric guitar
     u'AClassicEducation_NightOwl_STEM_03.wav',  # same song in training
     u'AClassicEducation_NightOwl_STEM_06.wav',  # same song in training
-    u'AClassicEducation_NightOwl_STEM_07.wav'  # same song in training
+    u'AClassicEducation_NightOwl_STEM_07.wav',  # same song in training
     u'BigTroubles_Phantom_STEM_03.wav',  # same song in training
     u'BigTroubles_Phantom_STEM_03.wav',  # same song in training
     u'Creepoid_OldTree_STEM_05.wav',  # same song in training
