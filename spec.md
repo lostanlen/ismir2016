@@ -52,6 +52,7 @@ F. *Dataset*
 10. [DONE] Report misnomer of CroqueMadame_Pilot(Lakelot)_ACTIVATION_CONF.lab
 11. [DONE] Make a patch script in __init_.py to handle all misnomers
 12. [DONE] Discard overdrive, shoegaze, bleed and inactivity in clean electric guitar
+13. Use version control for the medleydb-single-instruments derived dataset
 
 G. Single-label classification
 1. [DONE] Write get_activation
