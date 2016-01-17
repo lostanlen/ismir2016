@@ -1,4 +1,5 @@
 import DeepInstruments as di
+import joblib
 import librosa
 import numpy as np
 import os
@@ -16,8 +17,7 @@ chunk_paths = [
     for class_name in os.listdir(set_path)]
 
 
-
-def get_X(chunk_path):
+def get_descriptors(chunk_path):
     waveform, sr = librosa.core.load(chunk_path)
     mfcc = librosa.feature.mfcc(waveform, sr)
     delta_mfcc = librosa.feature.delta(mfcc)
@@ -40,5 +40,9 @@ def get_X(chunk_path):
              np.mean(rolloff),
              np.std(rolloff),
              np.mean(zcr),
-             np.std(zcr)
+             np.std(zcr))
     )
+
+cachedir = os.path.expanduser('~/joblib')
+memory = joblib.Memory(cachedir=cachedir, verbose=0)
+cached_get_descriptors = memory.cache(get_descriptors)
