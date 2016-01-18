@@ -9,6 +9,13 @@ training_path = os.path.join(os.path.expanduser("~"),
                              "medleydb-single-instruments",
                              "training")
 
+chunk_paths = [
+    [os.path.join(path, name)
+     for (path, subdir, names)
+     in os.walk(os.path.join(training_path, class_name))
+     for name in names]
+    for class_name in os.listdir(training_path)]
+chunk_paths = [path for class_path in chunk_paths for path in class_path]
 
 def get_descriptors(chunk_path):
     waveform, sr = librosa.core.load(chunk_path)

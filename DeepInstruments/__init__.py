@@ -50,6 +50,7 @@ shutil.copyfile(source_path, destination_path)
 
 
 import DeepInstruments.audio
+import DeepInstruments.descriptors
 import DeepInstruments.learning
 import DeepInstruments.main
 import DeepInstruments.singlelabel
