@@ -8,13 +8,6 @@ training_path = os.path.join(os.path.expanduser("~"),
                              "datasets",
                              "medleydb-single-instruments",
                              "training")
-set_path = training_path
-
-chunk_paths = [
-    [os.path.join(path, name)
-     for (path, subdir, names) in os.walk(os.path.join(set_path, class_name))
-     for name in names]
-    for class_name in os.listdir(set_path)]
 
 
 def get_descriptors(chunk_path):
