@@ -2,7 +2,6 @@ import DeepInstruments as di
 import joblib
 import numpy as np
 import os
-import sacred
 
 memory = joblib.Memory(cachedir=os.path.expanduser('~/joblib'))
 
