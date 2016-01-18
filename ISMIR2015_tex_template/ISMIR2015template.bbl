@@ -1,0 +1,19 @@
+\begin{thebibliography}{1}
+
+\bibitem{Author:00}
+E.~Author.
+\newblock The title of the conference paper.
+\newblock In {\em Proceedings of the International Symposium on Music
+  Information Retrieval}, pages 000--111, 2000.
+
+\bibitem{Someone:10}
+A.~Someone, B.~Someone, and C.~Someone.
+\newblock The title of the journal paper.
+\newblock {\em Journal of New Music Research}, A(B):111--222, 2010.
+
+\bibitem{Someone:04}
+X.~Someone and Y.~Someone.
+\newblock {\em The Title of the Book}.
+\newblock Editorial Acme, Porto, 2012.
+
+\end{thebibliography}
