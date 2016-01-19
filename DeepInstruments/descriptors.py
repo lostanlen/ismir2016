@@ -4,24 +4,25 @@ import librosa
 import numpy as np
 import os
 
-training_path = os.path.join(os.path.expanduser("~"),
-                             "datasets",
-                             "medleydb-single-instruments",
-                             "training")
-chunk_paths = [
-    [os.path.join(path, name)
-     for (path, subdir, names)
-     in os.walk(os.path.join(training_path, class_name))
-     for name in names]
-    for class_name in os.listdir(training_path)]
-chunk_paths = [path for class_path in chunk_paths for path in class_path]
+def get_training_descriptors():
+    training_path = os.path.join(os.path.expanduser("~"),
+                                 "datasets",
+                                 "medleydb-single-instruments",
+                                 "training")
+    chunk_paths = [
+        [os.path.join(path, name)
+         for (path, subdir, names)
+         in os.walk(os.path.join(training_path, class_name))
+         for name in names]
+        for class_name in os.listdir(training_path)]
+    chunk_paths = [path for class_path in chunk_paths for path in class_path]
 
-X = []
-for chunk_path in chunk_paths:
-    print(chunk_path)
-    X.append(joblib.Parallel(n_jobs=-1)(
-        joblib.delayed(di.descriptors.get_descriptors(chunk_path))
-    ))
+    X = []
+    for chunk_path in chunk_paths:
+        print(chunk_path)
+        X.append(joblib.Parallel(n_jobs=-1)(
+            joblib.delayed(di.descriptors.get_descriptors(chunk_path))
+        ))
 
 
 def get_descriptors(chunk_path):
