@@ -4,6 +4,7 @@ import librosa
 import numpy as np
 import os
 
+
 def get_training_descriptors():
     training_path = os.path.join(os.path.expanduser("~"),
                                  "datasets",
@@ -17,15 +18,14 @@ def get_training_descriptors():
         for class_name in os.listdir(training_path)]
     chunk_paths = [path for class_path in chunk_paths for path in class_path]
 
-    X = []
-    for chunk_path in chunk_paths:
-        print(chunk_path)
-        X.append(joblib.Parallel(n_jobs=-1)(
-            joblib.delayed(di.descriptors.cached_get_descriptors)(chunk_path)
-        ))
+    X = joblib.Parallel(n_jobs=-1)(
+        joblib.delayed(di.descriptors.cached_get_descriptors)(chunk_path)
+        for chunk_path in chunk_paths)
+    return X
 
 
 def get_descriptors(chunk_path):
+    print(chunk_path)
     waveform, sr = librosa.core.load(chunk_path)
     mfcc = librosa.feature.mfcc(waveform, sr)
     delta_mfcc = librosa.feature.delta(mfcc)
