@@ -6,3 +6,5 @@ lib/*
 pip-selfcheck.json
 
 *.pyc
+
+DeepInstruments/gitbot.py
