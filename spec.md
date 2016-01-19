@@ -54,6 +54,7 @@ F. *Dataset*
 12. [DONE] Discard overdrive, shoegaze, bleed and inactivity in clean electric guitar
 13. [DONE] Use version control for the medleydb-single-instruments derived dataset
 14. Remove vocal FX tracks
+15. Remove first and last chunk (half-silent by definition) of every track
 
 G. Single-label classification
 1. [DONE] Write get_activation
