@@ -5,22 +5,21 @@ import numpy as np
 import os
 
 
-def get_training_descriptors():
-    training_path = os.path.join(os.path.expanduser("~"),
+def get_X(training_or_test):
+    set_path = os.path.join(os.path.expanduser("~"),
                                  "datasets",
                                  "medleydb-single-instruments",
-                                 "training")
+                                 training_or_test)
     chunk_paths = [
         [os.path.join(path, name)
          for (path, subdir, names)
-         in os.walk(os.path.join(training_path, class_name))
+         in os.walk(os.path.join(set_path, class_name))
          for name in names]
-        for class_name in os.listdir(training_path)]
+        for class_name in os.listdir(set_path)]
     chunk_paths = [path for class_path in chunk_paths for path in class_path]
-
-    X = joblib.Parallel(n_jobs=-1, verbose=10)(
-        joblib.delayed(di.descriptors.cached_get_descriptors)(chunk_path)
-        for chunk_path in chunk_paths)
+    X = []
+    for chunk_path in chunk_paths:
+        X.append(di.descriptors.cached_get_descriptors(chunk_path))
     return X
 
 
