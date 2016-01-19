@@ -21,8 +21,10 @@ def get_paths(training_or_test):
 
 
 def get_X(paths):
-    X = [joblib.delayed(di.descriptors.cached_get_descriptors)(path)
-         for path in paths]
+    delayed_get_descriptors = \
+        joblib.delayed(di.descriptors.cached_get_descriptors)
+    X = joblib.Parallel(n_jobs=-1)(
+            delayed_get_descriptors(path) for path in paths)
     return np.vstack(X)
 
 
