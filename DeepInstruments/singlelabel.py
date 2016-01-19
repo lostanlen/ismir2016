@@ -30,7 +30,7 @@ training_discarded = [
     # Distorted electric guitar
     # (empty)
     # Female singer
-    # (empty)
+    u'DreamersOfTheGhetto_HeavyLove_STEM_08',  # is a vocal FX track
     # Male singer
     u'MusicDelta_Disco_STEM_04.wav',  # falsetto
     # Piano
@@ -57,7 +57,7 @@ training_to_test = [
     u'LizNelson_Rainfall_STEM_01.wav',  # to avoid artist bias
     # Male singer
     u'BigTroubles_Phantom_STEM_04.wav',  # to avoid artist bias
-    u'HeladoNegro_MitadDelMundo_STEM_08.wav',  # to avoid artist bias
+    u'HeladoNegro_MitadDelMundo_STEM_08.wav',
     u'StevenClark_Bounty_STEM_08.wav',  # to avoid artist bias
     # Piano
     # (empty)
@@ -108,6 +108,8 @@ test_discarded = [
     # Male singer
     u'AClassicEducation_NightOwl_STEM_08.wav',  # to avoid song bias
     u'Creepoid_OldTree_STEM_09.wav',  # is a vocal FX track
+    u'HeladoNegro_MitadDelMundo_STEM_08.wav',  # is vocal FX + falsetto
+    u'BigTroubles_Phantom_STEM_04.wav',  # is a vocal FX track
     # Piano
     # (empty)
     # Trumpet
