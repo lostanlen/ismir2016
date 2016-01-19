@@ -71,7 +71,7 @@ H.  Descriptors + Random forests baseline
 3. [DONE] Also centroid, bandwidth, contrast, rolloff
 4. [DONE] Generate half-overlapping chunks of X
 5. [DONE] Summarize with mean and variance over chunks
-6. Generate Y's as integer classes
+6. [DONE] Generate Y's as integer classes
 7. [DONE] Same in test set
 8. Run scikit-learn's random forest on it
 9. Report class-wise accuracy with error bars
