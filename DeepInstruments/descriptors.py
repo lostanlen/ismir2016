@@ -4,6 +4,7 @@ import librosa
 import numpy as np
 import os
 
+
 def get_paths(training_or_test):
     set_path = os.path.join(os.path.expanduser("~"),
                              "datasets",
@@ -57,3 +58,8 @@ def get_descriptors(path):
 cachedir = os.path.expanduser('~/joblib')
 memory = joblib.Memory(cachedir=cachedir, verbose=0)
 cached_get_descriptors = memory.cache(get_descriptors)
+
+
+def get_y(path):
+    class_path = path.split("medleydb-single-instruments", 1)[1]
+    return int(class_path[2])
