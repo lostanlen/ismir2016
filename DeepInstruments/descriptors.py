@@ -25,7 +25,6 @@ def get_training_descriptors():
 
 
 def get_descriptors(chunk_path):
-    print(chunk_path)
     waveform, sr = librosa.core.load(chunk_path)
     mfcc = librosa.feature.mfcc(waveform, sr)
     delta_mfcc = librosa.feature.delta(mfcc)
