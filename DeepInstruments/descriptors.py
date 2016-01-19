@@ -8,7 +8,6 @@ training_path = os.path.join(os.path.expanduser("~"),
                              "datasets",
                              "medleydb-single-instruments",
                              "training")
-
 chunk_paths = [
     [os.path.join(path, name)
      for (path, subdir, names)
@@ -16,6 +15,14 @@ chunk_paths = [
      for name in names]
     for class_name in os.listdir(training_path)]
 chunk_paths = [path for class_path in chunk_paths for path in class_path]
+
+X = []
+for chunk_path in chunk_paths:
+    print(chunk_path)
+    X.append(joblib.Parallel(n_jobs=-1)(
+        joblib.delayed(di.descriptors.get_descriptors(chunk_path))
+    ))
+
 
 def get_descriptors(chunk_path):
     waveform, sr = librosa.core.load(chunk_path)
@@ -26,7 +33,7 @@ def get_descriptors(chunk_path):
     centroid = librosa.feature.spectral_centroid(waveform, sr)
     contrast = librosa.feature.spectral_contrast(waveform, sr)
     rolloff = librosa.feature.spectral_rolloff(waveform, sr)
-    zcr = librosa.feature.zero_crossing_rate(y, sr)
+    zcr = librosa.feature.zero_crossing_rate(waveform, sr)
     return np.hstack(
             (np.mean(mfcc, axis=1),
              np.mean(delta_mfcc, axis=1),
