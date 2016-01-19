@@ -21,7 +21,7 @@ def get_training_descriptors():
     for chunk_path in chunk_paths:
         print(chunk_path)
         X.append(joblib.Parallel(n_jobs=-1)(
-            joblib.delayed(di.descriptors.get_descriptors(chunk_path))
+            joblib.delayed(di.descriptors.cached_get_descriptors)(chunk_path)
         ))
 
 
