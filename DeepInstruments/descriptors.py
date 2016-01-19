@@ -18,7 +18,7 @@ def get_training_descriptors():
         for class_name in os.listdir(training_path)]
     chunk_paths = [path for class_path in chunk_paths for path in class_path]
 
-    X = joblib.Parallel(n_jobs=-1)(
+    X = joblib.Parallel(n_jobs=-1, verbose=10)(
         joblib.delayed(di.descriptors.cached_get_descriptors)(chunk_path)
         for chunk_path in chunk_paths)
     return X
