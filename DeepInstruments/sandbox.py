@@ -3,6 +3,7 @@ import keras
 from librosa.display import specshow
 import matplotlib.pyplot as plt
 import numpy as np
+import sklearn.ensemble
 
 
 batch_size = 512
@@ -84,3 +85,23 @@ for epoch_id in xrange(n_epochs):
     std_loss = np.std(batch_losses)
     print "Training loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
+
+
+# Evaluate random forrest
+training_paths = di.descriptors.get_paths("training")
+X_training = di.descriptors.get_X(training_paths)
+Y_training = di.descriptors.get_Y(training_paths)
+test_paths = di.descriptors.get_paths("test")
+X_test = di.descriptors.get_X(test_paths)
+Y_test = di.descriptors.get_Y(test_paths)
+
+clf = sklearn.ensemble.RandomForestClassifier(n_jobs=-1, n_estimators=200)
+clf = clf.fit(X_training, Y_training)
+Y_predicted = clf.predict(X_test)
+
+cm = sklearn.metrics.confusion_matrix(Y_test, Y_predicted).astype("float")
+cmn = cm / np.sum(cm, axis=0)
+accuracies = np.diag(cmn)
+mean_accuracy = round(100 * np.mean(accuracies), 1)
+std_accuracy = round(100 * np.std(accuracies), 1)
+print mean_accuracy
