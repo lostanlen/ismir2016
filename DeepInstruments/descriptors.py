@@ -4,27 +4,32 @@ import librosa
 import numpy as np
 import os
 
-
-def get_X(training_or_test):
+def get_paths(training_or_test):
     set_path = os.path.join(os.path.expanduser("~"),
-                                 "datasets",
-                                 "medleydb-single-instruments",
-                                 training_or_test)
-    chunk_paths = [
+                             "datasets",
+                             "medleydb-single-instruments",
+                             training_or_test)
+    paths = [
         [os.path.join(path, name)
          for (path, subdir, names)
          in os.walk(os.path.join(set_path, class_name))
          for name in names]
         for class_name in os.listdir(set_path)]
-    chunk_paths = [path for class_path in chunk_paths for path in class_path]
-    X = []
-    for chunk_path in chunk_paths:
-        X.append(di.descriptors.cached_get_descriptors(chunk_path))
-    return X
+    paths = [path for class_path in paths for path in class_path]
+    return paths
 
 
-def get_descriptors(chunk_path):
-    waveform, sr = librosa.core.load(chunk_path)
+def get_X(paths):
+    X = map(di.descriptors.cached_get_descriptors, paths)
+    return np.vstack(X)
+
+
+
+
+
+
+def get_descriptors(path):
+    waveform, sr = librosa.core.load(path)
     mfcc = librosa.feature.mfcc(waveform, sr)
     delta_mfcc = librosa.feature.delta(mfcc)
     deltadelta_mfcc = librosa.feature.delta(mfcc, order=2)
