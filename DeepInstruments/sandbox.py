@@ -91,11 +91,17 @@ for epoch_id in xrange(n_epochs):
 training_paths = di.descriptors.get_paths("training")
 X_training = di.descriptors.get_X(training_paths)
 Y_training = di.descriptors.get_Y(training_paths)
+
+X_means = np.mean(X_training, axis=0)
+X_stds = np.std(X_training, axis=0)
+X_training = (X_training - X_means) / X_stds
+
 test_paths = di.descriptors.get_paths("test")
 X_test = di.descriptors.get_X(test_paths)
+X_test = (X_test - X_means) / X_stds
 Y_test = di.descriptors.get_Y(test_paths)
 
-n_trials = 100
+n_trials = 10
 confusion_matrices = []
 
 for trial_index in range(n_trials):
@@ -114,5 +120,5 @@ accuracy_report = np.vstack(diags)
 accuracy_means = np.mean(accuracy_report, axis=0)
 accuracy_stds = np.std(accuracy_report, axis=0)
 
-global_mean_accuracy = np.mean(accuracy_report)
-global_std_accuracy = np.std(np.mean(accuracy_report, axis=1))
+global_mean_accuracy = 100 * np.mean(accuracy_report)
+global_std_accuracy = 100 * np.std(np.mean(accuracy_report, axis=1))
