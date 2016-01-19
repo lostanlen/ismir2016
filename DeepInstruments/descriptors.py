@@ -25,8 +25,9 @@ def get_X(paths):
     return np.vstack(X)
 
 
-
-
+def get_Y(paths):
+    Y = map(di.descriptors.get_y, paths)
+    return np.vstack(Y)
 
 
 def get_descriptors(path):
