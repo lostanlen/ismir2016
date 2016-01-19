@@ -53,6 +53,7 @@ F. *Dataset*
 11. [DONE] Make a patch script in __init_.py to handle all misnomers
 12. [DONE] Discard overdrive, shoegaze, bleed and inactivity in clean electric guitar
 13. [DONE] Use version control for the medleydb-single-instruments derived dataset
+14. Remove vocal FX tracks
 
 G. Single-label classification
 1. [DONE] Write get_activation
