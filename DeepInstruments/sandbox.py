@@ -95,13 +95,24 @@ test_paths = di.descriptors.get_paths("test")
 X_test = di.descriptors.get_X(test_paths)
 Y_test = di.descriptors.get_Y(test_paths)
 
-clf = sklearn.ensemble.RandomForestClassifier(n_jobs=-1, n_estimators=200)
-clf = clf.fit(X_training, Y_training)
-Y_predicted = clf.predict(X_test)
+n_trials = 100
+confusion_matrices = []
 
-cm = sklearn.metrics.confusion_matrix(Y_test, Y_predicted).astype("float")
-cmn = cm / np.sum(cm, axis=0)
-accuracies = np.diag(cmn)
-mean_accuracy = round(100 * np.mean(accuracies), 1)
-std_accuracy = round(100 * np.std(accuracies), 1)
-print mean_accuracy
+for trial_index in range(n_trials):
+    clf = sklearn.ensemble.RandomForestClassifier(n_jobs=-1, n_estimators=100)
+    clf = clf.fit(X_training, Y_training)
+    Y_predicted = clf.predict(X_test)
+
+    cm = sklearn.metrics.confusion_matrix(Y_test, Y_predicted).astype("float")
+    cmn = cm / np.sum(cm, axis=0)
+    confusion_matrices.append(cmn)
+    accuracies = np.diag(cmn)
+    mean_accuracy = round(100 * np.mean(accuracies), 1)
+
+diags = map(np.diag, confusion_matrices)
+accuracy_report = np.vstack(diags)
+accuracy_means = np.mean(accuracy_report, axis=0)
+accuracy_stds = np.std(accuracy_report, axis=0)
+
+global_mean_accuracy = np.mean(accuracy_report)
+global_std_accuracy = np.std(np.mean(accuracy_report, axis=1))
