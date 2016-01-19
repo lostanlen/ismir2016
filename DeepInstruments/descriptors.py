@@ -63,5 +63,6 @@ cached_get_descriptors = memory.cache(get_descriptors)
 
 
 def get_y(path):
-    class_path = path.split("medleydb-single-instruments", 1)[1]
-    return int(class_path[2])
+    set_path = path.split("medleydb-single-instruments", 1)[1]
+    class_path = set_path[1:].split("/", 1)[1]
+    return int(class_path[1])
