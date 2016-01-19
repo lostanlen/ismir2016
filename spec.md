@@ -73,5 +73,5 @@ H.  Descriptors + Random forests baseline
 5. [DONE] Summarize with mean and variance over chunks
 6. [DONE] Generate Y's as integer classes
 7. [DONE] Same in test set
-9. Report class-wise accuracy with error bars
 8. [DONE] Run scikit-learn's random forest on it
+9. [DONE] Report class-wise accuracy with error bars
