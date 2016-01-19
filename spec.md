@@ -70,7 +70,7 @@ H.  Descriptors + Random forests baseline
 2. [DONE] Also Delta and Delta-Delta MFCCs
 3. [DONE] Also centroid, bandwidth, contrast, rolloff
 4. [DONE] Generate half-overlapping chunks of X
-5. Summarize with mean and variance over chunks
+5. [DONE] Summarize with mean and variance over chunks
 6. Generate Y's as integer classes
 7. Same in test set
 8. Run scikit-learn's random forest on it
