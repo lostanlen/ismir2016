@@ -24,15 +24,25 @@ training_discarded = [
     u'AimeeNorwich_Flying_STEM_05.wav',  # overdrive
     u'CelestialShore_DieForUs_STEM_05.wav',  # shoegaze effects
     u'CelestialShore_DieForUs_STEM_08.wav',  # shoegaze effects
-    u'EthanHein_GirlOnABridge_STEM_05.wav',  # overdrive
+    u'EthanHein_GirlOnABridge_STEM_05.wav',  # distorted
     u'SecretMountains_HighHorse_STEM_05.wav',  # overdrive
     u'TheDistricts_Vermont_STEM_07.wav',  # overdrive
+    u'AimeeNorwich_Flying_STEM_04.wav',  # overdrive
+    u'ClaraBerryAndWooldog_AirTraffic_STEM_04.wav',  # 7-string, shoegaze
     # Distorted electric guitar
     # (empty)
     # Female singer
     u'DreamersOfTheGhetto_HeavyLove_STEM_08',  # is a vocal FX track
     # Male singer
+    u'MusicDelta_Punk_STEM_04.wav',  # screaming
+    u'NightPanther_Fire_STEM_07.wav',  # vocal FX + falsetto
     u'MusicDelta_Disco_STEM_04.wav',  # falsetto
+    u'AvaLuna_Waterduct_STEM_08.wav',  # falsetto
+    u'TheScarletBrand_LesFleursDuMal_STEM_08.wav',  # has bleed
+    u'SweetLights_YouLetMeDown_STEM_08.wav',  # double voice
+    u'PortStWillow_StayEven_STEM_08.wav',  # falsetto
+    u'Creepoid_OldTree_STEM_07.wav',  # falsetto
+    u'StrandOfOaks_Spacestation_STEM_04.wav',  # falsetto + inactivity
     # Piano
     u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
     # Trumpet
@@ -88,6 +98,12 @@ test_discarded = [
     u'PortStWillow_StayEven_STEM_06.wav',  # has shoegaze effects
     u'PortStWillow_StayEven_STEM_07.wav',  # has shoegaze effects
     u'MusicDelta_Rock_STEM_04.wav',  # has overdrive
+    u'AClassicEducation_NightOwl_STEM_05.wav',  # has shoegaze FX
+    u'Meaxic_TakeAStep_STEM_02.wav',  # has shoegaze FX
+    u'AlexanderRoss_VelvetCurtain_STEM_03.wav',  # has shoegaze FX
+    u'Lushlife_ToynbeeSuite_STEM_10.wav',  # has inactivity
+    u'Meaxic_YouListen_STEM_05.wav',  # is a duo
+    u'MusicDelta_Reggae_STEM_03.wav',  # has overdrive
     # Distorted electric guitar
     u'AClassicEducation_NightOwl_STEM_03.wav',  # same song in training
     u'AClassicEducation_NightOwl_STEM_06.wav',  # same song in training
