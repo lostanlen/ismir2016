@@ -1,3 +1,7 @@
+*Get the MedleyDB dataset*
+Fill in the download request form at:
+http://medleydb.weebly.com/download-form.html
+
 *Install the MedleyDB package*
 git clone https://github.com/rabitt/medleydb.git
 cd medleydb
