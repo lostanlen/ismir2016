@@ -77,3 +77,9 @@ H.  Descriptors + Random forests baseline
 7. [DONE] Same in test set
 8. [DONE] Run scikit-learn's random forest on it
 9. [DONE] Report class-wise accuracy with error bars
+
+I. Structured validation
+1. Extract the stem folder of each chunk path
+2. Assign votes to a dict where stems are keys
+3. Get the true class of each stem
+4. Write a systematic structured evaluator
