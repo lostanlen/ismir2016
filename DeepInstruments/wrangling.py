@@ -49,12 +49,12 @@ def chunk_waveforms(dataset_path,
             Y = np.vstack(stem.track.activations_data)[:, stem.name[1:]]
             half_x_hop = int(0.5 * decision_length)
             Y_hop = int(float(decision_hop) / activation_hop)
-            Y_id = Y_hop - 1
+            Y_id = Y_hop
             chunk_id = 0
             sr, x = stem.audio_data
             while Y_id < (len(Y) - Y_hop):
                 if Y[Y_id] > 0.5:
-                    x_id = int(Y_id * 2048.0)
+                    x_id = int(Y_id * activation_hop)
                     x_range = xrange(x_id-half_x_hop, x_id+half_x_hop)
                     x_chunk = np.transpose(x[x_range, :])
                     chunk_id_str = repr('%(i)03d' % {"i": chunk_id})[1:-1]
