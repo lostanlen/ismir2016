@@ -96,11 +96,11 @@ def run_graph(X_train_list, Y_train_list, X_test, Y_test,
         print "Training loss = ", loss
         loss_history.append(loss)
         if np.mod(epoch_id+1, every_n_epoch) == 0:
-            train_accuracies = di.singlelabel.train_accuracy(
+            train_accuracies = di.singlelabel.training_accuracies(
                     X_train_list, Y_train_list,
                     batch_size, datagen, epoch_size, graph)
             train_accuracies_history.append(train_accuracies)
-            test_accuracies = di.singlelabel.test_accuracy(
+            test_accuracies = di.singlelabel.test_accuracies(
                     X_test, Y_test, batch_size, epoch_size, graph)
             test_accuracies_history.append(test_accuracies)
     return loss_history, train_accuracies_history, test_accuracies_history

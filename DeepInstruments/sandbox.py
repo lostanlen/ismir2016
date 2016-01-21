@@ -16,7 +16,7 @@ hop_length = 1024 #  in samples
 n_bins_per_octave = 12
 n_epochs = 20
 n_octaves = 8
-optimizer = "adagrad"
+# optimizer = "adagrad"
 sr = 32000
 conv1_channels = 100
 conv1_height = 96
@@ -42,8 +42,8 @@ datagen = di.singlelabel.ScalogramGenerator(decision_length, fmin,
                                             n_octaves, training_stems)
 
 
-X_test, Y_test = datagen.get_XY(di.singlelabel.get_paths("test"))
-
+X_test = datagen.get_X(di.singlelabel.get_paths("test"))
+y_test = di.descriptors.get_Y(paths)
 
 graph = di.learning.build_graph(
     X_height=96,
@@ -64,7 +64,8 @@ graph = di.learning.build_graph(
     drop2_proportion=0.5,
     dense3_channels=8)
 
-graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="sgd")
+sgd = keras.optimizers.SGD(nesterov=True)
+graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer=sgd)
 
 
 # Train model
@@ -93,7 +94,7 @@ for epoch_id in xrange(n_epochs):
 # Evaluate random forrest
 training_paths = DeepInstruments.singlelabel.get_paths("training")
 X_training = di.descriptors.get_X(training_paths)
-Y_training = di.descriptors.get_Y(training_paths)
+y_training = np.hstack(map(di.descriptors.get_y, training_paths))
 
 X_means = np.mean(X_training, axis=0)
 X_stds = np.std(X_training, axis=0)
@@ -102,17 +103,17 @@ X_training = (X_training - X_means) / X_stds
 test_paths = DeepInstruments.singlelabel.get_paths("test")
 X_test = di.descriptors.get_X(test_paths)
 X_test = (X_test - X_means) / X_stds
-Y_test = di.descriptors.get_Y(test_paths)
+y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 n_trials = 10
 confusion_matrices = []
 
 for trial_index in range(n_trials):
     clf = sklearn.ensemble.RandomForestClassifier(n_jobs=-1, n_estimators=100)
-    clf = clf.fit(X_training, Y_training)
-    Y_predicted = clf.predict(X_test)
+    clf = clf.fit(X_training, y_training)
+    y_predicted = clf.predict(X_test)
 
-    cm = sklearn.metrics.confusion_matrix(Y_test, Y_predicted).astype("float")
+    cm = sklearn.metrics.confusion_matrix(y_test, y_predicted).astype("float")
     cmn = cm / np.sum(cm, axis=0)
     confusion_matrices.append(cmn)
     accuracies = np.diag(cmn)

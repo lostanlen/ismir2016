@@ -202,7 +202,7 @@ class ScalogramGenerator(object):
                     self.Y[instrument_id][file_id][:, Y_id]
             yield X_batch, Y_batch
 
-    def get_XY(self, paths):
+    def get_X(self, paths):
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
         X_test = joblib.Parallel(n_jobs=-1)(
                 delayed_get_X(self.decision_length,
@@ -213,8 +213,8 @@ class ScalogramGenerator(object):
                               path)
                 for path in paths)
         X_test = np.stack(X_test)[:, :, :-1]
-        Y_test = di.descriptors.get_Y(paths)
-        return X_test, Y_test
+        X_test = (X_test - self.X_mean) / self.X_std
+        return X_test
 
 
 def get_indices(Y, decision_length):
@@ -337,7 +337,17 @@ def split_stems(names,
     return test_stems, training_stems
 
 
-def train_accuracy(batch_size, datagen, epoch_size, graph):
+def test_accuracies(graph, X_test, y_true):
+    Y_predicted = graph.predict({"X": X_test})["Y"]
+    y_predicted = np.argmax(Y_predicted, axis=1)
+    cm = sklearn.metrics.confusion_matrix(y_true, y_predicted)
+    cm = cm.astype(np.float64)
+    cm = cm / cm.sum(axis=1)[:, np.newaxis]
+    test_accuracies = 100 * np.diag(cm)
+    return test_accuracies
+
+
+def training_accuracy(batch_size, datagen, epoch_size, graph):
     n_batches = int(math.ceil(float(epoch_size) / batch_size))
     n_instruments = datagen.Y[0][0].shape[0]
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
@@ -358,8 +368,5 @@ def train_accuracy(batch_size, datagen, epoch_size, graph):
                                           range(n_instruments))
     cm = cm.astype(np.float64)
     cm = cm / cm.sum(axis=1)[:, np.newaxis]
-    train_accuracies = 100 * np.diag(cm)
-    mean_accuracy = np.mean(train_accuracies)
-    std_accuracy = np.std(train_accuracies)
-    print "train accuracy = ", mean_accuracy, " +/- ", std_accuracy
-    return train_accuracies
+    training_accuracies = 100 * np.diag(cm)
+    return training_accuracies
