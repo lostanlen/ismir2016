@@ -9,7 +9,7 @@ def chunk_waveforms(dataset_path,
                     decision_hop,
                     decision_length,
                     training_or_test):
-    activation_hop = 2048
+    activation_hop = 1024
     (test_stems, training_stems) = di.singlelabel.split_stems(
         di.singlelabel.names, di.singlelabel.test_discarded,
         di.singlelabel.training_discarded, di.singlelabel.training_to_test)
