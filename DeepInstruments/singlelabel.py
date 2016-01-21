@@ -73,6 +73,7 @@ test_discarded = [
     # Female singer
     u'ClaraBerryAndWooldog_AirTraffic_STEM_07.wav',  # to avoid artist bias
     u'LizNelson_ImComingHome_STEM_02.wav',  # has bleed
+    u'LizNelson_Rainfall_STEM_05.wav',  # has bleed
     # Piano
     # (empty)
     # Trumpet
