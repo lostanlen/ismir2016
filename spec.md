@@ -86,6 +86,14 @@ I. Structured validation
 
 J. Reproducibility
 1. List all operations that are necessary
-2. Review this list on a gentiane
+2. Review this list on gentiane
+
+K. Scattering transform
 1. [DONE] Write function get_paths in MATLAB
 2. [DONE] Compute joint scattering features
+3. Compute plain scattering features
+4. Compute spiral scattering features
+5. Review the importance of log compression
+6. Export in HDF5 from MATLAB to Python
+7. Check that paths are ordered like in Python
+8. Load HDF5, train RF, report accuracy
