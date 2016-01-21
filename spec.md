@@ -87,3 +87,4 @@ I. Structured validation
 J. Reproducibility
 1. List all operations that are necessary
 2. Review this list on a gentiane
+1. [DONE] Write function get_paths in MATLAB
