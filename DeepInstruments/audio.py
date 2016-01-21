@@ -10,11 +10,14 @@ def get_X(decision_length,
           hop_length,
           n_bins_per_octave,
           n_octaves,
-          track):
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore")
-        (sr, x_stereo) = track.audio_data
-        warnings.resetwarnings()
+          track_or_path):
+    if isinstance(track_or_path, basestring):
+        x_stereo, sr = librosa.core.load(track_or_path)
+    else:
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore")
+            (sr, x_stereo) = track_or_path.audio_data
+            warnings.resetwarnings()
     x_stereo = x_stereo.astype(np.float32)
     x_mono = np.sum(x_stereo, axis=1) / (32768.0 * 2)
     if x_mono.shape[0] < decision_length:
