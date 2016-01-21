@@ -41,7 +41,8 @@ datagen = di.singlelabel.ScalogramGenerator(decision_length, fmin,
                                             hop_length, n_bins_per_octave,
                                             n_octaves, training_stems)
 
-test_paths = di.singlelabel.get_paths("test")
+
+X_test, Y_test = datagen.get_XY(di.singlelabel.get_paths("test"))
 
 
 graph = di.learning.build_graph(
