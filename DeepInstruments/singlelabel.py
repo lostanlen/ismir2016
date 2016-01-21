@@ -372,3 +372,18 @@ def train_accuracy(batch_size, datagen, epoch_size, graph):
     std_accuracy = np.std(train_accuracies)
     print "train accuracy = ", mean_accuracy, " +/- ", std_accuracy
     return train_accuracies
+
+
+def get_paths(training_or_test):
+    set_path = os.path.join(os.path.expanduser("~"),
+                             "datasets",
+                             "medleydb-single-instruments",
+                             training_or_test)
+    paths = [
+        [os.path.join(path, name)
+         for (path, subdir, names)
+         in os.walk(os.path.join(set_path, class_name))
+         for name in names]
+        for class_name in os.listdir(set_path)]
+    paths = [path for class_path in paths for path in class_path]
+    return paths

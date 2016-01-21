@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sklearn.ensemble
 
+import DeepInstruments.singlelabel
 
 batch_size = 512
 decision_length = 131072  # in samples
@@ -88,7 +89,7 @@ for epoch_id in xrange(n_epochs):
 
 
 # Evaluate random forrest
-training_paths = di.descriptors.get_paths("training")
+training_paths = DeepInstruments.singlelabel.get_paths("training")
 X_training = di.descriptors.get_X(training_paths)
 Y_training = di.descriptors.get_Y(training_paths)
 
@@ -96,7 +97,7 @@ X_means = np.mean(X_training, axis=0)
 X_stds = np.std(X_training, axis=0)
 X_training = (X_training - X_means) / X_stds
 
-test_paths = di.descriptors.get_paths("test")
+test_paths = DeepInstruments.singlelabel.get_paths("test")
 X_test = di.descriptors.get_X(test_paths)
 X_test = (X_test - X_means) / X_stds
 Y_test = di.descriptors.get_Y(test_paths)
