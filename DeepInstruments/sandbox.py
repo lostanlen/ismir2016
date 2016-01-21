@@ -63,7 +63,7 @@ graph = di.learning.build_graph(
     drop1_proportion=0.5,
     dense2_channels=64,
     drop2_proportion=0.5,
-    dense3_channels=8)
+    dense3_channels=6)
 
 sgd = keras.optimizers.SGD(nesterov=True)
 graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adam")
@@ -91,8 +91,7 @@ for epoch_id in xrange(n_epochs):
     print "Training loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
 
-
-
+test_accuracies = di.singlelabel.test_accuracies(graph, X_test, y_test)
 
 
 # Evaluate random forest
