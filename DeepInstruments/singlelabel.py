@@ -9,10 +9,8 @@ import os
 import sklearn
 
 names = [u'clarinet',
-         u'clean electric guitar',
          u'distorted electric guitar',
          u'female singer',
-         u'male singer',
          u'piano',
          u'trumpet',
          u'violin']
@@ -20,29 +18,10 @@ names = [u'clarinet',
 training_discarded = [
     # Clarinet
     # (empty)
-    # Clean electric guitar
-    u'AimeeNorwich_Flying_STEM_05.wav',  # overdrive
-    u'CelestialShore_DieForUs_STEM_05.wav',  # shoegaze effects
-    u'CelestialShore_DieForUs_STEM_08.wav',  # shoegaze effects
-    u'EthanHein_GirlOnABridge_STEM_05.wav',  # distorted
-    u'SecretMountains_HighHorse_STEM_05.wav',  # overdrive
-    u'TheDistricts_Vermont_STEM_07.wav',  # overdrive
-    u'AimeeNorwich_Flying_STEM_04.wav',  # overdrive
-    u'ClaraBerryAndWooldog_AirTraffic_STEM_04.wav',  # 7-string, shoegaze
     # Distorted electric guitar
     # (empty)
     # Female singer
     u'DreamersOfTheGhetto_HeavyLove_STEM_08',  # is a vocal FX track
-    # Male singer
-    u'MusicDelta_Punk_STEM_04.wav',  # screaming
-    u'NightPanther_Fire_STEM_07.wav',  # vocal FX + falsetto
-    u'MusicDelta_Disco_STEM_04.wav',  # falsetto
-    u'AvaLuna_Waterduct_STEM_08.wav',  # falsetto
-    u'TheScarletBrand_LesFleursDuMal_STEM_08.wav',  # has bleed
-    u'SweetLights_YouLetMeDown_STEM_08.wav',  # double voice
-    u'PortStWillow_StayEven_STEM_08.wav',  # falsetto
-    u'Creepoid_OldTree_STEM_07.wav',  # falsetto
-    u'StrandOfOaks_Spacestation_STEM_04.wav',  # falsetto + inactivity
     # Piano
     u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
     # Trumpet
@@ -65,10 +44,6 @@ training_to_test = [
     u'LizNelson_ImComingHome_STEM_01.wav',  # to avoid artist bias
     u'LizNelson_ImComingHome_STEM_04.wav',  # to avoid artist bias
     u'LizNelson_Rainfall_STEM_01.wav',  # to avoid artist bias
-    # Male singer
-    u'BigTroubles_Phantom_STEM_04.wav',  # to avoid artist bias
-    u'HeladoNegro_MitadDelMundo_STEM_08.wav',
-    u'StevenClark_Bounty_STEM_08.wav',  # to avoid artist bias
     # Piano
     # (empty)
     # Trumpet
@@ -81,29 +56,6 @@ training_to_test = [
 test_discarded = [
     # Clarinet
     u'MusicDelta_InTheHalloftheMountainKing_STEM_09.wav',  # 2 players
-    # Clean electric guitar
-    u'AlexanderRoss_GoodbyeBolero_STEM_02.wav',  # same song in training
-    u'CelestialShore_DieForUs_STEM_05.wav',  # has shoegaze effects
-    u'AlexanderRoss_VelvetCurtain_STEM_10.wav',  # is actually a reverb track
-    u'TheDistricts_Vermont_STEM_06.wav',  # has overdrive
-    u'TablaBreakbeatScience_Vger_STEM_06.wav',  # has distortion
-    u'Snowmine_Curfews_STEM_07.wav',  # is sometimes inactive
-    u'Snowmine_Curfews_STEM_08.wav',  # has overdrive
-    u'MusicDelta_Country2_STEM_03.wav',  # has overdrive
-    u'TheScarletBrand_LesFleursDuMal_STEM_03.wav',  # has distortion
-    u'Lushlife_ToynbeeSuite_STEM_12.wav',  # has bleed
-    u'MusicDelta_Britpop_STEM_06.wav',  # has overdrive
-    u'MusicDelta_Beatles_STEM_03.wav',  # has overdrive
-    u'PortStWillow_StayEven_STEM_05.wav',  # has shoegaze effects
-    u'PortStWillow_StayEven_STEM_06.wav',  # has shoegaze effects
-    u'PortStWillow_StayEven_STEM_07.wav',  # has shoegaze effects
-    u'MusicDelta_Rock_STEM_04.wav',  # has overdrive
-    u'AClassicEducation_NightOwl_STEM_05.wav',  # has shoegaze FX
-    u'Meaxic_TakeAStep_STEM_02.wav',  # has shoegaze FX
-    u'AlexanderRoss_VelvetCurtain_STEM_03.wav',  # has shoegaze FX
-    u'Lushlife_ToynbeeSuite_STEM_10.wav',  # has inactivity
-    u'Meaxic_YouListen_STEM_05.wav',  # is a duo
-    u'MusicDelta_Reggae_STEM_03.wav',  # has overdrive
     # Distorted electric guitar
     u'AClassicEducation_NightOwl_STEM_03.wav',  # same song in training
     u'AClassicEducation_NightOwl_STEM_06.wav',  # same song in training
@@ -121,11 +73,6 @@ test_discarded = [
     # Female singer
     u'ClaraBerryAndWooldog_AirTraffic_STEM_07.wav',  # to avoid artist bias
     u'LizNelson_ImComingHome_STEM_02.wav',  # has bleed
-    # Male singer
-    u'AClassicEducation_NightOwl_STEM_08.wav',  # to avoid song bias
-    u'Creepoid_OldTree_STEM_09.wav',  # is a vocal FX track
-    u'HeladoNegro_MitadDelMundo_STEM_08.wav',  # is vocal FX + falsetto
-    u'BigTroubles_Phantom_STEM_04.wav',  # is a vocal FX track
     # Piano
     # (empty)
     # Trumpet
