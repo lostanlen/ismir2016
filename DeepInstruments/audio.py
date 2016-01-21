@@ -12,7 +12,7 @@ def get_X(decision_length,
           n_octaves,
           track_or_path):
     if isinstance(track_or_path, basestring):
-        x_stereo, sr = librosa.core.load(track_or_path)
+        x_stereo, sr = librosa.core.load(track_or_path, sr=None, mono=False)
     else:
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore")
