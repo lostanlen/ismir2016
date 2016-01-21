@@ -202,43 +202,17 @@ class ScalogramGenerator(object):
                     self.Y[instrument_id][file_id][:, Y_id]
             yield X_batch, Y_batch
 
-    def chunk(self, test_stems):
-        X = []
-        Y = []
+    def get_test_XY(paths):
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
-        for class_stems in test_stems:
-            X.append(joblib.Parallel(n_jobs=-1)(
+        X_test = joblib.Parallel(n_jobs=-1)(
                 delayed_get_X(self.decision_length,
                               self.fmin,
                               self.hop_length,
                               self.n_bins_per_octave,
-                              self.n_octaves,
-                              stem)
-                for stem in class_stems
-            ))
-            Y.append([di.singlelabel.get_Y(stem) for stem in class_stems])
-        for instrument_id in range(len(X)):
-            X[instrument_id] = [(X_file-self.X_mean) / self.X_std
-                                for X_file in X[instrument_id]]
-        X_chunks = []
-        Y_chunks = []
-        half_X_hop = int(0.5 * self.decision_length / self.hop_length)
-        Y_hop = int(0.5 * float(self.decision_length) / 2048)
-        indices = di.singlelabel.get_indices(Y, self.decision_length)
-        for instrument_id in range(len(X)):
-            for file_id in range(len(X[instrument_id])):
-                Y_id = Y_hop - 1
-                last_index = indices[instrument_id][file_id][-1]
-                while Y_id < (last_index-Y_hop):
-                    Y_chunk = Y[instrument_id][file_id][:, Y_id]
-                    if np.max(Y_chunk) > 0.5:
-                        X_id = int(Y_id * 2048.0 / self.hop_length)
-                        X_range = xrange(X_id-half_X_hop, X_id+half_X_hop)
-                        X_chunk = X[instrument_id][file_id][:, X_range]
-                        X_chunks.append(X_chunk)
-                        Y_chunks.append(Y_chunk)
-                    Y_id += Y_hop
-        return X_chunks, Y_chunks
+                              self.n_octaves, path)
+                for path in paths)
+        Y_test = di.descriptors.get_Y(paths)
+        return X_test, Y_test
 
 
 def get_indices(Y, decision_length):
@@ -271,6 +245,21 @@ def get_melody(stem):
     else:
         melody = np.zeros(len(stem.track.activations_data))
     return melody
+
+
+def get_paths(training_or_test):
+    set_path = os.path.join(os.path.expanduser("~"),
+                             "datasets",
+                             "medleydb-single-instruments",
+                             training_or_test)
+    paths = [
+        [os.path.join(path, name)
+         for (path, subdir, names)
+         in os.walk(os.path.join(set_path, class_name))
+         for name in names]
+        for class_name in os.listdir(set_path)]
+    paths = [path for class_path in paths for path in class_path]
+    return paths
 
 
 def get_Y(stem):
@@ -372,18 +361,3 @@ def train_accuracy(batch_size, datagen, epoch_size, graph):
     std_accuracy = np.std(train_accuracies)
     print "train accuracy = ", mean_accuracy, " +/- ", std_accuracy
     return train_accuracies
-
-
-def get_paths(training_or_test):
-    set_path = os.path.join(os.path.expanduser("~"),
-                             "datasets",
-                             "medleydb-single-instruments",
-                             training_or_test)
-    paths = [
-        [os.path.join(path, name)
-         for (path, subdir, names)
-         in os.walk(os.path.join(set_path, class_name))
-         for name in names]
-        for class_name in os.listdir(set_path)]
-    paths = [path for class_path in paths for path in class_path]
-    return paths
