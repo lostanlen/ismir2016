@@ -212,6 +212,7 @@ class ScalogramGenerator(object):
                               self.n_octaves,
                               path)
                 for path in paths)
+        X_test = np.stack(X_test)[:, :, :-1]
         Y_test = di.descriptors.get_Y(paths)
         return X_test, Y_test
 
