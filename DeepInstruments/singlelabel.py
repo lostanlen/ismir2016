@@ -202,7 +202,7 @@ class ScalogramGenerator(object):
                     self.Y[instrument_id][file_id][:, Y_id]
             yield X_batch, Y_batch
 
-    def get_test_XY(paths):
+    def get_test_XY(self, paths):
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
         X_test = joblib.Parallel(n_jobs=-1)(
                 delayed_get_X(self.decision_length,
