@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sklearn.ensemble
 
-import DeepInstruments.singlelabel
+di.wrangling.export_singlelabel_dataset()
 
 batch_size = 512
 decision_length = 131072  # in samples
