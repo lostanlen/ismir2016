@@ -42,8 +42,9 @@ datagen = di.singlelabel.ScalogramGenerator(decision_length, fmin,
                                             n_octaves, training_stems)
 
 
-X_test = datagen.get_X(di.singlelabel.get_paths("test"))
-y_test = di.descriptors.get_Y(paths)
+test_paths = di.singlelabel.get_paths("test")
+X_test = datagen.get_X(test_paths)
+y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 graph = di.learning.build_graph(
     X_height=96,
@@ -65,7 +66,7 @@ graph = di.learning.build_graph(
     dense3_channels=8)
 
 sgd = keras.optimizers.SGD(nesterov=True)
-graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer=sgd)
+graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adam")
 
 
 # Train model
@@ -91,7 +92,10 @@ for epoch_id in xrange(n_epochs):
     mean_training_loss_history.append(mean_loss)
 
 
-# Evaluate random forrest
+
+
+
+# Evaluate random forest
 training_paths = DeepInstruments.singlelabel.get_paths("training")
 X_training = di.descriptors.get_X(training_paths)
 y_training = np.hstack(map(di.descriptors.get_y, training_paths))
