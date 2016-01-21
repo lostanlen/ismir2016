@@ -20,7 +20,7 @@ def chunk_waveforms(dataset_path,
     else:
         raise ValueError("Input to chunk_waveforms must be training or test")
     for instrument_id in range(len(stems)):
-        instrument_name = stems[instrument_id][0].instrument.name
+        instrument_name = di.singlelabel.names[instrument_id]
         instrument_id_str = repr('%(i)02d' % {"i": instrument_id})[1:-1]
         instrument_folder = instrument_id_str + "_" + instrument_name
         instrument_folder_path = os.path.join(dataset_path,
