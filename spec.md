@@ -77,6 +77,7 @@ H.  Descriptors + Random forests baseline
 7. [DONE] Same in test set
 8. [DONE] Run scikit-learn's random forest on it
 9. [DONE] Report class-wise accuracy with error bars
+10. [DONE] Discard clean guitar and male singer
 
 I. Structured validation
 1. Extract the stem folder of each chunk path
