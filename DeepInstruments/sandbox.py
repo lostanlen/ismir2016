@@ -41,7 +41,8 @@ datagen = di.singlelabel.ScalogramGenerator(decision_length, fmin,
                                             hop_length, n_bins_per_octave,
                                             n_octaves, training_stems)
 
-X_chunks, Y_chunks = datagen.chunk(test_stems)
+test_paths = di.singlelabel.get_paths("test")
+
 
 graph = di.learning.build_graph(
     X_height=96,
