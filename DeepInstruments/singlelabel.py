@@ -49,14 +49,14 @@ training_to_test = [
     # Piano
     # (empty)
     # Trumpet
-    u'MusicDelta_Beethoven_STEM_14.wav',  # to avoid song bias
-    u'MusicDelta_ModalJazz_STEM_05.wav',  # to enrich test set
+    # (empty)
     # Violin
     # (empty)
 ]
 
 test_discarded = [
     # Clarinet
+    u'MusicDelta_Beethoven_STEM_09.wav',  # to avoid song bias
     u'MusicDelta_InTheHalloftheMountainKing_STEM_09.wav',  # 2 players
     # Distorted electric guitar
     u'AClassicEducation_NightOwl_STEM_03.wav',  # same song in training
@@ -76,10 +76,12 @@ test_discarded = [
     u'ClaraBerryAndWooldog_AirTraffic_STEM_07.wav',  # to avoid artist bias
     u'LizNelson_ImComingHome_STEM_02.wav',  # has bleed
     u'LizNelson_Rainfall_STEM_05.wav',  # has bleed
+    # Flute
+    u'MusicDelta_InTheHalloftheMountainKing_STEM_07.wav',  # 2 players
     # Piano
     # (empty)
     # Trumpet
-    # (empty)
+    u'MusicDelta_Beethoven_STEM_14.wav',  # to avoid song bias
     # Violin
     # (empty)
 ]
