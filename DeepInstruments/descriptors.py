@@ -15,11 +15,6 @@ def get_X(paths):
     return np.vstack(X)
 
 
-def get_Y(paths):
-    Y = map(di.descriptors.get_y, paths)
-    return np.hstack(Y)
-
-
 def get_descriptors(path):
     waveform, sr = librosa.core.load(path, sr=22050, mono=True)
     mfcc = librosa.feature.mfcc(waveform, sr)
