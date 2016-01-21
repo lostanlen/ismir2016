@@ -160,6 +160,9 @@ class ScalogramGenerator(object):
                               path)
                 for path in paths)
         X_test = np.stack(X_test)[:, :, :-1]
+        shape = X_test.shape
+        new_shape = (shape[0], 1, shape[1], shape[2])
+        X_test = np.reshape(X_test, new_shape)
         X_test = (X_test - self.X_mean) / self.X_std
         return X_test
 
