@@ -11,7 +11,9 @@ import sklearn
 names = [u'clarinet',
          u'distorted electric guitar',
          u'female singer',
+         u'flute',
          u'piano',
+         u'tenor saxophone',
          u'trumpet',
          u'violin']
 
@@ -261,7 +263,7 @@ def split_stems(names,
                 training_to_test):
     session = medleydb.sql.session()
     stems = session.query(medleydb.sql.model.Stem).all()
-    stems = [ stem for stem in stems if not stem.track.has_bleed]
+    stems = [stem for stem in stems if not stem.track.has_bleed]
     training_stems = []
     test_stems = []
     for name in names:
@@ -298,7 +300,7 @@ def test_accuracies(graph, X_test, y_true):
     return test_accuracies
 
 
-def training_accuracy(batch_size, datagen, epoch_size, graph):
+def training_accuracies(batch_size, datagen, epoch_size, graph):
     n_batches = int(math.ceil(float(epoch_size) / batch_size))
     n_instruments = datagen.Y[0][0].shape[0]
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
