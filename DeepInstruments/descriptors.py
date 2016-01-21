@@ -21,7 +21,7 @@ def get_Y(paths):
 
 
 def get_descriptors(path):
-    waveform, sr = librosa.core.load(path)
+    waveform, sr = librosa.core.load(path, sr=22050, mono=True)
     mfcc = librosa.feature.mfcc(waveform, sr)
     delta_mfcc = librosa.feature.delta(mfcc)
     deltadelta_mfcc = librosa.feature.delta(mfcc, order=2)
