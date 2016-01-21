@@ -9,7 +9,7 @@ def chunk_waveforms(dataset_path,
                     decision_hop,
                     decision_length,
                     training_or_test):
-    activation_hop = 4096
+    activation_hop = 2048
     (test_stems, training_stems) = di.singlelabel.split_stems(
         di.singlelabel.names, di.singlelabel.test_discarded,
         di.singlelabel.training_discarded, di.singlelabel.training_to_test)
@@ -48,11 +48,11 @@ def chunk_waveforms(dataset_path,
                 os.makedirs(file_folder_path)
             Y = np.vstack(stem.track.activations_data)[:, stem.name[1:]]
             half_x_hop = int(0.5 * decision_length)
-            Y_hop = int(float(decision_hop) / activation_hop)
+            Y_hop = int(0.5 * float(decision_hop) / activation_hop)
             Y_id = Y_hop
             chunk_id = 0
             sr, x = stem.audio_data
-            while Y_id < (len(Y) - Y_hop):
+            while Y_id < (len(Y) - 2*Y_hop):
                 if Y[Y_id] > 0.5:
                     x_id = int(Y_id * activation_hop)
                     x_range = xrange(x_id-half_x_hop, x_id+half_x_hop)
