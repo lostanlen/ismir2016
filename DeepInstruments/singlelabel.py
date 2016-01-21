@@ -21,8 +21,11 @@ training_discarded = [
     # Clarinet
     # (empty)
     # Distorted electric guitar
+    u'Meaxis_TakeAStep_STEM_03.wav',  # two players
     u'HopAlong_SisterCities_STEM_06.wav',  # is arguably not distorted
-    u'TheSoSoGlos_Emergency_S04.wav',  # two players
+    u'TheSoSoGlos_Emergency_04.wav',  # two players
+    u'TablaBreakbeatScience_Animoog_STEM_03.wav',  # prepared guitar I think
+    u'Creepoid_OldTree_STEM_06.wav',  # is clean guitar at the start
     # Female singer
     u'DreamersOfTheGhetto_HeavyLove_STEM_08',  # is a vocal FX track
     # Piano
