@@ -259,7 +259,7 @@ def get_stems():
                             if stem.instrument.name == instrument_name]
         training_instrument_stems = []
         test_instrument_stems = []
-        for stem in stems:
+        for stem in instrument_stems:
             file_name = os.path.split(stem.audio_path)[1]
             if file_name in di.singlelabel.medleydb_discarded:
                 pass
