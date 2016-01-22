@@ -52,6 +52,8 @@ medleydb_movedtotest = [
     u'BigTroubles_Phantom_STEM_03.wav',
     u'BigTroubles_Phantom_STEM_05.wav',
     u'BigTroubles_Phantom_STEM_07.wav',
+    u'Meaxic_TakeAStep_STEM_03.wav',
+    u'Meaxic_YouListen_STEM_06.wav',
     u'PurlingHiss_Lolita_STEM_03.wav',
     u'PurlingHiss_Lolita_STEM_04.wav',
     u'TheScarletBrand_LesFleursDuMal_STEM_04.wav',
