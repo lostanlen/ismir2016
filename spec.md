@@ -97,6 +97,6 @@ K. Scattering transform
 3. Compute plain scattering features
 4. Compute spiral scattering features
 5. Review the importance of log compression
-6. Export in HDF5 from MATLAB to Python
+6. [DONE] Export in HDF5 from MATLAB to Python
 7. Check that paths are ordered like in Python
 8. Load HDF5, train RF, report accuracy
