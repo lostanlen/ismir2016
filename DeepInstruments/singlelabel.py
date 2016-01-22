@@ -259,10 +259,10 @@ def get_stems():
         if name in di.singlelabel.medleydb_discarded:
             pass
         else:
-            if stem.instrument.name in di.singlelabel.names:
-                training_stems.append(stem)
-            else:
+            if name in di.singlelabel.medleydb_movedtotest:
                 test_stems.append(stem)
+            else:
+                training_stems.append(stem)
     return test_stems, training_stems
 
 
