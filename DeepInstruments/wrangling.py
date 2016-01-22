@@ -80,10 +80,14 @@ def chunk_stems(dataset_path,
 
 
 def export_singlelabel_dataset():
-    dataset_path = os.path.join(os.path.expanduser("~"),
+    dest_path = os.path.join(os.path.expanduser("~"),
                                 "datasets",
                                 "medleydb-single-instruments")
     decision_hop = 65536
     decision_length = 131072
-    chunk_stems(dataset_path, decision_hop, decision_length, "training")
-    chunk_stems(dataset_path, decision_hop, decision_length, "test")
+    chunk_stems(dest_path, decision_hop, decision_length, "training")
+    chunk_stems(dest_path, decision_hop, decision_length, "test")
+    solosDb_path = os.path.join(os.path.expanduser("~"),
+                                "datasets",
+                                "solosDb_for_ismir2016")
+    chunk_waveforms(dest_path, decision_hop, decision_length, solosDb_path)
