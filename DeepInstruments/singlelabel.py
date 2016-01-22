@@ -249,17 +249,20 @@ def melody_annotation_durations():
 def get_stems():
     session = medleydb.sql.session()
     stems = session.query(medleydb.sql.model.Stem).all()
-    stems = [stem for stem in stems
-             if os.path.split(stem.audio_path)[1] not in
-             di.singlelabel.medleydb_discarded and
-             if not stem.track.has_bleed and
-             if stem.instrument.name in di.singlelabel.names]
-    training_stems = [stem for stem in stems
-                      if os.path.split(stem.audio_path)[1] not in
-                      di.singlelabel.medleydb_movedtotest]
-    test_stems = [stem for stem in stems
-                  if os.path.split(stem.audio_path)[1] in
-                  di.singlelabel.medleydb_movedtotest]
+    stems = [ stem for stem in stems
+              if not stem.track.has_bleed and
+              stem.instrument.name in di.singlelabel.names]
+    training_stems = []
+    test_stems = []
+    for stem in stems:
+        name = os.path.split(stem.audio_path)[1]
+        if name in di.singlelabel.medleydb_discarded:
+            pass
+        else:
+            if stem.instrument.name in di.singlelabel.names:
+                training_stems.append(stem)
+            else:
+                test_stems.append(stem)
     return test_stems, training_stems
 
 
