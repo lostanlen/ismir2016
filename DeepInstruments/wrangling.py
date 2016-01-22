@@ -5,20 +5,11 @@ import os
 import shutil
 
 
-def chunk_waveforms(dataset_path,
-                    decision_hop,
-                    decision_length,
-                    training_or_test):
+def chunk_stems(dataset_path,
+                decision_hop,
+                decision_length,
+                stems):
     activation_hop = 2048
-    (test_stems, training_stems) = di.singlelabel.split_stems(
-        di.singlelabel.names, di.singlelabel.test_discarded,
-        di.singlelabel.training_discarded, di.singlelabel.training_to_test)
-    if training_or_test == "training":
-        stems = training_stems
-    elif training_or_test == "test":
-        stems = test_stems
-    else:
-        raise ValueError("Input to chunk_waveforms must be training or test")
     for instrument_id in range(len(stems)):
         instrument_name = di.singlelabel.names[instrument_id]
         instrument_id_str = repr('%(i)02d' % {"i": instrument_id})[1:-1]
@@ -87,5 +78,6 @@ def export_singlelabel_dataset():
                                 "medleydb-single-instruments")
     decision_hop = 65536
     decision_length = 131072
-    chunk_waveforms(dataset_path, decision_hop, decision_length, "training")
-    chunk_waveforms(dataset_path, decision_hop, decision_length, "test")
+    training_stems, test_stems = di.singlelabel.get_stems()
+    chunk_stems(dataset_path, decision_hop, decision_length, training_stems)
+    chunk_stems(dataset_path, decision_hop, decision_length, test_stems)
