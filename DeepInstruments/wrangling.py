@@ -72,7 +72,7 @@ def chunk_stems(dataset_path,
                     print(chunk_path)
                     librosa.output.write_wav(chunk_path,
                                              x_chunk,
-                                             sr,
+                                             sr=44100,
                                              norm=False)
                     Y_id += Y_hop
                     chunk_id += 1
