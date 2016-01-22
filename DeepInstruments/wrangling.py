@@ -79,6 +79,48 @@ def chunk_stems(dataset_path,
                 Y_id += Y_hop
 
 
+def chunk_waveforms(dest_path, decision_hop, decision_length, source_path):
+    subdirs = [subdir for (path,subdir,names) in os.walk(source_path)][0]
+    for subdir in subdirs:
+        instrument_name = subdir[3:]
+        source_instrument_path = os.path.join(source_path, subdir)
+        dest_instrument_path = os.path.join(dest_path, "test", subdir)
+        source_file_names = [name for (p,s,name)
+                             in os.walk(source_instrument_path)][0]
+        for file_id in range(len(source_file_names)):
+            source_file_name = source_file_names[file_id]
+            dest_file_folder = source_file_name[:-4] # remove WAV extension
+            dest_folder_path = os.path.join(dest_instrument_path,
+                                            dest_file_folder)
+            os.makedirs(dest_folder_path)
+            source_file_path = os.path.join(source_instrument_path,
+                                            source_file_name)
+            waveform, sr = librosa.core.load(source_file_path,
+                                             sr=44100,
+                                             mono=True)
+            chunk_id = 0
+            x_id = 0
+            while x_id+decision_length < len(waveform):
+                x_range = xrange(x_id, x_id + decision_length)
+                chunk = waveform[x_range]
+                chunk_norm = np.linalg.norm(chunk)
+                if chunk_norm > 1.0: # silence threshold
+                    chunk_id += 1
+                    chunk_id_str = repr('%(i)03d' % {"i": chunk_id})[1:-1]
+                    chunk_str = instrument_name + \
+                                "_" + \
+                                dest_file_folder + \
+                                "_chunk" + \
+                                chunk_id_str + \
+                                ".wav"
+                    librosa.output.write_wav(chunk_path,
+                                             chunk,
+                                             sr=44100,
+                                             norm=False)
+                x_id += decision_hop
+
+
+
 def export_singlelabel_dataset():
     dest_path = os.path.join(os.path.expanduser("~"),
                                 "datasets",
