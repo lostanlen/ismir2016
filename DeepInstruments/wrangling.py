@@ -89,7 +89,10 @@ def chunk_waveforms(dest_path, decision_hop, decision_length, source_path):
                              in os.walk(source_instrument_path)][0]
         for file_id in range(len(source_file_names)):
             source_file_name = source_file_names[file_id]
-            dest_file_folder = source_file_name[:-4] # remove WAV extension
+            file_str = repr('%(i)02d' % {"i": file_id})[1:-1]
+            dest_file_folder = file_str +\
+                               "_" +\
+                               source_file_name[:-4] # remove WAV extension
             dest_folder_path = os.path.join(dest_instrument_path,
                                             dest_file_folder)
             os.makedirs(dest_folder_path)
@@ -104,7 +107,7 @@ def chunk_waveforms(dest_path, decision_hop, decision_length, source_path):
                 x_range = xrange(x_id, x_id + decision_length)
                 chunk = waveform[x_range]
                 chunk_norm = np.linalg.norm(chunk)
-                if chunk_norm > 1.0: # silence threshold
+                if chunk_norm > 1.0:  # silence threshold
                     chunk_id += 1
                     chunk_id_str = repr('%(i)03d' % {"i": chunk_id})[1:-1]
                     chunk_str = instrument_name + \
