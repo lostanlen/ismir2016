@@ -246,17 +246,20 @@ def melody_annotation_durations():
     return np.transpose(np.vstack(tuples))
 
 
-def get_stems(names, medleydb_discarded, medleydb_movedtotest):
+def get_stems():
     session = medleydb.sql.session()
     stems = session.query(medleydb.sql.model.Stem).all()
     stems = [stem for stem in stems
-             if os.path.split(stem.audio_path)[1] not in medleydb_discarded]
+             if os.path.split(stem.audio_path)[1] not in
+             di.singlelabel.medleydb_discarded and
+             if not stem.track.has_bleed and
+             if stem.instrument.name in di.singlelabel.names]
     training_stems = [stem for stem in stems
-                      if os.path.split(stem.audio_path)[1]
-                      not in medleydb_movedtotest]
+                      if os.path.split(stem.audio_path)[1] not in
+                      di.singlelabel.medleydb_movedtotest]
     test_stems = [stem for stem in stems
-                  if os.path.split(stem.audio_path)[1]
-                  in medleydb_movedtotest]
+                  if os.path.split(stem.audio_path)[1] in
+                  di.singlelabel.medleydb_movedtotest]
     return test_stems, training_stems
 
 
