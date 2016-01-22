@@ -54,7 +54,7 @@ def chunk_stems(dataset_path,
                 if Y[Y_id] > 0.5:
                     x_id = int(Y_id * activation_hop)
                     x_range = xrange(x_id-half_x_hop, x_id+half_x_hop)
-                    x_chunk = np.transpose(x[x_range, :])
+                    x_chunk = np.mean(x[x_range, :], axis=1)
                     chunk_id_str = repr('%(i)03d' % {"i": chunk_id})[1:-1]
                     chunk_str = instrument_name + \
                                 "_" + \
