@@ -126,7 +126,6 @@ def chunk_waveforms(dest_path, decision_hop, decision_length, source_path):
                 x_id += decision_hop
 
 
-
 def export_singlelabel_dataset():
     dest_path = os.path.join(os.path.expanduser("~"),
                                 "datasets",
