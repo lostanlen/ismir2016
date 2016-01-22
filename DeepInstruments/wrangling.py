@@ -113,6 +113,8 @@ def chunk_waveforms(dest_path, decision_hop, decision_length, source_path):
                                 "_chunk" + \
                                 chunk_id_str + \
                                 ".wav"
+                    chunk_path = os.path.join(dest_folder_path,
+                                              chunk_str)
                     librosa.output.write_wav(chunk_path,
                                              chunk,
                                              sr=44100,
