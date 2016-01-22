@@ -43,6 +43,12 @@ medleydb_discarded = [
 
 ]
 
+medleydb_movedtotest = [
+    # Distorted electric guitar
+
+    # Female singer
+
+]
 
 cachedir = os.path.expanduser('~/joblib')
 memory = joblib.Memory(cachedir=cachedir, verbose=0)
@@ -217,35 +223,14 @@ def melody_annotation_durations():
     return np.transpose(np.vstack(tuples))
 
 
-def split_stems(names,
-                test_discarded,
-                training_discarded,
-                training_to_test):
+def get_stems(names, medleydb_discarded, medleydb_movedtotest):
     session = medleydb.sql.session()
     stems = session.query(medleydb.sql.model.Stem).all()
-    training_stems = []
-    test_stems = []
-    for name in names:
-        instrument_stems = [stem for stem in stems
-                            if stem.instrument.name == name]
-        training_instrument_stems = []
-        test_instrument_stems = []
-        for stem in instrument_stems:
-            stem_filename = os.path.split(stem.audio_path)[1]
-            if stem.rank:
-                if stem_filename in training_discarded:
-                    pass
-                elif stem_filename in training_to_test:
-                    test_instrument_stems.append(stem)
-                else:
-                    training_instrument_stems.append(stem)
-            else:
-                if stem_filename in test_discarded:
-                    pass
-                else:
-                    test_instrument_stems.append(stem)
-        training_stems.append(training_instrument_stems)
-        test_stems.append(test_instrument_stems)
+    stems = [stem for stem in stems if not stem in medleydb_discarded]
+    training_stems = [stem for stem in stems
+                      if not stem in medleydb_movedtotest]
+    test_stems = [stem for stem in stems
+                  if stem in medleydb_movedtotest]
     return test_stems, training_stems
 
 
