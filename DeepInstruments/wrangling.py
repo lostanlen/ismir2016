@@ -10,7 +10,7 @@ def chunk_stems(dataset_path,
                 decision_length,
                 training_or_test):
     activation_hop = 2048
-    training_stems, test_stems = di.singlelabel.get_stems()
+    test_stems, training_stems = di.singlelabel.get_stems()
     if training_or_test == "training":
         stems = training_stems
     elif training_or_test == "test":
