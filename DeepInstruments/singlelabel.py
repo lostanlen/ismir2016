@@ -45,10 +45,33 @@ medleydb_discarded = [
 
 medleydb_movedtotest = [
     # Distorted electric guitar
-
+    u'AClassicEducation_NightOwl_STEM_03.wav',
+    u'AClassicEducation_NightOwl_STEM_04.wav',
+    u'AClassicEducation_NightOwl_STEM_06.wav',
+    u'AClassicEducation_NightOwl_STEM_07.wav',
+    u'BigTroubles_Phantom_STEM_03.wav',
+    u'BigTroubles_Phantom_STEM_05.wav',
+    u'BigTroubles_Phantom_STEM_07.wav',
+    u'PurlingHiss_Lolita_STEM_03.wav',
+    u'PurlingHiss_Lolita_STEM_04.wav',
+    u'TheScarletBrand_LesFleursDuMal_STEM_04.wav',
+    u'TheScarletBrand_LesFleursDuMal_STEM_05.wav',
     # Female singer
-
+    u'ClaraBerryAndWooldog_AirTraffic_STEM_08.wav',
+    u'ClaraBerryAndWooldog_AirTraffic_STEM_07.wav',
+    u'ClaraBerryAndWooldog_Boys_STEM_06.wav',
+    u'ClaraBerryAndWooldog_Stella_STEM_07.wav',
+    u'ClaraBerryAndWooldog_TheBadGuys_STEM_02.wav',
+    u'ClaraBerryAndWooldog_WaltzForMyVictims_STEM_05.wav',
+    u'LizNelson_Coldwar_STEM_02.wav',
+    u'LizNelson_ImComingHome_STEM_01.wav',
+    u'LizNelson_ImComingHome_STEM_03.wav',
+    u'LizNelson_ImComingHome_STEM_04.wav',
+    u'LizNelson_Rainfall_STEM_01.wav',
+    u'LizNelson_Rainfall_STEM_02.wav',
+    u'LizNelson_Rainfall_STEM_03.wav',
 ]
+
 
 cachedir = os.path.expanduser('~/joblib')
 memory = joblib.Memory(cachedir=cachedir, verbose=0)
@@ -226,11 +249,14 @@ def melody_annotation_durations():
 def get_stems(names, medleydb_discarded, medleydb_movedtotest):
     session = medleydb.sql.session()
     stems = session.query(medleydb.sql.model.Stem).all()
-    stems = [stem for stem in stems if not stem in medleydb_discarded]
+    stems = [stem for stem in stems
+             if os.path.split(stem.audio_path)[1] not in medleydb_discarded]
     training_stems = [stem for stem in stems
-                      if not stem in medleydb_movedtotest]
+                      if os.path.split(stem.audio_path)[1]
+                      not in medleydb_movedtotest]
     test_stems = [stem for stem in stems
-                  if stem in medleydb_movedtotest]
+                  if os.path.split(stem.audio_path)[1]
+                  in medleydb_movedtotest]
     return test_stems, training_stems
 
 
