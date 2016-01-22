@@ -17,17 +17,23 @@ names = [u'clarinet',
          u'trumpet',
          u'violin']
 
-training_discarded = [
+medleydb_discarded = [
     # Clarinet
-    # (empty)
+    u'MusicDelta_InTheHalloftheMountainKing_STEM_09.wav',  # 2 players
     # Distorted electric guitar
     u'Meaxis_TakeAStep_STEM_03.wav',  # two players
     u'HopAlong_SisterCities_STEM_06.wav',  # is arguably not distorted
     u'TheSoSoGlos_Emergency_04.wav',  # two players
     u'TablaBreakbeatScience_Animoog_STEM_03.wav',  # prepared guitar I think
     u'Creepoid_OldTree_STEM_06.wav',  # is clean guitar at the start
+    u'MusicDelta_Britpop_STEM_03.wav',  # is arguably not distorted at all
+    u'MusicDelta_Rockabilly_STEM_03.wav',  # is overdrive, not distortion
     # Female singer
     u'DreamersOfTheGhetto_HeavyLove_STEM_08.wav',  # is a vocal FX track
+    u'LizNelson_ImComingHome_STEM_02.wav',  # has bleed
+    u'LizNelson_Rainfall_STEM_05.wav',  # has bleed
+    # Flute
+    u'MusicDelta_InTheHalloftheMountainKing_STEM_07.wav',  # 2 players
     # Piano
     u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
     # Trumpet
@@ -37,58 +43,6 @@ training_discarded = [
 
 ]
 
-training_to_test = [
-    # Clarinet
-    # (empty)
-    # Clean electric guitar
-    # (empty)
-    # Distorted electric guitar
-    # (empty)
-    # Female singer
-    u'HopAlong_SisterCities_STEM_07.wav',  # to enrich test set
-    u'LizNelson_Coldwar_STEM_02.wav',  # to avoid artist bias
-    u'LizNelson_ImComingHome_STEM_01.wav',  # to avoid artist bias
-    u'LizNelson_ImComingHome_STEM_04.wav',  # to avoid artist bias
-    u'LizNelson_Rainfall_STEM_01.wav',  # to avoid artist bias
-    # Piano
-    # (empty)
-    # Trumpet
-    # (empty)
-    # Violin
-    # (empty)
-]
-
-test_discarded = [
-    # Clarinet
-    u'MusicDelta_Beethoven_STEM_09.wav',  # to avoid song bias
-    u'MusicDelta_InTheHalloftheMountainKing_STEM_09.wav',  # 2 players
-    # Distorted electric guitar
-    u'AClassicEducation_NightOwl_STEM_03.wav',  # same song in training
-    u'AClassicEducation_NightOwl_STEM_06.wav',  # same song in training
-    u'AClassicEducation_NightOwl_STEM_07.wav',  # same song in training
-    u'BigTroubles_Phantom_STEM_03.wav',  # same song in training
-    u'BigTroubles_Phantom_STEM_03.wav',  # same song in training
-    u'Creepoid_OldTree_STEM_05.wav',  # same song in training
-    u'HopAlong_SisterCities_STEM_08.wav',  # same song in training
-    u'MusicDelta_Britpop_STEM_03.wav',  # is arguably not distorted at all
-    u'MusicDelta_Rockabilly_STEM_03.wav',  # is overdrive, not distortion
-    u'MusicDelta_SpeedMetal_STEM_03.wav',  # same song in training
-    u'MusicDelta_Zeppelin_STEM_03.wav',  # same song in training
-    u'PurlingHiss_Lolita_STEM_04.wav',  # same song in training
-    u'TheScarletBrand_LesFleursDuMal_STEM_05.wav',  # same song in training
-    # Female singer
-    u'ClaraBerryAndWooldog_AirTraffic_STEM_07.wav',  # to avoid artist bias
-    u'LizNelson_ImComingHome_STEM_02.wav',  # has bleed
-    u'LizNelson_Rainfall_STEM_05.wav',  # has bleed
-    # Flute
-    u'MusicDelta_InTheHalloftheMountainKing_STEM_07.wav',  # 2 players
-    # Piano
-    # (empty)
-    # Trumpet
-    u'MusicDelta_Beethoven_STEM_14.wav',  # to avoid song bias
-    # Violin
-    # (empty)
-]
 
 cachedir = os.path.expanduser('~/joblib')
 memory = joblib.Memory(cachedir=cachedir, verbose=0)
