@@ -79,7 +79,7 @@ H.  Descriptors + Random forests baseline
 9. [DONE] Report class-wise accuracy with error bars
 10. [DONE] Discard clean guitar and male singer
 11. [DONE] Bugfix half-overlapping chunks
-12. More Tp, Cl, Fl, Pn, and Vl examples (from solosDb)
+12. [DONE] More Tp, Cl, Fl, Pn, and Vl examples (from solosDb)
 
 I. Structured validation
 1. Extract the stem folder of each chunk path
