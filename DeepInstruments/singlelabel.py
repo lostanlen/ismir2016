@@ -27,7 +27,7 @@ training_discarded = [
     u'TablaBreakbeatScience_Animoog_STEM_03.wav',  # prepared guitar I think
     u'Creepoid_OldTree_STEM_06.wav',  # is clean guitar at the start
     # Female singer
-    u'DreamersOfTheGhetto_HeavyLove_STEM_08',  # is a vocal FX track
+    u'DreamersOfTheGhetto_HeavyLove_STEM_08.wav',  # is a vocal FX track
     # Piano
     u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
     # Trumpet
