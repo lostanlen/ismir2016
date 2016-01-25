@@ -49,12 +49,14 @@ def chunk_stems(dataset_path,
             Y_hop = int(0.5 * float(decision_hop) / activation_hop)
             Y_id = Y_hop
             chunk_id = 0
-            sr, x = stem.audio_data
+            sr, x_stereo = stem.audio_data
+            x_stereo = x_stereo.astype(np.float32)
+            x = np.sum(x_stereo, axis=1) / (32768.0 * 2)
             while Y_id < (len(Y) - 2*Y_hop):
                 if Y[Y_id] > 0.5:
                     x_id = int(Y_id * activation_hop)
                     x_range = xrange(x_id-half_x_hop, x_id+half_x_hop)
-                    x_chunk = np.mean(x[x_range, :], axis=1)
+                    x_chunk = x[x_range]
                     chunk_id_str = repr('%(i)03d' % {"i": chunk_id})[1:-1]
                     chunk_str = instrument_name + \
                                 "_" + \
