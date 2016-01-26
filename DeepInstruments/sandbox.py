@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sklearn.ensemble
 
-di.wrangling.export_singlelabel_dataset()
 
 batch_size = 512
 decision_length = 131072  # in samples
@@ -33,9 +32,7 @@ dense2_channels = 64
 drop2_proportion = 0.5
 
 
-(test_stems, training_stems) = di.singlelabel.split_stems(
-    di.singlelabel.names, di.singlelabel.test_discarded,
-    di.singlelabel.training_discarded, di.singlelabel.training_to_test)
+(test_stems, training_stems) = di.singlelabel.get_stems()
 
 datagen = di.singlelabel.ScalogramGenerator(decision_length, fmin,
                                             hop_length, n_bins_per_octave,
