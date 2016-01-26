@@ -103,6 +103,7 @@ def chunk_waveforms(dest_path, decision_hop, decision_length, source_path):
             waveform, sr = librosa.core.load(source_file_path,
                                              sr=44100,
                                              mono=True)
+            waveform = waveform.astype(np.float32)
             chunk_id = 0
             x_id = 0
             while x_id+decision_length < len(waveform):
