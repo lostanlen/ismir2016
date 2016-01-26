@@ -92,7 +92,7 @@ test_accuracies = di.singlelabel.test_accuracies(graph, X_test, y_test)
 
 
 # Evaluate random forest
-training_paths = DeepInstruments.singlelabel.get_paths("training")
+training_paths = di.singlelabel.get_paths("training")
 X_training = di.descriptors.get_X(training_paths)
 y_training = np.hstack(map(di.descriptors.get_y, training_paths))
 
@@ -100,7 +100,7 @@ X_means = np.mean(X_training, axis=0)
 X_stds = np.std(X_training, axis=0)
 X_training = (X_training - X_means) / X_stds
 
-test_paths = DeepInstruments.singlelabel.get_paths("test")
+test_paths = di.singlelabel.get_paths("test")
 X_test = di.descriptors.get_X(test_paths)
 X_test = (X_test - X_means) / X_stds
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
