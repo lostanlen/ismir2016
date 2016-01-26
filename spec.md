@@ -36,6 +36,7 @@ D. *Evaluation*
 E. *Display*
     1. Export filters from conv1 as images for the three experiments. Are they learned note models ?
     2. Make a figure for the architecture.
+    3. Make a figure for the duration of training set and test set for every instrument in single-label dataset.
 
 F. *Dataset*
 1. [DONE] Get the full MedleyDB dataset
