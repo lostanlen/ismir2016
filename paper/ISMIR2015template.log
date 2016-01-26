@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 JAN 2016 17:29
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 JAN 2016 17:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -165,18 +165,26 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 48.
 
-(./ISMIR2015template.bbl) [1
+
+LaTeX Warning: Citation `Bittner2014' on page 1 undefined on input line 57.
+
+No file ISMIR2015template.bbl.
+[1
 
 
 
 
-] (./ISMIR2015template.aux) ) 
+] (./ISMIR2015template.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 1451 strings out of 493706
- 17480 string characters out of 6145769
- 77054 words of memory out of 5000000
- 4804 multiletter control sequences out of 15000+600000
- 11918 words of font info for 36 fonts, out of 8000000 for 9000
+ 1445 strings out of 493706
+ 17392 string characters out of 6145769
+ 75054 words of memory out of 5000000
+ 4801 multiletter control sequences out of 15000+600000
+ 11370 words of font info for 35 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  27i,15n,20p,234b,386s stack positions out of 5000i,500n,10000p,200000b,80000s
 
