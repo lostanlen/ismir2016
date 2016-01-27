@@ -4,13 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sklearn.ensemble
 
-x = np.random.rand(65536)
-x = 0.5 * x / np.max(x)
-path = 'randn.wav'
-librosa.output.write_wav(path, x, 44100)
-librosa.core.load(path)
-
-
 batch_size = 512
 decision_length = 131072  # in samples
 epoch_size = 8192
