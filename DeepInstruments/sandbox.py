@@ -106,7 +106,9 @@ n_trials = 10
 confusion_matrices = []
 
 for trial_index in range(n_trials):
-    clf = sklearn.ensemble.RandomForestClassifier(n_jobs=-1, n_estimators=100)
+    clf = sklearn.ensemble.RandomForestClassifier(n_jobs=-1,
+                                                  n_estimators=200,
+                                                  class_weight="balanced")
     clf = clf.fit(X_training, y_training)
     y_predicted = clf.predict(X_test)
 
