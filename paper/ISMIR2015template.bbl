@@ -7,6 +7,12 @@ Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
 \newblock {\em International Society for Music Information Retrieval
   Conference}, 2014.
 
+\bibitem{Kingma2015}
+Diederik~P. Kingma and Jimmy~Lei Ba.
+\newblock {Adam: a Method for Stochastic Optimization}.
+\newblock {\em International Conference on Learning Representations}, pages
+  1--13, 2015.
+
 \bibitem{McFee2015}
 Brian McFee, Matt McVicar, Colin Raffel, Dawen Liang, Oriol Nieto, Eric
   Battenberg, Josh Moore, Dan Ellis, Ryuichi Yamamoto, Rachel Bittner, Douglas
