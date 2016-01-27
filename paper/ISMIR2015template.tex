@@ -49,18 +49,67 @@
 The abstract should be placed at the top left column and should contain about 150-200 words.
 \end{abstract}
 %
+
 \section{Introduction}\label{sec:introduction}
+% On music instrument classification
+% Ref to Joder et al
+% Ref to Fuhrmann
+
+% On feature learning
+% Ref to Salamon and Bello
+% Ref to the student paper at NYU
 
 \section{Deep convolutional networks}
+\subsection{Time-frequency representation}
+% Ref to librosa CQT
+% Give a formula for CQT
+% Conversion to mono
+% Perceptual weighting of loudness
+
+\subsection{Architecture}
+% Explain how convolutions work
+% Boundary conditions are in 'valid' mode
+% Explain leaky ReLUs
+% Explain how pooling works
+% Make a figure
+
+\subsection{Training}
+% Random crops
+% Adam optimizer
+% Shuffled examples with uniform class distribution
+% Mini-batch learning
+% Dropout
 
 \section{Deep supervision of melodic contour}
+\subsection{Disentangling pitch from timbre}
+% Source-filter equation
+% Ref to LeCun on disentangling factors of variability
+% Ref to deeply supervised nets
+% Ref to NIPS 2015
+% Ref to Mallat 2016
+
+\subsection{Extraneous supervision}
+% Equation that sums over k2
+% Make a figure
+
+\subsection{Joint supervision}
+% Different equation
+% Comment extraneous vs joint
+% Visualization to compare learned filters
+
 
 \section{Single-instrument classification}\label{sec:single-instrument}
-
-\subsection{Dataset}
+\subsection{Experimental design}
 In order to evaluate the proposed algorithms, we used MedleyDB \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. 
 
+\subsection{Results}
+
+
 \section{Polyphonic classification}\label{sec:polyphonic}
+\subsection{Experimental design}
+
+\subsection{Results}
+
 
 \section{Conclusions}
 
