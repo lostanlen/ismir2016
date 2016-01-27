@@ -58,9 +58,8 @@ graph = di.learning.build_graph(
     drop1_proportion=0.5,
     dense2_channels=64,
     drop2_proportion=0.5,
-    dense3_channels=6)
+    dense3_channels=8)
 
-sgd = keras.optimizers.SGD(nesterov=True)
 graph.compile(loss={'Y': 'categorical_crossentropy'}, optimizer="adam")
 
 
@@ -123,4 +122,5 @@ accuracy_means = np.mean(accuracy_report, axis=0)
 accuracy_stds = np.std(accuracy_report, axis=0)
 
 global_mean_accuracy = 100 * np.mean(accuracy_report)
+print(global_mean_accuracy)
 global_std_accuracy = 100 * np.std(np.mean(accuracy_report, axis=1))
