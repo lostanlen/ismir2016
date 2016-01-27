@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  27 JAN 2016 22:35
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  27 JAN 2016 22:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -171,7 +171,7 @@ Underfull \hbox (badness 6910) in paragraph at lines 4--9
  []
 
 
-Underfull \vbox (badness 2359) has occurred while \output is active []
+Underfull \vbox (badness 1019) has occurred while \output is active []
 
 Invalid UTF-8 byte or sequence at line 13 replaced by U+FFFD.
 Missing character: There is no � in font ptmr7t!
