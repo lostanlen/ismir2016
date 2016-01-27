@@ -114,6 +114,7 @@ for trial_index in range(n_trials):
     cmn = cm / np.sum(cm, axis=0)
     confusion_matrices.append(cmn)
     accuracies = np.diag(cmn)
+    print(accuracies) * 100
     mean_accuracy = round(100 * np.mean(accuracies), 1)
 
 diags = map(np.diag, confusion_matrices)
