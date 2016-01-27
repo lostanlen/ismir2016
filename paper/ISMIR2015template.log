@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  27 JAN 2016 13:10
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  27 JAN 2016 22:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -170,17 +170,18 @@ Underfull \hbox (badness 6910) in paragraph at lines 4--9
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
 
+Invalid UTF-8 byte or sequence at line 13 replaced by U+FFFD.
+Missing character: There is no � in font ptmr7t!
 ) [1
-
 
 
 
 ] (./ISMIR2015template.aux) ) 
 Here is how much of TeX's memory you used:
- 1451 strings out of 493706
- 17486 string characters out of 6145769
+ 1452 strings out of 493706
+ 17497 string characters out of 6145769
  78054 words of memory out of 5000000
- 4804 multiletter control sequences out of 15000+600000
+ 4805 multiletter control sequences out of 15000+600000
  12372 words of font info for 38 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  27i,15n,20p,235b,386s stack positions out of 5000i,500n,10000p,200000b,80000s
