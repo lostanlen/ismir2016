@@ -119,6 +119,8 @@ class ScalogramGenerator(object):
                                 for X_file in X[instrument_id]]
         self.X = X
         self.Y = Y
+        self.Z = Z
+        self.G = G
         self.indices = di.singlelabel.get_indices(Y, decision_length)
         n_instruments = len(X)
         durations = []
