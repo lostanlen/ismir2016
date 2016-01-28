@@ -7,6 +7,7 @@
 \usepackage{ismir,amsmath,cite}
 \usepackage{graphicx}
 \usepackage{color}
+\usepackage{mathrsfs}
 
 % Title.
 % ------
@@ -66,7 +67,7 @@ The abstract should be placed at the top left column and should contain about 15
 % Ref to librosa, McFee et al. Scipy 2015
 We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies $\lambda_1$ ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics.
 \begin{equation}
-X(t, \lambda_1) = A(\lambda_1) + 10 \log \vert x \ast \psi_{\lambda_1} \vert (t)
+\mathbf{X}(t, \lambda_1) = \mathbf{A}(\lambda_1) + 10 \log \vert x \ast \psi_{\lambda_1} \vert (t)
 \end{equation}
 
 % Give a formula for CQT
@@ -84,6 +85,10 @@ X(t, \lambda_1) = A(\lambda_1) + 10 \log \vert x \ast \psi_{\lambda_1} \vert (t)
 % Random crops
 % Categorical cross-entropy
 The network is trained on categorical cross-entropy with \emph{Adam} \cite{Kingma2015}, a state-of-the-art stochastic optimizer for gradient-based learning.
+
+\begin{equation}
+\mathscr{L}(\mathbf{h}_{\boldsymbol{\ell}}, Y) = - \sum_{y \in Y} \log \mathbf{h}_{\boldsymbol{\ell}}(y)
+\end{equation}
 % Adam optimizer
 % Shuffled examples with uniform class distribution
 % Mini-batch learning
