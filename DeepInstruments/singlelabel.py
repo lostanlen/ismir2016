@@ -140,6 +140,8 @@ class ScalogramGenerator(object):
         Y_batch = np.zeros(Y_batch_size, np.float32)
         y_epoch_size = (n_batches, batch_size)
         y_epoch = np.random.randint(0, n_instruments, size=y_epoch_size)
+        Z_batch = np.zeros(X_batch_size, np.float32)
+        G_batch = np.zeros(X_batch_size, np.float32)
         for batch_id in range(n_batches):
             for sample_id in range(batch_size):
                 instrument_id = y_epoch[batch_id, sample_id]
