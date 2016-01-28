@@ -155,9 +155,9 @@ class ScalogramGenerator(object):
                     self.X[instrument_id][file_id][:, X_range]
                 Y_batch[sample_id, :] = \
                     self.Y[instrument_id][file_id][:, Y_id]
-                Z_batch[sample_id, :] = \
+                Z_batch[sample_id, :, :] = \
                     self.Z[instrument_id][file_id][:, X_range]
-                G_batch[sample_id, :] = \
+                G_batch[sample_id, :, :] = \
                     self.G[instrument_id][file_id][:, X_range]
             yield X_batch, Y_batch, Z_batch, G_batch
 
