@@ -26,6 +26,7 @@ C. *Pitch supervision*
     4. [DONE] Patch rankings for The Districts, Vermont
     5. [DONE] Extract Z
     6. [DONE] Extract G
+    7. Flowing Z and G in the datagen
 
 D. *Evaluation*
     1. [DONE] Write class-based accuracy measure
