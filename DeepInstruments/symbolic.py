@@ -37,7 +37,7 @@ def get_Z(fmin, hop_length, n_bins_per_octave, n_octaves, stem):
     midis = librosa.hz_to_midi(melody_f0s)
     midis[np.isinf(midis)] = 0.0
     track_activations = np.vstack(stem.track.activations_data)[:, 1:]
-    stem_id = int(stem.name[1:])
+    stem_id = int(stem.name[1:]) - 1
     activations = track_activations[:, stem_id]
     activation_hop = 2048
     activation_upsampling = activation_hop / hop_length
@@ -46,7 +46,7 @@ def get_Z(fmin, hop_length, n_bins_per_octave, n_octaves, stem):
     n_frames = len(activations)
     Z = np.zeros((n_bins, n_frames), np.float32)
     for frame_id in range(len(midis)):
-        bin_id = midis[frame_id] - midis[frame_id]
+        bin_id = int(midis[frame_id] - librosa.hz_to_midi(fmin)[0])
         if bin_id >= 0:
             Z[bin_id, frame_id] = activations[frame_id]
     return Z
