@@ -104,7 +104,8 @@ class ScalogramGenerator(object):
                 for stem in class_stems
             ))
             Y.append([di.singlelabel.get_Y(stem) for stem in class_stems])
-            Z.append([di.singlelabel.get_Z(stem) for stem in class_stems])
+            Z.append([di.symbolic.get_Z(hop_length,
+                                        stem) for stem in class_stems])
         X_mat = np.hstack([X_file for X_class in X for X_file in X_class])
         self.X_mean = np.mean(X_mat)
         self.X_std = np.std(X_mat)
@@ -163,12 +164,6 @@ class ScalogramGenerator(object):
         X_test = np.reshape(X_test, new_shape)
         X_test = (X_test - self.X_mean) / self.X_std
         return X_test
-
-    def get_Z(stem):
-        f0s = di.symbolic.get_melody(stem)
-        midis = librosa.hz_to_midi(f0s)
-        midis[np.isinf(midis)] = 0
-        melody_hop = 2048
 
 
 
