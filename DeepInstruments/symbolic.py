@@ -28,7 +28,7 @@ def get_G(hop_length, n_bins_per_octave, n_octaves, stem):
     return G
 
 
-def get_Z(fmin, hop_length, n_filters_per_octave, n_octaves, stem):
+def get_Z(fmin, hop_length, n_bins_per_octave, n_octaves, stem):
     melody_f0s = di.symbolic.get_melody(stem)
     melody_annotation_hop = 256
     melody_downsampling = hop_length / melody_annotation_hop
@@ -42,7 +42,7 @@ def get_Z(fmin, hop_length, n_filters_per_octave, n_octaves, stem):
     activation_hop = 2048
     activation_upsampling = activation_hop / hop_length
     activations = activations.repeat(activation_upsampling)
-    n_bins = n_filters_per_octave * n_octaves
+    n_bins = n_bins_per_octave * n_octaves
     n_frames = len(activations)
     Z = np.zeros((n_bins, n_frames), np.float32)
     for frame_id in range(len(midis)):
