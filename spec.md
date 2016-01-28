@@ -104,3 +104,17 @@ K. Scattering transform
 6. [DONE] Export in HDF5 from MATLAB to Python
 7. Check that paths are ordered like in Python
 8. Load HDF5, train RF, report accuracy
+
+L. References
+1. Fuhrmann: musical instrument classification
+2. Joder et al. musical instrument classification
+3. Dieleman and Benjamin deep learning for audio
+4. Humphrey, Bello, and LeCun deep architectures for music informatics
+5. Salamon and Bello : feature learning
+6. Li, Qian and Wang: ConvNets on raw audio for multilabel instrument recognition
+7. McFee et al. librosa
+8. Kingma & Ba: Adam optimizer
+9. Chollet: Keras package
+10. Bittner et al. MedleyDB
+11. Bruna, Szlam, LeCun. Learning Stable Group Invariant Representations.
+12. Mallat 2016. Understanding Deep Convolutional Networks.
