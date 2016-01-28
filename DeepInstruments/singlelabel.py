@@ -109,7 +109,8 @@ class ScalogramGenerator(object):
                                         n_octaves, stem)
                       for stem in class_stems])
             G.append([di.symbolic.get_G(hop_length, n_bins_per_octave,
-                                        n_octaves, stem)])
+                                        n_octaves, stem)
+                      for stem in class_stems])
         X_mat = np.hstack([X_file for X_class in X for X_file in X_class])
         self.X_mean = np.mean(X_mat)
         self.X_std = np.std(X_mat)
