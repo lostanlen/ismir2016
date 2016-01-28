@@ -25,6 +25,7 @@ C. *Pitch supervision*
     3. [DONE] Write conversion from MIDI to ConvNet axis.
     4. [DONE] Patch rankings for The Districts, Vermont
     5. [DONE] Extract Z
+    6. [DONE] Extract G
 
 D. *Evaluation*
     1. [DONE] Write class-based accuracy measure
