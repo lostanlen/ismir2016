@@ -1,12 +1,14 @@
 import collections
-import DeepInstruments as di
-import joblib
 import math
+import os
+
+import joblib
 import medleydb
 import medleydb.sql
 import numpy as np
-import os
 import sklearn
+
+import DeepInstruments as di
 
 names = [u'clarinet',
          u'distorted electric guitar',
@@ -178,19 +180,6 @@ def get_indices(Y, decision_length):
             indices_files.append(indices)
         indices_classes.append(indices_files)
     return indices_classes
-
-
-def get_melody(stem):
-    melody_3rd_definition = stem.track.melodies[2]
-    if melody_3rd_definition.annotation_data:
-        melodic_f0s = np.vstack(melody_3rd_definition.annotation_data)[:, 1:]
-        if stem.rank:
-            melody = melodic_f0s[:, stem.rank - 1]
-        else:
-            melody = np.zeros(melodic_f0s.shape[0])
-    else:
-        melody = np.zeros(len(stem.track.activations_data))
-    return melody
 
 
 def get_paths(training_or_test):
