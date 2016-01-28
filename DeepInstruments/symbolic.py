@@ -6,7 +6,7 @@ import numpy as np
 
 def get_melody(stem):
     track_id = stem.track.id
-    tracks = medleydb.sql.session().query(medleydb.model.Track).all()
+    tracks = medleydb.sql.session().query(medleydb.sql.model.Track).all()
     track = [ track for track in tracks if track.id==track_id][0]
     melody_3rd_definition = track.melodies[2]
     if melody_3rd_definition.annotation_data:
