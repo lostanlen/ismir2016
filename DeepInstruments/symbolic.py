@@ -1,10 +1,14 @@
 import DeepInstruments as di
 import librosa
+import medleydb
 import numpy as np
 
 
 def get_melody(stem):
-    melody_3rd_definition = stem.track.melodies[2]
+    track_id = stem.track.id
+    tracks = medleydb.sql.session().query.(medleydb.model.Track).all()
+    track = [ track for track in tracks if track.id==track_id][0]
+    melody_3rd_definition = track.melodies[2]
     if melody_3rd_definition.annotation_data:
         melodic_f0s = np.vstack(melody_3rd_definition.annotation_data)[:, 1:]
         if stem.rank:
@@ -12,7 +16,7 @@ def get_melody(stem):
         else:
             melody = np.zeros(melodic_f0s.shape[0])
     else:
-        melody = np.zeros(len(stem.track.activations_data))
+        melody = np.zeros(len(track.activations_data))
     return melody
 
 
