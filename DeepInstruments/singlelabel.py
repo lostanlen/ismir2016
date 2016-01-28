@@ -1,11 +1,11 @@
 import collections
-import math
-import os
-
 import joblib
+import librosa
+import math
 import medleydb
 import medleydb.sql
 import numpy as np
+import os
 import sklearn
 
 import DeepInstruments as di
@@ -165,11 +165,11 @@ class ScalogramGenerator(object):
         return X_test
 
     def get_Z(stem):
-        f0s = get_melody(stem)
+        f0s = di.symbolic.get_melody(stem)
         midis = librosa.hz_to_midi(f0s)
-        gate = np.logical_not(np.isinf(midis))
+        midis[np.isinf(midis)] = 0
         melody_hop = 2048
-        return []
+
 
 
 
