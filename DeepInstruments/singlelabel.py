@@ -152,6 +152,9 @@ class ScalogramGenerator(object):
                 X_id = int(Y_id * 2048.0 / self.hop_length)
                 X_range = xrange(X_id-half_X_hop, X_id+half_X_hop)
                 print(self.G[instrument_id][file_id].shape)
+                print(self.Y[instrument_id][file_id].shape)
+                print(self.Z[instrument_id][file_id].shape)
+                print(self.G[instrument_id][file_id].shape)
                 print(X_range)
                 X_batch[sample_id, :, :] = \
                     self.X[instrument_id][file_id][:, X_range]
