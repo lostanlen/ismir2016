@@ -237,7 +237,7 @@ def melody_annotation_durations():
     sorted_melodic_counts = melodic_counts[sorting]
     sorted_melodic_durations = sorted_melodic_counts * 256.0 / 44100
     counter = collections.Counter(melodic_stem_names)
-    n_files_per_name = [ counter[name] for name in sorted_melodic_names ]
+    n_files_per_name = [counter[name] for name in sorted_melodic_names]
     tuples = (sorted_melodic_names,
               n_files_per_name,
               sorted_melodic_durations)
