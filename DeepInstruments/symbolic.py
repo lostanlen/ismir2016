@@ -24,7 +24,7 @@ def get_G(hop_length, n_bins_per_octave, n_octaves, stem):
     f0s = f0s[downsampling_range]
     gate = (f0s > 0.0).astype(np.float32)
     n_bins = n_bins_per_octave * n_octaves
-    G = np.tile(f0s, (n_bins, 1))
+    G = np.tile(gate, (n_bins, 1))
     return G
 
 
