@@ -3,34 +3,53 @@ import librosa
 import matplotlib.pyplot as plt
 import numpy as np
 import sklearn.ensemble
-
-batch_size = 512
-decision_length = 131072  # in samples
-epoch_size = 8192
-every_n_epoch = 10
-fmin = 55 # in Hz
-hop_length = 1024 #  in samples
-n_bins_per_octave = 12
-n_epochs = 20
-n_octaves = 8
-sr = 32000
-conv1_channels = 100
-conv1_height = 96
-conv1_width = 32
-pool1_height = 3
-pool1_width = 3
-conv2_channels = 100
-conv2_height = 8
-conv2_width = 8
-pool2_height = 8
-dense1_channels = 512
-drop1_proportion = 0.5
-dense2_channels = 64
-drop2_proportion = 0.5
-
+import keras
+from keras.models import Graph
+from keras.layers.advanced_activations import LeakyReLU
+from keras.layers.core import Dense, Dropout, Activation, Flatten
+from keras.layers.core import Merge
+from keras.layers.convolutional import Convolution2D, MaxPooling2D
+import math
+import random
 
 (test_stems, training_stems) = di.singlelabel.get_stems()
 
 datagen = di.singlelabel.ScalogramGenerator(decision_length, fmin,
                                             hop_length, n_bins_per_octave,
                                             n_octaves, training_stems)
+
+
+conv1_channels = 10
+conv1_height = 3
+conv1_width = 3
+X_height = 96
+X_width = 128
+
+graph = Graph()
+
+# Input
+graph.add_input(name="X", input_shape=(1, X_height, X_width))
+# graph.add_input(name="Z", input_shape=(1, X_height, X_width))
+# graph.add_input(name="G", input_shape=(1, X_height, X_width))
+
+# Shared layers
+conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                      border_mode='same')
+graph.add_node(conv1, name="conv1", input="X")
+
+relu1 = LeakyReLU()
+graph.add_node(relu1, name="relu1", input="conv1")
+
+pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+graph.add_node(pool1_X, name="pool1_X", input="relu1")
+
+# Layers towards pitch
+# pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+# graph.add_node(pool1_Z, name="pool1_Z", input="Z")
+#
+# pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+# graph.add_node(pool1_G, name="pool1_G", input="G")
+
+graph.add_output(name='masked_Z', input='pool1_X')
+
+graph.compile(loss={'masked_Z': 'mse'}, optimizer="sgd")
