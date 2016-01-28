@@ -16,7 +16,7 @@ def get_melody(stem):
         else:
             melody = np.zeros(melodic_f0s.shape[0])
     else:
-        melody = np.zeros(len(track.activations_data))
+        melody = np.zeros(len(track.activations_data) * 2048 / 256)
     return melody
 
 
