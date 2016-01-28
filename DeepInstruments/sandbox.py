@@ -13,7 +13,6 @@ hop_length = 1024 #  in samples
 n_bins_per_octave = 12
 n_epochs = 20
 n_octaves = 8
-# optimizer = "adagrad"
 sr = 32000
 conv1_channels = 100
 conv1_height = 96
@@ -68,7 +67,6 @@ from keras.utils.generic_utils import Progbar
 
 mean_training_loss_history = []
 
-dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
 batch_losses = np.zeros(batch_size)
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
