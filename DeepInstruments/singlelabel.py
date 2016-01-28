@@ -95,6 +95,7 @@ class ScalogramGenerator(object):
         self.n_octaves = n_octaves
         X = []
         Y = []
+        Z = []
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
         for class_stems in training_stems:
             X.append(joblib.Parallel(n_jobs=-1, verbose=10)(
@@ -103,6 +104,7 @@ class ScalogramGenerator(object):
                 for stem in class_stems
             ))
             Y.append([di.singlelabel.get_Y(stem) for stem in class_stems])
+            Z.append([di.singlelabel.get_Z(stem) for stem in class_stems])
         X_mat = np.hstack([X_file for X_class in X for X_file in X_class])
         self.X_mean = np.mean(X_mat)
         self.X_std = np.std(X_mat)
@@ -161,6 +163,14 @@ class ScalogramGenerator(object):
         X_test = np.reshape(X_test, new_shape)
         X_test = (X_test - self.X_mean) / self.X_std
         return X_test
+
+    def get_Z(stem):
+        f0s = get_melody(stem)
+        midis = librosa.hz_to_midi(f0s)
+        gate = np.logical_not(np.isinf(midis))
+        melody_hop = 2048
+        return []
+
 
 
 def get_indices(Y, decision_length):
