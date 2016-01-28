@@ -16,9 +16,13 @@ def get_melody(stem):
     return melody
 
 
-def get_Z(hop_length, stem):
+def get_G(hop_length, n_filters_per_octave, n_octaves, stem):
     f0s = di.symbolic.get_melody(stem)
-    midis = librosa.hz_to_midi(f0s)
-    midis[np.isinf(midis)] = 0
     melody_annotation_hop = 256
     downsampling = hop_length / melody_annotation_hop
+    downsampling_range = xrange(0, len(f0s), downsampling)
+    f0s = f0s[downsampling_range]
+    gate = (f0s > 0.0).astype(np.float32)
+    n_bins = n_filters_per_octave * n_octaves
+    G = np.tile(f0s, (n_bins, 1))
+    return G
