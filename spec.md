@@ -24,6 +24,7 @@ C. *Pitch supervision*
     2. [DONE] Check MIDI offsets in RWC dict
     3. [DONE] Write conversion from MIDI to ConvNet axis.
     4. [DONE] Patch rankings for The Districts, Vermont
+    5. [DONE] Extract Z
 
 D. *Evaluation*
     1. [DONE] Write class-based accuracy measure
