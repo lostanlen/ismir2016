@@ -8,17 +8,12 @@ from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.core import Merge
-from keras.layers.convolutional import Convolution2D, MaxPooling1D,\
-                                       MaxPooling2D
-from keras.layers.core import Permute
+from keras.layers.convolutional import Convolution2D, AveragePooling1D,\
+                                       MaxPooling2D, MaxPooling1D, \
+                                        AveragePooling2D
+from keras.layers.core import Permute, Reshape
 import math
 import random
-
-(test_stems, training_stems) = di.singlelabel.get_stems()
-
-datagen = di.singlelabel.ScalogramGenerator(decision_length, fmin,
-                                            hop_length, n_bins_per_octave,
-                                            n_octaves, training_stems)
 
 
 X_height = 96
@@ -29,11 +24,12 @@ conv1_width = 3
 pool1_height = 3
 pool1_width = 3
 
+
 graph = Graph()
 
 # Input
 graph.add_input(name="X", input_shape=(1, X_height, X_width))
-# graph.add_input(name="Z", input_shape=(1, X_height, X_width))
+graph.add_input(name="Z", input_shape=(1, X_height, X_width))
 # graph.add_input(name="G", input_shape=(1, X_height, X_width))
 
 # Shared layers
@@ -47,22 +43,22 @@ graph.add_node(relu1, name="relu1", input="conv1")
 pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
 graph.add_node(pool1_X, name="pool1_X", input="relu1")
 
-permuted_X = Permute(dims=(2, 3, 1))
-graph.add_node(permuted_X, name="permuted", input="pool1_X")
+reshaped_X = Reshape((conv1_channels, 32*42))
+graph.add_node(reshaped_X, name="reshaped_X", input="pool1_X")
 
-collapsed = MaxPooling1D(pool_length=conv1_channels)
-graph.add_node(collapsed, name="collapsed", input="permuted")
+collapsed_X = AveragePooling1D(pool_length=2, stride=2)
+graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
 
-# Layers towards pitch
 pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
 graph.add_node(pool1_Z, name="pool1_Z", input="Z")
 
-permuted_Z = Permute(dims=(2, 3, 1))
-graph.add_node(permuted_X, name="permuted")
-#
-# pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-# graph.add_node(pool1_G, name="pool1_G", input="G")
+reshaped_Z = Reshape((1, 32*42))
+graph.add_node(reshaped_Z, name="reshaped_Z", input="pool1_Z")
 
-graph.add_output(name='out', input='collapsed')
+graph.add_output(name='out',
+                 inputs=['collapsed_X', 'reshaped_Z'],
+                 merge_mode='sum')
+
+
 
 graph.compile(loss={'out': 'mse'}, optimizer="sgd")
