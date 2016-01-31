@@ -64,29 +64,27 @@ The abstract should be placed at the top left column and should contain about 15
 
 \section{Deep convolutional networks}
 \subsection{Time-frequency representation}
-% Ref to librosa, McFee et al. Scipy 2015
-We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies $\lambda_1$ ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics.
-\begin{equation}
-\boldsymbol{x_1}(t, \lambda_1) = \mathbf{A}(\lambda_1) + 10 \log \vert x \ast \psi_{\lambda_1} \vert (t)
-\end{equation}
-
-% Give a formula for CQT
-% Conversion to mono
-% Perceptual weighting of loudness
+We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $x(t)$ is represented by a time-frequency matrix $\boldsymbol{x_1}(t,k_1)$ of width $T=128$ samples and height $K_1=96$ MIDI indices.
 
 \subsection{Architecture}
-% Explain how convolutions work
+First of all, we apply a family $\boldsymbol{W_2}(t,k_1,k_2)$ of $K_2=50$ learned time-frequency convolutional operators.
+Furthermore, element-wise biases $\boldsymbol{b_2}(t,k_1,k_2)$ are added to the convolutions, resulting in the tensor 
 
 \begin{equation}
 \boldsymbol{y_2}(t,k_1,k_2) =
+\boldsymbol{b_2} + 
 (\boldsymbol{x_1}
 \overset{t,k_1}{\ast}
-\boldsymbol{W_2})
+\boldsymbol{W_2}).
 \end{equation}
+ 
+The second step in the network is the application of a pointwise nonlinearity. We have chosen the \emph{rectified linear unit} (ReLU) because of its popularity in computer vision and its computational efficiency.
  
  \begin{equation}
  \boldsymbol{y_{2}^{+}}(t,k_1,k_2) = \max \left( \boldsymbol{y_2}(t,k_1,k_2), 0\right)
  \end{equation}
+ 
+ 
  
  \begin{equation}
  \boldsymbol{x_2}(t,k_1,k_2) =
