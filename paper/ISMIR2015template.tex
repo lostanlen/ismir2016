@@ -107,6 +107,33 @@ We used the implementation from the librosa package \cite{McFee2015} with $Q=12$
  \boldsymbol{W_3})
  \end{equation}
 
+\begin{equation}
+\boldsymbol{x_4}(k_4) =
+\left(
+\sum_{v_3}
+\boldsymbol{W_4}(k_4, v_3)
+\boldsymbol{x_3}(v_3) \right)^{+}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{x_5}(k_5) =
+\left(
+\sum_{k_4}
+\boldsymbol{W_5}(k_5, k_4)
+\boldsymbol{x_4}(k_4)
+\right)^{+}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{x_6}(k_6) =
+\sigma \left(
+\sum_{k_6}
+\boldsymbol{W_6}(k_6,k_5)
+\boldsymbol{x_5}(k_5)
+\right)
+\end{equation}
+
+
 % Explain how pooling works
 % Make a figure
 
