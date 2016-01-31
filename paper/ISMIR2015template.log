@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  31 JAN 2016 12:43
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  31 JAN 2016 13:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -174,20 +174,10 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 49.
 
-
-LaTeX Warning: Citation `McFee2015' on page 1 undefined on input line 68.
-
-
-LaTeX Warning: Citation `Kingma2015' on page 1 undefined on input line 113.
-
-
-Overfull \hbox (6.98457pt too wide) in paragraph at lines 113--118
-\OT1/ptm/m/it/10 Adam \OT1/ptm/m/n/10 [\OT1/ptm/b/n/10 ?\OT1/ptm/m/n/10 ], a st
-ate-of-the-art stochas-tic op-ti-mizer for gradient-
+Overfull \hbox (6.98457pt too wide) in paragraph at lines 116--121
+\OT1/ptm/m/it/10 Adam \OT1/ptm/m/n/10 [2], a state-of-the-art stochas-tic op-ti
+-mizer for gradient-
  []
-
-
-LaTeX Warning: Citation `Bittner2014' on page 1 undefined on input line 139.
 
 (./ISMIR2015template.bbl
 Underfull \hbox (badness 6910) in paragraph at lines 4--9
@@ -211,18 +201,11 @@ Underfull \hbox (badness 1005) in paragraph at lines 17--21
 
 
 
-] (./ISMIR2015template.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./ISMIR2015template.aux) ) 
 Here is how much of TeX's memory you used:
  1498 strings out of 493706
  18286 string characters out of 6145769
- 79054 words of memory out of 5000000
+ 80054 words of memory out of 5000000
  4832 multiletter control sequences out of 15000+600000
  16118 words of font info for 53 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191

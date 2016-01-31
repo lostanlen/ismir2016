@@ -78,16 +78,11 @@ We used the implementation from the librosa package \cite{McFee2015} with $Q=12$
 % Explain how convolutions work
 
 \begin{equation}
-\boldsymbol{y_2}(t,k_1) =
+\boldsymbol{y_2}(t,k_1,k_2) =
 (\boldsymbol{x_1}
-\ast
-\boldsymbol{w_{k_2}})(t,k_1)
+\overset{t,k_1}{\ast}
+\boldsymbol{W_2})
 \end{equation}
-
-where
-$\boldsymbol{w_{k_2}}(t,k_1)$
-is a shorthand for
- $\boldsymbol{W_2}(t, k_1, k_2)$.
  
  \begin{equation}
  \boldsymbol{y_{2}^{+}}(t,k_1,k_2) = \max \left( \boldsymbol{y_2}(t,k_1,k_2), 0\right)
@@ -98,13 +93,19 @@ is a shorthand for
  \max_{
 \substack{
 \vert \tau \vert \leq \Delta t \\
- \vert \kappa \vert \leq \Delta k}
+ \vert \kappa_1 \vert \leq \Delta k_1}
  } \left\{
- \boldsymbol{y_{2}^{+}}(t + \tau, k + \kappa)
+ \boldsymbol{y_{2}^{+}}(t + \tau, k_1 + \kappa_1, k_2)
  \right\}
  \end{equation}
  
- 
+ \begin{equation}
+ \boldsymbol{y_3}(t,k_1,k_3) =
+ \sum_{k_2}
+ (\boldsymbol{x_2}
+ \overset{t,k_1}{\ast}
+ \boldsymbol{W_3})
+ \end{equation}
 
 % Explain how pooling works
 % Make a figure
