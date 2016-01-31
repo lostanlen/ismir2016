@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  31 JAN 2016 16:25
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  31 JAN 2016 16:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -174,7 +174,13 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 49.
 
-Overfull \hbox (6.98457pt too wide) in paragraph at lines 141--146
+Overfull \hbox (12.43512pt too wide) in paragraph at lines 98--99
+\OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-frequ
+ency
+ []
+
+
+Overfull \hbox (6.98457pt too wide) in paragraph at lines 152--157
 \OT1/ptm/m/it/10 Adam \OT1/ptm/m/n/10 [2], a state-of-the-art stochas-tic op-ti
 -mizer for gradient-
  []
@@ -184,17 +190,16 @@ Underfull \hbox (badness 6910) in paragraph at lines 4--9
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
 
-
-Underfull \hbox (badness 1895) in paragraph at lines 11--15
-\OT1/ptm/m/n/10 Method for Stochas-tic Op-ti-miza-tion.  \OT1/ptm/m/it/10 In-te
-r-na-tional
- []
-
 [1
 
 
 
 ]
+Underfull \hbox (badness 1895) in paragraph at lines 11--15
+\OT1/ptm/m/n/10 Method for Stochas-tic Op-ti-miza-tion.  \OT1/ptm/m/it/10 In-te
+r-na-tional
+ []
+
 Invalid UTF-8 byte or sequence at line 19 replaced by U+FFFD.
 Missing character: There is no � in font ptmr7t!
 
@@ -208,7 +213,7 @@ Underfull \hbox (badness 1005) in paragraph at lines 17--21
 Here is how much of TeX's memory you used:
  1498 strings out of 493706
  18286 string characters out of 6145769
- 80054 words of memory out of 5000000
+ 81054 words of memory out of 5000000
  4832 multiletter control sequences out of 15000+600000
  16118 words of font info for 53 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191

@@ -67,8 +67,19 @@ The abstract should be placed at the top left column and should contain about 15
 We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $x(t)$ is represented by a time-frequency matrix $\boldsymbol{x_1}(t,k_1)$ of width $T=128$ samples and height $K_1=96$ MIDI indices.
 
 \subsection{Architecture}
-First of all, we apply a family $\boldsymbol{W_2}(t,k_1,k_2)$ of $K_2=50$ learned time-frequency convolutional operators.
-Furthermore, element-wise biases $\boldsymbol{b_2}(t,k_1,k_2)$ are added to the convolutions, resulting in the tensor 
+First of all, we apply a family $\boldsymbol{W_2}(\tau,\kappa_1,k_2)$ of $K_2=50$ learned time-frequency convolutional operators.
+
+\begin{equation}
+\boldsymbol{W_2}
+\overset{t,k_1}{\ast}
+\boldsymbol{x_1}
+=
+\sum_{\tau,\kappa_1} 
+\boldsymbol{W_2}(\tau,\kappa_1,k_2)
+\boldsymbol{x_1}(t-\tau,k_1-\kappa_1)
+\end{equation}
+
+Furthermore, element-wise biases $\boldsymbol{b_2}(k_2)$ are added to the convolutions, resulting in the tensor 
 
 \begin{equation}
 \boldsymbol{y_2}(t,k_1,k_2) =
@@ -78,13 +89,13 @@ Furthermore, element-wise biases $\boldsymbol{b_2}(t,k_1,k_2)$ are added to the 
 \boldsymbol{W_2}).
 \end{equation}
  
-The second step in the network is the application of a pointwise nonlinearity. We have chosen the \emph{rectified linear unit} (ReLU) because of its popularity in computer vision and its computational efficiency.
+The second step is the application of a pointwise nonlinearity. We have chosen the \emph{rectified linear unit} (ReLU) because of its popularity in computer vision and its computational efficiency.
  
  \begin{equation}
  \boldsymbol{y_{2}^{+}}(t,k_1,k_2) = \max \left( \boldsymbol{y_2}(t,k_1,k_2), 0\right)
  \end{equation}
  
- 
+ To achieve invariance to translation as well as frequency transposition, we pool neighboring units in the time-frequency domain $(t,k_1)$ over a moving rectangle of width $\Delta t$ and height $\Delta k_1$.
  
  \begin{equation}
  \boldsymbol{x_2}(t,k_1,k_2) =
