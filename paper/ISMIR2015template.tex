@@ -79,12 +79,16 @@ We used the implementation from the librosa package \cite{McFee2015} with $Q=12$
 
 \begin{equation}
 \boldsymbol{y_2}(t,\lambda_1) =
-( \boldsymbol{x_1}
-\overset{t,\lambda_1}{\ast}
+(\boldsymbol{x_1}
+\ast
 \boldsymbol{w_{\lambda_2}})(t,\lambda_1)
 \end{equation}
 
-% Boundary conditions are in 'valid' mode
+where
+$\boldsymbol{w_{\lambda_2}}(t,\lambda_1)$
+is a shorthand for
+ $\boldsymbol{W_2}(t, \lambda_1, \lambda_2)$.
+
 % Explain leaky ReLUs
 % Explain how pooling works
 % Make a figure
