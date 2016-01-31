@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  28 JAN 2016 08:32
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  31 JAN 2016 11:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -174,7 +174,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 49.
 
-Overfull \hbox (6.98457pt too wide) in paragraph at lines 87--88
+Overfull \hbox (6.98457pt too wide) in paragraph at lines 95--96
 \OT1/ptm/m/it/10 Adam \OT1/ptm/m/n/10 [2], a state-of-the-art stochas-tic op-ti
 -mizer for gradient-
  []
@@ -192,6 +192,11 @@ r-na-tional
 
 Invalid UTF-8 byte or sequence at line 19 replaced by U+FFFD.
 Missing character: There is no � in font ptmr7t!
+
+Underfull \hbox (badness 1005) in paragraph at lines 17--21
+\OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
+ []
+
 ) [1
 
 
