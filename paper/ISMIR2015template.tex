@@ -78,22 +78,34 @@ We used the implementation from the librosa package \cite{McFee2015} with $Q=12$
 % Explain how convolutions work
 
 \begin{equation}
-\boldsymbol{y_2}(t,\lambda_1) =
+\boldsymbol{y_2}(t,k_1) =
 (\boldsymbol{x_1}
 \ast
-\boldsymbol{w_{\lambda_2}})(t,\lambda_1)
+\boldsymbol{w_{k_2}})(t,k_1)
 \end{equation}
 
 where
-$\boldsymbol{w_{\lambda_2}}(t,\lambda_1)$
+$\boldsymbol{w_{k_2}}(t,k_1)$
 is a shorthand for
- $\boldsymbol{W_2}(t, \lambda_1, \lambda_2)$.
+ $\boldsymbol{W_2}(t, k_1, k_2)$.
  
  \begin{equation}
- \boldsymbol{y_{2}^{+}}(t,\lambda_1,\lambda_2) = \max \left( \boldsymbol{y_2}(t,\lambda_1,\lambda_2), 0\right)
+ \boldsymbol{y_{2}^{+}}(t,k_1,k_2) = \max \left( \boldsymbol{y_2}(t,k_1,k_2), 0\right)
+ \end{equation}
+ 
+ \begin{equation}
+ \boldsymbol{x_2}(t,k_1,k_2) =
+ \max_{
+\substack{
+\vert \tau \vert \leq \Delta t \\
+ \vert \kappa \vert \leq \Delta k}
+ } \left\{
+ \boldsymbol{y_{2}^{+}}(t + \tau, k + \kappa)
+ \right\}
  \end{equation}
  
  
+
 % Explain how pooling works
 % Make a figure
 
@@ -101,10 +113,6 @@ is a shorthand for
 % Random crops
 % Categorical cross-entropy
 The network is trained on categorical cross-entropy with \emph{Adam} \cite{Kingma2015}, a state-of-the-art stochastic optimizer for gradient-based learning.
-
-\begin{equation}
-\mathscr{L}(\mathbf{h}_{\boldsymbol{\ell}}, Y) = - \sum_{y \in Y} \log \mathbf{h}_{\boldsymbol{\ell}}(y)
-\end{equation}
 % Adam optimizer
 % Shuffled examples with uniform class distribution
 % Mini-batch learning
