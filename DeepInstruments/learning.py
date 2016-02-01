@@ -74,6 +74,13 @@ def build_graph(
     return graph
 
 
+def elementwise_substract_and_mask(x, z, g):
+    return (x - z) * g
+
+
+subtract_and_mask = np.vectorize(elementwise_substract_and_mask)
+
+
 def run_graph(X_train_list, Y_train_list, X_test, Y_test,
               batch_size, datagen, epoch_size, every_n_epoch,
               graph, n_epochs):

@@ -11,6 +11,7 @@ from keras.layers.core import Merge
 from keras.layers.convolutional import Convolution2D, AveragePooling1D,\
                                        MaxPooling2D, MaxPooling1D, \
                                         AveragePooling2D
+from keras.layers.core import LambdaMerge
 from keras.layers.core import Permute, Reshape
 import math
 import random
@@ -32,9 +33,6 @@ graph.add_input(name="X", input_shape=(1, X_height, X_width))
 graph.add_input(name="Z", input_shape=(1, X_height, X_width))
 # graph.add_input(name="G", input_shape=(1, X_height, X_width))
 
-import theano
-
-custom_function =
 
 # Shared layers
 conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
@@ -58,6 +56,9 @@ graph.add_node(pool1_Z, name="pool1_Z", input="Z")
 
 reshaped_Z = Reshape((1, 32*42))
 graph.add_node(reshaped_Z, name="reshaped_Z", input="pool1_Z")
+
+melodic_error = LambdaMerge([collapsed_X, reshaped_Z],
+                            di.learning.subtract_and_mask)
 
 graph.add_output(name='out',
                  inputs=['collapsed_X', 'reshaped_Z'],
