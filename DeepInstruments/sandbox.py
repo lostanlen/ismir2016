@@ -32,6 +32,10 @@ graph.add_input(name="X", input_shape=(1, X_height, X_width))
 graph.add_input(name="Z", input_shape=(1, X_height, X_width))
 # graph.add_input(name="G", input_shape=(1, X_height, X_width))
 
+import theano
+
+custom_function =
+
 # Shared layers
 conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                       border_mode='same')

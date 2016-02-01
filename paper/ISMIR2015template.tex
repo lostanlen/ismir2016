@@ -67,14 +67,18 @@ The abstract should be placed at the top left column and should contain about 15
 We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $x(t)$ is represented by a time-frequency matrix $\boldsymbol{x_1}(t,k_1)$ of width $T=128$ samples and height $K_1=96$ MIDI indices.
 
 \subsection{Architecture}
-First of all, we apply a family $\boldsymbol{W_2}(\tau,\kappa_1,k_2)$ of $K_2=50$ learned time-frequency convolutional operators.
+First of all, we apply a family $\boldsymbol{W_2}(\tau,\kappa_1,k_2)$ of $K_2=50$ learned time-frequency convolutional operators, whose supports are constrained to have width $\Delta t$ and height $\Delta k_1$. 
 
 \begin{equation}
 \boldsymbol{W_2}
 \overset{t,k_1}{\ast}
 \boldsymbol{x_1}
 =
-\sum_{\tau,\kappa_1} 
+\! \!
+\sum_{\substack{
+0 \leq \tau < \Delta t \\
+0 \leq \kappa_1 < \Delta k_1}} 
+\! \! \! \! \!
 \boldsymbol{W_2}(\tau,\kappa_1,k_2)
 \boldsymbol{x_1}(t-\tau,k_1-\kappa_1)
 \end{equation}
@@ -95,14 +99,15 @@ The second step is the application of a pointwise nonlinearity. We have chosen t
  \boldsymbol{y_{2}^{+}}(t,k_1,k_2) = \max \left( \boldsymbol{y_2}(t,k_1,k_2), 0\right)
  \end{equation}
  
- To achieve invariance to translation as well as frequency transposition, we pool neighboring units in the time-frequency domain $(t,k_1)$ over a moving rectangle of width $\Delta t$ and height $\Delta k_1$.
+ To achieve invariance to translation as well as frequency transposition, we pool neighboring units in
+ the time-frequency domain $(t,k_1)$ over non-overlapping rectangles of width $\Delta t$ and height $\Delta k_1$.
  
  \begin{equation}
  \boldsymbol{x_2}(t,k_1,k_2) =
  \max_{
 \substack{
-\vert \tau \vert \leq \Delta t \\
- \vert \kappa_1 \vert \leq \Delta k_1}
+0 \leq \tau < \Delta t \\
+0 \leq \kappa_1 < \Delta k_1}
  } \left\{
  \boldsymbol{y_{2}^{+}}(t + \tau, k_1 + \kappa_1, k_2)
  \right\}
@@ -134,17 +139,20 @@ The second step is the application of a pointwise nonlinearity. We have chosen t
 \end{equation}
 
 \begin{equation}
-\boldsymbol{x_6}(k_6) =
-\sigma \left(
+\boldsymbol{y_6}(k_6) =
 \sum_{k_6}
 \boldsymbol{W_6}(k_6,k_5)
 \boldsymbol{x_5}(k_5)
-\right)
 \end{equation}
 
+We define the categorical cross-entropy as
 
-% Explain how pooling works
-% Make a figure
+\begin{equation}
+\mathscr{L}(\boldsymbol{x_6}, \mathcal{I}) =
+- \sum_{k_5 \in \mathcal{I}} \log \sigma ( \boldsymbol{y_6}(k_6) ).
+\end{equation}
+
+The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_6}, \mathcal{I})$ for across all pairs $(\boldsymbol{x_6}, \mathcal{I})$ in the training set.
 
 \subsection{Training}
 % Random crops
@@ -166,6 +174,13 @@ The network is trained on categorical cross-entropy with \emph{Adam} \cite{Kingm
 \subsection{Extraneous supervision}
 % Equation that sums over k2
 % Make a figure
+
+\begin{equation}
+\mathscr{L}(\boldsymbol{x_2}, \mathcal{P}) =
+- \sum_{(t,k_1)\in\mathcal{P}} 
+\log \sigma
+\left( \sum_{k_2} \boldsymbol{x_2}(t,k_1,k_2) \right)
+\end{equation}
 
 \subsection{Joint supervision}
 % Different equation
