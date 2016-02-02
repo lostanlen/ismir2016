@@ -7,6 +7,13 @@ Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
 \newblock {\em International Society for Music Information Retrieval
   Conference}, 2014.
 
+\bibitem{Joder2009}
+Cyril Joder, Slim Essid, and Ga{\"{e}}l Richard.
+\newblock Temporal integration for audio classification with application to
+  musical instrument classification.
+\newblock {\em IEEE Transactions on Audio, Speech and Language Processing},
+  17(1):174--186, 2009.
+
 \bibitem{Kingma2015}
 Diederik~P. Kingma and Jimmy~Lei Ba.
 \newblock {Adam: a Method for Stochastic Optimization}.
@@ -16,7 +23,7 @@ Diederik~P. Kingma and Jimmy~Lei Ba.
 \bibitem{McFee2015}
 Brian McFee, Matt McVicar, Colin Raffel, Dawen Liang, Oriol Nieto, Eric
   Battenberg, Josh Moore, Dan Ellis, Ryuichi Yamamoto, Rachel Bittner, Douglas
-  Repetto, Petr Viktorin, João~Felipe Santos, and Adrian Holovaty.
+  Repetto, Petr Viktorin, Joï¿½o~Felipe Santos, and Adrian Holovaty.
 \newblock librosa: 0.4.1. zenodo. 10.5281/zenodo.18369, October 2015.
 
 \end{thebibliography}

@@ -8,6 +8,9 @@
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{mathrsfs}
+\usepackage[english]{babel}
+\usepackage{caption}
+\usepackage{subfig, color}
 
 % Title.
 % ------
@@ -192,8 +195,21 @@ The network is trained on categorical cross-entropy with \emph{Adam} \cite{Kingm
 
 \section{Single-instrument classification}\label{sec:single-instrument}
 \subsection{Experimental design}
-In order to train the proposed algorithms, we used MedleyDB \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments. Stems with leaking instruments in the background were discarded. We manually checked the resulting set and ruled out recordings with controversial annotations, such as multiple players, prepared guitar, and trumpet with sordina.
+In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments (see Figure \ref{fig:instrument-distribution}. Stems with leaking instruments in the background were discarded. The resulting set was double-checked manually, and annotation mistakes were reported to MedleyDB curators for the next release.
+The evaluation set consists of 120 recordings of solo music collected by Joder et al. \cite{Joder2009}. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB. 
 
+\begin{figure}[t]
+    \begin{center}
+        \setlength{\unitlength}{1cm}
+        \begin{picture}(8,10.5)
+        \put(0,0){\includegraphics[width=8cm]{figure.png}}
+        \end{picture}
+    \end{center}
+    \protect\caption{
+oi oi oi
+\label{fig:instrument-distribution}
+}
+\end{figure}
 
 \subsection{Results}
 
