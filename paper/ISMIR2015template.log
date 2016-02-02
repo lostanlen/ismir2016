@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  2 FEB 2016 11:20
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  2 FEB 2016 17:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -255,11 +255,14 @@ Overfull \hbox (9.88538pt too wide) in paragraph at lines 198--200
 
 
 ]
-File: figure.png Graphic file (type QTm)
- <use  "figure.png" > (./ISMIR2015template.bbl
+File: figs/distribution.png Graphic file (type QTm)
+ <use  "figs/distribution.png" > (./ISMIR2015template.bbl
 Underfull \hbox (badness 6910) in paragraph at lines 4--9
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \hbox (badness 1895) in paragraph at lines 18--22
@@ -275,8 +278,8 @@ Underfull \hbox (badness 1005) in paragraph at lines 24--28
 
 ) [2] (./ISMIR2015template.aux) ) 
 Here is how much of TeX's memory you used:
- 3093 strings out of 493706
- 44955 string characters out of 6145769
+ 3094 strings out of 493706
+ 44978 string characters out of 6145769
  121021 words of memory out of 5000000
  6403 multiletter control sequences out of 15000+600000
  16118 words of font info for 53 fonts, out of 8000000 for 9000
