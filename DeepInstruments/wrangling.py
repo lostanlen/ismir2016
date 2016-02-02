@@ -1,3 +1,4 @@
+import collections
 import DeepInstruments as di
 import librosa
 import numpy as np
@@ -81,14 +82,22 @@ def chunk_stems(dataset_path,
                 Y_id += Y_hop
 
 
-def chunk_waveforms(dest_path, decision_hop, decision_length, source_path):
+def chunk_waveforms(dest_path, decision_hop,
+                    decision_length, source_path, training_distribution):
+    names = di.singlelabel.names
     subdirs = [subdir for (path,subdir,names) in os.walk(source_path)][0]
     for subdir in subdirs:
         instrument_name = subdir[3:]
+        instrument_index = names.index(instrument_name)
+        training_size = training_distribution[instrument_index]
         source_instrument_path = os.path.join(source_path, subdir)
         dest_instrument_path = os.path.join(dest_path, "test", subdir)
-        source_file_names = [name for (p,s,name)
+        source_file_names = [name for (p, s, name)
                              in os.walk(source_instrument_path)][0]
+        waveforms = [librosa.core.load(os.path.join(source_instrument_path,
+                                                    source_file_name),
+                                       sr=44100,mono=True)
+                     for source_file_name in source_file_names]
         for file_id in range(len(source_file_names)):
             source_file_name = source_file_names[file_id]
             file_str = repr('%(i)02d' % {"i": file_id})[1:-1]
@@ -100,32 +109,28 @@ def chunk_waveforms(dest_path, decision_hop, decision_length, source_path):
             os.makedirs(dest_folder_path)
             source_file_path = os.path.join(source_instrument_path,
                                             source_file_name)
-            waveform, sr = librosa.core.load(source_file_path,
-                                             sr=44100,
-                                             mono=True)
-            waveform = waveform.astype(np.float32)
-            chunk_id = 0
+            waveform = waveforms[file_id]
+            chunk_id = 1
             x_id = 0
-            while x_id+decision_length < len(waveform):
+            while x_id + 2*decision_length < len(waveform):
                 x_range = xrange(x_id, x_id + decision_length)
                 chunk = waveform[x_range]
                 chunk_norm = np.linalg.norm(chunk)
-                if chunk_norm > 1.0:  # silence threshold
-                    chunk_id += 1
-                    chunk_id_str = repr('%(i)03d' % {"i": chunk_id})[1:-1]
-                    chunk_str = instrument_name + \
-                                "_" + \
-                                dest_file_folder + \
-                                "_chunk" + \
-                                chunk_id_str + \
-                                ".wav"
-                    chunk_path = os.path.join(dest_folder_path,
-                                              chunk_str)
-                    print(chunk_path)
-                    librosa.output.write_wav(chunk_path,
-                                             chunk,
-                                             sr=44100,
-                                             norm=False)
+                chunk_id += 1
+                chunk_id_str = repr('%(i)03d' % {"i": chunk_id})[1:-1]
+                chunk_str = instrument_name + \
+                            "_" + \
+                            dest_file_folder + \
+                            "_chunk" + \
+                            chunk_id_str + \
+                            ".wav"
+                chunk_path = os.path.join(dest_folder_path,
+                                          chunk_str)
+                print(chunk_path)
+                librosa.output.write_wav(chunk_path,
+                                         chunk,
+                                         sr=44100,
+                                         norm=False)
                 x_id += decision_hop
 
 
@@ -137,7 +142,15 @@ def export_singlelabel_dataset():
     decision_length = 131072
     chunk_stems(dest_path, decision_hop, decision_length, "training")
     chunk_stems(dest_path, decision_hop, decision_length, "test")
+    training_paths = di.singlelabel.get_paths("training")
+    training_ys = map(di.descriptors.get_y, training_paths)
+    training_counter = collections.Counter(training_ys)
+    training_distribution = [training_counter[x] for x in training_counter]
     solosDb_path = os.path.join(os.path.expanduser("~"),
                                 "datasets",
                                 "solosDb_for_ismir2016")
-    chunk_waveforms(dest_path, decision_hop, decision_length, solosDb_path)
+    chunk_waveforms(dest_path,
+                    decision_hop,
+                    decision_length,
+                    training_distribution,
+                    solosDb_path)
