@@ -57,7 +57,13 @@ graph.add_node(pool1_Z, name="pool1_Z", input="Z")
 reshaped_Z = Reshape((1, 32*42))
 graph.add_node(reshaped_Z, name="reshaped_Z", input="pool1_Z")
 
-melodic_error = LambdaMerge([collapsed_X, reshaped_Z],
+pool1_G = MaxPooling1D(pool_size=(pool1_height, pool1_width))
+graph.add_node(pool1_G, name="pool1_G", input="G")
+
+reshaped_G = Reshape((1, 32*42))
+graph.add_node(reshaped_G, name="reshaped_G", input="pool1_G")
+
+melodic_error = LambdaMerge([collapsed_X, reshaped_Z, reshaped_G],
                             di.learning.subtract_and_mask)
 
 graph.add_output(name='out',
