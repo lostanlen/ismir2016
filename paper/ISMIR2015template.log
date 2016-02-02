@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  1 FEB 2016 21:44
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  2 FEB 2016 10:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -174,13 +174,13 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 49.
 
-Overfull \hbox (12.43512pt too wide) in paragraph at lines 102--104
+Overfull \hbox (12.43512pt too wide) in paragraph at lines 104--106
 \OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-frequ
 ency
  []
 
 
-Overfull \hbox (6.98457pt too wide) in paragraph at lines 160--165
+Overfull \hbox (6.98457pt too wide) in paragraph at lines 162--167
 \OT1/ptm/m/it/10 Adam \OT1/ptm/m/n/10 [2], a state-of-the-art stochas-tic op-ti
 -mizer for gradient-
  []
@@ -217,6 +217,6 @@ Here is how much of TeX's memory you used:
  4832 multiletter control sequences out of 15000+600000
  16118 words of font info for 53 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 27i,15n,20p,550b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,15n,20p,589b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on ISMIR2015template.pdf (2 pages).

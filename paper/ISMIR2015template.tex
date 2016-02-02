@@ -69,6 +69,8 @@ We used the implementation from the librosa package \cite{McFee2015} with $Q=12$
 \subsection{Architecture}
 First of all, we apply a family $\boldsymbol{W_2}(\tau,\kappa_1,k_2)$ of $K_2=50$ learned time-frequency convolutional operators, whose supports are constrained to have width $\Delta t$ and height $\Delta k_1$. 
 
+
+
 \begin{equation}
 \boldsymbol{W_2}
 \overset{t,k_1}{\ast}
@@ -190,7 +192,7 @@ The network is trained on categorical cross-entropy with \emph{Adam} \cite{Kingm
 
 \section{Single-instrument classification}\label{sec:single-instrument}
 \subsection{Experimental design}
-In order to evaluate the proposed algorithms, we used MedleyDB \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present.
+In order to train the proposed algorithms, we used MedleyDB \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments. Stems with leaking instruments in the background were discarded. We manually checked the resulting set and ruled out recordings with controversial annotations, such as multiple players, prepared guitar, and trumpet with sordina.
 
 
 \subsection{Results}
