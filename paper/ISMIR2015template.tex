@@ -162,7 +162,7 @@ The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_6}, \mathcal
 \subsection{Training}
 % Random crops
 % Categorical cross-entropy
-The network is trained on categorical cross-entropy with \emph{Adam} \cite{Kingma2015}, a state-of-the-art stochastic optimizer for gradient-based learning.
+The network is trained on categorical cross-entropy with \emph{Adam} \cite{Kingma2015}, a state-of-the-art stochastic optimizer for gradient-based learning. The loss function $\matscr{L}$ is minimized by shuffled mini-batches of size 512, with uniform class distribution.
 % Adam optimizer
 % Shuffled examples with uniform class distribution
 % Mini-batch learning

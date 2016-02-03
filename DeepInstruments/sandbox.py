@@ -31,7 +31,7 @@ graph = Graph()
 # Input
 graph.add_input(name="X", input_shape=(1, X_height, X_width))
 graph.add_input(name="Z", input_shape=(1, X_height, X_width))
-# graph.add_input(name="G", input_shape=(1, X_height, X_width))
+graph.add_input(name="G", input_shape=(1, X_height, X_width))
 
 
 # Shared layers
@@ -57,7 +57,7 @@ graph.add_node(pool1_Z, name="pool1_Z", input="Z")
 reshaped_Z = Reshape((1, 32*42))
 graph.add_node(reshaped_Z, name="reshaped_Z", input="pool1_Z")
 
-pool1_G = MaxPooling1D(pool_size=(pool1_height, pool1_width))
+pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
 graph.add_node(pool1_G, name="pool1_G", input="G")
 
 reshaped_G = Reshape((1, 32*42))
