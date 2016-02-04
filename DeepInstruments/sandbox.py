@@ -64,12 +64,9 @@ reshaped_G = Reshape((1, 32*42))
 graph.add_node(reshaped_G, name="reshaped_G", input="pool1_G")
 
 melodic_error = LambdaMerge([collapsed_X, reshaped_Z, reshaped_G],
-                            di.learning.subtract_and_mask)
+                            di.learning.substract_and_mask)
+graph.add_node(melodic_error, name="melodic_error")
 
-graph.add_output(name='out',
-                 inputs=['collapsed_X', 'reshaped_Z'],
-                 merge_mode='sum')
+graph.add_output(name="melodic_error", input="melodic_error")
 
-
-
-graph.compile(loss={'out': 'mse'}, optimizer="sgd")
+graph.compile(loss={'melodic_error': 'mse'}, optimizer="sgd")
