@@ -1,9 +1,11 @@
 import DeepInstruments as di
 import keras
 from keras.models import Graph
-from keras.layers.advanced_activations import LeakyReLU
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
+from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
+from keras.layers.convolutional import AveragePooling1D, Convolution2D, \
+                                       MaxPooling2D
+
 import math
 import numpy as np
 import random
@@ -70,6 +72,34 @@ def build_graph(
     graph.add_node(dense3, name="dense3", input="drop2")
 
     graph.add_output(name="Y", input="dense3")
+
+    # Layers towards melodic target
+    reshaped_X = Reshape((conv1_channels, 32*42))
+    graph.add_node(reshaped_X, name="reshaped_X", input="pool1_X")
+
+    collapsed_X = AveragePooling1D(pool_length=2, stride=2)
+    graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
+
+    softplus_X = ParametricSoftplus()
+    graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
+
+    pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_Z, name="pool1_Z", input="Z")
+
+    reshaped_Z = Reshape((1, 32*42))
+    graph.add_node(reshaped_Z, name="reshaped_Z", input="pool1_Z")
+
+    pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_G, name="pool1_G", input="G")
+
+    reshaped_G = Reshape((1, 32*42))
+    graph.add_node(reshaped_G, name="reshaped_G", input="pool1_G")
+
+    melodic_error = LambdaMerge([softplus_X, reshaped_Z, reshaped_G],
+                                di.learning.substract_and_mask)
+    graph.add_node(melodic_error, name="melodic_error")
+
+    graph.add_output(name="zero", input="melodic_error")
 
     return graph
 

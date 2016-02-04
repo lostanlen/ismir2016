@@ -69,4 +69,4 @@ graph.add_node(melodic_error, name="melodic_error")
 
 graph.add_output(name="melodic_error", input="melodic_error")
 
-graph.compile(loss={'melodic_error': 'mse'}, optimizer="sgd")
+graph.compile(loss={"melodic_error": "mse"}, optimizer="sgd")
