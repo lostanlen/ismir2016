@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  3 FEB 2016 23:21
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  4 FEB 2016 11:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -237,12 +237,6 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 Overfull \hbox (12.43512pt too wide) in paragraph at lines 107--109
 \OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-frequ
 ency
- []
-
-
-Overfull \hbox (6.98457pt too wide) in paragraph at lines 165--170
-\OT1/ptm/m/it/10 Adam \OT1/ptm/m/n/10 [3], a state-of-the-art stochas-tic op-ti
--mizer for gradient-
  []
 
 
