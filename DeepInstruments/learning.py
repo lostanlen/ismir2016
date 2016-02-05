@@ -103,8 +103,8 @@ def build_graph(
     return graph
 
 
-def substract_and_mask(X):
-    return (X[0] - X[1]) * X[2]
+def substract_and_mask(args):
+    return (args[0] - args[1]) * args[2]
 
 
 def run_graph(X_train_list, Y_train_list, X_test, Y_test,
