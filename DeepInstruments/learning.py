@@ -2,7 +2,8 @@ import DeepInstruments as di
 import keras
 from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
-from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
+from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape,
+from keras.layers.core import Permute
 from keras.layers.convolutional import AveragePooling1D, Convolution2D, \
                                        MaxPooling2D
 
@@ -75,28 +76,25 @@ def build_graph(
     graph.add_output(name="Y", input="dense3")
 
     # Layers towards melodic target
-    reshaped_X = Reshape((conv1_channels, 32*42))
-    graph.add_node(reshaped_X, name="reshaped_X", input="pool1_X")
+    permuted_X = Permute((2, 3, 1))
+    graph.add_node(permuted_X, name="permuted_X", input="pool1")
 
-    collapsed_X = AveragePooling1D(pool_length=2, stride=2)
-    graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
+    collapsed_X = AveragePooling1D(pool_length=conv1_channels)
+    graph.add_node(collapsed_X, name="collapsed_X", input="permuted_X")
 
     softplus_X = ParametricSoftplus()
     graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
 
+    toplevel_X = Permute((3, 1, 2))
+    graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
+
     pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_Z, name="pool1_Z", input="Z")
-
-    reshaped_Z = Reshape((1, 32*42))
-    graph.add_node(reshaped_Z, name="reshaped_Z", input="pool1_Z")
 
     pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_G, name="pool1_G", input="G")
 
-    reshaped_G = Reshape((1, 32*42))
-    graph.add_node(reshaped_G, name="reshaped_G", input="pool1_G")
-
-    melodic_error = LambdaMerge([softplus_X, reshaped_Z, reshaped_G],
+    melodic_error = LambdaMerge([toplevel_X, pool1_Z, pool1_G],
                                 di.learning.substract_and_mask)
     graph.add_node(melodic_error, name="melodic_error")
 

@@ -24,3 +24,33 @@ conv1_height = 3
 conv1_width = 3
 pool1_height = 3
 pool1_width = 3
+conv2_channels = 10
+conv2_height = 8
+conv2_width = 8
+pool2_height = 8
+pool2_width = 8
+dense1_channels = 32
+drop1_proportion = 0.5
+dense2_channels = 16
+drop2_proportion = 0.5
+dense3_channels = 8
+
+
+graph = di.learning.build_graph(
+    X_height,
+    X_width,
+    conv1_channels,
+    conv1_height,
+    conv1_width,
+    pool1_height,
+    pool1_width,
+    conv2_channels,
+    conv2_height,
+    conv2_width,
+    pool2_height,
+    pool2_width,
+    dense1_channels,
+    drop1_proportion,
+    dense2_channels,
+    drop2_proportion,
+    dense3_channels)
