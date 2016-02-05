@@ -10,6 +10,7 @@ import math
 import numpy as np
 import random
 
+
 def build_graph(
         X_height,
         X_width,
