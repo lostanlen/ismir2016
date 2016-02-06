@@ -55,6 +55,8 @@ The abstract should be placed at the top left column and should contain about 15
 %
 
 \section{Introduction}\label{sec:introduction}
+Music information is mostly available under two forms: the auditory domain of acoustic waves, and the symbolic domain of polyphonic scores and semantic attributes. Whereas scores may be represented as time-frequency matrices, other semantic attributes, such as instruments, are 
+
 % audio vs symbolic levels of music information
 % variability is dominated by melody and orchestration
 % at the symbolic level, melodies are represented over a continuous pitch axis
@@ -64,7 +66,6 @@ The abstract should be placed at the top left column and should contain about 15
 % the challenge is thus two-fold
 % 1. gaining abstraction by integrating time-frequency patterns over longer time scales
 % 2. building invariants to melody while remaining highly discriminative to the instrument
-
 
 
 % On music instrument classification
@@ -83,7 +84,6 @@ We used the implementation from the librosa package \cite{McFee2015} with $Q=12$
 
 \subsection{Architecture}
 First of all, we apply a family $\boldsymbol{W_2}(\tau,\kappa_1,k_2)$ of $K_2=50$ learned time-frequency convolutional operators, whose supports are constrained to have width $\Delta t$ and height $\Delta k_1$. 
-
 \begin{equation}
 \boldsymbol{W_2}
 \overset{t,k_1}{\ast}
@@ -92,56 +92,50 @@ First of all, we apply a family $\boldsymbol{W_2}(\tau,\kappa_1,k_2)$ of $K_2=50
 \! \!
 \sum_{\substack{
 0 \leq \tau < \Delta t \\
-0 \leq \kappa_1 < \Delta k_1}} 
+0 \leq \kappa_1 < \Delta k_1}}
 \! \! \! \! \!
 \boldsymbol{W_2}(\tau,\kappa_1,k_2)
 \boldsymbol{x_1}(t-\tau,k_1-\kappa_1)
 \end{equation}
-
 Furthermore, element-wise biases $\boldsymbol{b_2}(k_2)$ are added to the convolutions, resulting in the tensor 
-
 \begin{equation}
 \boldsymbol{y_2}(t,k_1,k_2) =
-\boldsymbol{b_2} + 
+\boldsymbol{b_2}(k_2) + 
 (\boldsymbol{x_1}
 \overset{t,k_1}{\ast}
-\boldsymbol{W_2}).
+\boldsymbol{W_2})(t,k_1,k_2).
 \end{equation}
- 
 The second step is the application of a pointwise nonlinearity. We have chosen the \emph{rectified linear unit} (ReLU) because of its popularity in computer vision and its computational efficiency.
- 
  \begin{equation}
  \boldsymbol{y_{2}^{+}}(t,k_1,k_2) = \max \left( \boldsymbol{y_2}(t,k_1,k_2), 0\right)
  \end{equation}
- 
  To achieve invariance to translation as well as frequency transposition, we pool neighboring units in
  the time-frequency domain $(t,k_1)$ over non-overlapping rectangles of width $\Delta t$ and height $\Delta k_1$.
- 
  \begin{equation}
- \boldsymbol{x_2}(t,k_1,k_2) =
+ \boldsymbol{x_2}(t,k_1,k_2) = \! \!
  \max_{
 \substack{
 0 \leq \tau < \Delta t \\
 0 \leq \kappa_1 < \Delta k_1}
- } \left\{
+ } \! \!
+\left\{
  \boldsymbol{y_{2}^{+}}(t + \tau, k_1 + \kappa_1, k_2)
  \right\}
  \end{equation}
- 
+ We apply a family $\boldsymbol{W_3}(\tau, \kappa_1, k_2, k_3)$ of $K_3$ convolutional operators that perform a linear combination of time-frequency feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
  \begin{equation}
  \boldsymbol{y_3}(t,k_1,k_3) =
  \sum_{k_2}
- (\boldsymbol{x_2}
+\boldsymbol{x_2}(t,k_1,k_2)
  \overset{t,k_1}{\ast}
- \boldsymbol{W_3})
+ \boldsymbol{W_3}(t,k_1,k_3)
  \end{equation}
-
+After nonlinear rectification and max-pooling, the layer $\boldsymbol{y_3}$ turns into a non-negative tensor $\boldsymbol{x_3}(t,k_1,k_3)$.
 \begin{equation}
 \boldsymbol{x_4}(k_4) =
-\left(
-\sum_{v_3}
-\boldsymbol{W_4}(k_4, v_3)
-\boldsymbol{x_3}(v_3) \right)^{+}
+\sum_{t,k_1,k_3}
+\boldsymbol{W_4}(t, k_1, k_3, k_4)
+\boldsymbol{x_3}(t, k_1, k_3)
 \end{equation}
 
 \begin{equation}

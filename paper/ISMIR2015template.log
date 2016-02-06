@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  4 FEB 2016 11:29
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 FEB 2016 17:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -234,14 +234,27 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 52.
 
-Overfull \hbox (12.43512pt too wide) in paragraph at lines 107--109
+Overfull \hbox (13.79488pt too wide) in paragraph at lines 58--59
+\OT1/ptm/m/n/10 do-main of poly-phonic scores and se-man-tic at-tributes. Where
+as
+ []
+
+
+Overfull \hbox (4.04482pt too wide) in paragraph at lines 58--59
+\OT1/ptm/m/n/10 scores may be rep-re-sented as time-frequency ma-tri-ces, other
+
+ []
+
+
+Overfull \hbox (12.43512pt too wide) in paragraph at lines 111--114
 \OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-frequ
 ency
  []
 
 
-Overfull \hbox (9.88538pt too wide) in paragraph at lines 198--200
-\OT1/ptm/m/n/10 ground were dis-carded. The re-sult-ing set was double-checked
+Overfull \hbox (10.88496pt too wide) in paragraph at lines 124--126
+\OT1/ptm/m/n/10 op-er-a-tors that per-form a lin-ear com-bi-na-tion of time-fre
+quency
  []
 
 [1
@@ -249,14 +262,15 @@ Overfull \hbox (9.88538pt too wide) in paragraph at lines 198--200
 
 
 ]
+Overfull \hbox (9.88538pt too wide) in paragraph at lines 203--205
+\OT1/ptm/m/n/10 ground were dis-carded. The re-sult-ing set was double-checked
+ []
+
 File: figs/distribution.png Graphic file (type QTm)
- <use  "figs/distribution.png" > (./ISMIR2015template.bbl
+<use  "figs/distribution.png" > (./ISMIR2015template.bbl
 Underfull \hbox (badness 6910) in paragraph at lines 4--9
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \hbox (badness 1895) in paragraph at lines 18--22
