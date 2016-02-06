@@ -101,9 +101,9 @@ Furthermore, element-wise biases $\boldsymbol{b_2}(k_2)$ are added to the convol
 \begin{equation}
 \boldsymbol{y_2}(t,k_1,k_2) =
 \boldsymbol{b_2}(k_2) + 
-(\boldsymbol{x_1}
+(\boldsymbol{W_2}
 \overset{t,k_1}{\ast}
-\boldsymbol{W_2})(t,k_1,k_2).
+\boldsymbol{x_1})(t,k_1,k_2).
 \end{equation}
 The second step is the application of a pointwise nonlinearity. We have chosen the \emph{rectified linear unit} (ReLU) because of its popularity in computer vision and its computational efficiency.
  \begin{equation}
@@ -126,34 +126,24 @@ The second step is the application of a pointwise nonlinearity. We have chosen t
  \begin{equation}
  \boldsymbol{y_3}(t,k_1,k_3) =
  \sum_{k_2}
-\boldsymbol{x_2}(t,k_1,k_2)
- \overset{t,k_1}{\ast}
  \boldsymbol{W_3}(t,k_1,k_3)
+ \overset{t,k_1}{\ast}
+ \boldsymbol{x_2}(t,k_1,k_2)
  \end{equation}
 After nonlinear rectification and max-pooling, the layer $\boldsymbol{y_3}$ turns into a non-negative tensor $\boldsymbol{x_3}(t,k_1,k_3)$.
 \begin{equation}
-\boldsymbol{x_4}(k_4) =
+\boldsymbol{y_4}(k_4) =
 \sum_{t,k_1,k_3}
 \boldsymbol{W_4}(t, k_1, k_3, k_4)
 \boldsymbol{x_3}(t, k_1, k_3)
 \end{equation}
-
+We apply nonlinear rectification, yielding $\boldsymbol{x_4}(k_4) = \boldsymbol{y_4^{+}}(k_4)$. $\boldsymbol{y_5}(k_5) = \sum_{k_5} \boldsymbol{W_5}(k_4,k_5) \boldsymbol{x_4}(k_4)$. $\boldsymbol{x_5}(k_5) = \boldsymbol{y_5^{+}}$. $\boldsymbol{y_6}(k_6) = \sum_{k_6} \boldsymbol{W_6}(k_6,k_5) \boldsymbol{x_5}(k_5)$.
 \begin{equation}
-\boldsymbol{x_5}(k_5) =
-\left(
-\sum_{k_4}
-\boldsymbol{W_5}(k_5, k_4)
-\boldsymbol{x_4}(k_4)
-\right)^{+}
+\boldsymbol{x_6}(k_6) =
+\dfrac{\exp \boldsymbol{y_6}(k_6)}
+{\sum_{\kappa_6} \exp \boldsymbol{y_6}(\kappa_6)}
 \end{equation}
-
-\begin{equation}
-\boldsymbol{y_6}(k_6) =
-\sum_{k_6}
-\boldsymbol{W_6}(k_6,k_5)
-\boldsymbol{x_5}(k_5)
-\end{equation}
-
+The above ensures that the coefficients of $\boldsymbol{x_6}$ are non-negative and sum to one, hence can fit a probability distribution.
 We define the categorical cross-entropy as
 
 \begin{equation}

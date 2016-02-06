@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 FEB 2016 17:25
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 FEB 2016 17:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -257,12 +257,33 @@ Overfull \hbox (10.88496pt too wide) in paragraph at lines 124--126
 quency
  []
 
+
+Overfull \hbox (8.60954pt too wide) in paragraph at lines 139--141
+\OT1/ptm/m/n/10 We ap-ply non-lin-ear rec-ti-fi-ca-tion, yield-ing $[]\OT1/cmr/
+m/n/10 (\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ) = [](\OML/cmm/m/it/10 k[]\OT1/cmr
+/m/n/10 )$\OT1/ptm/m/n/10 .
+ []
+
+
+Overfull \hbox (11.9311pt too wide) in paragraph at lines 139--141
+[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ) = [][] [](\OML/cmm/m/i
+t/10 k[]; k[]\OT1/cmr/m/n/10 )[](\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 )$\OT1/ptm
+/m/n/10 . $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ) = []$\OT1/p
+tm/m/n/10 . $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ) =
+ []
+
+
+Overfull \hbox (9.74658pt too wide) in paragraph at lines 145--148
+\OT1/ptm/m/n/10 The above en-sures that the co-ef-fi-cients of $[]$ are non-neg
+ative
+ []
+
 [1
 
 
 
 ]
-Overfull \hbox (9.88538pt too wide) in paragraph at lines 203--205
+Overfull \hbox (9.88538pt too wide) in paragraph at lines 193--195
 \OT1/ptm/m/n/10 ground were dis-carded. The re-sult-ing set was double-checked
  []
 
