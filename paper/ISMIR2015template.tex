@@ -25,6 +25,9 @@
 %\oneauthor
 % {Names should be omitted for double-blind reviewing}
 % {Affiliations should be omitted for double-blind reviewing}
+\oneauthor
+{Vincent Lostanlen, Carmine Emanuele Cella, and St\'{e}phane Mallat}
+{\'{E}cole normale sup\'{e}rieure}
 
 % Two addresses
 % --------------
@@ -34,10 +37,10 @@
 
 % Three addresses
 % --------------
-\threeauthors
-  {First author} {Affiliation1 \\ {\tt author1@ismir.edu}}
-  {Second author} {\bf Retain these fake authors in\\\bf submission to preserve the formatting}
-  {Third author} {Affiliation3 \\ {\tt author3@ismir.edu}}
+%\threeauthors
+ %{First author} {Affiliation1 \\ {\tt author1@ismir.edu}}
+ %{Second author} {\bf Retain these fake authors in\\\bf submission to preserve the formatting}
+ %{Third author} {Affiliation3 \\ {\tt author3@ismir.edu}}
 
 % Four addresses
 % --------------
@@ -57,7 +60,7 @@ The abstract should be placed at the top left column and should contain about 15
 %
 
 \section{Introduction}\label{sec:introduction}
-Music information is mostly available under two forms: the auditory domain of acoustic waves, and the symbolic domain of polyphonic scores and semantic attributes. Whereas scores may be represented as time-frequency matrices, other semantic attributes, such as instruments, are 
+Music information is mostly available under two forms: the auditory domain of acoustic waves, and the symbolic domain of polyphonic scores and other semantic attributes. In the symbolic domain, a score may be represented as a piano-roll matrix $\mathcal{P}$, whereas the identity of active instruments is encoded as a set $\mathcal{I}$ of categories.
 
 % audio vs symbolic levels of music information
 % variability is dominated by melody and orchestration
@@ -121,7 +124,7 @@ The second step is the application of a pointwise nonlinearity. We have chosen t
 0 \leq \kappa_1 < \Delta k_1}
  } \! \!
 \left\{
- \boldsymbol{y_{2}^{+}}(t + \tau, k_1 + \kappa_1, k_2)
+ \boldsymbol{y_{2}^{+}}(t - \tau, k_1 - \kappa_1, k_2)
  \right\}
  \end{equation}
  We apply a family $\boldsymbol{W_3}(\tau, \kappa_1, k_2, k_3)$ of $K_3$ convolutional operators that perform a linear combination of time-frequency feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
@@ -143,7 +146,7 @@ We apply nonlinear rectification, yielding $\boldsymbol{x_4}(k_4) = \boldsymbol{
 \begin{equation}
 \boldsymbol{x_6}(k_6) =
 \dfrac{\exp \boldsymbol{y_6}(k_6)}
-{ \Vert \exp \boldsymbol{y_6}(\kappa_6) \Vert_1}
+{ \Vert \! \exp \boldsymbol{y_6} \Vert_1}
 \end{equation}
 The above ensures that the coefficients of $\boldsymbol{x_6}$ are non-negative and sum to one, hence can fit a 
 We define the categorical cross-entropy as
@@ -192,7 +195,7 @@ The network is trained on categorical cross-entropy over shuffled mini-batches o
 
 \section{Single-instrument classification}\label{sec:single-instrument}
 \subsection{Experimental design}
-In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments (see Figure \ref{fig:instrument-distribution}. Stems with leaking instruments in the background were discarded. The resulting set was double-checked manually, and annotation mistakes were reported to MedleyDB curators for the next release.
+In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments (see Figure \ref{fig:instrument-distribution}). Stems with leaking instruments in the background were discarded.
 The evaluation set consists of 120 recordings of solo music collected by Joder et al. \cite{Joder2009}. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB. Moreover, since the 
 
 \begin{figure}[t]
