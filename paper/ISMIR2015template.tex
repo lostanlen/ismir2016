@@ -11,6 +11,8 @@
 \usepackage[english]{babel}
 \usepackage{caption}
 \usepackage{subfig, color}
+\usepackage{microtype}
+\sloppy
 
 % Title.
 % ------
@@ -141,14 +143,14 @@ We apply nonlinear rectification, yielding $\boldsymbol{x_4}(k_4) = \boldsymbol{
 \begin{equation}
 \boldsymbol{x_6}(k_6) =
 \dfrac{\exp \boldsymbol{y_6}(k_6)}
-{\sum_{\kappa_6} \exp \boldsymbol{y_6}(\kappa_6)}
+{ \Vert \exp \boldsymbol{y_6}(\kappa_6) \Vert_1}
 \end{equation}
-The above ensures that the coefficients of $\boldsymbol{x_6}$ are non-negative and sum to one, hence can fit a probability distribution.
+The above ensures that the coefficients of $\boldsymbol{x_6}$ are non-negative and sum to one, hence can fit a 
 We define the categorical cross-entropy as
 
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_6}, \mathcal{I}) =
-- \sum_{k_5 \in \mathcal{I}} \log \sigma ( \boldsymbol{y_6}(k_6) ).
+- \sum_{k_6 \in \mathcal{I}} \log \boldsymbol{x_6}(k_6).
 \end{equation}
 
 The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_6}, \mathcal{I})$ for across all pairs $(\boldsymbol{x_6}, \mathcal{I})$ in the training set.
