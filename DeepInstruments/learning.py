@@ -2,7 +2,7 @@ import DeepInstruments as di
 import keras
 from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
-from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape,
+from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge
 from keras.layers.core import Permute
 from keras.layers.convolutional import AveragePooling1D, Convolution2D, \
                                        MaxPooling2D
@@ -31,12 +31,17 @@ def build_graph(
         drop2_proportion,
         dense3_channels):
     graph = Graph()
+    Z_height = X_height / pool1_height
+    Z_width = X_width / pool1_width
 
     # Input
     graph.add_input(name="X", input_shape=(1, X_height, X_width))
+    graph.add_input(name="Z", input_shape=(1, Z_height, Z_width))
+    graph.add_input(name="G", input_shape=(1, Z_height, Z_width))
 
     # Shared layers
-    conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width)
+    conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                          border_mode="valid")
     graph.add_node(conv1, name="conv1", input="X")
 
     relu1 = LeakyReLU()
@@ -73,8 +78,6 @@ def build_graph(
     dense3 = Dense(dense3_channels, activation="softmax")
     graph.add_node(dense3, name="dense3", input="drop2")
 
-    graph.add_output(name="Y", input="dense3")
-
     # Layers towards melodic target
     permuted_X = Permute((2, 3, 1))
     graph.add_node(permuted_X, name="permuted_X", input="pool1")
@@ -96,8 +99,10 @@ def build_graph(
 
     melodic_error = LambdaMerge([toplevel_X, pool1_Z, pool1_G],
                                 di.learning.substract_and_mask)
-    graph.add_node(melodic_error, name="melodic_error")
+    graph.add_node(melodic_error, name="melodic_error",
+                   inputs=["toplevel_X", "pool1_Z", "pool1_G"])
 
+    graph.add_output(name="Y", input="dense3")
     graph.add_output(name="zero", input="melodic_error")
 
     return graph
