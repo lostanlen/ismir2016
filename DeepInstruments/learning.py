@@ -2,7 +2,7 @@ import DeepInstruments as di
 import keras
 from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
-from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge
+from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.core import Permute
 from keras.layers.convolutional import AveragePooling1D, Convolution2D, \
                                        MaxPooling2D
@@ -31,28 +31,26 @@ def build_graph(
         drop2_proportion,
         dense3_channels):
     graph = Graph()
-    Z_height = X_height / pool1_height
-    Z_width = X_width / pool1_width
 
     # Input
     graph.add_input(name="X", input_shape=(1, X_height, X_width))
-    graph.add_input(name="Z", input_shape=(1, Z_height, Z_width))
-    graph.add_input(name="G", input_shape=(1, Z_height, Z_width))
+    graph.add_input(name="Z", input_shape=(1, X_height, X_width))
+    graph.add_input(name="G", input_shape=(1, X_height, X_width))
 
     # Shared layers
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid")
+                          border_mode="same")
     graph.add_node(conv1, name="conv1", input="X")
 
     relu1 = LeakyReLU()
     graph.add_node(relu1, name="relu1", input="conv1")
 
-    pool1 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1, name="pool1", input="relu1")
+    pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_X, name="pool1_X", input="relu1")
 
     # Layers towards instrument target
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width)
-    graph.add_node(conv2, name="conv2", input="pool1")
+    graph.add_node(conv2, name="conv2", input="pool1_X")
 
     relu2 = LeakyReLU()
     graph.add_node(relu2, name="relu2", input="conv2")
@@ -78,24 +76,28 @@ def build_graph(
     dense3 = Dense(dense3_channels, activation="softmax")
     graph.add_node(dense3, name="dense3", input="drop2")
 
-    # Layers towards melodic target
-    permuted_X = Permute((2, 3, 1))
-    graph.add_node(permuted_X, name="permuted_X", input="pool1")
-
-    collapsed_X = AveragePooling1D(pool_length=conv1_channels)
-    graph.add_node(collapsed_X, name="collapsed_X", input="permuted_X")
-
-    softplus_X = ParametricSoftplus()
-    graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
-
-    toplevel_X = Permute((3, 1, 2))
-    graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
-
+    # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
     pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_Z, name="pool1_Z", input="Z")
 
     pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_G, name="pool1_G", input="G")
+
+    # Layers towards melodic target
+    flat_shape = (pool1_X.output_shape[1],
+                pool1_X.output_shape[2] * pool1_X.output_shape[3])
+    reshaped_X = Reshape(dims=flat_shape)
+    graph.add_node(reshaped_X, name="reshaped_X", input="pool1_X")
+
+    collapsed_X = AveragePooling1D(pool_length=conv1_channels)
+    graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
+
+    softplus_X = ParametricSoftplus()
+    graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
+
+    rectangular_shape = (1, pool1_X.output_shape[2], pool1_X.output_shape[3])
+    toplevel_X = Reshape(dims=rectangular_shape)
+    graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
 
     melodic_error = LambdaMerge([toplevel_X, pool1_Z, pool1_G],
                                 di.learning.substract_and_mask)
