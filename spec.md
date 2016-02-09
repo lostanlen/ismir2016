@@ -28,7 +28,7 @@ C. *Pitch supervision*
     6. [DONE] Extract G
     7. [DONE] Flowing Z and G in the datagen
     8. Max-pool G over the size of the decision length.
-    9. Write LambdaMerge function for difference
+    9. [DONE] Write LambdaMerge function for difference
 
 D. *Evaluation*
     1. [DONE] Write class-based accuracy measure
