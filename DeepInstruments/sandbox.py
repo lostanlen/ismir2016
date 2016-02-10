@@ -1,4 +1,6 @@
 import DeepInstruments as di
+import numpy as np
+from keras.utils.generic_utils import Progbar
 
 X_height = 96
 X_width = 128
@@ -52,6 +54,27 @@ graph.compile(loss={"Y": "categorical_crossentropy",
 (test_stems, training_stems) = di.singlelabel.get_stems()
 
 
-di.singlelabel.ScalogramGenerator(decision_length, fmin, hop_length,
-                                  n_bins_per_octave, n_octaves,
-                                  training_stems)
+datagen = di.singlelabel.ScalogramGenerator(
+        decision_length, fmin, hop_length, n_bins_per_octave, n_octaves,
+        training_stems)
+
+from keras.utils.generic_utils import Progbar
+mean_training_loss_history = []
+
+dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
+batch_losses = np.zeros(batch_size)
+
+for epoch_id in xrange(n_epochs):
+    dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
+    print 'Epoch ', 1 + epoch_id
+    progbar = keras.utils.generic_utils.Progbar(epoch_size)
+    batch_id = 0
+    for (X_batch, Y_batch) in dataflow:
+        batch_id += 1
+        loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
+        batch_losses[batch_id] = loss[0]
+        progbar.update(batch_id * batch_size)
+    mean_loss = np.mean(batch_losses)
+    std_loss = np.std(batch_losses)
+    print "Training loss = ", mean_loss, " +/- ", std_loss
+    mean_training_loss_history.append(mean_loss)
