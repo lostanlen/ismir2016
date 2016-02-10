@@ -19,7 +19,7 @@ dense1_channels = 64
 drop2_proportion = 0.5
 dense2_channels = 8
 
-batch_size = 512
+batch_size = 128
 decision_length = 131072  # in samples
 epoch_size = 8192
 every_n_epoch = 10
@@ -28,7 +28,7 @@ hop_length = 1024 #  in samples
 n_bins_per_octave = 12
 n_epochs = 20
 n_octaves = 8
-# optimizer = "adagrad"
+optimizer = "adam"
 
 graph = di.learning.build_graph(
     X_height,
@@ -49,7 +49,7 @@ graph = di.learning.build_graph(
     dense2_channels)
 
 graph.compile(loss={"Y": "categorical_crossentropy",
-                    "zero": "mse"}, optimizer="adam")
+                    "zero": "mse"}, optimizer=optimizer)
 
 (test_stems, training_stems) = di.singlelabel.get_stems()
 
@@ -62,16 +62,20 @@ from keras.utils.generic_utils import Progbar
 mean_training_loss_history = []
 
 dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
-batch_losses = np.zeros(batch_size)
+batch_losses = np.zeros(epoch_size / batch_size)
 
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
     print 'Epoch ', 1 + epoch_id
-    progbar = keras.utils.generic_utils.Progbar(epoch_size)
+    progbar = Progbar(epoch_size)
     batch_id = 0
-    for (X_batch, Y_batch) in dataflow:
+    for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
         batch_id += 1
-        loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
+        loss = graph.train_on_batch({"X": X_batch,
+                                     "Y": Y_batch,
+                                     "Z": Z_batch,
+                                     "G": G_batch,
+                                     "zero": np.zeros((batch_size, 1, 32, 42))})
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
     mean_loss = np.mean(batch_losses)
