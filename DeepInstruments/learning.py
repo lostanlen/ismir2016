@@ -107,16 +107,13 @@ def substract_and_mask(args):
     return (args[0] - args[1]) * args[2]
 
 
-def run_graph(X_train_list, Y_train_list, X_test, Y_test,
-              batch_size, datagen, epoch_size, every_n_epoch,
-              graph, n_epochs):
+def run_graph(batch_size, datagen, epoch_size, every_n_epoch,
+              graph, n_epochs, X_test, Y_test):
     loss_history = []
     train_accuracies_history = []
     test_accuracies_history = []
     for epoch_id in xrange(n_epochs):
         dataflow = datagen.flow(
-            X_train_list,
-            Y_train_list,
             batch_size=batch_size,
             epoch_size=epoch_size)
         print 'Epoch ', 1 + epoch_id
