@@ -3,13 +3,9 @@ import keras
 from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
-from keras.layers.core import Permute
 from keras.layers.convolutional import AveragePooling1D, Convolution2D, \
                                        MaxPooling2D
-
-import math
 import numpy as np
-import random
 
 
 def build_graph(
@@ -25,11 +21,10 @@ def build_graph(
         conv2_width,
         pool2_height,
         pool2_width,
-        dense1_channels,
         drop1_proportion,
-        dense2_channels,
+        dense1_channels,
         drop2_proportion,
-        dense3_channels):
+        dense2_channels):
     graph = Graph()
 
     # Input
@@ -49,7 +44,8 @@ def build_graph(
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
 
     # Layers towards instrument target
-    conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width)
+    conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
+                          border_mode="same")
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
     relu2 = LeakyReLU()
@@ -61,20 +57,17 @@ def build_graph(
     flatten = Flatten()
     graph.add_node(flatten, name="flatten", input="pool2")
 
+    drop1 = Dropout(drop1_proportion)
+    graph.add_node(drop1, name="drop1", input="flatten")
+
     dense1 = Dense(dense1_channels, activation="relu")
     graph.add_node(dense1, name="dense1", input="flatten")
-
-    drop1 = Dropout(drop1_proportion)
-    graph.add_node(drop1, name="drop1", input="dense1")
-
-    dense2 = Dense(dense2_channels, activation="relu")
-    graph.add_node(dense2, name="dense2", input="drop1")
 
     drop2 = Dropout(drop2_proportion)
     graph.add_node(drop2, name="drop2", input="dense2")
 
-    dense3 = Dense(dense3_channels, activation="softmax")
-    graph.add_node(dense3, name="dense3", input="drop2")
+    dense2 = Dense(dense2_channels, activation="softmax")
+    graph.add_node(dense2, name="dense2", input="drop2")
 
     # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
     pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
