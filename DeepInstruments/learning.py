@@ -61,10 +61,10 @@ def build_graph(
     graph.add_node(drop1, name="drop1", input="flatten")
 
     dense1 = Dense(dense1_channels, activation="relu")
-    graph.add_node(dense1, name="dense1", input="flatten")
+    graph.add_node(dense1, name="dense1", input="drop1")
 
     drop2 = Dropout(drop2_proportion)
-    graph.add_node(drop2, name="drop2", input="dense2")
+    graph.add_node(drop2, name="drop2", input="dense1")
 
     dense2 = Dense(dense2_channels, activation="softmax")
     graph.add_node(dense2, name="dense2", input="drop2")
