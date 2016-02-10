@@ -17,6 +17,16 @@ dense1_channels = 64
 drop2_proportion = 0.5
 dense2_channels = 8
 
+batch_size = 512
+decision_length = 131072  # in samples
+epoch_size = 8192
+every_n_epoch = 10
+fmin = 55 # in Hz
+hop_length = 1024 #  in samples
+n_bins_per_octave = 12
+n_epochs = 20
+n_octaves = 8
+# optimizer = "adagrad"
 
 graph = di.learning.build_graph(
     X_height,
@@ -38,3 +48,10 @@ graph = di.learning.build_graph(
 
 graph.compile(loss={"Y": "categorical_crossentropy",
                     "zero": "mse"}, optimizer="adam")
+
+(test_stems, training_stems) = di.singlelabel.get_stems()
+
+
+di.singlelabel.ScalogramGenerator(decision_length, fmin, hop_length,
+                                  n_bins_per_octave, n_octaves,
+                                  training_stems)
