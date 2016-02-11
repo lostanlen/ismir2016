@@ -113,3 +113,39 @@ for epoch_id in xrange(n_epochs):
     std_test_accuracy = np.std(test_accuracies)
     print "GLOBAL TEST ACCURACY: ",\
         mean_test_accuracy, " +/- ", std_test_accuracy
+
+final_score = test_accuracies_history[-1]
+final_mean_score = np.mean(final_score)
+
+# Save results
+np.savez(
+    '40_40_weight0.npz',
+    decision_length=decision_length,
+    fmin=fmin,
+    hop_length=hop_length,
+    n_bins_per_octave=n_bins_per_octave,
+    n_octaves=n_octaves,
+    conv1_channels=conv1_channels,
+    conv1_height=conv1_height,
+    conv1_width=conv1_width,
+    pool1_height=pool1_height,
+    pool1_width=pool1_width,
+    conv2_channels=conv2_channels,
+    conv2_height=conv2_height,
+    conv2_width=conv2_width,
+    pool2_height=pool2_height,
+    pool2_width=pool2_width,
+    drop1_proportion=drop1_proportion,
+    dense1_channels=dense1_channels,
+    drop2_proportion=drop2_proportion,
+    batch_size=batch_size,
+    epoch_size=epoch_size,
+    n_epochs=n_epochs,
+    optimizer=optimizer,
+    mask_weight=mask_weight,
+    mean_training_loss_history=mean_training_loss_history,
+    test_accuracies_history=test_accuracies_history,
+    training_accuracies_history=training_accuracies_history,
+    final_score=final_score,
+    final_mean_score=final_mean_score)
+
