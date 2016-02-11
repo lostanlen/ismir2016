@@ -28,7 +28,7 @@ batch_size = 128
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-mask_weight = 1
+mask_weight = 10
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
@@ -148,4 +148,3 @@ np.savez(
     training_accuracies_history=training_accuracies_history,
     final_score=final_score,
     final_mean_score=final_mean_score)
-
