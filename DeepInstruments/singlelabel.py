@@ -284,6 +284,13 @@ def get_stems():
     return test_stems, training_stems
 
 
+def print_accuracies(accuracies):
+    for instrument_id in range(len(accuracies)):
+        name = di.singlelabel.names[instrument_id]
+        accuracy = accuracies[instrument_id]
+        print name, " = ", accuracy
+
+
 def test_accuracies(graph, X_test, y_true):
     Z_dummy = np.zeros(X_test.shape)
     G_dummy = np.zeros(X_test.shape)
