@@ -115,7 +115,7 @@ class ScalogramGenerator(object):
                                         n_octaves, stem)
                       for stem in class_stems])
         indices = di.singlelabel.get_indices(Y, decision_length)
-        X_mat = np.hstack([X[class_id][file_id][indices[class_id][file_id]]
+        X_mat = np.hstack([X[class_id][file_id][:, indices[class_id][file_id]]
                            for class_id in range(len(X))
                            for file_id in range(len(X[class_id]))])
         self.X_mean = np.mean(X_mat)
