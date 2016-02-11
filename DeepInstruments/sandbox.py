@@ -26,9 +26,9 @@ drop2_proportion = 0.5
 
 # Parameters for learning
 batch_size = 128
+epoch_size = 8192
 n_epochs = 10
 optimizer = "adam"
-samples_per_epoch = 8192
 mask_weight = 1.0e3
 
 # I/O sizes
@@ -58,6 +58,7 @@ graph = di.learning.build_graph(
     dense2_channels)
 graph.compile(loss={"Y": "categorical_crossentropy",
                     "zero": "mse"}, optimizer=optimizer)
+masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 
 # Get single-label split (MedleyDB for training, solosDb for test
 (test_stems, training_stems) = di.singlelabel.get_stems()
@@ -75,8 +76,6 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 
 # Train ConvNet
-graph.fit_generator(datagen, samples_per_epoch, n_epochs, verbose=1)
-
 from keras.utils.generic_utils import Progbar
 mean_training_loss_history = []
 batch_losses = np.zeros(epoch_size / batch_size)
@@ -91,7 +90,7 @@ for epoch_id in xrange(n_epochs):
                                      "Y": Y_batch,
                                      "Z": Z_batch,
                                      "G": G_batch,
-                                     "zero": np.zeros((batch_size, 1, 32, 42))})
+                                     "zero": masked_output})
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
@@ -99,3 +98,10 @@ for epoch_id in xrange(n_epochs):
     std_loss = np.std(batch_losses)
     print "Training loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
+
+
+# Measure training accuracy
+training_accuracy = di.singlelabel.training_accuracies(batch_size,
+                                                       datagen,
+                                                       epoch_size,
+                                                       graph)
