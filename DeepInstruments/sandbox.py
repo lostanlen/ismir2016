@@ -52,14 +52,16 @@ graph.compile(loss={"Y": "categorical_crossentropy",
 
 (test_stems, training_stems) = di.singlelabel.get_stems()
 
-
 datagen = di.singlelabel.ScalogramGenerator(
         decision_length, fmin, hop_length, n_bins_per_octave, n_octaves,
         training_stems)
 
+test_paths = di.singlelabel.get_paths("test")
+X_test = datagen.get_X(test_paths)
+y_test = np.hstack(map(di.descriptors.get_y, test_paths))
+
 from keras.utils.generic_utils import Progbar
 mean_training_loss_history = []
-
 dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
 batch_losses = np.zeros(epoch_size / batch_size)
 
