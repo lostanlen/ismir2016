@@ -119,7 +119,7 @@ final_mean_score = np.mean(final_score)
 
 # Save results
 np.savez(
-    '40_40_weight1.npz',
+    '40_40_weight10.npz',
     decision_length=decision_length,
     fmin=fmin,
     hop_length=hop_length,
