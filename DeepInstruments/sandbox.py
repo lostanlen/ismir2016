@@ -28,7 +28,7 @@ batch_size = 128
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-mask_weight = 0
+mask_weight = 1
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
@@ -119,7 +119,7 @@ final_mean_score = np.mean(final_score)
 
 # Save results
 np.savez(
-    '40_40_weight0.npz',
+    '40_40_weight1.npz',
     decision_length=decision_length,
     fmin=fmin,
     hop_length=hop_length,
