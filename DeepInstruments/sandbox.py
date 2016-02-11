@@ -79,6 +79,8 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 from keras.utils.generic_utils import Progbar
 mean_training_loss_history = []
 batch_losses = np.zeros(epoch_size / batch_size)
+test_accuracies_history = []
+training_accuracies_history = []
 
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
@@ -98,10 +100,17 @@ for epoch_id in xrange(n_epochs):
     std_loss = np.std(batch_losses)
     print "Training loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
+    # Measure training accuracy
+    training_accuracy = di.singlelabel.training_accuracies(
+            batch_size, datagen, epoch_size, graph)
+    training_accuracies.append(training_accuracies)
+    print "Training accuracies: ", training_accuracies_history
 
-
-# Measure training accuracy
-training_accuracy = di.singlelabel.training_accuracies(batch_size,
-                                                       datagen,
-                                                       epoch_size,
-                                                       graph)
+    # Measure test accuracies
+    test_accuracies = di.singlelabel.test_accuracies(graph, X_test, y_test)
+    test_accuracies_history.append(test_accuracies)
+    print "Test accuracies: ", test_accuracies
+    mean_test_accuracy = np.mean(test_accuracies)
+    std_test_accuracy = np.std(test_accuracies)
+    print "GLOBAL TEST ACCURACY: ",\
+        mean_test_accuracy, " +/- ", std_test_accuracy
