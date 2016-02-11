@@ -69,7 +69,6 @@ for epoch_id in xrange(n_epochs):
     progbar = Progbar(epoch_size)
     batch_id = 0
     for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
-        batch_id += 1
         loss = graph.train_on_batch({"X": X_batch,
                                      "Y": Y_batch,
                                      "Z": Z_batch,
@@ -77,6 +76,7 @@ for epoch_id in xrange(n_epochs):
                                      "zero": np.zeros((batch_size, 1, 32, 42))})
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
+        batch_id += 1
     mean_loss = np.mean(batch_losses)
     std_loss = np.std(batch_losses)
     print "Training loss = ", mean_loss, " +/- ", std_loss
