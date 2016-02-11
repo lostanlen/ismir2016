@@ -282,7 +282,14 @@ def get_stems():
 
 
 def test_accuracies(graph, X_test, y_true):
-    Y_predicted = graph.predict({"X": X_test})["Y"]
+    Z_dummy = np.zeros(X_test.shape)
+    G_dummy = np.zeros(X_test.shape)
+    mask_shape = X_test.shape[:1] + graph.output_shape["zero"][1:]
+    mask_dummy = np.zeros(mask_shape)
+    Y_predicted = graph.predict({"X": X_test,
+                                 "Z": Z_dummy,
+                                 "G": G_dummy,
+                                 "zero": mask_dummy})["Y"]
     y_predicted = np.argmax(Y_predicted, axis=1)
     cm = sklearn.metrics.confusion_matrix(y_true, y_predicted)
     cm = cm.astype(np.float64)
@@ -302,7 +309,6 @@ def training_accuracies(batch_size, datagen, epoch_size, graph):
         Y_batch_predicted = graph.predict_on_batch({"X": X_batch,
                                                     "Z": Z_batch,
                                                     "G": G_batch})["Y"]
-        Y_batch_predicted = np.hstack(Y_batch_predicted)
         y_batch_predicted = np.argmax(Y_batch_predicted, axis=1)
         y_train_predicted[batch_id, :] = y_batch_predicted
         y_batch_true = np.argmax(Y_batch, axis=1)
