@@ -85,6 +85,7 @@ class ScalogramGenerator(object):
                  decision_length,
                  fmin,
                  hop_length,
+                 mask_weight,
                  n_bins_per_octave,
                  n_octaves,
                  training_stems):
@@ -108,7 +109,8 @@ class ScalogramGenerator(object):
             Z.append([di.symbolic.get_Z(fmin, hop_length, n_bins_per_octave,
                                         n_octaves, stem)
                       for stem in class_stems])
-            G.append([di.symbolic.get_G(hop_length, n_bins_per_octave,
+            G.append([di.symbolic.get_G(hop_length, mask_weight,
+                                        n_bins_per_octave,
                                         n_octaves, stem)
                       for stem in class_stems])
         X_mat = np.hstack([X_file for X_class in X for X_file in X_class])
