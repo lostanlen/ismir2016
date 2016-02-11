@@ -80,6 +80,7 @@ medleydb_movedtotest = [
 cachedir = os.path.expanduser('~/joblib')
 memory = joblib.Memory(cachedir=cachedir, verbose=0)
 
+
 class ScalogramGenerator(object):
     def __init__(self,
                  decision_length,
