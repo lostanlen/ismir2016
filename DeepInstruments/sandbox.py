@@ -5,15 +5,15 @@ from keras.utils.generic_utils import Progbar
 X_height = 96
 X_width = 128
 conv1_channels = 80
-conv1_height = 3
-conv1_width = 3
-pool1_height = 3
-pool1_width = 3
+conv1_height = 36
+conv1_width = 8
+pool1_height = 6
+pool1_width = 8
 conv2_channels = 40
-conv2_height = 8
-conv2_width = 8
-pool2_height = 3
-pool2_width = 35
+conv2_height = 4
+conv2_width = 16
+pool2_height = 4
+pool2_width = 16
 drop1_proportion = 0.5
 dense1_channels = 64
 drop2_proportion = 0.5
@@ -46,6 +46,9 @@ graph = di.learning.build_graph(
     dense1_channels,
     drop2_proportion,
     dense2_channels)
+
+from keras.utils.visualize_util import plot
+plot(graph, to_file='graph.png')
 
 graph.compile(loss={"Y": "categorical_crossentropy",
                     "zero": "mse"}, optimizer=optimizer)
