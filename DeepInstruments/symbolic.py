@@ -20,13 +20,13 @@ def get_melody(stem):
     return melody
 
 
-def get_G(hop_length, n_bins_per_octave, n_octaves, stem):
+def get_G(hop_length, mask_weight, n_bins_per_octave, n_octaves, stem):
     melody_f0s = di.symbolic.get_melody(stem)
     melody_annotation_hop = 256
     melody_downsampling = hop_length / melody_annotation_hop
     melody_range = xrange(0, len(melody_f0s), melody_downsampling)
     melody_f0s = melody_f0s[melody_range]
-    gate = np.transpose((melody_f0s > 0.0).astype(np.float32))
+    gate = mask_weight * np.transpose((melody_f0s > 0.0).astype(np.float32))
     n_bins = n_bins_per_octave * n_octaves
     G = np.tile(gate, (n_bins, 1))
     return G
