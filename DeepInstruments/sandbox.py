@@ -1,6 +1,5 @@
 import DeepInstruments as di
 import numpy as np
-from keras.utils.generic_utils import Progbar
 
 # Parameters for audio
 decision_length = 131072  # in samples
@@ -84,7 +83,7 @@ training_accuracies_history = []
 
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
-    print "Epoch ", 1 + epoch_id
+    print "\nEpoch ", 1 + epoch_id
     progbar = Progbar(epoch_size)
     batch_id = 0
     for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
@@ -101,10 +100,10 @@ for epoch_id in xrange(n_epochs):
     print "Training loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
     # Measure training accuracy
-    training_accuracy = di.singlelabel.training_accuracies(
+    training_accuracies = di.singlelabel.training_accuracies(
             batch_size, datagen, epoch_size, graph)
-    training_accuracies.append(training_accuracies)
-    print "Training accuracies: ", training_accuracies_history
+    training_accuracies_history.append(training_accuracies)
+    print "Training accuracies: ", training_accuracies
 
     # Measure test accuracies
     test_accuracies = di.singlelabel.test_accuracies(graph, X_test, y_test)
