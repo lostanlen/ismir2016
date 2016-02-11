@@ -27,9 +27,9 @@ drop2_proportion = 0.5
 # Parameters for learning
 batch_size = 128
 epoch_size = 8192
-n_epochs = 10
+n_epochs = 20
 optimizer = "adam"
-mask_weight = 1.0e3
+mask_weight = 0
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
