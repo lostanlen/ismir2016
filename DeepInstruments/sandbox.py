@@ -97,18 +97,18 @@ for epoch_id in xrange(n_epochs):
         batch_id += 1
     mean_loss = np.mean(batch_losses)
     std_loss = np.std(batch_losses)
-    print "Training loss = ", mean_loss, " +/- ", std_loss
+    print "\nTraining loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
     # Measure training accuracy
     training_accuracies = di.singlelabel.training_accuracies(
             batch_size, datagen, epoch_size, graph)
     training_accuracies_history.append(training_accuracies)
-    print "Training accuracies: ", training_accuracies
+    print "Training accuracies: \n", training_accuracies
 
     # Measure test accuracies
     test_accuracies = di.singlelabel.test_accuracies(graph, X_test, y_test)
     test_accuracies_history.append(test_accuracies)
-    print "Test accuracies: ", test_accuracies
+    print "Test accuracies: \n", test_accuracies
     mean_test_accuracy = np.mean(test_accuracies)
     std_test_accuracy = np.std(test_accuracies)
     print "GLOBAL TEST ACCURACY: ",\
