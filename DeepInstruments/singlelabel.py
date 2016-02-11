@@ -295,8 +295,10 @@ def training_accuracies(batch_size, datagen, epoch_size, graph):
     y_train_predicted = np.zeros((n_batches, batch_size), dtype=int)
     y_train_true = np.zeros((n_batches, batch_size), dtype=int)
     batch_id = 0
-    for (X_batch, Y_batch) in dataflow:
-        Y_batch_predicted = graph.predict_on_batch({"X": X_batch})
+    for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
+        Y_batch_predicted = graph.predict_on_batch({"X": X_batch,
+                                                    "Z": Z_batch,
+                                                    "G": G_batch})["Y"]
         Y_batch_predicted = np.hstack(Y_batch_predicted)
         y_batch_predicted = np.argmax(Y_batch_predicted, axis=1)
         y_train_predicted[batch_id, :] = y_batch_predicted
