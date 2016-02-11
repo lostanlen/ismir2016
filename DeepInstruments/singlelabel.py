@@ -114,7 +114,10 @@ class ScalogramGenerator(object):
                                         n_bins_per_octave,
                                         n_octaves, stem)
                       for stem in class_stems])
-        X_mat = np.hstack([X_file for X_class in X for X_file in X_class])
+        indices = di.singlelabel.get_indices(Y, decision_length)
+        X_mat = np.hstack([X[class_id][file_id][indices[class_id][file_id]]
+                           for class_id in range(len(X))
+                           for file_id in range(len(X[class_id]))])
         self.X_mean = np.mean(X_mat)
         self.X_std = np.std(X_mat)
         for instrument_id in range(len(X)):
@@ -124,7 +127,7 @@ class ScalogramGenerator(object):
         self.Y = Y
         self.Z = Z
         self.G = G
-        self.indices = di.singlelabel.get_indices(Y, decision_length)
+        self.indices = indices
         n_instruments = len(X)
         durations = []
         for instrument_id in range(n_instruments):
