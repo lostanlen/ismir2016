@@ -28,7 +28,7 @@ batch_size = 128
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-mask_weight = 10
+mask_weight = 1
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
@@ -56,7 +56,7 @@ graph = di.learning.build_graph(
     drop2_proportion,
     dense2_channels)
 graph.compile(loss={"Y": "categorical_crossentropy",
-                    "zero": "mse"}, optimizer=optimizer)
+                    "zero": "categorical_crossentropy"}, optimizer=optimizer)
 masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 
 # Get single-label split (MedleyDB for training, solosDb for test
@@ -119,7 +119,7 @@ final_mean_score = np.mean(final_score)
 
 # Save results
 np.savez(
-    '40_40_weight10.npz',
+    '40_40_weight1.npz',
     decision_length=decision_length,
     fmin=fmin,
     hop_length=hop_length,
