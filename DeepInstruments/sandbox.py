@@ -9,12 +9,12 @@ n_bins_per_octave = 12
 n_octaves = 8
 
 # Parameters for ConvNet
-conv1_channels = 40
+conv1_channels = 8
 conv1_height = 36
 conv1_width = 4
 pool1_height = 4
 pool1_width = 4
-conv2_channels = 40
+conv2_channels = 8
 conv2_height = 12
 conv2_width = 8
 pool2_height = 6
@@ -28,7 +28,7 @@ batch_size = 128
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-mask_weight = 100
+mask_weight = 10
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
