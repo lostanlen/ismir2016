@@ -28,7 +28,7 @@ batch_size = 128
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-mask_weight = 0
+mask_weight = 1
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
@@ -56,7 +56,7 @@ graph = di.learning.build_graph(
     drop2_proportion,
     dense2_channels)
 graph.compile(loss={"Y": "categorical_crossentropy",
-                    "zero": "mse"}, optimizer=optimizer)
+                    "zero": "categorical_crossentropy"}, optimizer=optimizer)
 masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 
 # Get single-label split (MedleyDB for training, solosDb for test
@@ -97,19 +97,54 @@ for epoch_id in xrange(n_epochs):
         batch_id += 1
     mean_loss = np.mean(batch_losses)
     std_loss = np.std(batch_losses)
-    print "Training loss = ", mean_loss, " +/- ", std_loss
+    print "\nTraining loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
     # Measure training accuracy
     training_accuracies = di.singlelabel.training_accuracies(
             batch_size, datagen, epoch_size, graph)
     training_accuracies_history.append(training_accuracies)
-    print "Training accuracies: ", training_accuracies
+    print "Training accuracies: \n", training_accuracies
 
     # Measure test accuracies
     test_accuracies = di.singlelabel.test_accuracies(graph, X_test, y_test)
     test_accuracies_history.append(test_accuracies)
-    print "Test accuracies: ", test_accuracies
+    print "Test accuracies: \n", test_accuracies
     mean_test_accuracy = np.mean(test_accuracies)
     std_test_accuracy = np.std(test_accuracies)
     print "GLOBAL TEST ACCURACY: ",\
         mean_test_accuracy, " +/- ", std_test_accuracy
+
+final_score = test_accuracies_history[-1]
+final_mean_score = np.mean(final_score)
+
+# Save results
+np.savez(
+    '40_40_weight1.npz',
+    decision_length=decision_length,
+    fmin=fmin,
+    hop_length=hop_length,
+    n_bins_per_octave=n_bins_per_octave,
+    n_octaves=n_octaves,
+    conv1_channels=conv1_channels,
+    conv1_height=conv1_height,
+    conv1_width=conv1_width,
+    pool1_height=pool1_height,
+    pool1_width=pool1_width,
+    conv2_channels=conv2_channels,
+    conv2_height=conv2_height,
+    conv2_width=conv2_width,
+    pool2_height=pool2_height,
+    pool2_width=pool2_width,
+    drop1_proportion=drop1_proportion,
+    dense1_channels=dense1_channels,
+    drop2_proportion=drop2_proportion,
+    batch_size=batch_size,
+    epoch_size=epoch_size,
+    n_epochs=n_epochs,
+    optimizer=optimizer,
+    mask_weight=mask_weight,
+    mean_training_loss_history=mean_training_loss_history,
+    test_accuracies_history=test_accuracies_history,
+    training_accuracies_history=training_accuracies_history,
+    final_score=final_score,
+    final_mean_score=final_mean_score)
