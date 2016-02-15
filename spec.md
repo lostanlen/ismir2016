@@ -40,7 +40,7 @@ D. *Evaluation*
     5. [DONE] Make a 80/20 file-based split for the retained instruments.
 
 E. *Display*
-    1. Export filters from conv1 as images for the three experiments. Are they learned note models ?
+    1. [DONE] Export filters from conv1 as images.
     2. Make a figure for the architecture.
     3. Make a figure for the duration of training set and test set for every instrument in single-label dataset.
 
