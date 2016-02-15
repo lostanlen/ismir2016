@@ -11,14 +11,14 @@ n_bins_per_octave = 12
 n_octaves = 8
 
 # Parameters for ConvNet
-conv1_channels = 40
-conv1_height = 36
+conv1_channels = 16
+conv1_height = 12
 conv1_width = 4
 pool1_height = 4
 pool1_width = 4
-conv2_channels = 40
-conv2_height = 12
-conv2_width = 8
+conv2_channels = 1
+conv2_height = 1
+conv2_width = 1
 pool2_height = 6
 pool2_width = 16
 drop1_proportion = 0.5
