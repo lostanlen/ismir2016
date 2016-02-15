@@ -2,6 +2,9 @@
 Fill in the download request form at:
 http://medleydb.weebly.com/download-form.html
 
+*Put it in ~/datasets*
+The __init__ file of the DeepInstruments package assumes that your MedleyDB is in the ~/datasets/ folder. 
+
 *Install the MedleyDB package*
 git clone https://github.com/rabitt/medleydb.git
 cd medleydb
