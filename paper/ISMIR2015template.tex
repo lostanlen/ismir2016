@@ -60,7 +60,7 @@ The abstract should be placed at the top left column and should contain about 15
 %
 
 \section{Introduction}\label{sec:introduction}
-Among the cognitive attributes of music, pitch has the distinguishing properties of being 
+Among the cognitive attributes of music, pitch h
 
 Music information is mostly available under two forms, denoted as \emph{auditory} and \emph{symbolic}.
 
@@ -140,13 +140,16 @@ The second step is the application of a pointwise nonlinearity. We have chosen t
  \right\}
  \end{equation}
  We apply a family $\boldsymbol{W_3}(\tau, \kappa_1, k_2, k_3)$ of $K_3$ convolutional operators that perform a linear combination of time-frequency feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
- \begin{equation}
+ \begin{eqnarray}
  \boldsymbol{y_3}(t,k_1,k_3) =
+ \qquad  \qquad  \qquad  \qquad  \qquad  \qquad  \qquad \nonumber
+ \\
  \sum_{k_2}
- \boldsymbol{W_3}(t,k_1,k_3)
+ \boldsymbol{b_3}(k_2, k_3)
+ + \boldsymbol{W_3}(t,k_1,k_3)
  \overset{t,k_1}{\ast}
  \boldsymbol{x_2}(t,k_1,k_2)
- \end{equation}
+ \end{eqnarray}
 After nonlinear rectification and max-pooling, the layer $\boldsymbol{y_3}$ turns into a non-negative tensor $\boldsymbol{x_3}(t,k_1,k_3)$.
 \begin{equation}
 \boldsymbol{y_4}(k_4) =
@@ -154,21 +157,21 @@ After nonlinear rectification and max-pooling, the layer $\boldsymbol{y_3}$ turn
 \boldsymbol{W_4}(t, k_1, k_3, k_4)
 \boldsymbol{x_3}(t, k_1, k_3)
 \end{equation}
-We apply nonlinear rectification, yielding $\boldsymbol{x_4}(k_4) = \boldsymbol{y_4^{+}}(k_4)$. $\boldsymbol{y_5}(k_5) = \sum_{k_5} \boldsymbol{W_5}(k_4,k_5) \boldsymbol{x_4}(k_4)$. $\boldsymbol{x_5}(k_5) = \boldsymbol{y_5^{+}}$. $\boldsymbol{y_6}(k_6) = \sum_{k_6} \boldsymbol{W_6}(k_6,k_5) \boldsymbol{x_5}(k_5)$.
+We apply nonlinear rectification, yielding $\boldsymbol{x_4}(k_4) = \boldsymbol{y_4^{+}}(k_4)$. $\boldsymbol{y_5}(k_5) = \sum_{k_5} \boldsymbol{W_5}(k_4,k_5) \boldsymbol{x_4}(k_4)$.
 \begin{equation}
-\boldsymbol{x_6}(k_6) =
-\dfrac{\exp \boldsymbol{y_6}(k_6)}
-{ \Vert \! \exp \boldsymbol{y_6} \Vert_1}
+\boldsymbol{x_5}(k_5) =
+\dfrac{\exp \boldsymbol{y_5}(k_5)}
+{ \Vert \! \exp \boldsymbol{y_5} \Vert_1}
 \end{equation}
-The above ensures that the coefficients of $\boldsymbol{x_6}$ are non-negative and sum to one, hence can fit a 
+The above ensures that the coefficients of $\boldsymbol{x_5}$ are non-negative and sum to one, hence can be fit to a probability distribution.
 We define the categorical cross-entropy as
 
 \begin{equation}
-\mathscr{L}(\boldsymbol{x_6}, \mathcal{I}) =
-- \sum_{k_6 \in \mathcal{I}} \log \boldsymbol{x_6}(k_6).
+\mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
+- \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}(k_5).
 \end{equation}
 
-The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_6}, \mathcal{I})$ for across all pairs $(\boldsymbol{x_6}, \mathcal{I})$ in the training set.
+The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x_5}, \mathcal{I})$ in the training set.
 
 \subsection{Training}
 % Random crops
@@ -204,7 +207,7 @@ The network is trained on categorical cross-entropy over shuffled mini-batches o
 \section{Single-instrument classification}\label{sec:single-instrument}
 \subsection{Experimental design}
 In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments (see Figure \ref{fig:instrument-distribution}). Stems with leaking instruments in the background were discarded.
-The evaluation set consists of 120 recordings of solo music collected by Joder et al. \cite{Joder2009}. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB. Moreover, since the 
+The evaluation set consists of 120 recordings of solo music collected by Joder et al. \cite{Joder2009}. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB.
 
 \begin{figure}[t]
     \begin{center}

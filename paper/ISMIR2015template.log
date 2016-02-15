@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  12 FEB 2016 17:34
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  15 FEB 2016 09:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -264,19 +264,19 @@ Underfull \hbox (badness 3168) in paragraph at lines 55--55
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
 
-Underfull \hbox (badness 1210) in paragraph at lines 125--128
+Underfull \hbox (badness 1210) in paragraph at lines 128--131
 \OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-
  []
 
 
-Underfull \hbox (badness 1231) in paragraph at lines 138--140
+Underfull \hbox (badness 1231) in paragraph at lines 141--143
 \OT1/ptm/m/n/10 We ap-ply a fam-ily $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^\; ^
 ^T[]; k[]; k[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 of $\OML/cmm/m/it/10 K[]$ \OT1
 /ptm/m/n/10 con-vo-lu-
  []
 
 
-Underfull \hbox (badness 1371) in paragraph at lines 153--155
+Underfull \hbox (badness 1371) in paragraph at lines 159--161
 \OT1/ptm/m/n/10 We ap-ply non-lin-ear rec-ti-fi-ca-tion, yield-ing $[]\OT1/cmr/
 m/n/10 (\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ) =
  []
