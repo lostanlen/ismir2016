@@ -78,7 +78,8 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 from keras.utils.generic_utils import Progbar
 mean_training_loss_history = []
 batch_losses = np.zeros(epoch_size / batch_size)
-test_accuracies_history = []
+chunk_accuracies_history = []
+file_accuracies_history = []
 training_accuracies_history = []
 
 for epoch_id in xrange(n_epochs):
@@ -106,13 +107,23 @@ for epoch_id in xrange(n_epochs):
     print "Training accuracies: \n", training_accuracies
 
     # Measure test accuracies
-    test_accuracies = di.singlelabel.predict(graph, X_test, y_test)
-    test_accuracies_history.append(test_accuracies)
-    print "Test accuracies: \n", test_accuracies
-    mean_test_accuracy = np.mean(test_accuracies)
-    std_test_accuracy = np.std(test_accuracies)
-    print "GLOBAL TEST ACCURACY: ",\
-        mean_test_accuracy, " +/- ", std_test_accuracy
+    y_predicted = di.singlelabel.predict(graph, X_test)
+    chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
+    chunk_accuracies_history.append(chunk_accuracies)
+    print "Chunk accuracies on test set: \n", chunk_accuracies
+    mean_chunk_accuracy = np.mean(chunk_accuracies)
+    std_chunk_accuracy = np.std(chunk_accuracies)
+    print "GLOBAL CHUNK ACCURACY: ",\
+        mean_chunk_accuracy, " +/- ", std_chunk_accuracy
+    file_accuracies = di.singlelabel.file_accuracies(test_paths, y_predicted,
+                                                     y_test)
+    file_accuracies_history.append(file_accuracies)
+    print "File accuracies on test set: \n", file_accuracies
+    mean_file_accuracy = np.mean(file_accuracies)
+    std_file_accuracy = np.std(chunk_accuracies)
+    print "GLOBAL FILE ACCURACY: ",\
+        mean_file_accuracy, " +/- ", std_file_accuracy
+
 
 final_score = test_accuracies_history[-1]
 final_mean_score = np.mean(final_score)
