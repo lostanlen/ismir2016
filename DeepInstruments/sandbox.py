@@ -24,7 +24,7 @@ dense1_channels = 64
 drop2_proportion = 0.5
 
 # Parameters for learning
-batch_size = 128
+batch_size = 256
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
