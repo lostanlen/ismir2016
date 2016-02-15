@@ -60,10 +60,11 @@ The abstract should be placed at the top left column and should contain about 15
 %
 
 \section{Introduction}\label{sec:introduction}
-Music information is mostly available under two forms, denoted as auditory and symbolic domains. In the symbolic domain, melodies are represented as a piano-roll matrix $\mathcal{P}$ over the continuous dimensions of time and pitch. In turn, other semantic attributes, such as instrument activations, are best modeled as a histogram over a finite number of categories.
+Among the cognitive attributes of music, pitch has the distinguishing properties of being 
 
-In the symbolic domain, a score may be represented as a piano-roll matrix $\mathcal{P}$, whereas the identity of active instruments is encoded as a set $\mathcal{I}$ of categories.
+Music information is mostly available under two forms, denoted as \emph{auditory} and \emph{symbolic}.
 
+In the symbolic domain, melodies are represented by a piano-roll matrix $\mathcal{P}$ over the continuous dimensions of time and pitch. In turn, other semantic attributes, such as instrument activations, are represented by a histogram $\mathcal{H}$ over a finite number of categories. 
 In this setting, music instrument recognition is the task of finding the active instruments at a given time point of an audio excerpt.
 
 % audio vs symbolic levels of music information
@@ -72,6 +73,12 @@ In this setting, music instrument recognition is the task of finding the active 
 % whereas instrument identities are categorical and are represented as a histogram
 % (that can vary through time)
 % music instrument recognition is dual to music transcription
+
+% The problem is made difficult by the fact that factors of variability are entangled.
+
+% Deep convolutional networks have proven to disentangle factors of variability in computer
+% vision, such as pose, color, and lighting conditions.
+
 
 % the challenge is thus two-fold
 % 1. gaining abstraction by integrating time-frequency patterns over longer time scales
@@ -90,7 +97,7 @@ In this setting, music instrument recognition is the task of finding the active 
 
 \section{Deep convolutional networks}
 \subsection{Time-frequency representation}
-We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $x(t)$ is represented by a time-frequency matrix $\boldsymbol{x_1}(t,k_1)$ of width $T=128$ samples and height $K_1=96$ MIDI indices.
+We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $x(t)$ is represented by a time-frequency matrix $\boldsymbol{x_1}(t,k_1)$ of width $T=128$ samples and height $K_1=96$ MIDI indices.
 
 \subsection{Architecture}
 First of all, we apply a family $\boldsymbol{W_2}(\tau,\kappa_1,k_2)$ of $K_2=50$ learned time-frequency convolutional operators, whose supports are constrained to have width $\Delta t$ and height $\Delta k_1$. 
@@ -180,10 +187,6 @@ The network is trained on categorical cross-entropy over shuffled mini-batches o
 % Ref to deeply supervised nets
 % Ref to NIPS 2015
 % Ref to Mallat 2016
-
-\subsection{Extraneous supervision}
-% Equation that sums over k2
-% Make a figure
 
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_2}, \mathcal{P}) =
