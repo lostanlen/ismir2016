@@ -185,10 +185,19 @@ graph.save_weights(export_str + ".h5", overwrite=True)
 # Registration of first layer according to peak frequency
 first_layer = graph.get_weights()[0]
 kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
-dominant_freqs = [np.argmax(kernels[i], axis=0)[2]
+dominant_freqs = [np.argmax(np.abs(kernels[i]), axis=0)
+                  for i in range(conv1_channels)]
+contours = [kernels[i][dominant_freqs[i], :] for i in range(conv1_channels)]
+contours = map(np.diag, contours)
+dominant_times = [np.argmax(np.abs(contours[i]))
+                  for i in range(conv1_channels)]
+dominant_freqs = [dominant_freqs[i][dominant_times[i]]
                   for i in range(conv1_channels)]
 registered_kernels = [np.roll(kernels[i], -dominant_freqs[i])
                       for i in range(conv1_channels)]
-registered_kernels = np.hstack(registered_kernels)
-librosa.display.specshow(registered_kernels)
+zero_padding = -0.5 * np.ones((conv1_height, 1))
+registered_kernels = [np.concatenate((kernel, zero_padding), axis=1)
+                      for kernel in registered_kernels]
+librosa.display.specshow(np.hstack(registered_kernels))
+
 plt.savefig(export_str + ".png")
