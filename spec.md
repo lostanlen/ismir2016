@@ -89,10 +89,10 @@ H.  Descriptors + Random forests baseline
 12. [DONE] More Tp, Cl, Fl, Pn, and Vl examples (from solosDb)
 
 I. Structured validation
-1. Extract the stem folder of each chunk path
-2. Assign votes to a dict where stems are keys
-3. Get the true class of each stem
-4. Write a systematic structured evaluator
+1. [DONE] Extract the stem folder of each chunk path
+2. [DONE] Assign votes to a dict where stems are keys
+3. [DONE] Get the true class of each stem
+4. [DONE] Write a systematic structured evaluator
 
 J. Reproducibility
 1. List all operations that are necessary
