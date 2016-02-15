@@ -9,12 +9,12 @@ n_bins_per_octave = 12
 n_octaves = 8
 
 # Parameters for ConvNet
-conv1_channels = 8
+conv1_channels = 40
 conv1_height = 36
 conv1_width = 4
 pool1_height = 4
 pool1_width = 4
-conv2_channels = 8
+conv2_channels = 40
 conv2_height = 12
 conv2_width = 8
 pool2_height = 6
@@ -28,7 +28,7 @@ batch_size = 128
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-mask_weight = 10
+mask_weight = 100
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
@@ -118,18 +118,30 @@ final_score = test_accuracies_history[-1]
 final_mean_score = np.mean(final_score)
 
 # Save results
-graph_json = graph.to_json()
 np.savez(
-    '8_8_weight1.npz',
-    batch_size=batch_size,
+    '40_40_weight100.npz',
     decision_length=decision_length,
-    epoch_size=epoch_size,
     fmin=fmin,
-    graph_json=graph_json,
     hop_length=hop_length,
     n_bins_per_octave=n_bins_per_octave,
-    n_epochs=n_epochs,
     n_octaves=n_octaves,
+    conv1_channels=conv1_channels,
+    conv1_height=conv1_height,
+    conv1_width=conv1_width,
+    pool1_height=pool1_height,
+    pool1_width=pool1_width,
+    conv2_channels=conv2_channels,
+    conv2_height=conv2_height,
+    conv2_width=conv2_width,
+    pool2_height=pool2_height,
+    pool2_width=pool2_width,
+    drop1_proportion=drop1_proportion,
+    dense1_channels=dense1_channels,
+    drop2_proportion=drop2_proportion,
+    batch_size=batch_size,
+    epoch_size=epoch_size,
+    n_epochs=n_epochs,
+    optimizer=optimizer,
     mask_weight=mask_weight,
     mean_training_loss_history=mean_training_loss_history,
     test_accuracies_history=test_accuracies_history,
