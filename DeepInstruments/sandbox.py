@@ -29,6 +29,18 @@ epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
 mask_weight = 0
+export_str = str(conv1_channels) + "x" +\
+             str(conv1_height) + "x" +\
+             str(conv1_width) + "-" +\
+             str(pool1_height) + "x" +\
+             str(pool1_width) + "-" +\
+             str(conv2_channels) + "x" +\
+             str(conv2_height) + "x" +\
+             str(conv2_width) + "-" +\
+             str(pool2_height) + "x" +\
+             str(pool2_width) + "-" +\
+             str(dense1_channels) + "-" +\
+             "Z" + str(mask_weight)
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
@@ -132,7 +144,7 @@ final_mean_file_score = np.mean(final_file_score)
 
 # Save results
 np.savez(
-    '40_40_weight0.npz',
+    export_str + ".npz",
     decision_length=decision_length,
     fmin=fmin,
     hop_length=hop_length,
