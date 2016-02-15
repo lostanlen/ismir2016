@@ -182,11 +182,17 @@ np.savez(
 # Save weights
 graph.save_weights(export_str + ".h5")
 
-# Display first layer
+# Registration of first layer according to peak frequency
 first_layer = graph.get_weights()[0]
 first_layer = np.transpose(first_layer, (2, 3, 0, 1))
 flat_shape = (first_layer.shape[0],
               first_layer.shape[1] * first_layer.shape[2])
 first_layer = np.reshape(first_layer, flat_shape)
-librosa.display.specshow(first_layer)
+dominant_freqs = np.argmax(first_layer, axis=0)
+n_bins = first_layer.shape[1]
+spectra = [first_layer[:, i] for i in range(n_bins)]
+registered_spectra = [np.roll(spectra[i], -dominant_freqs[i])
+                      for i in range(n_bins)]
+registered_layer = np.transpose(np.vstack(registered_spectra))
+librosa.display.specshow(registered_layer)
 plt.savefig(export_str + ".png")
