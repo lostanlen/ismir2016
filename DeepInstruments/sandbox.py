@@ -13,7 +13,7 @@ n_octaves = 8
 # Parameters for ConvNet
 conv1_channels = 16
 conv1_height = 12
-conv1_width = 4
+conv1_width = 1
 pool1_height = 4
 pool1_width = 4
 conv2_channels = 16
@@ -193,7 +193,7 @@ dominant_times = [np.argmax(np.abs(contours[i]))
                   for i in range(conv1_channels)]
 dominant_freqs = [dominant_freqs[i][dominant_times[i]]
                   for i in range(conv1_channels)]
-registered_kernels = [np.roll(kernels[i], -dominant_freqs[i])
+registered_kernels = [np.roll(kernels[i], -dominant_freqs[i], axis=0)
                       for i in range(conv1_channels)]
 zero_padding = -0.5 * np.ones((conv1_height, 1))
 registered_kernels = [np.concatenate((kernel, zero_padding), axis=1)
