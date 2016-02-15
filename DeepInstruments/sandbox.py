@@ -13,7 +13,7 @@ n_octaves = 8
 # Parameters for ConvNet
 conv1_channels = 16
 conv1_height = 12
-conv1_width = 4
+conv1_width = 1
 pool1_height = 4
 pool1_width = 4
 conv2_channels = 16
