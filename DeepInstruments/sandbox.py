@@ -180,7 +180,7 @@ np.savez(
     final_mean_file_score=final_mean_file_score)
 
 # Save weights
-graph.save_weights(export_str + ".h5")
+graph.save_weights(export_str + ".h5", overwrite=True)
 
 # Registration of first layer according to peak frequency
 first_layer = graph.get_weights()[0]
