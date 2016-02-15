@@ -28,7 +28,7 @@ batch_size = 256
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-mask_weight = 100
+mask_weight = 0
 
 # I/O sizes
 X_height = n_bins_per_octave * n_octaves
@@ -106,7 +106,7 @@ for epoch_id in xrange(n_epochs):
     print "Training accuracies: \n", training_accuracies
 
     # Measure test accuracies
-    test_accuracies = di.singlelabel.test_accuracies(graph, X_test, y_test)
+    test_accuracies = di.singlelabel.predict(graph, X_test, y_test)
     test_accuracies_history.append(test_accuracies)
     print "Test accuracies: \n", test_accuracies
     mean_test_accuracy = np.mean(test_accuracies)
