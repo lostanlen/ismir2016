@@ -127,12 +127,12 @@ for epoch_id in xrange(n_epochs):
 
 final_chunk_score = chunk_accuracies_history[-1]
 final_mean_chunk_score = np.mean(final_chunk_score)
-final_file_score = file_accuracies.history[-1]
+final_file_score = file_accuracies_history[-1]
 final_mean_file_score = np.mean(final_file_score)
 
 # Save results
 np.savez(
-    '40_40_weight100.npz',
+    '40_40_weight0.npz',
     decision_length=decision_length,
     fmin=fmin,
     hop_length=hop_length,
@@ -157,9 +157,13 @@ np.savez(
     optimizer=optimizer,
     mask_weight=mask_weight,
     mean_training_loss_history=mean_training_loss_history,
-    test_accuracies_history=test_accuracies_history,
+    chunk_accuracies_history=chunk_accuracies_history,
+    file_accuracies_history=file_accuracies_history,
     training_accuracies_history=training_accuracies_history,
     final_chunk_score=final_chunk_score,
     final_mean_chunk_score=final_mean_chunk_score,
     final_file_score=final_file_score,
     final_mean_file_score=final_mean_file_score)
+
+# Save weights
+graph.save_weights("40_40_weight0.h5")
