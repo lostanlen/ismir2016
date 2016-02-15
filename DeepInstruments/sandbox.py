@@ -125,8 +125,10 @@ for epoch_id in xrange(n_epochs):
         mean_file_accuracy, " +/- ", std_file_accuracy
 
 
-final_score = test_accuracies_history[-1]
-final_mean_score = np.mean(final_score)
+final_chunk_score = chunk_accuracies_history[-1]
+final_mean_chunk_score = np.mean(final_chunk_score)
+final_file_score = file_accuracies.history[-1]
+final_mean_file_score = np.mean(final_file_score)
 
 # Save results
 np.savez(
@@ -157,5 +159,7 @@ np.savez(
     mean_training_loss_history=mean_training_loss_history,
     test_accuracies_history=test_accuracies_history,
     training_accuracies_history=training_accuracies_history,
-    final_score=final_score,
-    final_mean_score=final_mean_score)
+    final_chunk_score=final_chunk_score,
+    final_mean_chunk_score=final_mean_chunk_score,
+    final_file_score=final_file_score,
+    final_mean_file_score=final_mean_file_score)
