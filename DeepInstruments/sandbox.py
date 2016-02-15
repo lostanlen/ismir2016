@@ -166,4 +166,13 @@ np.savez(
     final_mean_file_score=final_mean_file_score)
 
 # Save weights
-graph.save_weights("40_40_weight0.h5")
+graph.save_weights(export_str + ".h5")
+
+# Display first layer
+first_layer = graph.get_weights()[0]
+first_layer = np.transpose(first_layer, (2, 3, 0, 1))
+flat_shape = (first_layer.shape[0],
+              first_layer.shape[1] * first_layer.shape[2])
+first_layer = np.reshape(first_layer, flat_shape)
+librosa.display.specshow(first_layer)
+plt.savefig(export_str + ".png")
