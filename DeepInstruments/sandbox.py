@@ -185,11 +185,11 @@ graph.save_weights(export_str + ".h5", overwrite=True)
 # Registration of first layer according to peak frequency
 first_layer = graph.get_weights()[0]
 kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
-dominant_freqs = [np.argmax(np.abs(kernels[i]), axis=0)
+dominant_freqs = [np.argmax(kernels[i], axis=0)
                   for i in range(conv1_channels)]
 contours = [kernels[i][dominant_freqs[i], :] for i in range(conv1_channels)]
 contours = map(np.diag, contours)
-dominant_times = [np.argmax(np.abs(contours[i]))
+dominant_times = [np.argmax(contours[i])
                   for i in range(conv1_channels)]
 dominant_freqs = [dominant_freqs[i][dominant_times[i]]
                   for i in range(conv1_channels)]
