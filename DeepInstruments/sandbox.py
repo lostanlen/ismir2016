@@ -12,18 +12,18 @@ n_octaves = 8
 
 # Parameters for ConvNet
 is_spiral = True
-conv1_channels = 32
+conv1_channels = 64
 conv1_height = 3
 conv1_width = 6
 pool1_height = 3
 pool1_width = 6
-conv2_channels = 32
+conv2_channels = 64
 conv2_height = 4
 conv2_width = 7
 pool2_height = 4
 pool2_width = 7
 drop1_proportion = 0.5
-dense1_channels = 64
+dense1_channels = 256
 drop2_proportion = 0.5
 
 # Parameters for learning
@@ -49,7 +49,7 @@ export_str = str(conv1_channels) + "x" +\
 X_width = decision_length / hop_length
 dense2_channels = 8
 if is_spiral:
-    X_height = n_octaves
+    X_height = n_bins_per_octave
 else:
     X_height = n_bins_per_octave * n_octaves
 mask_width = X_width / pool1_width
