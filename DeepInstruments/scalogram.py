@@ -6,6 +6,7 @@ from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.convolutional import AveragePooling1D,\
     Convolution2D, MaxPooling2D
 
+
 def build_graph(
         n_bins_per_octave,
         n_octaves,
