@@ -11,7 +11,7 @@ n_bins_per_octave = 12
 n_octaves = 8
 
 # Parameters for ConvNet
-is_spiral = False
+is_spiral = True
 conv1_channels = 32
 conv1_height = 3
 conv1_width = 6
