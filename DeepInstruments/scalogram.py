@@ -1,7 +1,7 @@
 import DeepInstruments as di
 import keras
 from keras.models import Graph
-from keras.layers.advanced_activations import ParametricSoftplus
+from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.convolutional import AveragePooling1D,\
     Convolution2D, MaxPooling2D
@@ -38,6 +38,9 @@ def build_graph(
                           border_mode="same", activation="relu")
     graph.add_node(conv1, name="conv1", input="X")
 
+    relu1 = LeakyReLU()
+    graph.add_node(relu1, name="relu1", input="relu1")
+
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_X, name="pool1_X", input="conv1")
 
@@ -45,6 +48,9 @@ def build_graph(
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
                           border_mode="same", activation="relu")
     graph.add_node(conv2, name="conv2", input="pool1_X")
+
+    relu2 = LeakyReLU()
+    graph.add_node(relu2, name="relu2", input="relu2")
 
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
     graph.add_node(pool2, name="pool2", input="conv2")
@@ -75,7 +81,7 @@ def build_graph(
     flat_shape = (pool1_X.output_shape[1],
                   pool1_X.output_shape[2] * pool1_X.output_shape[3])
     reshaped_X = Reshape(dims=flat_shape)
-    graph.add_node(reshaped_X, name="reshaped_X", input="pool1_X")
+    graph.add_node(reshaped_X, name="reshaped_X", input="relu2")
 
     collapsed_X = AveragePooling1D(pool_length=conv1_channels)
     graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")

@@ -96,7 +96,7 @@ def chunk_waveforms(dest_path, decision_hop,
                              in os.walk(source_instrument_path)][0]
         waveforms = [librosa.core.load(os.path.join(source_instrument_path,
                                                     source_file_name),
-                                       sr=44100,mono=True)
+                                       sr=44100, mono=True)
                      for source_file_name in source_file_names]
         for file_id in range(len(source_file_names)):
             source_file_name = source_file_names[file_id]
