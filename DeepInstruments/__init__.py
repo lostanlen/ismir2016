@@ -53,5 +53,7 @@ import DeepInstruments.audio
 import DeepInstruments.descriptors
 import DeepInstruments.learning
 import DeepInstruments.singlelabel
+import DeepInstruments.scalogram
+import DeepInstruments.spiral
 import DeepInstruments.symbolic
 import DeepInstruments.wrangling
