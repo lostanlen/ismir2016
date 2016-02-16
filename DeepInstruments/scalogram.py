@@ -86,7 +86,7 @@ def build_graph(
     toplevel_X = Reshape(dims=rectangular_shape)
     graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
 
-    melodic_error = LambdaMerge([pool1_Z, pool1_Z, pool1_G],
+    melodic_error = LambdaMerge([toplevel_X, pool1_Z, pool1_G],
                                 di.learning.substract_and_mask)
     graph.add_node(melodic_error, name="melodic_error",
                    inputs=["pool1_Z", "pool1_Z", "pool1_G"])
