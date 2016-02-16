@@ -9,6 +9,22 @@ fmin = 55  # in Hz
 hop_length = 1024  # in samples
 n_bins_per_octave = 12
 n_octaves = 8
+mask_weight = 0
+
+# Get single-label split (MedleyDB for training, solosDb for test
+(test_stems, training_stems) = di.singlelabel.get_stems()
+
+# Compute audio features and retrieve melodies on the training set
+datagen = di.singlelabel.ScalogramGenerator(
+        decision_length, fmin, hop_length, mask_weight,
+        n_bins_per_octave, n_octaves,
+        training_stems)
+
+# Compute audio features on the test set
+test_paths = di.singlelabel.get_paths("test")
+X_test = datagen.get_X(test_paths)
+y_test = np.hstack(map(di.descriptors.get_y, test_paths))
+
 
 # Parameters for ConvNet
 is_spiral = False
@@ -24,17 +40,16 @@ conv2_width = 7
 pool2_height = 4
 pool2_width = 7
 drop1_proportion = 0.5
-dense1_channels = 64
+dense1_channels = 32
 drop2_proportion = 0.5
 
 # Parameters for learning
-batch_size = 512
+batch_size = 32
 epoch_size = 8192
-n_epochs = 20
+n_epochs = 100
 optimizer = "adam"
-mask_weight = 0
 spiral_str = "sp-" if is_spiral else ""
-Z_str = "Z" + mask_weight + "-" if is_Z_supervision else ""
+Z_str = "Z" + str(mask_weight) + "-" if is_Z_supervision else ""
 export_str = spiral_str +\
              Z_str +\
              str(conv1_channels) + "x" +\
@@ -88,21 +103,6 @@ if is_Z_supervision:
 else:
     graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
-# Get single-label split (MedleyDB for training, solosDb for test
-(test_stems, training_stems) = di.singlelabel.get_stems()
-
-# Compute audio features and retrieve melodies on the training set
-datagen = di.singlelabel.ScalogramGenerator(
-        decision_length, fmin, hop_length, mask_weight,
-        n_bins_per_octave, n_octaves,
-        training_stems)
-
-# Compute audio features on the test set
-test_paths = di.singlelabel.get_paths("test")
-X_test = datagen.get_X(test_paths)
-y_test = np.hstack(map(di.descriptors.get_y, test_paths))
-
-
 # Train ConvNet
 from keras.utils.generic_utils import Progbar
 batch_losses = np.zeros(epoch_size / batch_size)
@@ -142,7 +142,7 @@ for epoch_id in xrange(n_epochs):
                                                      y_test)
     file_accuracies_history.append(file_accuracies)
     mean_file_accuracy = np.mean(file_accuracies)
-    std_file_accuracy = np.std(chunk_accuracies)
+    std_file_accuracy = np.std(file_accuracies)
     mean_chunk_accuracy = np.mean(chunk_accuracies)
     std_chunk_accuracy = np.std(chunk_accuracies)
     print "----------------------------"
@@ -160,7 +160,7 @@ for epoch_id in xrange(n_epochs):
         round(mean_file_accuracy, 1)
     print "std      (+/-" +\
         str(round(0.5 * std_chunk_accuracy, 1)) +\
-        ") (+/-"+\
+        ") (+/-" +\
         str(round(0.5 * std_file_accuracy, 1)) + ")"
 
 
