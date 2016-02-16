@@ -3,7 +3,9 @@ import keras
 from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
+from keras.layers.core import Permute
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.layers.convolutional import MaxPooling1D, AveragePooling1D
 
 
 def build_graph(
@@ -67,6 +69,59 @@ def build_graph(
     dense2 = Dense(dense2_channels, activation="softmax")
     graph.add_node(dense2, name="dense2", input="drop2")
 
+    # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
+    pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_Z, name="pool1_Z", input="Z")
+
+    reshaped_Z = Reshape((n_octaves, n_bins_per_octave, X_width))
+    graph.add_node(reshaped_Z, name="reshaped_Z", input="pool_Z")
+
+    permuted_Z = Permute((2, 1, 3))
+    graph.add_node(permuted_Z, name="permuted_Z", input="reshaped_Z")
+
+    chroma_Z = MaxPooling1D(pool_size=n_octaves)
+    graph.add_node(chroma_Z, name="chroma_Z", input="permuted_Z")
+
+    toplevel_Z = Permute((2, 1, 3))
+    graph.add_node(toplevel_Z, name="toplevel_Z", input="chroma_Z")
+
+    pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_G, name="pool1_G", input="G")
+
+    reshaped_G = Reshape((n_octaves, n_bins_per_octave, X_width))
+    graph.add_node(reshaped_G, name="reshaped_G", input="pool_G")
+
+    permuted_G = Permute((2, 1, 3))
+    graph.add_node(permuted_G, name="permuted_G", input="reshaped_G")
+
+    chroma_G = MaxPooling1D(pool_size=n_octaves)
+    graph.add_node(chroma_G, name="chroma_G", input="permuted_G")
+
+    toplevel_G = Permute((2, 1, 3))
+    graph.add_node(toplevel_G, name="toplevel_G", input="chroma_G")
+
+    # Layers towards melodic target
+    flat_shape = (pool1_X.output_shape[1],
+                  pool1_X.output_shape[2] * pool1_X.output_shape[3])
+    reshaped_X = Reshape(dims=flat_shape)
+    graph.add_node(reshaped_X, name="reshaped_X", input="pool1_X")
+
+    collapsed_X = AveragePooling1D(pool_length=conv1_channels)
+    graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
+
+    softplus_X = ParametricSoftplus()
+    graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
+
+    rectangular_shape = (1, pool1_X.output_shape[2], pool1_X.output_shape[3])
+    toplevel_X = Reshape(dims=rectangular_shape)
+    graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
+
+    melodic_error = LambdaMerge([toplevel_X, toplevel_Z, toplevel_G],
+                                di.learning.substract_and_mask)
+    graph.add_node(melodic_error, name="melodic_error",
+                   inputs=["toplevel_X", "toplevel_Z", "toplevel_G"])
+
+    # Outputs
     graph.add_output(name="Y", input="dense2")
     graph.add_output(name="zero", input="Z")
 
