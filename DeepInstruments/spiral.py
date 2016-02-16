@@ -73,31 +73,27 @@ def build_graph(
     pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_Z, name="pool1_Z", input="Z")
 
-    reshaped_Z = Reshape((n_octaves, n_bins_per_octave, X_width))
-    graph.add_node(reshaped_Z, name="reshaped_Z", input="pool_Z")
+    Z_height = n_bins_per_octave / pool1_height
+    Z_width = X_width / pool1_width
+    reshaped_Z = Reshape((n_octaves, Z_height * Z_width))
+    graph.add_node(reshaped_Z, name="reshaped_Z", input="pool1_Z")
 
-    permuted_Z = Permute((2, 1, 3))
-    graph.add_node(permuted_Z, name="permuted_Z", input="reshaped_Z")
+    chroma_Z = MaxPooling1D(pool_length=n_octaves)
+    graph.add_node(chroma_Z, name="chroma_Z", input="reshaped_Z")
 
-    chroma_Z = MaxPooling1D(pool_size=n_octaves)
-    graph.add_node(chroma_Z, name="chroma_Z", input="permuted_Z")
-
-    toplevel_Z = Permute((2, 1, 3))
+    toplevel_Z = Reshape((1, Z_height, Z_width))
     graph.add_node(toplevel_Z, name="toplevel_Z", input="chroma_Z")
 
     pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_G, name="pool1_G", input="G")
 
-    reshaped_G = Reshape((n_octaves, n_bins_per_octave, X_width))
-    graph.add_node(reshaped_G, name="reshaped_G", input="pool_G")
+    reshaped_G = Reshape((n_octaves, Z_height * Z_width))
+    graph.add_node(reshaped_G, name="reshaped_G", input="pool1_G")
 
-    permuted_G = Permute((2, 1, 3))
-    graph.add_node(permuted_G, name="permuted_G", input="reshaped_G")
+    chroma_G = MaxPooling1D(pool_length=n_octaves)
+    graph.add_node(chroma_G, name="chroma_G", input="reshaped_G")
 
-    chroma_G = MaxPooling1D(pool_size=n_octaves)
-    graph.add_node(chroma_G, name="chroma_G", input="permuted_G")
-
-    toplevel_G = Permute((2, 1, 3))
+    toplevel_G = Reshape((1, Z_height, Z_width))
     graph.add_node(toplevel_G, name="toplevel_G", input="chroma_G")
 
     # Layers towards melodic target
@@ -112,8 +108,7 @@ def build_graph(
     softplus_X = ParametricSoftplus()
     graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
 
-    rectangular_shape = (1, pool1_X.output_shape[2], pool1_X.output_shape[3])
-    toplevel_X = Reshape(dims=rectangular_shape)
+    toplevel_X = Reshape(dims=(1, Z_height, Z_width))
     graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
 
     melodic_error = LambdaMerge([toplevel_X, toplevel_Z, toplevel_G],
