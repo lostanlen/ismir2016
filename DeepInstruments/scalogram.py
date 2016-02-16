@@ -7,7 +7,8 @@ from keras.layers.convolutional import Convolution2D, MaxPooling2D
 
 
 def build_graph(
-        X_height,
+        n_bins_per_octave,
+        n_octaves,
         X_width,
         conv1_channels,
         conv1_height,
@@ -26,6 +27,7 @@ def build_graph(
     graph = Graph()
 
     # Input
+    X_height = n_octaves * n_bins_per_octave
     graph.add_input(name="X", input_shape=(1, X_height, X_width))
     graph.add_input(name="Z", input_shape=(1, X_height, X_width))
     graph.add_input(name="G", input_shape=(1, X_height, X_width))
@@ -62,6 +64,7 @@ def build_graph(
     graph.add_node(dense2, name="dense2", input="drop2")
 
     graph.add_output(name="Y", input="dense2")
+    graph.add_output(name="zero", input="Z")
 
     return graph
 
