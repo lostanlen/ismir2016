@@ -71,32 +71,3 @@ def build_graph(
 
 def substract_and_mask(args):
     return (args[0] - args[1]) * args[2]
-
-
-def run_graph(batch_size, datagen, epoch_size, every_n_epoch,
-              graph, n_epochs, X_test, Y_test):
-    loss_history = []
-    train_accuracies_history = []
-    test_accuracies_history = []
-    for epoch_id in xrange(n_epochs):
-        dataflow = datagen.flow(
-            batch_size=batch_size,
-            epoch_size=epoch_size)
-        print 'Epoch ', 1 + epoch_id
-        progbar = keras.utils.generic_utils.Progbar(epoch_size)
-        batch_id = 0
-        for (X_batch, Y_batch) in dataflow:
-            batch_id += 1
-            loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
-            progbar.update(batch_id * batch_size)
-        print "Training loss = ", loss
-        loss_history.append(loss)
-        if np.mod(epoch_id+1, every_n_epoch) == 0:
-            train_accuracies = di.singlelabel.training_accuracies(
-                    X_train_list, Y_train_list,
-                    batch_size, datagen, epoch_size, graph)
-            train_accuracies_history.append(train_accuracies)
-            test_accuracies = di.singlelabel.test_accuracies(
-                    X_test, Y_test, batch_size, epoch_size, graph)
-            test_accuracies_history.append(test_accuracies)
-    return loss_history, train_accuracies_history, test_accuracies_history
