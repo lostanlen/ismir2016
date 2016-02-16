@@ -11,16 +11,17 @@ n_bins_per_octave = 12
 n_octaves = 8
 
 # Parameters for ConvNet
+is_spiral = True
 conv1_channels = 32
-conv1_height = 8
+conv1_height = 3
 conv1_width = 6
-pool1_height = 8
+pool1_height = 3
 pool1_width = 6
 conv2_channels = 32
-conv2_height = 6
-conv2_width = 4
-pool2_height = 6
-pool2_width = 4
+conv2_height = 4
+conv2_width = 7
+pool2_height = 4
+pool2_width = 7
 drop1_proportion = 0.5
 dense1_channels = 64
 drop2_proportion = 0.5
@@ -45,17 +46,14 @@ export_str = str(conv1_channels) + "x" +\
              "Z" + str(mask_weight)
 
 # I/O sizes
-X_channels = n_octaves
-X_height = n_bins_per_octave
 X_width = decision_length / hop_length
-mask_height = X_height / pool1_height
-mask_width = X_width / pool1_width
 dense2_channels = 8
 
 # Build ConvNet as a Keras graph, compile it with Theano
 graph = di.learning.build_graph(
-    X_channels,
-    X_height,
+    is_spiral,
+    n_bins_per_octave,
+    n_octaves,
     X_width,
     conv1_channels,
     conv1_height,
@@ -71,7 +69,8 @@ graph = di.learning.build_graph(
     dense1_channels,
     drop2_proportion,
     dense2_channels)
-graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
+graph.compile(loss={"Y": "categorical_crossentropy",
+                    "zero": "mse"}, optimizer=optimizer)
 masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 
 # Get single-label split (MedleyDB for training, solosDb for test
