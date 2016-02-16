@@ -78,8 +78,8 @@ def build_graph(
     graph.add_node(pool1_G, name="pool1_G", input="G")
 
     # Layers towards melodic target
-    flat_shape = (pool1_X.output_shape[1],
-                  pool1_X.output_shape[2] * pool1_X.output_shape[3])
+    flat_shape = (relu2.output_shape[1],
+                  relu2.output_shape[2] * relu2.output_shape[3])
     reshaped_X = Reshape(dims=flat_shape)
     graph.add_node(reshaped_X, name="reshaped_X", input="relu2")
 
