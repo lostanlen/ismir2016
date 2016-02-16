@@ -104,11 +104,9 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Train ConvNet
 from keras.utils.generic_utils import Progbar
-mean_training_loss_history = []
 batch_losses = np.zeros(epoch_size / batch_size)
 chunk_accuracies_history = []
 file_accuracies_history = []
-training_accuracies_history = []
 
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
@@ -132,14 +130,12 @@ for epoch_id in xrange(n_epochs):
     std_loss = np.std(batch_losses)
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
-    # Measure training accuracy
-#    training_accuracies = di.singlelabel.training_accuracies(
-#            batch_size, datagen, epoch_size, graph)
-#    training_accuracies_history.append(training_accuracies)
-#   print "Training accuracies: \n", training_accuracies
 
     # Measure test accuracies
-    y_predicted = di.singlelabel.predict(graph, X_test)
+    if is_Z_supervision:
+        y_predicted = np.argmax(graph.predict({"X": X_test})["Y"], axis=1)
+    else:
+        y_predicted = di.singlelabel.predict(graph, X_test)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
     print "Chunk accuracies on test set: \n", chunk_accuracies
@@ -188,10 +184,8 @@ np.savez(
     n_epochs=n_epochs,
     optimizer=optimizer,
     mask_weight=mask_weight,
-    mean_training_loss_history=mean_training_loss_history,
     chunk_accuracies_history=chunk_accuracies_history,
     file_accuracies_history=file_accuracies_history,
-    training_accuracies_history=training_accuracies_history,
     final_chunk_score=final_chunk_score,
     final_mean_chunk_score=final_mean_chunk_score,
     final_file_score=final_file_score,
