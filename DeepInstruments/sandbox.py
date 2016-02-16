@@ -45,7 +45,8 @@ export_str = str(conv1_channels) + "x" +\
              "Z" + str(mask_weight)
 
 # I/O sizes
-X_height = n_bins_per_octave * n_octaves
+X_channels = n_octaves
+X_height = n_bins_per_octave
 X_width = decision_length / hop_length
 mask_height = X_height / pool1_height
 mask_width = X_width / pool1_width
@@ -53,6 +54,7 @@ dense2_channels = 8
 
 # Build ConvNet as a Keras graph, compile it with Theano
 graph = di.learning.build_graph(
+    X_channels,
     X_height,
     X_width,
     conv1_channels,
@@ -69,8 +71,7 @@ graph = di.learning.build_graph(
     dense1_channels,
     drop2_proportion,
     dense2_channels)
-graph.compile(loss={"Y": "categorical_crossentropy",
-                    "zero": "mse"}, optimizer=optimizer)
+graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 
 # Get single-label split (MedleyDB for training, solosDb for test
@@ -103,10 +104,7 @@ for epoch_id in xrange(n_epochs):
     batch_id = 0
     for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
         loss = graph.train_on_batch({"X": X_batch,
-                                     "Y": Y_batch,
-                                     "Z": Z_batch,
-                                     "G": G_batch,
-                                     "zero": masked_output})
+                                     "Y": Y_batch})
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
