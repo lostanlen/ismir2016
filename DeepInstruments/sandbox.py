@@ -48,6 +48,13 @@ export_str = str(conv1_channels) + "x" +\
 # I/O sizes
 X_width = decision_length / hop_length
 dense2_channels = 8
+if is_spiral:
+    X_height = n_octaves
+else:
+    X_height = n_bins_per_octave * n_octaves
+mask_width = X_width / pool1_width
+mask_height = X_height / pool1_height
+mask_weight = 0
 
 # Build ConvNet as a Keras graph, compile it with Theano
 graph = di.learning.build_graph(
@@ -103,7 +110,10 @@ for epoch_id in xrange(n_epochs):
     batch_id = 0
     for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
         loss = graph.train_on_batch({"X": X_batch,
-                                     "Y": Y_batch})
+                                     "Y": Y_batch,
+                                     "Z": Z_batch,
+                                     "G": G_batch,
+                                     "zero": masked_output})
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
