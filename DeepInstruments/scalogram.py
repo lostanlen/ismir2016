@@ -91,4 +91,7 @@ def build_graph(
     graph.add_node(melodic_error, name="melodic_error",
                    inputs=["pool1_Z", "pool1_Z", "pool1_G"])
 
+    # Outputs
+    graph.add_output(name="Y", input="dense2")
+    graph.add_output(name="zero", input="melodic_error")
     return graph
