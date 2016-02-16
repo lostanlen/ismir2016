@@ -71,7 +71,3 @@ def build_graph(
     graph.add_output(name="zero", input="Z")
 
     return graph
-
-
-def substract_and_mask(args):
-    return (args[0] - args[1]) * args[2]

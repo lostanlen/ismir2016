@@ -42,3 +42,6 @@ def build_graph(
                 dense1_channels,
                 drop2_proportion,
                 dense2_channels)
+
+def substract_and_mask(args):
+    return (args[0] - args[1]) * args[2]
