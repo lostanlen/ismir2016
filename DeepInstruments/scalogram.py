@@ -39,7 +39,7 @@ def build_graph(
     graph.add_node(conv1, name="conv1", input="X")
 
     relu1 = LeakyReLU()
-    graph.add_node(relu1, name="relu1", input="relu1")
+    graph.add_node(relu1, name="relu1", input="conv1")
 
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_X, name="pool1_X", input="conv1")
