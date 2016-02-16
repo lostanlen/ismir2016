@@ -14,7 +14,7 @@ n_octaves = 8
 is_spiral = False
 is_Z_supervision = False
 conv1_channels = 32
-conv1_height = 12
+conv1_height = 5
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
@@ -24,7 +24,7 @@ conv2_width = 7
 pool2_height = 4
 pool2_width = 7
 drop1_proportion = 0.5
-dense1_channels = 64
+dense1_channels = 128
 drop2_proportion = 0.5
 
 # Parameters for learning
@@ -142,7 +142,7 @@ for epoch_id in xrange(n_epochs):
                                                      y_test)
     file_accuracies_history.append(file_accuracies)
     mean_file_accuracy = np.mean(file_accuracies)
-    std_file_accuracy = np.std(chunk_accuracies)
+    std_file_accuracy = np.std(file_accuracies)
     mean_chunk_accuracy = np.mean(chunk_accuracies)
     std_chunk_accuracy = np.std(chunk_accuracies)
     print "----------------------------"
@@ -160,7 +160,7 @@ for epoch_id in xrange(n_epochs):
         round(mean_file_accuracy, 1)
     print "std      (+/-" +\
         str(round(0.5 * std_chunk_accuracy, 1)) +\
-        ") (+/-"+\
+        ") (+/-" +\
         str(round(0.5 * std_file_accuracy, 1)) + ")"
 
 
