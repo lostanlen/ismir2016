@@ -9,6 +9,7 @@ import numpy as np
 
 
 def build_graph(
+        X_channels,
         X_height,
         X_width,
         conv1_channels,
@@ -28,9 +29,9 @@ def build_graph(
     graph = Graph()
 
     # Input
-    graph.add_input(name="X", input_shape=(1, X_height, X_width))
-    graph.add_input(name="Z", input_shape=(1, X_height, X_width))
-    graph.add_input(name="G", input_shape=(1, X_height, X_width))
+    graph.add_input(name="X", input_shape=(X_channels, X_height, X_width))
+    graph.add_input(name="Z", input_shape=(X_channels, X_height, X_width))
+    graph.add_input(name="G", input_shape=(X_channels, X_height, X_width))
 
     # Shared layers
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
@@ -63,36 +64,7 @@ def build_graph(
     dense2 = Dense(dense2_channels, activation="softmax")
     graph.add_node(dense2, name="dense2", input="drop2")
 
-    # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
-    pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_Z, name="pool1_Z", input="Z")
-
-    pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_G, name="pool1_G", input="G")
-
-    # Layers towards melodic target
-    flat_shape = (pool1_X.output_shape[1],
-                pool1_X.output_shape[2] * pool1_X.output_shape[3])
-    reshaped_X = Reshape(dims=flat_shape)
-    graph.add_node(reshaped_X, name="reshaped_X", input="pool1_X")
-
-    collapsed_X = AveragePooling1D(pool_length=conv1_channels)
-    graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
-
-    softplus_X = ParametricSoftplus()
-    graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
-
-    rectangular_shape = (1, pool1_X.output_shape[2], pool1_X.output_shape[3])
-    toplevel_X = Reshape(dims=rectangular_shape)
-    graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
-
-    melodic_error = LambdaMerge([toplevel_X, pool1_Z, pool1_G],
-                                di.learning.substract_and_mask)
-    graph.add_node(melodic_error, name="melodic_error",
-                   inputs=["toplevel_X", "pool1_Z", "pool1_G"])
-
     graph.add_output(name="Y", input="dense2")
-    graph.add_output(name="zero", input="melodic_error")
 
     return graph
 
