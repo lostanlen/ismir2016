@@ -11,13 +11,14 @@ n_bins_per_octave = 12
 n_octaves = 8
 
 # Parameters for ConvNet
-is_spiral = True
+is_spiral = False
+is_Z_supervision = False
 conv1_channels = 32
 conv1_height = 12
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
-conv2_channels = 16
+conv2_channels = 32
 conv2_height = 4
 conv2_width = 7
 pool2_height = 4
@@ -27,13 +28,15 @@ dense1_channels = 64
 drop2_proportion = 0.5
 
 # Parameters for learning
-batch_size = 256
+batch_size = 1024
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
 mask_weight = 0
-spiral_str = "sp_" if is_spiral else ""
+spiral_str = "sp-" if is_spiral else ""
+Z_str = "Z" + mask_weight + "-" if is_Z_supervision else ""
 export_str = spiral_str +\
+             Z_str +\
              str(conv1_channels) + "x" +\
              str(conv1_height) + "x" +\
              str(conv1_width) + "-" +\
@@ -44,8 +47,7 @@ export_str = spiral_str +\
              str(conv2_width) + "-" +\
              str(pool2_height) + "x" +\
              str(pool2_width) + "-" +\
-             str(dense1_channels) + "-" +\
-             "Z" + str(mask_weight)
+             str(dense1_channels)
 
 # I/O sizes
 X_width = decision_length / hop_length
@@ -56,11 +58,12 @@ else:
     X_height = n_bins_per_octave * n_octaves
 mask_width = X_width / pool1_width
 mask_height = X_height / pool1_height
-mask_weight = 0
+masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 
 # Build ConvNet as a Keras graph, compile it with Theano
 graph = di.learning.build_graph(
     is_spiral,
+    is_Z_supervision,
     n_bins_per_octave,
     n_octaves,
     X_width,
@@ -78,9 +81,11 @@ graph = di.learning.build_graph(
     dense1_channels,
     drop2_proportion,
     dense2_channels)
-graph.compile(loss={"Y": "categorical_crossentropy",
-                    "zero": "mse"}, optimizer=optimizer)
-masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
+if is_Z_supervision:
+    graph.compile(loss={"Y": "categorical_crossentropy",
+                        "zero": "mse"}, optimizer=optimizer)
+else:
+    graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Get single-label split (MedleyDB for training, solosDb for test
 (test_stems, training_stems) = di.singlelabel.get_stems()
@@ -111,11 +116,14 @@ for epoch_id in xrange(n_epochs):
     progbar = Progbar(epoch_size)
     batch_id = 0
     for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
-        loss = graph.train_on_batch({"X": X_batch,
-                                     "Y": Y_batch,
-                                     "Z": Z_batch,
-                                     "G": G_batch,
-                                     "zero": masked_output})
+        if is_Z_supervision:
+            loss = graph.train_on_batch({"X": X_batch,
+                                         "Y": Y_batch,
+                                         "Z": Z_batch,
+                                         "G": G_batch,
+                                         "zero": masked_output})
+        else:
+            loss = graph.train_on_batch({"X": X_batch})
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
@@ -124,10 +132,10 @@ for epoch_id in xrange(n_epochs):
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
     mean_training_loss_history.append(mean_loss)
     # Measure training accuracy
-    training_accuracies = di.singlelabel.training_accuracies(
-            batch_size, datagen, epoch_size, graph)
-    training_accuracies_history.append(training_accuracies)
-    print "Training accuracies: \n", training_accuracies
+#    training_accuracies = di.singlelabel.training_accuracies(
+#            batch_size, datagen, epoch_size, graph)
+#    training_accuracies_history.append(training_accuracies)
+#   print "Training accuracies: \n", training_accuracies
 
     # Measure test accuracies
     y_predicted = di.singlelabel.predict(graph, X_test)

@@ -3,6 +3,7 @@ import DeepInstruments as di
 
 def build_graph(
         is_spiral,
+        is_Z_supervision,
         n_bins_per_octave,
         n_octaves,
         X_width,
@@ -25,6 +26,7 @@ def build_graph(
     else:
         module = di.scalogram
     return module.build_graph(
+                is_Z_supervision,
                 n_bins_per_octave,
                 n_octaves,
                 X_width,

@@ -9,6 +9,7 @@ from keras.layers.convolutional import MaxPooling1D, AveragePooling1D
 
 
 def build_graph(
+        is_Z_supervision,
         n_bins_per_octave,
         n_octaves,
         X_width,
