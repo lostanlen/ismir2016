@@ -28,7 +28,7 @@ dense1_channels = 64
 drop2_proportion = 0.5
 
 # Parameters for learning
-batch_size = 1024
+batch_size = 512
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
@@ -123,7 +123,8 @@ for epoch_id in xrange(n_epochs):
                                          "G": G_batch,
                                          "zero": masked_output})
         else:
-            loss = graph.train_on_batch({"X": X_batch})
+            loss = graph.train_on_batch({"X": X_batch,
+                                         "Y": Y_batch})
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
