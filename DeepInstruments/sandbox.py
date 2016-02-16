@@ -59,6 +59,7 @@ else:
 mask_width = X_width / pool1_width
 mask_height = X_height / pool1_height
 masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
+names = [ name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano
 graph = di.learning.build_graph(
@@ -129,28 +130,38 @@ for epoch_id in xrange(n_epochs):
     mean_loss = np.mean(batch_losses)
     std_loss = np.std(batch_losses)
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
-    mean_training_loss_history.append(mean_loss)
 
     # Measure test accuracies
     if is_Z_supervision:
-        y_predicted = np.argmax(graph.predict({"X": X_test})["Y"], axis=1)
-    else:
         y_predicted = di.singlelabel.predict(graph, X_test)
+    else:
+        y_predicted = np.argmax(graph.predict({"X": X_test})["Y"], axis=1)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
-    print "Chunk accuracies on test set: \n", chunk_accuracies
-    mean_chunk_accuracy = np.mean(chunk_accuracies)
-    std_chunk_accuracy = np.std(chunk_accuracies)
-    print "GLOBAL CHUNK ACCURACY: ",\
-        mean_chunk_accuracy, " +/- ", std_chunk_accuracy
     file_accuracies = di.singlelabel.file_accuracies(test_paths, y_predicted,
                                                      y_test)
     file_accuracies_history.append(file_accuracies)
-    print "File accuracies on test set: \n", file_accuracies
     mean_file_accuracy = np.mean(file_accuracies)
     std_file_accuracy = np.std(chunk_accuracies)
-    print "GLOBAL FILE ACCURACY: ",\
-        mean_file_accuracy, " +/- ", std_file_accuracy
+    mean_chunk_accuracy = np.mean(chunk_accuracies)
+    std_chunk_accuracy = np.std(chunk_accuracies)
+    print "----------------------------"
+    print "            CHUNK     FILE  "
+    for name_index in range(len(names)):
+        print names[name_index],\
+            " " * (9 - len(names[name_index])),\
+            " " * (chunk_accuracies[name_index] < 100.0),\
+            round(chunk_accuracies[name_index], 1), "  ",\
+            " " * (file_accuracies[name_index] < 100.0),\
+            round(file_accuracies[name_index], 1), "  "
+    print "----------------------------"
+    print "GLOBAL      ",\
+        round(mean_chunk_accuracy, 1), "    ",\
+        round(mean_file_accuracy, 1)
+    print "std      (+/-" +\
+        str(round(0.5 * std_chunk_accuracy, 1)) +\
+        ") (+/-"+\
+        str(round(0.5 * std_file_accuracy, 1)) + ")"
 
 
 final_chunk_score = chunk_accuracies_history[-1]
