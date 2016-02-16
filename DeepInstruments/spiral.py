@@ -7,8 +7,8 @@ from keras.layers.convolutional import Convolution2D, MaxPooling2D
 
 
 def build_graph(
-        X_channels,
-        X_height,
+        n_bins_per_octave,
+        n_octaves,
         X_width,
         conv1_channels,
         conv1_height,
@@ -27,14 +27,19 @@ def build_graph(
     graph = Graph()
 
     # Input
-    graph.add_input(name="X", input_shape=(X_channels, X_height, X_width))
-    graph.add_input(name="Z", input_shape=(X_channels, X_height, X_width))
-    graph.add_input(name="G", input_shape=(X_channels, X_height, X_width))
+    X_height = n_bins_per_octave * n_octaves
+    graph.add_input(name="X", input_shape=(1, X_height, X_width))
+    graph.add_input(name="Z", input_shape=(1, X_height, X_width))
+    graph.add_input(name="G", input_shape=(1, X_height, X_width))
+
+    # Spiral transformation
+    spiral_X = Reshape((n_octaves, n_bins_per_octave, X_width))
+    graph.add_node(spiral_X, name="spiral_X", input="X")
 
     # Shared layers
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                           border_mode="same", activation="relu")
-    graph.add_node(conv1, name="conv1", input="X")
+    graph.add_node(conv1, name="conv1", input="spiral_X")
 
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_X, name="pool1_X", input="conv1")
@@ -63,6 +68,7 @@ def build_graph(
     graph.add_node(dense2, name="dense2", input="drop2")
 
     graph.add_output(name="Y", input="dense2")
+    graph.add_output(name="zero", input="Z")
 
     return graph
 
