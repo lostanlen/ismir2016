@@ -140,15 +140,14 @@ class ScalogramGenerator(object):
         n_batches = int(math.ceil(float(epoch_size) / batch_size))
         n_bins = self.X[0][0].shape[0]
         n_instruments = self.Y[0][0].shape[0]
-        X_batch_size = (batch_size,
-                        self.n_octaves,
-                        self.n_bins_per_octaves,
-                        2 * half_X_hop)
+        X_batch_size = (batch_size, 1, n_bins, 2 * half_X_hop)
         X_batch = np.zeros(X_batch_size, np.float32)
         Y_batch_size = (batch_size, n_instruments)
         Y_batch = np.zeros(Y_batch_size, np.float32)
         y_epoch_size = (n_batches, batch_size)
         y_epoch = np.random.randint(0, n_instruments, size=y_epoch_size)
+        Z_batch = np.zeros(X_batch_size, np.float32)
+        G_batch = np.zeros(X_batch_size, np.float32)
         for batch_id in range(n_batches):
             for sample_id in range(batch_size):
                 instrument_id = y_epoch[batch_id, sample_id]
@@ -158,12 +157,15 @@ class ScalogramGenerator(object):
                 Y_id = np.random.choice(self.indices[instrument_id][file_id])
                 X_id = int(Y_id * 2048.0 / self.hop_length)
                 X_range = xrange(X_id-half_X_hop, X_id+half_X_hop)
-                X_batch[sample_id, :, :, :] = np.reshape(
-                        self.X[instrument_id][file_id][:, X_range],
-                        X_batch_size[1:])
+                X_batch[sample_id, :, :] = \
+                    self.X[instrument_id][file_id][:, X_range]
                 Y_batch[sample_id, :] = \
                     self.Y[instrument_id][file_id][:, Y_id]
-            yield X_batch, Y_batch
+                Z_batch[sample_id, :, :] = \
+                    self.Z[instrument_id][file_id][:, X_range]
+                G_batch[sample_id, :, :] = \
+                    self.G[instrument_id][file_id][:, X_range]
+            yield X_batch, Y_batch, Z_batch, G_batch
 
     def get_X(self, paths):
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
@@ -306,7 +308,14 @@ def get_stems():
 
 
 def predict(graph, X_test):
-    Y_predicted = graph.predict({"X": X_test})["Y"]
+    Z_dummy = np.zeros(X_test.shape)
+    G_dummy = np.zeros(X_test.shape)
+    mask_shape = X_test.shape[:1] + graph.output_shape["zero"][1:]
+    mask_dummy = np.zeros(mask_shape)
+    Y_predicted = graph.predict({"X": X_test,
+                                 "Z": Z_dummy,
+                                 "G": G_dummy,
+                                 "zero": mask_dummy})["Y"]
     y_predicted = np.argmax(Y_predicted, axis=1)
     return y_predicted
 
@@ -325,8 +334,10 @@ def training_accuracies(batch_size, datagen, epoch_size, graph):
     y_train_predicted = np.zeros((n_batches, batch_size), dtype=int)
     y_train_true = np.zeros((n_batches, batch_size), dtype=int)
     batch_id = 0
-    for (X_batch, Y_batch) in dataflow:
-        Y_batch_predicted = graph.predict_on_batch({"X": X_batch})["Y"]
+    for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
+        Y_batch_predicted = graph.predict_on_batch({"X": X_batch,
+                                                    "Z": Z_batch,
+                                                    "G": G_batch})["Y"]
         y_batch_predicted = np.argmax(Y_batch_predicted, axis=1)
         y_train_predicted[batch_id, :] = y_batch_predicted
         y_batch_true = np.argmax(Y_batch, axis=1)
