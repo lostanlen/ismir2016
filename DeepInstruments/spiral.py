@@ -118,6 +118,6 @@ def build_graph(
 
     # Outputs
     graph.add_output(name="Y", input="dense2")
-    graph.add_output(name="zero", input="Z")
+    graph.add_output(name="zero", input="melodic_error")
 
     return graph
