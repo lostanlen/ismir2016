@@ -11,19 +11,19 @@ n_bins_per_octave = 12
 n_octaves = 8
 
 # Parameters for ConvNet
-is_spiral = False
-conv1_channels = 64
-conv1_height = 3
-conv1_width = 6
+is_spiral = True
+conv1_channels = 32
+conv1_height = 12
+conv1_width = 3
 pool1_height = 3
 pool1_width = 6
-conv2_channels = 64
-conv2_height = 4
-conv2_width = 7
+conv2_channels = 4
+conv2_height = 12
+conv2_width = 4
 pool2_height = 4
-pool2_width = 7
+pool2_width = 12
 drop1_proportion = 0.5
-dense1_channels = 256
+dense1_channels = 64
 drop2_proportion = 0.5
 
 # Parameters for learning
@@ -32,7 +32,9 @@ epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
 mask_weight = 0
-export_str = str(conv1_channels) + "x" +\
+spiral_str = "sp_" if is_spiral else ""
+export_str = spiral_str +\
+             str(conv1_channels) + "x" +\
              str(conv1_height) + "x" +\
              str(conv1_width) + "-" +\
              str(pool1_height) + "x" +\
