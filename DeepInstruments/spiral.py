@@ -100,7 +100,7 @@ def build_graph(
     flat_shape = (pool1_X.output_shape[1],
                   pool1_X.output_shape[2] * pool1_X.output_shape[3])
     reshaped_X = Reshape(dims=flat_shape)
-    graph.add_node(reshaped_X, name="reshaped_X", input="pool1_X")
+    graph.add_node(reshaped_X, name="reshaped_X", input="conv2")
 
     collapsed_X = AveragePooling1D(pool_length=conv1_channels)
     graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
