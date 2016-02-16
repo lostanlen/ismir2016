@@ -102,7 +102,7 @@ def build_graph(
     reshaped_X = Reshape(dims=flat_shape)
     graph.add_node(reshaped_X, name="reshaped_X", input="conv2")
 
-    collapsed_X = AveragePooling1D(pool_length=conv1_channels)
+    collapsed_X = AveragePooling1D(pool_length=conv2_channels)
     graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
 
     softplus_X = ParametricSoftplus()
