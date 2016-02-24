@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  22 FEB 2016 17:15
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  23 FEB 2016 15:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -264,21 +264,19 @@ Underfull \hbox (badness 3168) in paragraph at lines 55--55
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
 
-Underfull \hbox (badness 1210) in paragraph at lines 131--134
+Underfull \hbox (badness 1210) in paragraph at lines 133--136
 \OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-
  []
 
 
-Underfull \hbox (badness 1231) in paragraph at lines 144--146
-\OT1/ptm/m/n/10 We ap-ply a fam-ily $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^\; ^
-^T[]; k[]; k[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 of $\OML/cmm/m/it/10 K[]$ \OT1
-/ptm/m/n/10 con-vo-lu-
+Underfull \hbox (badness 1584) in paragraph at lines 146--148
+\OT1/ptm/m/n/10 op-er-a-tors that per-form a lin-ear com-bi-na-tion of time-
  []
 
 
-Underfull \hbox (badness 1371) in paragraph at lines 162--164
+Underfull \hbox (badness 1762) in paragraph at lines 164--166
 \OT1/ptm/m/n/10 We ap-ply non-lin-ear rec-ti-fi-ca-tion, yield-ing $[]\OT1/cmr/
-m/n/10 (\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ) =
+m/n/10 [\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ] =
  []
 
 [1
@@ -308,10 +306,10 @@ Underfull \hbox (badness 1184) in paragraph at lines 24--28
 Here is how much of TeX's memory you used:
  4428 strings out of 493706
  68510 string characters out of 6145769
- 164787 words of memory out of 5000000
+ 163787 words of memory out of 5000000
  7721 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 36i,15n,38p,586b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,15n,38p,599b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on ISMIR2015template.pdf (2 pages).
