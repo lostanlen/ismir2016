@@ -46,7 +46,7 @@ drop2_proportion = 0.5
 # Parameters for learning
 batch_size = 32
 epoch_size = 8192
-n_epochs = 100
+n_epochs = 20
 optimizer = "adam"
 spiral_str = "sp-" if is_spiral else ""
 Z_str = "Z" + str(mask_weight) + "-" if is_Z_supervision else ""
