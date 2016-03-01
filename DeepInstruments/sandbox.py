@@ -46,7 +46,7 @@ drop2_proportion = 0.5
 # Parameters for learning
 batch_size = 32
 epoch_size = 8192
-n_epochs = 100
+n_epochs = 20
 optimizer = "adam"
 spiral_str = "sp-" if is_spiral else ""
 Z_str = "Z" + str(mask_weight) + "-" if is_Z_supervision else ""
@@ -115,15 +115,9 @@ for epoch_id in xrange(n_epochs):
     progbar = Progbar(epoch_size)
     batch_id = 0
     for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
-        if is_Z_supervision:
-            loss = graph.train_on_batch({"X": X_batch,
-                                         "Y": Y_batch,
-                                         "Z": Z_batch,
-                                         "G": G_batch,
-                                         "zero": masked_output})
-        else:
-            loss = graph.train_on_batch({"X": X_batch,
-                                         "Y": Y_batch})
+        loss = di.learning.train_on_batch(graph, is_spiral, is_Z_supervision,
+                                          X_batch, Y_batch, Z_batch, G_batch,
+                                          masked_output)
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
