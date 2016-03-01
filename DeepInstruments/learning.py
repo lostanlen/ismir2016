@@ -51,7 +51,7 @@ def substract_and_mask(args):
 
 
 def train_on_batch(graph, is_spiral, is_Z_supervision,
-                   X_batch, Y_batch, Z_batch, G_batch, masked_output)
+                   X_batch, Y_batch, Z_batch, G_batch, masked_output):
     if is_spiral:
         X1 = X_batch[:, 1]
     else:
