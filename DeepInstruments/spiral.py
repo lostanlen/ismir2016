@@ -3,7 +3,7 @@ import keras
 from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
-from keras.layers.core import Permute
+from keras.layers.core import Merge
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.layers.convolutional import MaxPooling1D, AveragePooling1D
 
@@ -28,39 +28,59 @@ def build_graph(
         drop2_proportion,
         dense2_channels):
     graph = Graph()
+    assert n_octaves == 8
+    assert conv1_height == n_bins_per_octave
+    assert not is_Z_supervision
 
     # Input
-    X_height = n_bins_per_octave * n_octaves
-    graph.add_input(name="X", input_shape=(1, X_height, X_width))
-    graph.add_input(name="Z", input_shape=(1, X_height, X_width))
-    graph.add_input(name="G", input_shape=(1, X_height, X_width))
+    X_height = n_bins_per_octave * 2 - 1
+    for octave_index in range(n_octaves - 1):
+        name = "X" + str(octave_index)
+        graph.add_input(name=name, input_shape=(1, X_height, X_width))
 
-    # Spiral transformation
-    spiral_X = Reshape((n_octaves, n_bins_per_octave, X_width))
-    graph.add_node(spiral_X, name="spiral_X", input="X")
+    # Octave-wise convolutional layers
+    conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                          border_mode="valid", activation="relu")
+    graph.add_node(conv1_X0, name="conv1_X0", input="X0")
+    conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                          border_mode="valid", activation="relu")
+    graph.add_node(conv1_X1, name="conv1_X1", input="X1")
+    conv1_X2 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                          border_mode="valid", activation="relu")
+    graph.add_node(conv1_X2, name="conv1_X2", input="X2")
+    conv1_X3 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                          border_mode="valid", activation="relu")
+    graph.add_node(conv1_X3, name="conv1_X3", input="X3")
+    conv1_X4 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                          border_mode="valid", activation="relu")
+    graph.add_node(conv1_X4, name="conv1_X4", input="X4")
+    conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                          border_mode="valid", activation="relu")
+    graph.add_node(conv1_X5, name="conv1_X5", input="X5")
+    conv1_X6 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+                          border_mode="valid", activation="relu")
+    graph.add_node(conv1_X6, name="conv1_X6", input="X6")
 
-    # Shared layers
-    conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="same", activation="relu")
-    graph.add_node(conv1, name="conv1", input="spiral_X")
-
-    relu1 = LeakyReLU()
-    graph.add_node(relu1, name="relu1", input="conv1")
+    # Spiral concatenation and pooling
+    merge = Merge([conv1_X0, conv1_X1, conv1_X2, conv1_X3,
+                   conv1_X4, conv1_X5, conv1_X6],
+                  mode='concat', concat_axis=2)
+    graph.add_node(merge, name="merge",
+                   inputs = ["conv1_X0", "conv1_X1", "conv1_X2", "conv1_X3",
+                             "conv1_X4", "conv1_X5", "conv1_X6"])
 
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_X, name="pool1_X", input="relu1")
+    graph.add_node(pool1_X, name="pool1_X", input="merge")
 
-    # Layers towards instrument target
+    # Time-frequency convolutions
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
                           border_mode="same", activation="relu")
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
-    relu2 = LeakyReLU()
-    graph.add_node(relu2, name="relu2", input="conv2")
-
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
-    graph.add_node(pool2, name="pool2", input="relu2")
+    graph.add_node(pool2, name="pool2", input="conv2")
 
+    # Multi-layer perceptron with dropout
     flatten = Flatten()
     graph.add_node(flatten, name="flatten", input="pool2")
 
@@ -76,55 +96,7 @@ def build_graph(
     dense2 = Dense(dense2_channels, activation="softmax")
     graph.add_node(dense2, name="dense2", input="drop2")
 
-    # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
-    pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_Z, name="pool1_Z", input="Z")
-
-    Z_height = n_bins_per_octave / pool1_height
-    Z_width = X_width / pool1_width
-    reshaped_Z = Reshape((n_octaves, Z_height * Z_width))
-    graph.add_node(reshaped_Z, name="reshaped_Z", input="pool1_Z")
-
-    chroma_Z = MaxPooling1D(pool_length=n_octaves)
-    graph.add_node(chroma_Z, name="chroma_Z", input="reshaped_Z")
-
-    toplevel_Z = Reshape((1, Z_height, Z_width))
-    graph.add_node(toplevel_Z, name="toplevel_Z", input="chroma_Z")
-
-    pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_G, name="pool1_G", input="G")
-
-    reshaped_G = Reshape((n_octaves, Z_height * Z_width))
-    graph.add_node(reshaped_G, name="reshaped_G", input="pool1_G")
-
-    chroma_G = MaxPooling1D(pool_length=n_octaves)
-    graph.add_node(chroma_G, name="chroma_G", input="reshaped_G")
-
-    toplevel_G = Reshape((1, Z_height, Z_width))
-    graph.add_node(toplevel_G, name="toplevel_G", input="chroma_G")
-
-    # Layers towards melodic target
-    flat_shape = (relu2.output_shape[1],
-                  relu2.output_shape[2] * relu2.output_shape[3])
-    reshaped_X = Reshape(dims=flat_shape)
-    graph.add_node(reshaped_X, name="reshaped_X", input="relu2")
-
-    collapsed_X = AveragePooling1D(pool_length=conv2_channels)
-    graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
-
-    softplus_X = ParametricSoftplus()
-    graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
-
-    toplevel_X = Reshape(dims=(1, Z_height, Z_width))
-    graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
-
-    melodic_error = LambdaMerge([toplevel_X, toplevel_Z, toplevel_G],
-                                di.learning.substract_and_mask)
-    graph.add_node(melodic_error, name="melodic_error",
-                   inputs=["toplevel_X", "toplevel_Z", "toplevel_G"])
-
-    # Outputs
+    # Output
     graph.add_output(name="Y", input="dense2")
-    graph.add_output(name="zero", input="melodic_error")
 
     return graph
