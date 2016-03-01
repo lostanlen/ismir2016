@@ -28,24 +28,22 @@ def build_graph(
         drop2_proportion,
         dense2_channels):
     graph = Graph()
+    assert n_octaves == 8
+    assert is_Z_supervision == False
 
     # Input
-    X_height = n_bins_per_octave * n_octaves
-    graph.add_input(name="X", input_shape=(1, X_height, X_width))
-    graph.add_input(name="Z", input_shape=(1, X_height, X_width))
-    graph.add_input(name="G", input_shape=(1, X_height, X_width))
+    X_height = n_bins_per_octave * 2
+    for octave_index in range(n_octaves - 1):
+        name = "X" + str(octave_index)
+        graph.add_input(name=name, input_shape=(1, X_height, X_width))
 
-    # Spiral transformation
-    spiral_X = Reshape((n_octaves, n_bins_per_octave, X_width))
-    graph.add_node(spiral_X, name="spiral_X", input="X")
-
-    # Shared layers
+    # Spiral convolutional layers
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                           border_mode="same", activation="relu")
-    graph.add_node(conv1, name="conv1", input="spiral_X")
-
-    relu1 = LeakyReLU()
-    graph.add_node(relu1, name="relu1", input="conv1")
+    for octave_index in range(n_octaves - 1):
+        X_name = "X" + str(octave_index)
+        conv_name = "conv1_j" + str(octave_index)
+        graph.add_node(conv1, name=conv_name, input=X_name)
 
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
@@ -54,9 +52,6 @@ def build_graph(
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
                           border_mode="same", activation="relu")
     graph.add_node(conv2, name="conv2", input="pool1_X")
-
-    relu2 = LeakyReLU()
-    graph.add_node(relu2, name="relu2", input="conv2")
 
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
     graph.add_node(pool2, name="pool2", input="relu2")
