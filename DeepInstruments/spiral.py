@@ -34,43 +34,44 @@ def build_graph(
 
     # Input
     X_height = n_bins_per_octave * 2 - 1
-    for octave_index in range(n_octaves - 1):
-        name = "X" + str(octave_index)
-        graph.add_input(name=name, input_shape=(1, X_height, X_width))
+    graph.add_input(name="X0", input_shape=(1, X_height, X_width))
+    graph.add_input(name="X1", input_shape=(1, X_height, X_width))
+    #for octave_index in range(n_octaves - 1):
+    #    name = "X" + str(octave_index)
+    #    graph.add_input(name=name, input_shape=(1, X_height, X_width))
 
     # Octave-wise convolutional layers
     conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid", activation="relu")
+                             border_mode="valid", activation="relu")
     graph.add_node(conv1_X0, name="conv1_X0", input="X0")
     conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid", activation="relu")
+                             border_mode="valid", activation="relu")
     graph.add_node(conv1_X1, name="conv1_X1", input="X1")
-    conv1_X2 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid", activation="relu")
-    graph.add_node(conv1_X2, name="conv1_X2", input="X2")
-    conv1_X3 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid", activation="relu")
-    graph.add_node(conv1_X3, name="conv1_X3", input="X3")
-    conv1_X4 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid", activation="relu")
-    graph.add_node(conv1_X4, name="conv1_X4", input="X4")
-    conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid", activation="relu")
-    graph.add_node(conv1_X5, name="conv1_X5", input="X5")
-    conv1_X6 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid", activation="relu")
-    graph.add_node(conv1_X6, name="conv1_X6", input="X6")
+    # conv1_X2 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+    #                          border_mode="valid", activation="relu")
+    # graph.add_node(conv1_X2, name="conv1_X2", input="X2")
+    # conv1_X3 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+    #                          border_mode="valid", activation="relu")
+    # graph.add_node(conv1_X3, name="conv1_X3", input="X3")
+    # conv1_X4 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+    #                          border_mode="valid", activation="relu")
+    # graph.add_node(conv1_X4, name="conv1_X4", input="X4")
+    # conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+    #                          border_mode="valid", activation="relu")
+    # graph.add_node(conv1_X5, name="conv1_X5", input="X5")
+    # conv1_X6 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+    #                          border_mode="valid", activation="relu")
+    # graph.add_node(conv1_X6, name="conv1_X6", input="X6")
 
     # Spiral concatenation and pooling
-    merge = Merge([conv1_X0, conv1_X1, conv1_X2, conv1_X3,
-                   conv1_X4, conv1_X5, conv1_X6],
-                  mode='concat', concat_axis=2)
-    graph.add_node(merge, name="merge",
-                   inputs = ["conv1_X0", "conv1_X1", "conv1_X2", "conv1_X3",
-                             "conv1_X4", "conv1_X5", "conv1_X6"])
+    #merge = Merge([conv1_X0, conv1_X1],
+    #              mode='concat', concat_axis=2)
+    #graph.add_node(merge, name="merge",
+    #               inputs = ["conv1_X0", "conv1_X1"])
 
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_X, name="pool1_X", input="merge")
+    graph.add_node(pool1_X, name="pool1_X", inputs=["conv1_X0", "conv1_X1"],
+                   concat_axis=2)
 
     # Time-frequency convolutions
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
@@ -100,3 +101,6 @@ def build_graph(
     graph.add_output(name="Y", input="dense2")
 
     return graph
+
+
+# graph.compile(loss={"Y":"mse"}, optimizer="sgd")
