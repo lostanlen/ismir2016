@@ -37,7 +37,7 @@ def build_graph(
         graph.add_input(name="G", input_shape=(1, X_height, X_width))
 
     # Shared layers
-    elastic_net = WeightRegularizer(l1=0.01, l2=0.01)
+    elastic_net = WeightRegularizer(l1=0.001, l2=0.001)
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                           border_mode="valid",
                           W_regularizer=elastic_net)
