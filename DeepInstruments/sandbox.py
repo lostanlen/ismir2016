@@ -46,7 +46,7 @@ drop2_proportion = 0.5
 # Parameters for learning
 batch_size = 32
 epoch_size = 8192
-n_epochs = 40
+n_epochs = 20
 optimizer = "adam"
 spiral_str = "sp-" if is_spiral else ""
 Z_str = "Z" + str(mask_weight) + "-" if is_Z_supervision else ""
@@ -201,10 +201,13 @@ graph.save_weights(export_str + ".h5", overwrite=True)
 if is_spiral:
     pass
 else:
-    first_layer = graph.get_weights()[0]
-    kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
-    zero_padding = -1.0 * np.ones((conv1_height, 1))
-    registered_kernels = [np.concatenate((kernel, zero_padding), axis=1)
-                          for kernel in kernels]
-    librosa.display.specshow(np.hstack(kernels))
-    plt.savefig(export_str + ".png")
+    for j in range(7):
+        octave_index = 2 * j
+        octave = graph.get_weights()[octave_index]
+        kernels = [octave[i, 0, :, :] for i in range(conv1_channels)]
+        zero_padding = -1.0 * np.ones((conv1_height, 1))
+        kernels = [np.concatenate((kernel, zero_padding), axis=1)
+                   for kernel in kernels]
+        kernels = np.hstack(kernels)
+        librosa.display.specshow(kernels)
+        plt.savefig(export_str + "-j" + str(j) + ".png")
