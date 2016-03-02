@@ -27,7 +27,7 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 
 # Parameters for ConvNet
-is_spiral = False 
+is_spiral = True
 is_Z_supervision = False
 conv1_channels = 32
 conv1_height = 13
