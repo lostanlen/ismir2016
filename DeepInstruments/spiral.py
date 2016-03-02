@@ -69,7 +69,7 @@ def build_graph(
 
     # Time-frequency convolutions
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
-                          border_mode="same", activation="relu")
+                          border_mode="valid", activation="relu")
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
