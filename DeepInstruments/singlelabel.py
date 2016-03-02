@@ -145,19 +145,12 @@ class ScalogramGenerator(object):
         Y_batch_size = (batch_size, n_instruments)
         Y_batch = np.zeros(Y_batch_size, np.float32)
         y_epoch_size = (n_batches, batch_size)
-        # boost classes 3, 5, and 7
-        y_epoch = np.random.randint(0, n_instruments+3, size=y_epoch_size)
+        y_epoch = np.random.randint(0, n_instruments, size=y_epoch_size)
         Z_batch = np.zeros(X_batch_size, np.float32)
         G_batch = np.zeros(X_batch_size, np.float32)
         for batch_id in range(n_batches):
             for sample_id in range(batch_size):
                 instrument_id = y_epoch[batch_id, sample_id]
-                if instrument_id == 8:
-                    instrument_id = 3
-                elif instrument_id == 9:
-                    instrument_id = 5
-                elif instrument_id == 10:
-                    instrument_id = 7
                 n_files = len(self.indices[instrument_id])
                 durations = self.durations[instrument_id]
                 file_id = np.random.choice(n_files, p=durations)
