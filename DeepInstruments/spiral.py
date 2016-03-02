@@ -34,14 +34,14 @@ def build_graph(
 
     # Input
     X_height = n_bins_per_octave * 2
-    for octave_index in range(n_octaves - 1):
+    for octave_index in range(0, n_octaves - 2):
         name = "X" + str(octave_index)
         graph.add_input(name=name, input_shape=(1, X_height, X_width))
 
     # Octave-wise convolutional layers
-    conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid")
-    graph.add_node(conv1_X0, name="conv1_X0", input="X0")
+    #conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+    #                         border_mode="valid")
+    #graph.add_node(conv1_X0, name="conv1_X0", input="X0")
     conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid")
     graph.add_node(conv1_X1, name="conv1_X1", input="X1")
@@ -57,15 +57,15 @@ def build_graph(
     conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid")
     graph.add_node(conv1_X5, name="conv1_X5", input="X5")
-    conv1_X6 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid")
-    graph.add_node(conv1_X6, name="conv1_X6", input="X6")
+    #conv1_X6 = Convolution2D(conv1_channels, conv1_height, conv1_width,
+    #                         border_mode="valid")
+    #graph.add_node(conv1_X6, name="conv1_X6", input="X6")
 
     # Spiral concatenation and pooling
     relu1 = LeakyReLU()
     graph.add_node(relu1, name="relu1",
-                   inputs=["conv1_X0", "conv1_X1", "conv1_X2", "conv1_X3",
-                           "conv1_X4", "conv1_X5", "conv1_X6"], concat_axis=2)
+                   inputs=["conv1_X1", "conv1_X2", "conv1_X3",
+                           "conv1_X4", "conv1_X5"], concat_axis=2)
 
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_X, name="pool1_X", input="relu1")

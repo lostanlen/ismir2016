@@ -52,16 +52,16 @@ def predict(graph, is_spiral, is_Z_supervision, X_test):
         if is_Z_supervision:
             pass
         else:
-            X0 = X_test[:, :, xrange(0*12, 2*12), :]
+            # X0 = X_test[:, :, xrange(0*12, 2*12), :]
             X1 = X_test[:, :, xrange(1*12, 3*12), :]
             X2 = X_test[:, :, xrange(2*12, 4*12), :]
             X3 = X_test[:, :, xrange(3*12, 5*12), :]
             X4 = X_test[:, :, xrange(4*12, 6*12), :]
             X5 = X_test[:, :, xrange(5*12, 7*12), :]
-            X6 = X_test[:, :, xrange(6*12, 8*12), :]
+            # X6 = X_test[:, :, xrange(6*12, 8*12), :]
             y_predicted = np.argmax(
-                graph.predict({"X0": X0, "X1": X1, "X2": X2, "X3": X3,
-                               "X4": X4, "X5": X5, "X6": X6})["Y"],
+                graph.predict({"X1": X1, "X2": X2, "X3": X3,
+                               "X4": X4, "X5": X5})["Y"],
                 axis=1)
             return y_predicted
     else:
@@ -80,19 +80,19 @@ def substract_and_mask(args):
 def train_on_batch(graph, is_spiral, is_Z_supervision,
                    X_batch, Y_batch, Z_batch, G_batch, masked_output):
     if is_spiral:
-        X0 = X_batch[:, :, xrange(0*12, 2*12), :]
+        # X0 = X_batch[:, :, xrange(0*12, 2*12), :]
         X1 = X_batch[:, :, xrange(1*12, 3*12), :]
         X2 = X_batch[:, :, xrange(2*12, 4*12), :]
         X3 = X_batch[:, :, xrange(3*12, 5*12), :]
         X4 = X_batch[:, :, xrange(4*12, 6*12), :]
         X5 = X_batch[:, :, xrange(5*12, 7*12), :]
-        X6 = X_batch[:, :, xrange(6*12, 8*12), :]
+        # X6 = X_batch[:, :, xrange(6*12, 8*12), :]
         if is_Z_supervision:
             pass
         else:
-            loss = graph.train_on_batch({"X0": X0, "X1": X1, "X2": X2,
+            loss = graph.train_on_batch({"X1": X1, "X2": X2,
                                          "X3": X3, "X4": X4, "X5": X5,
-                                         "X6": X6, "Y": Y_batch})
+                                         "Y": Y_batch})
             return loss
     else:
         if is_Z_supervision:
