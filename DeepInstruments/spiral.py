@@ -29,11 +29,11 @@ def build_graph(
         dense2_channels):
     graph = Graph()
     assert n_octaves == 8
-    assert conv1_height == (n_bins_per_octave-1)
+    assert conv1_height == (n_bins_per_octave+1)
     assert not is_Z_supervision
 
     # Input
-    X_height = n_bins_per_octave * 2 - 1
+    X_height = n_bins_per_octave * 2
     for octave_index in range(n_octaves - 1):
         name = "X" + str(octave_index)
         graph.add_input(name=name, input_shape=(1, X_height, X_width))
