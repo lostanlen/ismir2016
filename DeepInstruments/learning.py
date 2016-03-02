@@ -1,4 +1,5 @@
 import DeepInstruments as di
+import numpy as np
 
 
 def build_graph(
@@ -44,6 +45,32 @@ def build_graph(
                 dense1_channels,
                 drop2_proportion,
                 dense2_channels)
+
+
+def predict(graph, is_spiral, is_Z_supervision, X_test):
+    if is_spiral:
+        if is_Z_supervision:
+            pass
+        else:
+            X0 = X_test[:, :, xrange(0*12, 2*12), :]
+            X1 = X_test[:, :, xrange(1*12, 3*12), :]
+            X2 = X_test[:, :, xrange(2*12, 4*12), :]
+            X3 = X_test[:, :, xrange(3*12, 5*12), :]
+            X4 = X_test[:, :, xrange(4*12, 6*12), :]
+            X5 = X_test[:, :, xrange(5*12, 7*12), :]
+            X6 = X_test[:, :, xrange(6*12, 8*12), :]
+            y_predicted = np.argmax(
+                graph.predict({"X0": X0, "X1": X1, "X2": X2, "X3": X3,
+                               "X4": X4, "X5": X5, "X6": X6})["Y"],
+                axis=1)
+            return y_predicted
+    else:
+        if is_Z_supervision:
+            y_predicted = di.singlelabel.predict(graph, X_test)
+            return y_predicted
+        else:
+            y_predicted = np.argmax(graph.predict({"X": X_test})["Y"], axis=1)
+            return y_predicted
 
 
 def substract_and_mask(args):
