@@ -95,6 +95,3 @@ def build_graph(
     graph.add_output(name="Y", input="dense2")
 
     return graph
-
-
-# graph.compile(loss={"Y":"mse"}, optimizer="sgd")
