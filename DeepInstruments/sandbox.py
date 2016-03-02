@@ -27,7 +27,7 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 
 # Parameters for ConvNet
-is_spiral = True
+is_spiral = False
 is_Z_supervision = False
 conv1_channels = 32
 conv1_height = 13
@@ -199,7 +199,7 @@ graph.save_weights(export_str + ".h5", overwrite=True)
 
 # Save images for first-layer kernels
 if is_spiral:
-
+    pass
 else:
     first_layer = graph.get_weights()[0]
     kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
