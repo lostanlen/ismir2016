@@ -74,7 +74,7 @@ else:
 mask_width = X_width / pool1_width
 mask_height = X_height / pool1_height
 masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
-names = [ name.split(" ")[0] for name in di.singlelabel.names]
+names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano
 graph = di.learning.build_graph(
