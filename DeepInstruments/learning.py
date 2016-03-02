@@ -66,6 +66,7 @@ def train_on_batch(graph, is_spiral, is_Z_supervision,
             loss = graph.train_on_batch({"X0": X0, "X1": X1, "X2": X2,
                                          "X3": X3, "X4": X4, "X5": X5,
                                          "X6": X6, "Y": Y_batch})
+            return loss
     else:
         if is_Z_supervision:
             loss = graph.train_on_batch({"X": X_batch,
