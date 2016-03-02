@@ -29,7 +29,7 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 # Parameters for ConvNet
 is_spiral = True
 is_Z_supervision = False
-conv1_channels = 32
+conv1_channels = 8
 conv1_height = 13
 conv1_width = 3
 pool1_height = 3
@@ -46,7 +46,7 @@ drop2_proportion = 0.5
 # Parameters for learning
 batch_size = 32
 epoch_size = 8192
-n_epochs = 20
+n_epochs = 40
 optimizer = "adam"
 spiral_str = "sp-" if is_spiral else ""
 Z_str = "Z" + str(mask_weight) + "-" if is_Z_supervision else ""
