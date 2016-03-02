@@ -5,6 +5,7 @@ from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.convolutional import AveragePooling1D,\
     Convolution2D, MaxPooling2D
+from keras.regularizers import ActivityRegularizer
 
 
 def build_graph(
@@ -36,8 +37,10 @@ def build_graph(
         graph.add_input(name="G", input_shape=(1, X_height, X_width))
 
     # Shared layers
+    elastic_net = ActivityRegularizer(l1=0.1, l2=0.1)
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                          border_mode="valid")
+                          border_mode="valid",
+                          activity_regularizer=elastic_net)
     graph.add_node(conv1, name="conv1", input="X")
 
     relu1 = LeakyReLU()
@@ -48,7 +51,8 @@ def build_graph(
 
     # Layers towards instrument target
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
-                          border_mode="valid")
+                          border_mode="valid",
+                          activity_regularizer=elastic_net)
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
     relu2 = LeakyReLU()
