@@ -73,7 +73,7 @@ def build_graph(
     graph.add_node(drop2, name="drop2", input="relu3")
 
     dense2 = Dense(dense2_channels, activation="softmax")
-    graph.add_node(dense2, name="dense2", input="drop2")
+    graph.add_node(dense2, name="Y", input="drop2")
 
     if is_Z_supervision:
         # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
@@ -106,7 +106,7 @@ def build_graph(
                        inputs=["pool1_Z", "pool1_Z", "pool1_G"])
 
     # Outputs
-    graph.add_output(name="Y", input="dense2")
+    graph.add_output(name="Y")
     if is_Z_supervision:
         graph.add_output(name="zero", input="melodic_error")
 
