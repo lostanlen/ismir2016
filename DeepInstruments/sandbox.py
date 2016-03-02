@@ -27,7 +27,7 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 
 # Parameters for ConvNet
-is_spiral = True
+is_spiral = False
 is_Z_supervision = False
 conv1_channels = 8
 conv1_height = 13
@@ -199,15 +199,21 @@ graph.save_weights(export_str + ".h5", overwrite=True)
 
 # Save images for first-layer kernels
 if is_spiral:
-    pass
-else:
     for j in range(7):
         octave_index = 2 * j
         octave = graph.get_weights()[octave_index]
         kernels = [octave[i, 0, :, :] for i in range(conv1_channels)]
-        zero_padding = -1.0 * np.ones((conv1_height, 1))
+        zero_padding = 0.0 * np.ones((conv1_height, 1))
         kernels = [np.concatenate((kernel, zero_padding), axis=1)
                    for kernel in kernels]
         kernels = np.hstack(kernels)
         librosa.display.specshow(kernels)
         plt.savefig(export_str + "-j" + str(j) + ".png")
+else:
+    first_layer = graph.get_weights()[0]
+    kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
+    zero_padding = -0.0 * np.ones((conv1_height, 1))
+    registered_kernels = [np.concatenate((kernel, zero_padding), axis=1)
+                          for kernel in kernels]
+    librosa.display.specshow(np.hstack(kernels))
+    plt.savefig(export_str + ".png")
