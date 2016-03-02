@@ -34,7 +34,7 @@ def build_graph(
 
     # Input
     X_height = n_bins_per_octave * 2
-    for octave_index in range(0, n_octaves - 2):
+    for octave_index in range(1, n_octaves - 2):
         name = "X" + str(octave_index)
         graph.add_input(name=name, input_shape=(1, X_height, X_width))
 
