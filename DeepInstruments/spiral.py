@@ -6,6 +6,7 @@ from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.core import Merge
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.layers.convolutional import MaxPooling1D, AveragePooling1D
+from keras.regularizers import ActivityRegularizer, WeightRegularizer
 
 
 def build_graph(
@@ -71,8 +72,10 @@ def build_graph(
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
 
     # Time-frequency convolutions
+    lasso2 = ActivityRegularizer(l1=0.001)
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
-                          border_mode="valid")
+                          border_mode="valid",
+                          activity_regularizer=lasso2)
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
     relu2 = LeakyReLU()
