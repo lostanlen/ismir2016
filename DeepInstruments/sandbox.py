@@ -155,7 +155,7 @@ for epoch_id in xrange(n_epochs):
         ") (+/-" +\
         str(round(0.5 * std_file_accuracy, 1)) + ")"
 
-
+# Save final scores
 final_chunk_score = chunk_accuracies_history[-1]
 final_mean_chunk_score = np.mean(final_chunk_score)
 final_file_score = file_accuracies_history[-1]
