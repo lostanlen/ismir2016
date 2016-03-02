@@ -126,10 +126,8 @@ for epoch_id in xrange(n_epochs):
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
     # Measure test accuracies
-    if is_Z_supervision:
-        y_predicted = di.singlelabel.predict(graph, X_test)
-    else:
-        y_predicted = np.argmax(graph.predict({"X": X_test})["Y"], axis=1)
+    y_predicted = di.learning.predict(graph, is_spiral, is_Z_supervision,
+                                      X_test)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
     file_accuracies = di.singlelabel.file_accuracies(test_paths, y_predicted,
