@@ -48,11 +48,11 @@ def build_graph(
 
     # Layers towards instrument target
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
-                          border_mode="same", activation="relu")
+                          border_mode="same")
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
     relu2 = LeakyReLU()
-    graph.add_node(relu1, name="relu2", input="conv2")
+    graph.add_node(relu2, name="relu2", input="conv2")
 
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
     graph.add_node(pool2, name="pool2", input="relu2")
