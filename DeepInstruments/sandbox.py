@@ -197,22 +197,14 @@ np.savez(
 # Save weights
 graph.save_weights(export_str + ".h5", overwrite=True)
 
-# Registration of first layer according to peak frequency
-first_layer = graph.get_weights()[0]
-kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
-dominant_freqs = [np.argmax(kernels[i], axis=0)
-                  for i in range(conv1_channels)]
-contours = [kernels[i][dominant_freqs[i], :] for i in range(conv1_channels)]
-contours = map(np.diag, contours)
-dominant_times = [np.argmax(contours[i])
-                  for i in range(conv1_channels)]
-dominant_freqs = [dominant_freqs[i][dominant_times[i]]
-                  for i in range(conv1_channels)]
-registered_kernels = [np.roll(kernels[i], -dominant_freqs[i], axis=0)
-                      for i in range(conv1_channels)]
-zero_padding = -0.5 * np.ones((conv1_height, 1))
-registered_kernels = [np.concatenate((kernel, zero_padding), axis=1)
-                      for kernel in registered_kernels]
-librosa.display.specshow(np.hstack(registered_kernels))
+# Save images for first-layer kernels
+if is_spiral:
 
-plt.savefig(export_str + ".png")
+else:
+    first_layer = graph.get_weights()[0]
+    kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
+    zero_padding = -1.0 * np.ones((conv1_height, 1))
+    registered_kernels = [np.concatenate((kernel, zero_padding), axis=1)
+                          for kernel in kernels]
+    librosa.display.specshow(np.hstack(kernels))
+    plt.savefig(export_str + ".png")
