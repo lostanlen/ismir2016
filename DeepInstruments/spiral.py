@@ -29,6 +29,8 @@ def build_graph(
         drop2_proportion,
         dense2_channels):
     graph = Graph()
+    init = "glorot_normal"
+    lasso2 = ActivityRegularizer(l1=0.0)
     assert n_octaves == 8
     assert conv1_height == (n_bins_per_octave+1)
     assert not is_Z_supervision
@@ -44,19 +46,19 @@ def build_graph(
     #                         border_mode="valid")
     #graph.add_node(conv1_X0, name="conv1_X0", input="X0")
     conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init="he_normal")
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X1, name="conv1_X1", input="X1")
     conv1_X2 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init="he_normal")
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X2, name="conv1_X2", input="X2")
     conv1_X3 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init="he_normal")
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X3, name="conv1_X3", input="X3")
     conv1_X4 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init="he_normal")
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X4, name="conv1_X4", input="X4")
     conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init="he_normal")
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X5, name="conv1_X5", input="X5")
     #conv1_X6 = Convolution2D(conv1_channels, conv1_height, conv1_width,
     #                         border_mode="valid")
@@ -72,10 +74,9 @@ def build_graph(
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
 
     # Time-frequency convolutions
-    lasso2 = ActivityRegularizer(l1=0.0)
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
                           border_mode="valid",
-                          activity_regularizer=lasso2, init="he_normal")
+                          activity_regularizer=lasso2, init=init)
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
     relu2 = LeakyReLU()
@@ -91,7 +92,7 @@ def build_graph(
     drop1 = Dropout(drop1_proportion)
     graph.add_node(drop1, name="drop1", input="flatten")
 
-    dense1 = Dense(dense1_channels, init="he_normal")
+    dense1 = Dense(dense1_channels, init=init)
     graph.add_node(dense1, name="dense1", input="drop1")
 
     relu3 = LeakyReLU()
