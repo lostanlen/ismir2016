@@ -198,7 +198,7 @@ graph.save_weights(export_str + ".h5", overwrite=True)
 
 # Save images for first-layer kernels
 if is_spiral:
-    for j in range(7):
+    for j in range(1, 6):
         octave_index = 2 * j
         octave = graph.get_weights()[octave_index]
         kernels = [octave[i, 0, :, :] for i in range(conv1_channels)]
