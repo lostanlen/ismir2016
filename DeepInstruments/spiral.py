@@ -72,7 +72,7 @@ def build_graph(
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
 
     # Time-frequency convolutions
-    lasso2 = ActivityRegularizer(l1=0.001)
+    lasso2 = ActivityRegularizer(l1=0.0)
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
                           border_mode="valid",
                           activity_regularizer=lasso2, init="he_normal")
