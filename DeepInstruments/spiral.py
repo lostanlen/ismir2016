@@ -53,7 +53,6 @@ def build_graph(
                              border_mode="valid")
     graph.add_node(conv1_X3, name="conv1_X3", input="X3")
     conv1_X4 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", activation="relu")
     graph.add_node(conv1_X4, name="conv1_X4", input="X4")
     conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid")
