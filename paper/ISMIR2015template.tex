@@ -119,6 +119,7 @@ Distributions of squared Euclidean distances among various clusters in the RWC d
 \end{figure}
  
 \section{Deep convolutional networks}
+A deep learning system for classification is built by stacking multiple layers of weakly nonlinear transformations, whose parameters are jointly optimized such that the top-level layer fits a training set of labeled examples.
 \subsection{Time-frequency representation}
 We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ MIDI indices, \ie 8 octaves.
 
