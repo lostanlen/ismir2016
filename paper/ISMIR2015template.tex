@@ -70,7 +70,11 @@ Secondly, it is intensive: multiple pitches heard simultaneously produce a chord
 Thirdly, it is invariant to instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system. 
 
 Besides this invariance property, understanding the influence of pitch in audio streams is paramount to the design of an efficient system for automated classification, tagging, and similarity retrieval in music. 
-Indeed, as demonstrated in the next section, pitch is the major factor of variability among musical notes of a given instrument, if described by existing MIR features.
+
+Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their Mel-frequency cepstra.
+Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.
+Section 4 improves the aforementioned architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
+Section 5 discusses the effectiveness of the presented systems on a challenging dataset for music instrument recognition.
 
 Time-frequency representations, such as the constant-Q wavelet scalogram, are a useful first step for the construction of pitch-adaptive features.
 
