@@ -20,7 +20,7 @@
 
 % Title.
 % ------
-\title{Learning invariants for polyphonic instrument recognition}
+\title{Learning pitch invariants for instrument recognition}
 
 
 % Single address
@@ -70,12 +70,10 @@ Secondly, it is intensive: multiple pitches heard simultaneously produce a chord
 Thirdly, it is invariant to instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system. 
 
 Besides this invariance property, understanding the influence of pitch in audio streams is paramount to the design of an efficient system for automated classification, tagging, and similarity retrieval in music. 
-As demonstrated in the next section, pitch is the major factor of variability among musical notes of a given instrument, if described by existing MIR features.
+Indeed, as demonstrated in the next section, pitch is the major factor of variability among musical notes of a given instrument, if described by existing MIR features.
 
-Time-frequency representations.
+Time-frequency representations, such as the constant-Q wavelet scalogram, are a useful first step for the construction of pitch-adaptive features.
 
-In the symbolic domain, melodies are represented by a piano-roll matrix $\mathcal{P}$ over the continuous dimensions of time and pitch. In turn, other semantic attributes, such as instrument activations, are represented by a histogram $\mathcal{H}$ over a finite number of categories. 
-In this setting, music instrument recognition is the task of finding the active instruments at a given time point of an audio excerpt.
 
 % audio vs symbolic levels of music information
 % variability is dominated by melody and orchestration
@@ -105,9 +103,11 @@ In this setting, music instrument recognition is the task of finding the active 
 % Ref to Salamon and Bello
 % Ref to Li, Qian, and Wang arXiv 2015
 
+\section{How invariant is the Mel cepstrum ?}
+ 
 \section{Deep convolutional networks}
 \subsection{Time-frequency representation}
-We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz [8 octaves from A1 to A9], and a hop size of 23 ms. Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ MIDI indices.
+We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ MIDI indices, \ie 8 octaves.
 
 \subsection{Architecture}
 First of all, we apply a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of $K_2=50$ learned time-frequency convolutional operators, whose supports are constrained to have width $\Delta t$ and height $\Delta k_1$. 
@@ -223,7 +223,7 @@ The evaluation set consists of 120 recordings of solo music collected by Joder e
     \begin{center}
         \setlength{\unitlength}{1cm}
         \begin{picture}(8,10.5)
-        \put(0,0){\includegraphics[width=8cm]{figs/distribution.png}}
+        \put(0,0){\includegraphics[width=8cm]{figs/mfcc_variances.png}}
         \end{picture}
     \end{center}
     \protect\caption{
