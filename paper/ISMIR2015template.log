@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  5 MAR 2016 01:24
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  5 MAR 2016 03:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -266,20 +266,10 @@ Underfull \hbox (badness 3168) in paragraph at lines 59--59
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 61.
-
-Underfull \hbox (badness 1210) in paragraph at lines 138--141
+File: figs/mfcc_variances.png Graphic file (type QTm)
+<use  "figs/mfcc_variances.png" >
+Underfull \hbox (badness 1210) in paragraph at lines 151--154
 \OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-
- []
-
-
-Underfull \hbox (badness 1584) in paragraph at lines 151--153
-\OT1/ptm/m/n/10 op-er-a-tors that per-form a lin-ear com-bi-na-tion of time-
- []
-
-
-Underfull \hbox (badness 1762) in paragraph at lines 169--171
-\OT1/ptm/m/n/10 We ap-ply non-lin-ear rec-ti-fi-ca-tion, yield-ing $[]\OT1/cmr/
-m/n/10 [\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ] =
  []
 
 [1
@@ -287,8 +277,17 @@ m/n/10 [\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ] =
 
 
 ]
-File: figs/mfcc_variances.png Graphic file (type QTm)
- <use  "figs/mfcc_variances.png" > (./ISMIR2015template.bbl
+Underfull \hbox (badness 1584) in paragraph at lines 164--166
+\OT1/ptm/m/n/10 op-er-a-tors that per-form a lin-ear com-bi-na-tion of time-
+ []
+
+
+Underfull \hbox (badness 1762) in paragraph at lines 182--184
+\OT1/ptm/m/n/10 We ap-ply non-lin-ear rec-ti-fi-ca-tion, yield-ing $[]\OT1/cmr/
+m/n/10 [\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ] =
+ []
+
+(./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 4--9
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -305,11 +304,15 @@ Underfull \hbox (badness 1184) in paragraph at lines 24--28
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
-) [2] (./ISMIR2015template.aux) ) 
+) [2] (./ISMIR2015template.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  4458 strings out of 493706
  69107 string characters out of 6145769
- 163787 words of memory out of 5000000
+ 164787 words of memory out of 5000000
  7747 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
