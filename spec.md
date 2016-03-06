@@ -115,7 +115,7 @@ L. References
 4. Humphrey, Bello, and LeCun deep architectures for music informatics
 5. Salamon and Bello : feature learning
 6. Li, Qian and Wang: ConvNets on raw audio for multilabel instrument recognition
-7. McFee et al. librosa
+7. [DONE] McFee et al. librosa
 8. Kingma & Ba: Adam optimizer
 9. Chollet: Keras package
 10. Bittner et al. MedleyDB
