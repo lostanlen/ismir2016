@@ -14,6 +14,12 @@ Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
 \newblock {\em International Society for Music Information Retrieval
   Conference}, 2014.
 
+\bibitem{Hamel2012}
+Philippe Hamel, Yoshua Bengio, and Douglas Eck.
+\newblock {Building musically-relevant audio features through multiple
+  timescale representations}.
+\newblock In {\em ISMIR}, pages 553--558, 2012.
+
 \bibitem{Joder2009}
 Cyril Joder, Slim Essid, and Ga{\"{e}}l Richard.
 \newblock Temporal integration for audio classification with application to
@@ -21,13 +27,23 @@ Cyril Joder, Slim Essid, and Ga{\"{e}}l Richard.
 \newblock {\em IEEE Transactions on Audio, Speech and Language Processing},
   17(1):174--186, 2009.
 
+\bibitem{Kereliuk2015}
+Corey Kereliuk, Bob~L. Sturm, and Jan Larsen.
+\newblock {Deep Learning and Music Adversaries}.
+\newblock {\em IEEE Transactions on Multimedia}, 17(11):2059--2071, 2015.
+
 \bibitem{Kingma2015}
 Diederik~P. Kingma and Jimmy~Lei Ba.
 \newblock {Adam: a Method for Stochastic Optimization}.
 \newblock {\em International Conference on Learning Representations}, pages
   1--13, 2015.
 
-\bibitem{McFee2015}
+\bibitem{McFee2015-muda}
+Brian Mcfee, Eric~J Humphrey, and Juan~P Bello.
+\newblock {A software framework for musical data augmentation}.
+\newblock In {\em ISMIR}, pages 248--254, 2015.
+
+\bibitem{McFee2015-librosa}
 Brian McFee, Matt McVicar, Colin Raffel, Dawen Liang, Oriol Nieto, Eric
   Battenberg, Josh Moore, Dan Ellis, Ryuichi Yamamoto, Rachel Bittner, Douglas
   Repetto, Petr Viktorin, Jo�o~Felipe Santos, and Adrian Holovaty.
