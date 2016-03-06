@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 MAR 2016 02:01
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 MAR 2016 02:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -297,7 +297,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 File: figs/mfcc_variances.png Graphic file (type QTm)
 
 <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 125--126
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 114--115
  [] 
  []
 
@@ -307,12 +307,12 @@ File: figs/architecture.png Graphic file (type QTm)
 
 
 ]
-Underfull \hbox (badness 1210) in paragraph at lines 177--180
+Underfull \hbox (badness 1210) in paragraph at lines 164--167
 \OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-
  []
 
 
-Underfull \hbox (badness 1584) in paragraph at lines 190--192
+Underfull \hbox (badness 1584) in paragraph at lines 177--179
 \OT1/ptm/m/n/10 op-er-a-tors that per-form a lin-ear com-bi-na-tion of time-
  []
 
@@ -341,7 +341,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  4873 strings out of 493706
  77608 string characters out of 6145769
- 173025 words of memory out of 5000000
+ 174025 words of memory out of 5000000
  8157 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
