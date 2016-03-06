@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  5 MAR 2016 15:01
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 MAR 2016 02:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -197,33 +197,66 @@ Package microtype Info: Loading configuration file microtype.cfg.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/microtype.cfg
 File: microtype.cfg 2013/05/23 v2.5a microtype main configuration file (RS)
 ))
-(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/IEEEtran/IEEEtrantools.sty
+Package: IEEEtrantools 2014/09/17 V1.4 by Michael Shell
+
+-- See the "IEEEtrantools_doc.txt" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/tools/
+\@IEEEtrantmpdimenA=\dimen124
+\@IEEEtrantmpdimenB=\dimen125
+\@IEEEtrantmpdimenC=\dimen126
+\@IEEEtrantmpcountA=\count110
+\@IEEEtrantmpcountB=\count111
+\@IEEEtrantmpcountC=\count112
+\@IEEEtrantmptoksA=\toks21
+\IEEEnormaljot=\dimen127
+\IEEEquantizedlength=\dimen128
+\IEEEquantizedlengthdiff=\dimen129
+\IEEEquantizedtextheightdiff=\dimen130
+\IEEEilabelindentA=\dimen131
+\IEEEilabelindentB=\dimen132
+\IEEEilabelindent=\dimen133
+\IEEEelabelindent=\dimen134
+\IEEEdlabelindent=\dimen135
+\IEEElabelindent=\dimen136
+\IEEEiednormlabelsep=\dimen137
+\IEEEiedmathlabelsep=\dimen138
+\IEEEiedtopsep=\skip51
+\c@IEEEsubequation=\count113
+\@IEEEeqnnumcols=\count114
+\@IEEEeqncolcnt=\count115
+\@IEEEsubeqnnumrollback=\count116
+\IEEEPARstartletwidth=\dimen139
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(./ISMIR2015template.aux)
+(./ISMIR2015template.aux
+
+LaTeX Warning: Label `fig:instrument-distribution' multiply defined.
+
+)
 \openout1 = `ISMIR2015template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 57.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 58.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \microtypecontext on input line 57.
+LaTeX Info: Redefining \microtypecontext on input line 58.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -234,80 +267,84 @@ Package microtype Info: No adjustment of kerning.
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 59.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 60.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
 File: figs/cc_by.pdf Graphic file (type QTm)
 
 <use  "figs/cc_by.pdf" >
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 59.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 60.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 61.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 File: figs/mfcc_variances.png Graphic file (type QTm)
 
-<use  "figs/mfcc_variances.png" > [1
+<use  "figs/mfcc_variances.png" >
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 125--126
+ [] 
+ []
+
+File: figs/architecture.png Graphic file (type QTm)
+<use  "figs/architecture.png" > [1
 
 
 
 ]
-Underfull \hbox (badness 1210) in paragraph at lines 159--162
+Underfull \hbox (badness 1210) in paragraph at lines 177--180
 \OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-
  []
 
 
-Underfull \hbox (badness 1584) in paragraph at lines 172--174
+Underfull \hbox (badness 1584) in paragraph at lines 190--192
 \OT1/ptm/m/n/10 op-er-a-tors that per-form a lin-ear com-bi-na-tion of time-
  []
 
-
-Underfull \hbox (badness 1762) in paragraph at lines 190--192
-\OT1/ptm/m/n/10 We ap-ply non-lin-ear rec-ti-fi-ca-tion, yield-ing $[]\OT1/cmr/
-m/n/10 [\OML/cmm/m/it/10 k[]\OT1/cmr/m/n/10 ] =
- []
-
-(./ISMIR2015template.bbl
-Underfull \hbox (badness 7704) in paragraph at lines 4--9
+[2] (./ISMIR2015template.bbl
+Underfull \hbox (badness 7704) in paragraph at lines 11--16
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 18--22
+Underfull \hbox (badness 1895) in paragraph at lines 25--29
 \OT1/ptm/m/n/10 Method for Stochas-tic Op-ti-miza-tion.  \OT1/ptm/m/it/10 In-te
 r-na-tional
  []
 
 Missing character: There is no � in font ptmr7t!
 
-Underfull \hbox (badness 1184) in paragraph at lines 24--28
+Underfull \hbox (badness 1184) in paragraph at lines 31--35
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
-) [2] (./ISMIR2015template.aux) ) 
+) [3] (./ISMIR2015template.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4456 strings out of 493706
- 69091 string characters out of 6145769
- 165787 words of memory out of 5000000
- 7745 multiletter control sequences out of 15000+600000
+ 4873 strings out of 493706
+ 77608 string characters out of 6145769
+ 173025 words of memory out of 5000000
+ 8157 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,14n,38p,706b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ISMIR2015template.pdf (2 pages).
+Output written on ISMIR2015template.pdf (3 pages).

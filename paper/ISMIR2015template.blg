@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: ISMIR2015template.aux
 The style file: plain.bst
 Database file #1: ISMIR2015template.bib
-You've used 4 entries,
+You've used 5 entries,
             2118 wiz_defined-function locations,
-            521 strings with 4986 characters,
-and the built_in function-call counts, 1712 in all, are:
-= -- 150
-> -- 137
+            530 strings with 5253 characters,
+and the built_in function-call counts, 2187 in all, are:
+= -- 195
+> -- 170
 < -- 1
-+ -- 54
-- -- 50
-* -- 143
-:= -- 305
-add.period$ -- 11
-call.type$ -- 4
-change.case$ -- 37
++ -- 67
+- -- 62
+* -- 188
+:= -- 386
+add.period$ -- 14
+call.type$ -- 5
+change.case$ -- 46
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 44
-empty$ -- 94
-format.name$ -- 50
-if$ -- 331
+cite$ -- 5
+duplicate$ -- 55
+empty$ -- 123
+format.name$ -- 62
+if$ -- 423
 int.to.chr$ -- 0
-int.to.str$ -- 4
-missing$ -- 3
-newline$ -- 22
-num.names$ -- 8
-pop$ -- 40
+int.to.str$ -- 5
+missing$ -- 4
+newline$ -- 27
+num.names$ -- 10
+pop$ -- 47
 preamble$ -- 1
-purify$ -- 33
+purify$ -- 41
 quote$ -- 0
-skip$ -- 36
+skip$ -- 43
 stack$ -- 0
-substring$ -- 64
-swap$ -- 9
+substring$ -- 100
+swap$ -- 10
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
+type$ -- 20
 warning$ -- 0
-while$ -- 13
-width$ -- 5
-write$ -- 42
+while$ -- 17
+width$ -- 6
+write$ -- 53
