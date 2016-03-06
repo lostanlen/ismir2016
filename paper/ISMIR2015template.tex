@@ -75,8 +75,6 @@ First, it is relative: ordering pitches from low to high gives rise to intervals
 Secondly, it is intensive: multiple pitches heard simultaneously produce a chord, not a single unified tone -- contrary to loudness, which adds up with the number of sources.
 Thirdly, it is invariant to instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system. 
 
-Besides this invariance property, understanding the influence of pitch in audio streams is paramount to the design of an efficient system for automated classification, tagging, and similarity retrieval in music. 
-
 Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their Mel-frequency cepstra.
 Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.
 Section 4 improves the aforementioned architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
@@ -294,6 +292,7 @@ Results are charted in Table \ref{table:single-label-results}.
 
 
 \section{Conclusions}
+Understanding the influence of pitch in audio streams is paramount to the design of an efficient system for automated classification, tagging, and similarity retrieval in music. 
 
 % For bibtex users:
 \bibliography{ISMIR2015template}
