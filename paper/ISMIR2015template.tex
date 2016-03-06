@@ -246,6 +246,28 @@ Limited weight sharing has been introduced by Abdel-Hamid et al. \cite{Abdel-Ham
 In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments [see Figure \ref{fig:instrument-distribution}]. Stems with leaking instruments in the background were discarded.
 The evaluation set consists of 120 recordings of solo music collected by Joder et al. \cite{Joder2009}. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB.
 
+\begin{table}
+	\begin{center}
+	\begin{tabular}{|c|cc|cc|}
+		\hline
+		& minutes & tracks & minutes & tracks \\
+		\hline
+		clarinet & 10 & 7 & 13 & 18 \\
+		dist. guitar & 15 & 14 & 17 & 11 \\
+		female singer & 10 & 11 & 19 & 12 \\
+		flute & 7 & 5 & 53 & 29 \\
+		piano & 58 & 28 & 44 & 15 \\
+		tenor sax. & 3 & 3 & 6 & 5 \\
+		trumpet & 4 & 6 & 7 & 27 \\
+		violin & 51 & 14 & 49 & 22 \\
+		\hline
+		total & 158 & 88 & 208 & 139 \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\caption{\label{table:single-label-durations}}
+\end{table}
+
 \subsection{Results}
 Results are charted in Table \ref{table:single-label-results}.
 
