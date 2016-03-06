@@ -108,7 +108,8 @@ Section 5 discusses the effectiveness of the presented systems on a challenging 
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually similar pitch intervals appear equal in width over the full hearing range.
 %Tuning band-pass filters to the mel scale 
 % The subsequent Mel-frequency spectrum 
-
+We found that the MFCC cluster corresponding to each instrument is shrinked if decomposed into a mixture of same-pitch clusters, sometimes by an order of magnitude.
+This experiment shows that the mel-frequency cepstrum lacks invariance to realistic pitch shifts, and that there remains a lot to be gained by feature learning in this area.
 
 The MFCCs were extracted from a filterbank of 40 Mel-frequency bands and 13 discrete cosine transform coefficients.
 
@@ -237,6 +238,7 @@ The architecture was built using the Keras library, and trained on a graphics pr
 
 
 \section{Limited weight sharing}
+"Local neighborhoods in frequency do not share the same relationship", Humphrey acknowledges in his review of deep learning techniques for MIR.
 An Euclidean division of $k_1$ by $Q$ yields $k_1 = j_1 \times Q + \chi_1$.
 
 \begin{IEEEeqnarray}{rCl}

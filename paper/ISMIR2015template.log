@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 MAR 2016 19:31
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 MAR 2016 20:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -297,16 +297,17 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 File: figs/mfcc_variances.png Graphic file (type QTm)
 
 <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 120--121
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 121--122
  [] 
  []
 
+[1
+
+
+
+]
 File: figs/architecture.png Graphic file (type QTm)
-<use  "figs/architecture.png" > [1
-
-
-
-] [2] (./ISMIR2015template.bbl
+ <use  "figs/architecture.png" > [2] (./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 16--21
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -322,13 +323,16 @@ Underfull \hbox (badness 1895) in paragraph at lines 41--45
 r-na-tional
  []
 
+[3]
 Missing character: There is no � in font ptmr7t!
 
 Underfull \hbox (badness 1184) in paragraph at lines 52--56
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
-) [3] (./ISMIR2015template.aux)
+) [4
+
+] (./ISMIR2015template.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -336,10 +340,10 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  4883 strings out of 493706
  77771 string characters out of 6145769
- 175077 words of memory out of 5000000
+ 180077 words of memory out of 5000000
  8167 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,14n,38p,563b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ISMIR2015template.pdf (3 pages).
+Output written on ISMIR2015template.pdf (4 pages).
