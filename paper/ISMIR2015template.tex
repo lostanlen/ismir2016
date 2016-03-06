@@ -244,6 +244,19 @@ The network is trained on categorical cross-entropy over shuffled mini-batches o
 % Comment extraneous vs joint
 % Visualization to compare learned filters
 
+\section{Limited weight sharing}
+An Euclidean division of $k_1$ by $Q$ yields $k_1 = j_1 \times Q + \chi_1$.
+
+\begin{IEEEeqnarray}{rCl}
+\boldsymbol{y_2}[t,k_1,k_2]
+= &
+\boldsymbol{b_2}[j_1, k_2] & \nonumber \\
++ & 
+\boldsymbol{W_2}[t, \chi_1, j_1, k_2] \overset{t,\chi_1}{\ast} \boldsymbol{x_1}[t, \chi_1, j_1].
+\IEEEeqnarraynumspace
+\end{IEEEeqnarray}
+
+Limited weight sharing has been introduced by Abdel-Hamid et al. \cite{Abdel-Hamid2014}.
 
 \section{Single-instrument classification}\label{sec:single-instrument}
 \subsection{Experimental design}
