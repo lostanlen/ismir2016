@@ -7,6 +7,11 @@ Ossama Abdel-Hamid, Abdel-rahman Mohamed, Hui Jiang, Li~Deng, Gerald Penn, and
 \newblock {\em Audio, Speech, and Language Processing, IEEE/ACM Transactions
   on}, 22(10):1533--1545, 2014.
 
+\bibitem{Anden2015}
+Joakim And{\'{e}}n, Vincent Lostanlen, and St{\'{e}}phane Mallat.
+\newblock {Joint Time-Frequency Scattering for Audio Classification}.
+\newblock In {\em Machine Learning for Signal Processing}, 2015.
+
 \bibitem{Bittner2014}
 Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
   Juan Bello.
