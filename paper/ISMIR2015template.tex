@@ -141,7 +141,7 @@ Architecture of a convolutional network with full weight sharing. See text for d
 \label{fig:instrument-distribution}
 }
 \end{figure*}
-\subsection{Time-frequency representation}
+
 We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ MIDI indices, \ie 8 octaves.
 
 \subsection{Architecture}
@@ -225,22 +225,12 @@ The network is trained on categorical cross-entropy over shuffled mini-batches o
 % Mini-batch learning
 % Dropout
 
-\section{Deep supervision of melodic contour}
-\subsection{Disentangling pitch from timbre}
 % Source-filter equation
 % Ref to LeCun on disentangling factors of variability
 % Ref to deeply supervised nets
 % Ref to NIPS 2015
 % Ref to Mallat 2016
 
-\begin{equation}
-\mathscr{L}[\boldsymbol{x_2}, \mathcal{P}] =
-- \sum_{(t, k_1)\in\mathcal{P}} 
-\log \sigma
-\left( \sum_{k_2} \boldsymbol{x_2}[t,k_1,k_2] \right)
-\end{equation}
-
-\subsection{Joint supervision}
 % Different equation
 % Comment extraneous vs joint
 % Visualization to compare learned filters
