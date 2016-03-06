@@ -163,10 +163,12 @@ Each layer in a convolutional network typically consists in the composition of t
 \boldsymbol{W_2}[\tau, \kappa_1, k_2]
 \boldsymbol{x_1}[t-\tau, k_1-\kappa_1].
 \IEEEeqnarraynumspace
+\label{eq:convolution}
 \end{IEEEeqnarray}
  The pointwise nonlinearity we have chosen the \emph{rectified linear unit} (ReLU) because of its popularity in computer vision and its computational efficiency.
  \begin{equation}
  \boldsymbol{y_{2}^{+}}[t,k_1,k_2] = \max \left( \boldsymbol{y_2}[t,k_1,k_2], 0\right)
+ \label{eq:relu}
  \end{equation}
  The pooling step consists in retaining the maximal activation among neighboring units in the time-frequency domain $(t, k_1)$ over non-overlapping rectangles of width $\Delta t$ and height $\Delta k_1$.
 \begin{equation}
@@ -179,9 +181,10 @@ Each layer in a convolutional network typically consists in the composition of t
 \left\{
 \boldsymbol{y_{2}^{+}}[t - \tau, k_1 - \kappa_1, k_2]
 \right\}
+\label{eq:pooling}
 \end{equation}
 The hidden units in $\boldsymbol{x_2}$ are in turn fed to a second layer of convolutions, ReLU, and pooling.
-Observe that the convolutional operator $\boldsymbol{W_3}[\tau, \kappa_1, k_2, k_3]$ performs a linear combination of time-frequency feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
+Observe that the corresponding convolutional operator $\boldsymbol{W_3}[\tau, \kappa_1, k_2, k_3]$ performs a linear combination of time-frequency feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
 \begin{IEEEeqnarray}{rCl}
 \IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_3}[t,k_1,k_3]} \nonumber \\
@@ -193,13 +196,16 @@ Observe that the convolutional operator $\boldsymbol{W_3}[\tau, \kappa_1, k_2, k
 \boldsymbol{x_2}[t,k_1,k_2].
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
+Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsymbol{y_3}$ by ReLU and pooling, with formulae similar to Eqs. (\ref{eq:relu}) and (\ref{eq:pooling}). The third layer consists of the linear projection of $\boldsymbol{x_3}$, viewed as a vector of the flattened index $(t, k_1, k_3)$, over $K_4 = 64$ units:
 \begin{equation}
 \boldsymbol{y_4}[k_4] =
 \sum_{t,k_1,k_3}
 \boldsymbol{W_4}[t, k_1, k_3, k_4]
 \boldsymbol{x_3}[t, k_1, k_3]
+\ref{eq:densely-connected-layer}
 \end{equation}
-We apply a ReLU to $\boldsymbol{y_4}$, yielding $\boldsymbol{x_4}[k_4] = \boldsymbol{y_4^{+}}[k_4]$. $\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
+We apply a ReLU to $\boldsymbol{y_4}$, yielding $\boldsymbol{x_4}[k_4] = \boldsymbol{y_4^{+}}[k_4]$.
+$\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
 \begin{equation}
 \boldsymbol{x_5}[k_5] =
 \frac{\exp \boldsymbol{y_5}[k_5]}
@@ -217,15 +223,9 @@ The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal
 % Categorical cross-entropy
 % For music instrument classification, this objective function is a histogram of the active instruments within an audio stream.
 The network is trained on categorical cross-entropy over shuffled mini-batches of size 512 with uniform class distribution.
-Each training example is a 3-second spectrogram whose boundaries are taken at random within the training set.
+Each training example is a 3-second spectrogram whose boundaries are selected at random over non-silent regions of a song.
 The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
-The architecture was built using the Keras library, and trained on a Titan X graphics processing unit within a few minutes.
-
-
-% Adam optimizer
-% Shuffled examples with uniform class distribution
-% Mini-batch learning
-% Dropout
+The architecture was built using the Keras library, and trained on a graphics processing unit within a few minutes.
 
 % Source-filter equation
 % Ref to LeCun on disentangling factors of variability
@@ -233,9 +233,6 @@ The architecture was built using the Keras library, and trained on a Titan X gra
 % Ref to NIPS 2015
 % Ref to Mallat 2016
 
-% Different equation
-% Comment extraneous vs joint
-% Visualization to compare learned filters
 
 \section{Limited weight sharing}
 An Euclidean division of $k_1$ by $Q$ yields $k_1 = j_1 \times Q + \chi_1$.
@@ -253,8 +250,8 @@ Limited weight sharing has been introduced by Abdel-Hamid et al. \cite{Abdel-Ham
 
 \section{Single-instrument classification}\label{sec:single-instrument}
 \subsection{Experimental design}
-In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments [see Figure \ref{fig:instrument-distribution}]. Stems with leaking instruments in the background were discarded.
-The evaluation set consists of 120 recordings of solo music collected by Joder et al. \cite{Joder2009}. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB.
+In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments (see Table \ref{table:single-label-durations}). Stems with leaking instruments in the background were discarded.
+The evaluation set consists of 126 recordings of solo music collected by Joder et al. \cite{Joder2009}, to which we add 23 stems of electric guitar and female voice from MedleyDB. In doing so, guitarists and vocalists were thoroughly put either in the training set or the test set, to prevent any artist bias. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB.
 
 \begin{table}
 	\begin{center}
