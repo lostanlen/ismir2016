@@ -209,16 +209,13 @@ We apply nonlinear rectification, yielding $\boldsymbol{x_4}[k_4] = \boldsymbol{
 { \Vert \! \exp \boldsymbol{y_5} \Vert_1}
 \end{equation}
 The above ensures that the coefficients of $\boldsymbol{x_5}$ are non-negative and sum to one, hence can be fit to a probability distribution.
-We define the categorical cross-entropy as
-
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
-- \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5].
+- \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]
++ \sum_{m=1}^{4} \lambda_m \Vert \boldsymbol{W_m} \Vert_2.
 \end{equation}
+The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set.
 
-The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x_5}, \mathcal{I})$ in the training set.
-
-\subsection{Training}
 % Random crops
 % Categorical cross-entropy
 The network is trained on categorical cross-entropy over shuffled mini-batches of size 512 with uniform class distribution. The learning rate policy for each scalar weight in the network is  \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
