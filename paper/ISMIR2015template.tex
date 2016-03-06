@@ -63,6 +63,7 @@
 Musical performance combines a wide range of pitches, nuances, and expressive techniques.
 Audio-based classification of musical instruments thus requires to build signal representations that are invariant to such transformations.
 Focusing on pitch invariance, this article investigates the construction of multi-stage architectures for instrument recognition.
+% Missing sentence
 We show that Mel-frequency cepstral coefficients (MFCC) lack invariance with respect to realistic pitch shifts.
 In turn, a convolutional neural network (ConvNet) in the time-frequency domain is able to disentangle pitch variability from timbral information in a subtler way.
 We further improve the ConvNet architecture by limiting weight sharing to octave-wide frequency bands at the first layer, while allowing full weight sharing at deeper layers.
@@ -75,7 +76,7 @@ Among the cognitive attributes of musical tones, pitch is distinguished by a com
 First, it is relative: ordering pitches from low to high gives rise to intervals and melodic patterns.
 Secondly, it is intensive: multiple pitches heard simultaneously produce a chord, not a single unified tone -- contrary to loudness, which adds up with the number of sources.
 Thirdly, it is invariant to instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system. 
-
+% Missing paragraph
 Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their Mel-frequency cepstra.
 Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.
 Section 4 improves the aforementioned architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
@@ -103,7 +104,12 @@ Section 5 discusses the effectiveness of the presented systems on a challenging 
 % Ref to Salamon and Bello
 % Ref to Li, Qian, and Wang arXiv 2015
 
-\section{How invariant is the Mel cepstrum ?}
+\section{How invariant is the Mel-frequency cepstrum ?}
+The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually similar pitch intervals appear equal in width over the full hearing range.
+Tuning band-pass filters to the mel scale 
+% The subsequent Mel-frequency spectrum 
+
+
 The MFCCs were extracted from a filterbank of 40 Mel-frequency bands and 13 discrete cosine transform coefficients.
 
 \begin{figure}[t]
@@ -114,7 +120,7 @@ The MFCCs were extracted from a filterbank of 40 Mel-frequency bands and 13 disc
         \end{picture}
     \end{center}
     \protect\caption{
-Distributions of squared Euclidean distances among various clusters in the RWC dataset. Whisker ends correspond to lower and upper deciles. See text for details.
+Distributions of squared Euclidean distances among various clusters in the RWC dataset. Whisker ends denote lower and upper deciles. See text for details.
 \label{fig:instrument-distribution}
 }
 \end{figure}
@@ -122,7 +128,6 @@ Distributions of squared Euclidean distances among various clusters in the RWC d
 \section{Deep convolutional networks}
 A deep learning system for classification is built by stacking multiple layers of weakly nonlinear transformations, whose parameters are jointly optimized such that the top-level layer fits a training set of labeled examples.
 This section introduces a typical deep learning architecture for audio classification and describes the functioning of each layer.
-% For music instrument classification, this objective function is a histogram of the active instruments within an audio stream.
 
 \begin{figure*}[t]
     \begin{center}
@@ -137,11 +142,12 @@ Architecture of a convolutional network with full weight sharing. See text for d
 }
 \end{figure*}
 
-We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms. Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics. A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ MIDI indices, \ie 8 octaves.
+The input of our system is a constant-Q wavelet scalogram, which is very comparable to a mel-frequency spectrogram.
+We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms.
+Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics.
+A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ frequency bands.
 
-Each layer in a convolutional network typically consists in the composition of three operations: two-dimensional convolutions, application of a pointwise nonlinearity, and subsampling.
-
-First of all, we apply a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of $K_2 = 32$ learned time-frequency convolutional operators, whose supports are constrained to have width $\Delta t$ and height $\Delta k_1$. Element-wise biases $\boldsymbol{b_2}[k_2]$ are added to the convolutions, resulting in the three-way tensor 
+Each layer in a convolutional network typically consists in the composition of three operations: two-dimensional convolutions, application of a pointwise nonlinearity, and local pooling. A convolutional operator is defined as a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of $K_2 = 32$ two-dimensional filters, whose impulse repsonses are all constrained to have width $\Delta t$ and height $\Delta k_1$. Element-wise biases $\boldsymbol{b_2}[k_2]$ are added to the convolutions, resulting in the three-way tensor 
 \begin{IEEEeqnarray}{rCl}
 \IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_2}[t,k_1,k_2]} \nonumber \\
@@ -158,12 +164,11 @@ First of all, we apply a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of $K_2 = 
 \boldsymbol{x_1}[t-\tau, k_1-\kappa_1].
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
-The second step is the application of a pointwise nonlinearity. We have chosen the \emph{rectified linear unit} [ReLU] because of its popularity in computer vision and its computational efficiency.
+ The pointwise nonlinearity we have chosen the \emph{rectified linear unit} (ReLU) because of its popularity in computer vision and its computational efficiency.
  \begin{equation}
  \boldsymbol{y_{2}^{+}}[t,k_1,k_2] = \max \left( \boldsymbol{y_2}[t,k_1,k_2], 0\right)
  \end{equation}
- To achieve invariance to translation as well as frequency transposition, we pool neighboring units in
- the time-frequency domain $(t, k_1)$ over non-overlapping rectangles of width $\Delta t$ and height $\Delta k_1$.
+ The pooling step consists in retaining the maximal activation among neighboring units in the time-frequency domain $(t, k_1)$ over non-overlapping rectangles of width $\Delta t$ and height $\Delta k_1$.
 \begin{equation}
 \boldsymbol{x_2}[t,k_1,k_2] = \! \!
 \max_{
@@ -175,7 +180,8 @@ The second step is the application of a pointwise nonlinearity. We have chosen t
 \boldsymbol{y_{2}^{+}}[t - \tau, k_1 - \kappa_1, k_2]
 \right\}
 \end{equation}
-We apply a family $\boldsymbol{W_3}[\tau, \kappa_1, k_2, k_3]$ of $K_3$ convolutional operators that perform a linear combination of time-frequency feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
+The hidden units in $\boldsymbol{x_2}$ are in turn fed to a second layer of convolutions, ReLU, and pooling.
+Observe that the convolutional operator $\boldsymbol{W_3}[\tau, \kappa_1, k_2, k_3]$ performs a linear combination of time-frequency feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
 \begin{IEEEeqnarray}{rCl}
 \IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_3}[t,k_1,k_3]} \nonumber \\
@@ -187,7 +193,6 @@ We apply a family $\boldsymbol{W_3}[\tau, \kappa_1, k_2, k_3]$ of $K_3$ convolut
 \boldsymbol{x_2}[t,k_1,k_2].
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
-After nonlinear rectification and max-pooling, the layer $\boldsymbol{y_3}$ turns into a non-negative tensor $\boldsymbol{x_3}[t,k_1,k_3]$.
 \begin{equation}
 \boldsymbol{y_4}[k_4] =
 \sum_{t,k_1,k_3}
@@ -210,7 +215,12 @@ The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal
 
 % Random crops
 % Categorical cross-entropy
-The network is trained on categorical cross-entropy over shuffled mini-batches of size 512 with uniform class distribution. The learning rate policy for each scalar weight in the network is  \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
+% For music instrument classification, this objective function is a histogram of the active instruments within an audio stream.
+The network is trained on categorical cross-entropy over shuffled mini-batches of size 512 with uniform class distribution.
+Each training example is a 3-second spectrogram whose boundaries are taken at random within the training set.
+The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
+The architecture was built using the Keras library, and trained on a Titan X graphics processing unit within a few minutes.
+
 
 % Adam optimizer
 % Shuffled examples with uniform class distribution

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 MAR 2016 03:24
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  6 MAR 2016 16:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -297,7 +297,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 File: figs/mfcc_variances.png Graphic file (type QTm)
 
 <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 114--115
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 120--121
  [] 
  []
 
@@ -306,17 +306,7 @@ File: figs/architecture.png Graphic file (type QTm)
 
 
 
-]
-Underfull \hbox (badness 1210) in paragraph at lines 164--167
-\OT1/ptm/m/n/10 trans-po-si-tion, we pool neigh-bor-ing units in the time-
- []
-
-
-Underfull \hbox (badness 1584) in paragraph at lines 177--179
-\OT1/ptm/m/n/10 op-er-a-tors that per-form a lin-ear com-bi-na-tion of time-
- []
-
-[2] (./ISMIR2015template.bbl
+] [2] (./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 11--16
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -341,10 +331,10 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  4874 strings out of 493706
  77638 string characters out of 6145769
- 177033 words of memory out of 5000000
+ 174033 words of memory out of 5000000
  8158 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 36i,14n,38p,706b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,14n,38p,563b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on ISMIR2015template.pdf (3 pages).
