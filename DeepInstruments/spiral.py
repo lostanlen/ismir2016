@@ -29,8 +29,7 @@ def build_graph(
         drop2_proportion,
         dense2_channels):
     graph = Graph()
-    init = "glorot_normal"
-    lasso2 = ActivityRegularizer(l1=0.0)
+    lasso2 = ActivityRegularizer(l1=lasso2_rate)
     assert n_octaves == 8
     assert conv1_height == (n_bins_per_octave+1)
     assert not is_Z_supervision

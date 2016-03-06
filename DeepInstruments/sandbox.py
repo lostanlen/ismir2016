@@ -26,21 +26,24 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
-is_spiral = True
+is_spiral = False
 is_Z_supervision = False
-conv1_channels = 16
+conv1_channels = 32
 conv1_height = 13
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
-conv2_channels = 16
-conv2_height = 16
-conv2_width = 7
-pool2_height = 4
-pool2_width = 7
-drop1_proportion = 0.5
-dense1_channels = 32
-drop2_proportion = 0.5
+if is_spiral:
+    conv2_height = 16
+else:
+    conv2_height = 20
+conv2_channels = 32
+conv2_width = 5
+pool2_height = 3
+pool2_width = 6
+drop1_proportion = 0.0
+dense1_channels = 64
+drop2_proportion = 0.0
 
 # Parameters for learning
 batch_size = 32

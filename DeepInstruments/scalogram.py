@@ -48,10 +48,8 @@ def build_graph(
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
 
     # Layers towards instrument target
-    lasso2 = ActivityRegularizer(l1=0.001)
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
-                          border_mode="valid",
-                          activity_regularizer=lasso2)
+                          border_mode="valid")
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
     relu2 = LeakyReLU()

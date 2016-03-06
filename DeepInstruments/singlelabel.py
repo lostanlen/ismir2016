@@ -314,12 +314,11 @@ def predict(graph, X_test):
     G_dummy = np.zeros(X_test.shape)
     mask_shape = X_test.shape[:1] + graph.output_shape["zero"][1:]
     mask_dummy = np.zeros(mask_shape)
-    Y_predicted = graph.predict({"X": X_test,
+    class_probs = graph.predict({"X": X_test,
                                  "Z": Z_dummy,
                                  "G": G_dummy,
                                  "zero": mask_dummy})["Y"]
-    y_predicted = np.argmax(Y_predicted, axis=1)
-    return y_predicted
+    return class_probs
 
 
 def print_accuracies(accuracies):

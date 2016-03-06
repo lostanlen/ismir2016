@@ -52,25 +52,19 @@ def predict(graph, is_spiral, is_Z_supervision, X_test):
         if is_Z_supervision:
             pass
         else:
-            # X0 = X_test[:, :, xrange(0*12, 2*12), :]
             X1 = X_test[:, :, xrange(1*12, 3*12), :]
             X2 = X_test[:, :, xrange(2*12, 4*12), :]
             X3 = X_test[:, :, xrange(3*12, 5*12), :]
             X4 = X_test[:, :, xrange(4*12, 6*12), :]
             X5 = X_test[:, :, xrange(5*12, 7*12), :]
-            # X6 = X_test[:, :, xrange(6*12, 8*12), :]
-            y_predicted = np.argmax(
-                graph.predict({"X1": X1, "X2": X2, "X3": X3,
-                               "X4": X4, "X5": X5})["Y"],
-                axis=1)
-            return y_predicted
+            class_probs = graph.predict({"X1": X1, "X2": X2, "X3": X3,
+                                         "X4": X4, "X5": X5})["Y"]
     else:
         if is_Z_supervision:
-            y_predicted = di.singlelabel.predict(graph, X_test)
-            return y_predicted
+            class_probs = di.singlelabel.predict(graph, X_test)
         else:
-            y_predicted = np.argmax(graph.predict({"X": X_test})["Y"], axis=1)
-            return y_predicted
+            class_probs = graph.predict({"X": X_test})["Y"]
+    return class_probs
 
 
 def substract_and_mask(args):
