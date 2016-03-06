@@ -251,7 +251,22 @@ In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2
 The evaluation set consists of 120 recordings of solo music collected by Joder et al. \cite{Joder2009}. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB.
 
 \subsection{Results}
+Results are charted in Table \ref{table:single-label-results}.
 
+\begin{table}
+	\begin{center}
+	\begin{tabular}{|l|c|}
+		\hline
+		Representation & Error rate (\%) \\
+		\hline
+		MFCC \& random forest & $-$ \\
+		ConvNet, full weight sharing & $-$ \\
+		ConvNet, limited weight sharing & $-$ \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\caption{\label{table:single-label-results}}
+\end{table}
 
 \section{Polyphonic classification}\label{sec:polyphonic}
 \subsection{Experimental design}
