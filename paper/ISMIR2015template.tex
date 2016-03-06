@@ -109,6 +109,7 @@ The mel scale is a quasi-logarithmic function of acoustic frequency designed suc
 %Tuning band-pass filters to the mel scale 
 % The subsequent Mel-frequency spectrum 
 We found that the MFCC cluster corresponding to each instrument is shrinked if decomposed into a mixture of same-pitch clusters, sometimes by an order of magnitude.
+In other words, most of the variance in an instrument cluster of mel-frequency cepstra is due to pitch transposition.
 This experiment shows that the mel-frequency cepstrum lacks invariance to realistic pitch shifts, and that there remains a lot to be gained by feature learning in this area.
 
 The MFCCs were extracted from a filterbank of 40 Mel-frequency bands and 13 discrete cosine transform coefficients.
@@ -237,19 +238,21 @@ The architecture was built using the Keras library, and trained on a graphics pr
 % Ref to Mallat 2016
 
 
-\section{Limited weight sharing}
+\section{Convolutions on the pitch spiral}
 "Local neighborhoods in frequency do not share the same relationship", Humphrey acknowledges in his review of deep learning techniques for MIR.
 An Euclidean division of $k_1$ by $Q$ yields $k_1 = j_1 \times Q + \chi_1$.
-
 \begin{IEEEeqnarray}{rCl}
+\IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_2}[t,k_1,k_2]
-= &
-\boldsymbol{b_2}[j_1, k_2] & \nonumber \\
-+ & 
-\boldsymbol{W_2}[t, \chi_1, j_1, k_2] \overset{t,\chi_1}{\ast} \boldsymbol{x_1}[t, \chi_1, j_1].
+= 
+\boldsymbol{b_2}[j_1, k_2]  \nonumber} \\
++
+\sum_{\tau, \kappa_1, j_1}
+\boldsymbol{W_2}[\tau, \kappa_1, j_1, k_2]
+\boldsymbol{x_1}[t-\tau, k_1 - \kappa_1 + Q j_1].
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
-
+Compare the above with Equation (\ref{eq:convolution}).
 Limited weight sharing has been introduced by Abdel-Hamid et al. \cite{Abdel-Hamid2014}.
 
 \section{Single-instrument classification}\label{sec:single-instrument}
