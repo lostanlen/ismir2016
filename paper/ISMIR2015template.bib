@@ -9,6 +9,23 @@
   publisher={IEEE}
 }
 
+@inproceedings{Anden2015,
+abstract = {We introduce the joint time-frequency scattering transform, a time shift invariant descriptor of time-frequency structure for audio classification. It is obtained by applying a two-dimensional wavelet transform in time and log-frequency to a time-frequency wavelet scalogram. We show that this descriptor successfully characterizes complex time-frequency phenomena such as time-varying filters and frequency modulated excitations. State-of-the-art results are achieved for signal reconstruction and phone segment classification on the TIMIT dataset.},
+archivePrefix = {arXiv},
+arxivId = {1512.02125},
+author = {And{\'{e}}n, Joakim and Lostanlen, Vincent and Mallat, St{\'{e}}phane},
+booktitle = {Machine Learning for Signal Processing},
+doi = {10.1109/MLSP.2015.7324385},
+eprint = {1512.02125},
+file = {:Users/vlostan/Library/Application Support/Mendeley Desktop/Downloaded/e8ca21f1ef9b9dbe3f51eccf3d5afd24d08df1c3.pdf:pdf},
+isbn = {9781467374545},
+title = {{Joint Time-Frequency Scattering for Audio Classification}},
+url = {http://arxiv.org/abs/1512.02125
+http://dx.doi.org/10.1109/MLSP.2015.7324385},
+year = {2015}
+}
+
+
 @article{Bittner2014,
 abstract = {We introduce MedleyDB: a dataset of annotated, royalty-free multitrack recordings. The dataset was primarily developed to support research on melody extraction, addressing important shortcomings of existing collections. For each song we provide melody f0 annotations as well as instrument activations for evaluating automatic instrument recognition. The dataset is also useful for research on tasks that require access to the individual tracks of a song such as source separation and automatic mixing. In this paper we provide a detailed description of MedleyDB, including curation, annotation, and musical content. To gain insight into the new challenges presented by the dataset, we run a set of experiments using a state-of-the-art melody extraction algorithm and discuss the results. The dataset is shown to be considerably more challenging than the current test sets used in the MIREX evaluation campaign, thus opening new research avenues in melody extraction research.},
 author = {Bittner, Rachel and Salamon, Justin and Tierney, Mike and Mauch, Matthias and Cannam, Chris and Bello, Juan},
@@ -16,6 +33,19 @@ journal = {International Society for Music Information Retrieval Conference},
 title = {MedleyDB: a multitrack dataset for annotation-intensive MIR research},
 url = {http://marl.smusic.nyu.edu/medleydb{\_}webfiles/bittner{\_}medleydb{\_}ismir2014.pdf},
 year = {2014}
+}
+
+@article{Hamel2012,
+abstract = {Low-level aspects of music audio such as timbre, loud- ness and pitch, can be relatively well modelled by features extracted from short-time windows. Higher-level aspects such as melody, harmony, phrasing and rhythm, on the other hand, are salient only at larger timescales and re- quire a better representation of time dynamics. For var- ious music information retrieval tasks, one would bene?t from modelling both low and high level aspects in a uni- ?ed feature extraction framework. By combining adaptive features computed at different timescales, short-timescale events are put in context by detecting longer timescale fea- tures. In this paper, we describe a method to obtain such multi-scale features and evaluate its effectiveness for auto- matic tag annotation.},
+author = {Hamel, Philippe and Bengio, Yoshua and Eck, Douglas},
+file = {:Users/vlostan/Library/Application Support/Mendeley Desktop/Downloaded/18e4b042f9134a9d963ecc9fa0e17703e06572cc.pdf:pdf},
+isbn = {9789727521449},
+journal = {Proceedings of the 13th International Society for Musical Information Retrieval Conference},
+number = {Ismir},
+pages = {553--558},
+title = {{Building musically-relevant audio features through multiple timescale representations}},
+url = {http://ismir2012.ismir.net/event/papers/553{\_}ISMIR{\_}2012.pdf},
+year = {2012}
 }
 
 @article{Joder2009,
@@ -33,15 +63,22 @@ volume = {17},
 year = {2009}
 }
 
-@article{Li2015,
-abstract = {Traditional methods to tackle many music information retrieval tasks typically follow a two-step architecture: feature engineering followed by a simple learning algorithm. In these "shallow" architectures, feature engineering and learning are typically disjoint and unrelated. Additionally, feature engineering is difficult, and typically depends on extensive domain expertise. In this paper, we present an application of convolutional neural networks for the task of automatic musical instrument identification. In this model, feature extraction and learning algorithms are trained together in an end-to-end fashion. We show that a convolutional neural network trained on raw audio can achieve performance surpassing traditional methods that rely on hand-crafted features.},
+@article{Kereliuk2015,
+abstract = {An adversary is essentially an algorithm intent on making a classification system perform in some particular way given an input, e.g., increase the probability of a false negative. Recent work builds adversaries for deep learning systems applied to image object recognition, which exploits the parameters of the system to find the minimal perturbation of the input image such that the network misclassifies it with high confidence. We adapt this approach to construct and deploy an adversary of deep learning systems applied to music content analysis. In our case, however, the input to the systems is magnitude spectral frames, which requires special care in order to produce valid input audio signals from network-derived perturbations. For two different train-test partitionings of two benchmark datasets, and two different deep architectures, we find that this adversary is very effective in defeating the resulting systems. We find the convolutional networks are more robust, however, compared with systems based on a majority vote over individually classified audio frames. Furthermore, we integrate the adversary into the training of new deep systems, but do not find that this improves their resilience against the same adversary.},
 archivePrefix = {arXiv},
-arxivId = {1511.05520},
-author = {Li, Peter and Qian, Jiyuan and Wang, Tian},
-eprint = {1511.05520},
-file = {:Users/vlostan/Library/Application Support/Mendeley Desktop/Downloaded/fedeeda2182eef200a4ac9af9caf95708bd0ecca.pdf:pdf},
-title = {{Automatic Instrument Recognition in Polyphonic Music Using Convolutional Neural Networks}},
-url = {http://arxiv.org/abs/1511.05520},
+arxivId = {1507.04761},
+author = {Kereliuk, Corey and Sturm, Bob L. and Larsen, Jan},
+doi = {10.1109/TMM.2015.2478068},
+eprint = {1507.04761},
+file = {:Users/vlostan/Library/Application Support/Mendeley Desktop/Downloaded/01005e6cff03ae253c088741b53ffe4a7280450e.pdf:pdf},
+issn = {15209210},
+journal = {IEEE Transactions on Multimedia},
+keywords = {AEA-MIR content-based processing and music information retrieval,deep learning},
+number = {11},
+pages = {2059--2071},
+title = {{Deep Learning and Music Adversaries}},
+url = {http://www2.imm.dtu.dk/pubdb/views/edoc{\_}download.php/6904/pdf/imm6904.pdf},
+volume = {17},
 year = {2015}
 }
 
@@ -59,7 +96,19 @@ url = {http://arxiv.org/pdf/1412.6980v8.pdf},
 year = {2015}
 }
 
-@misc{McFee2015,
+@article{Li2015,
+abstract = {Traditional methods to tackle many music information retrieval tasks typically follow a two-step architecture: feature engineering followed by a simple learning algorithm. In these "shallow" architectures, feature engineering and learning are typically disjoint and unrelated. Additionally, feature engineering is difficult, and typically depends on extensive domain expertise. In this paper, we present an application of convolutional neural networks for the task of automatic musical instrument identification. In this model, feature extraction and learning algorithms are trained together in an end-to-end fashion. We show that a convolutional neural network trained on raw audio can achieve performance surpassing traditional methods that rely on hand-crafted features.},
+archivePrefix = {arXiv},
+arxivId = {1511.05520},
+author = {Li, Peter and Qian, Jiyuan and Wang, Tian},
+eprint = {1511.05520},
+file = {:Users/vlostan/Library/Application Support/Mendeley Desktop/Downloaded/fedeeda2182eef200a4ac9af9caf95708bd0ecca.pdf:pdf},
+title = {{Automatic Instrument Recognition in Polyphonic Music Using Convolutional Neural Networks}},
+url = {http://arxiv.org/abs/1511.05520},
+year = {2015}
+}
+
+@misc{McFee2015-librosa,
   author       = {Brian McFee and
                   Matt McVicar and
                   Colin Raffel and
@@ -80,3 +129,13 @@ year = {2015}
   doi          = {10.5281/zenodo.32193},
   url          = {http://dx.doi.org/10.5281/zenodo.32193}
 }
+
+@article{Mcfee2015-muda,
+author = {Mcfee, Brian and Humphrey, Eric J and Bello, Juan P},
+file = {:Users/vlostan/Library/Application Support/Mendeley Desktop/Downloaded/71aa6ba50f44c81060db67c7cb237d2cc72be1f1.pdf:pdf},
+pages = {248--254},
+title = {{A software framework for musical data augmentation}},
+url = {https://bmcfee.github.io/papers/ismir2015{\_}augmentation.pdf},
+year = {2015}
+}
+

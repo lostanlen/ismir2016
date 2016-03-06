@@ -106,7 +106,7 @@ Section 5 discusses the effectiveness of the presented systems on a challenging 
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually similar pitch intervals appear equal in width over the full hearing range.
-Tuning band-pass filters to the mel scale 
+%Tuning band-pass filters to the mel scale 
 % The subsequent Mel-frequency spectrum 
 
 
@@ -143,7 +143,7 @@ Architecture of a convolutional network with full weight sharing. See text for d
 \end{figure*}
 
 The input of our system is a constant-Q wavelet scalogram, which is very comparable to a mel-frequency spectrogram.
-We used the implementation from the librosa package \cite{McFee2015} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms.
+We used the implementation from the librosa package \cite{McFee2015-librosa} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms.
 Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics.
 A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ frequency bands.
 
@@ -197,13 +197,15 @@ Observe that the corresponding convolutional operator $\boldsymbol{W_3}[\tau, \k
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
 Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsymbol{y_3}$ by ReLU and pooling, with formulae similar to Eqs. (\ref{eq:relu}) and (\ref{eq:pooling}). The third layer consists of the linear projection of $\boldsymbol{x_3}$, viewed as a vector of the flattened index $(t, k_1, k_3)$, over $K_4 = 64$ units:
-\begin{equation}
+\begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_4}[k_4] =
+\boldsymbol{b_4}[k_4] +
 \sum_{t,k_1,k_3}
 \boldsymbol{W_4}[t, k_1, k_3, k_4]
 \boldsymbol{x_3}[t, k_1, k_3]
-\ref{eq:densely-connected-layer}
-\end{equation}
+\label{eq:densely-connected-layer}
+\IEEEeqnarraynumspace
+\end{IEEEeqnarray}
 We apply a ReLU to $\boldsymbol{y_4}$, yielding $\boldsymbol{x_4}[k_4] = \boldsymbol{y_4^{+}}[k_4]$.
 $\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
 \begin{equation}
@@ -318,6 +320,7 @@ Results are charted in Table \ref{table:multi-label-results}.
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of an efficient system for automated classification, tagging, and similarity retrieval in music. 
 
+Future work will be devoted to integrating the proposed scheme with other advances in deep learning for music informatics, such as data augmentation \cite{McFee2015-muda}, multiscale representations \cite{Hamel2012}, and adversarial training \cite{Kereliuk2015}.
 % For bibtex users:
 \bibliography{ISMIR2015template}
 
