@@ -59,7 +59,13 @@
 \maketitle
 %
 \begin{abstract}
-The abstract should be placed at the top left column and should contain about 150-200 words.
+Musical performance combines a wide range of pitches, nuances, and expressive techniques.
+Audio-based classification of musical instruments thus requires to build signal representations that are invariant to such transformations.
+Focusing on pitch invariance, this article investigates the construction of multi-stage architectures for instrument recognition.
+We show that Mel-frequency cepstral coefficients (MFCC) lack invariance with respect to realistic pitch shifts.
+In turn, a convolutional neural network (ConvNet) in the time-frequency domain is able to disentangle pitch variability from timbral information in a subtler way.
+We further improve the ConvNet architecture by limiting weight sharing to octave-wide frequency bands at the first layer, while allowing full weight sharing at deeper layers.
+We extend our method to the recognition of multiple instruments playing simultaneously.
 \end{abstract}
 %
 
