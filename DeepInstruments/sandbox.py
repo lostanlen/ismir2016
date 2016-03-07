@@ -28,15 +28,15 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 # Parameters for ConvNet
 is_spiral = False
 is_Z_supervision = False
-conv1_channels = 32
-conv1_height = 13
+conv1_channels = 3
+conv1_height = 3
 conv1_width = 3
 pool1_height = 3
-pool1_width = 6
+pool1_width = 3
 if is_spiral:
-    conv2_height = 16
+    conv2_height = 3
 else:
-    conv2_height = 20
+    conv2_height = 3
 conv2_channels = 32
 conv2_width = 5
 pool2_height = 3
@@ -69,10 +69,7 @@ export_str = spiral_str +\
 # I/O sizes
 X_width = decision_length / hop_length
 dense2_channels = 8
-if is_spiral:
-    X_height = n_bins_per_octave
-else:
-    X_height = n_bins_per_octave * n_octaves
+X_height = n_bins_per_octave * n_octaves
 mask_width = X_width / pool1_width
 mask_height = X_height / pool1_height
 masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
