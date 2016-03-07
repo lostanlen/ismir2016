@@ -61,7 +61,7 @@ def build_graph(
     graph.add_node(conv1_X5, name="conv1_X5", input="X5")
 
     # Spiral concatenation and pooling
-    relu1 = PReLU()
+    relu1 = PReLU(init=init)
     graph.add_node(relu1, name="relu1",
                    inputs=["conv1_X0", "conv1_X1", "conv1_X2",
                            "conv1_X3", "conv1_X4", "conv1_X5"],
@@ -75,7 +75,7 @@ def build_graph(
                           border_mode="valid", init=init)
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
-    relu2 = PReLU()
+    relu2 = PReLU(init=init)
     graph.add_node(relu2, name="relu2", input="conv2")
 
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
@@ -91,7 +91,7 @@ def build_graph(
     dense1 = Dense(dense1_channels, init="lecun_uniform")
     graph.add_node(dense1, name="dense1", input="drop1")
 
-    relu3 = PReLU()
+    relu3 = PReLU(init=init)
     graph.add_node(relu3, name="relu3", input="dense1")
 
     drop2 = Dropout(drop2_proportion)
