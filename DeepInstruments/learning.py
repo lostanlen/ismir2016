@@ -53,6 +53,7 @@ def predict(graph, is_spiral, is_Z_supervision, X_test):
         if is_Z_supervision:
             pass
         else:
+            Q = 12
             X0 = X_test * window(X_test, Q, 1*Q)
             X1 = X_test * window(X_test, Q, 2*Q)
             X2 = X_test * window(X_test, Q, 3*Q)
