@@ -44,7 +44,7 @@ def build_graph(
                           border_mode="valid", init=init)
     graph.add_node(conv1, name="conv1", input="X")
 
-    bn1 = BatchNormalization(mode=1, input_shape=X_shape)
+    bn1 = BatchNormalization(mode=1)
     graph.add_node(bn1, name="bn1", input="conv1")
 
     relu1 = LeakyReLU()
@@ -58,7 +58,7 @@ def build_graph(
                           border_mode="valid", init=init)
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
-    bn2 = BatchNormalization(mode=1, input_shape=X_shape)
+    bn2 = BatchNormalization(mode=1)
     graph.add_node(bn2, name="bn2", input="conv2")
 
     relu2 = LeakyReLU()
@@ -76,7 +76,7 @@ def build_graph(
     dense1 = Dense(dense1_channels, init="lecun_uniform")
     graph.add_node(dense1, name="dense1", input="drop1")
 
-    bn3 = BatchNormalization(mode=0, input_shape=X_shape)
+    bn3 = BatchNormalization(mode=0)
     graph.add_node(bn3, name="bn3", input="dense1")
 
     relu3 = LeakyReLU()
@@ -88,8 +88,7 @@ def build_graph(
     dense2 = Dense(dense2_channels, init="lecun_uniform")
     graph.add_node(dense2, name="dense2", input="drop2")
 
-    bn_softmax = BatchNormalization(mode=0, input_shape=X_shape,
-                                    activation="softmax")
+    bn_softmax = BatchNormalization(mode=0, activation="softmax")
     graph.add_node(bn_softmax, name="bn_softmax",
                    input="dense2")
 
