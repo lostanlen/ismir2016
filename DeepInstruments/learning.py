@@ -107,8 +107,8 @@ def train_on_batch(graph, is_spiral, is_Z_supervision,
             return loss
 
 
-def window(X_batch, half_width, center):
+def window(X_batch, top_width, start):
     phi = np.zeros((1, 1, X_batch.shape[2], 1))
-    support = xrange(center-half_width, center+half_width)
-    phi[0, 0, support, 0] = scipy.signal.tukey(2*half_width)
+    support = xrange(start, start + 3*top_width)
+    phi[0, 0, support, 0] = scipy.signal.tukey(3*top_width, alpha=1.0/3)
     return phi
