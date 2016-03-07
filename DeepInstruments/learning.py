@@ -71,6 +71,7 @@ def predict(graph, is_spiral, is_Z_supervision, X_test):
 def substract_and_mask(args):
     return (args[0] - args[1]) * args[2]
 
+
 def train_on_batch(graph, is_spiral, is_Z_supervision,
                    X_batch, Y_batch, Z_batch, G_batch, masked_output):
     if is_spiral:
@@ -85,9 +86,9 @@ def train_on_batch(graph, is_spiral, is_Z_supervision,
         if is_Z_supervision:
             pass
         else:
-            loss = graph.train_on_batch({"X1": X1, "X2": X2,
+            loss = graph.train_on_batch({"X0": X0, "X1": X1, "X2": X2,
                                          "X3": X3, "X4": X4, "X5": X5,
-                                         "Y": Y_batch})
+                                         "X6": X6, "Y": Y_batch})
             return loss
     else:
         if is_Z_supervision:
