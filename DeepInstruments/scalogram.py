@@ -34,6 +34,9 @@ def build_graph(
     X_height = n_octaves * n_bins_per_octave
     X_shape = (1, X_height, X_width)
     graph.add_input(name="X", input_shape=X_shape)
+    X_bn = BatchNormalization(mode=1)
+    graph.add_node(X_bn, name="X_bn", input="conv1")
+
     if is_Z_supervision:
         graph.add_input(name="Z", input_shape=X_shape)
         graph.add_input(name="G", input_shape=X_shape)
@@ -42,7 +45,7 @@ def build_graph(
     init = "he_normal"
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                           border_mode="valid", init=init)
-    graph.add_node(conv1, name="conv1", input="X")
+    graph.add_node(conv1, name="conv1", input="X_bn")
 
     bn1 = BatchNormalization(mode=1)
     graph.add_node(bn1, name="bn1", input="conv1")
