@@ -62,15 +62,11 @@ def build_graph(
     graph.add_node(conv1_X6, name="conv1_X6", input="X6")
 
     # Spiral concatenation and pooling
-    merge = Merge([conv1_X0, conv1_X1, conv1_X2, conv1_X3,
-                   conv1_X4, conv1_X5, conv1_X6],
-                  mode="sum", concat_axis=1)
-    graph.add_node(merge, name="merge",
-                   inputs=["conv1_X0", "conv1_X1", "conv1_X2", "conv1_X3",
-                           "conv1_X4", "conv1_X5", "conv1_X6"])
-
     relu1 = LeakyReLU()
-    graph.add_node(relu1, name="relu1", input="merge")
+    graph.add_node(relu1, name="relu1",
+                   inputs=["conv1_X0", "conv1_X1", "conv1_X2", "conv1_X3",
+                           "conv1_X4", "conv1_X5", "conv1_X6"],
+                   merge_mode="sum", concat_axis=1)
 
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
