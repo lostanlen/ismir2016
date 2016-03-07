@@ -120,10 +120,10 @@ class ScalogramGenerator(object):
         X_mat = np.hstack([X[class_id][file_id][:, indices[class_id][file_id]]
                            for class_id in range(len(X))
                            for file_id in range(len(X[class_id]))])
-        self.X_mean = np.mean(X_mat)
-        self.X_std = np.std(X_mat)
+        self.X_min = np.min(X_mat)
+        self.X_max = np.max(X_mat)
         for instrument_id in range(len(X)):
-            X[instrument_id] = [(X_file-self.X_mean) / self.X_std
+            X[instrument_id] = [(X_file-self.X_min) / (self.X_max-self.X_min)
                                 for X_file in X[instrument_id]]
         self.X = X
         self.Y = Y
@@ -183,7 +183,7 @@ class ScalogramGenerator(object):
         shape = X_test.shape
         new_shape = (shape[0], 1, shape[1], shape[2])
         X_test = np.reshape(X_test, new_shape)
-        X_test = (X_test - self.X_mean) / self.X_std
+        X_test = (X_test - self.X_min) / (self.X_max - self.X_min)
         return X_test
 
 
