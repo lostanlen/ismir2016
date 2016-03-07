@@ -28,22 +28,24 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 # Parameters for ConvNet
 is_spiral = False
 is_Z_supervision = False
-conv1_channels = 3
-conv1_height = 3
-conv1_width = 3
-pool1_height = 3
-pool1_width = 3
+
+conv1_channels = 32
 if is_spiral:
-    conv2_height = 3
+    conv1_height = 3
+    conv1_width = 3
 else:
-    conv2_height = 3
+    conv1_height = 13
+    conv1_width = 3
+pool1_height = 3
+pool1_width = 6
 conv2_channels = 32
-conv2_width = 5
+conv2_height = 20
+conv2_width = 7
 pool2_height = 3
 pool2_width = 6
-drop1_proportion = 0.0
-dense1_channels = 64
-drop2_proportion = 0.0
+drop1_proportion = 0.5
+dense1_channels = 32
+drop2_proportion = 0.5
 
 # Parameters for learning
 batch_size = 32
@@ -125,8 +127,9 @@ for epoch_id in xrange(n_epochs):
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
     # Measure test accuracies
-    y_predicted = di.learning.predict(graph, is_spiral, is_Z_supervision,
+    class_probs = di.learning.predict(graph, is_spiral, is_Z_supervision,
                                       X_test)
+    y_predicted = np.argmax(class_probs, axis=1)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
     file_accuracies = di.singlelabel.file_accuracies(test_paths, y_predicted,
