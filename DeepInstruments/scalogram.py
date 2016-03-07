@@ -6,6 +6,7 @@ from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.convolutional import AveragePooling1D,\
     Convolution2D, MaxPooling2D
 from keras.regularizers import ActivityRegularizer, WeightRegularizer
+from keras.layers.normalization import BatchNormalization
 
 
 def build_graph(
@@ -31,16 +32,20 @@ def build_graph(
 
     # Input
     X_height = n_octaves * n_bins_per_octave
-    graph.add_input(name="X", input_shape=(1, X_height, X_width))
+    X_shape = (1, X_height, X_width)
+    graph.add_input(name="X", input_shape=X_shape)
     if is_Z_supervision:
-        graph.add_input(name="Z", input_shape=(1, X_height, X_width))
-        graph.add_input(name="G", input_shape=(1, X_height, X_width))
+        graph.add_input(name="Z", input_shape=X_shape)
+        graph.add_input(name="G", input_shape=X_shape)
 
     # Shared layers
     init = "he_normal"
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                           border_mode="valid", init=init)
     graph.add_node(conv1, name="conv1", input="X")
+
+    bn1 = BatchNormalization(mode=1, input_shape=X_shape)
+    graph.add_node(bn1, name="bn1", input="conv1")
 
     relu1 = LeakyReLU()
     graph.add_node(relu1, name="relu1", input="conv1")
@@ -52,6 +57,9 @@ def build_graph(
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
                           border_mode="valid", init=init)
     graph.add_node(conv2, name="conv2", input="pool1_X")
+
+    bn2 = BatchNormalization(mode=1, input_shape=X_shape)
+    graph.add_node(bn2, name="bn2", input="conv2")
 
     relu2 = LeakyReLU()
     graph.add_node(relu2, name="relu2", input="conv2")
@@ -68,15 +76,22 @@ def build_graph(
     dense1 = Dense(dense1_channels, init="lecun_uniform")
     graph.add_node(dense1, name="dense1", input="drop1")
 
+    bn3 = BatchNormalization(mode=0, input_shape=X_shape)
+    graph.add_node(bn3, name="bn3", input="dense1")
+
     relu3 = LeakyReLU()
     graph.add_node(relu3, name="relu3", input="dense1")
 
     drop2 = Dropout(drop2_proportion)
     graph.add_node(drop2, name="drop2", input="relu3")
 
-    dense2 = Dense(dense2_channels, activation="softmax",
-                   init="lecun_uniform")
+    dense2 = Dense(dense2_channels, init="lecun_uniform")
     graph.add_node(dense2, name="dense2", input="drop2")
+
+    bn_softmax = BatchNormalization(mode=0, input_shape=X_shape,
+                                    activation="softmax")
+    graph.add_node(bn_softmax, name="bn_softmax",
+                   input="dense2")
 
     if is_Z_supervision:
         # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
