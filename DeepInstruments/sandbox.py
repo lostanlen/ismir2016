@@ -44,12 +44,12 @@ conv2_channels = 32
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
-drop1_proportion = 0.5
+drop1_proportion = 0.0
 dense1_channels = 32
-drop2_proportion = 0.5
+drop2_proportion = 0.0
 
 # Parameters for learning
-batch_size = 256
+batch_size = 32
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
