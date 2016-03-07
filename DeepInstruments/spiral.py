@@ -1,7 +1,7 @@
 import DeepInstruments as di
 import keras
 from keras.models import Graph
-from keras.layers.advanced_activations import LeakyReLU, PReLU
+from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.core import Merge
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
@@ -41,8 +41,7 @@ def build_graph(
     # Octave-wise convolutional layers
     init = "he_normal"
     conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init=init,
-                             )
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X0, name="conv1_X0", input="X0")
     conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
@@ -61,7 +60,7 @@ def build_graph(
     graph.add_node(conv1_X5, name="conv1_X5", input="X5")
 
     # Spiral concatenation and pooling
-    relu1 = PReLU(init=init)
+    relu1 = LeakyReLU()
     graph.add_node(relu1, name="relu1",
                    inputs=["conv1_X0", "conv1_X1", "conv1_X2",
                            "conv1_X3", "conv1_X4", "conv1_X5"],
@@ -75,7 +74,7 @@ def build_graph(
                           border_mode="valid", init=init)
     graph.add_node(conv2, name="conv2", input="pool1_X")
 
-    relu2 = PReLU(init=init)
+    relu2 = LeakyReLU()
     graph.add_node(relu2, name="relu2", input="conv2")
 
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
@@ -91,7 +90,7 @@ def build_graph(
     dense1 = Dense(dense1_channels, init="lecun_uniform")
     graph.add_node(dense1, name="dense1", input="drop1")
 
-    relu3 = PReLU(init=init)
+    relu3 = LeakyReLU()
     graph.add_node(relu3, name="relu3", input="dense1")
 
     drop2 = Dropout(drop2_proportion)
