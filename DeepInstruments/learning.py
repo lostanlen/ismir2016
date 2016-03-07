@@ -53,13 +53,16 @@ def predict(graph, is_spiral, is_Z_supervision, X_test):
         if is_Z_supervision:
             pass
         else:
-            X1 = X_test[:, :, xrange(1*12, 3*12), :]
-            X2 = X_test[:, :, xrange(2*12, 4*12), :]
-            X3 = X_test[:, :, xrange(3*12, 5*12), :]
-            X4 = X_test[:, :, xrange(4*12, 6*12), :]
-            X5 = X_test[:, :, xrange(5*12, 7*12), :]
-            class_probs = graph.predict({"X1": X1, "X2": X2, "X3": X3,
-                                         "X4": X4, "X5": X5})["Y"]
+            X0 = X_batch * window(X_batch, Q, 1*Q)
+            X1 = X_batch * window(X_batch, Q, 2*Q)
+            X2 = X_batch * window(X_batch, Q, 3*Q)
+            X3 = X_batch * window(X_batch, Q, 4*Q)
+            X4 = X_batch * window(X_batch, Q, 5*Q)
+            X5 = X_batch * window(X_batch, Q, 6*Q)
+            X6 = X_batch * window(X_batch, Q, 7*Q)
+            class_probs = graph.predict({"X0": X0, "X1": X1, "X2": X2,
+                                         "X3": X3, "X4": X4, "X5": X5,
+                                         "X6": X6})["Y"]
     else:
         if is_Z_supervision:
             class_probs = di.singlelabel.predict(graph, X_test)
