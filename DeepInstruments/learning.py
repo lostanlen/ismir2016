@@ -1,5 +1,6 @@
 import DeepInstruments as di
 import numpy as np
+import scipy.signal
 
 
 def build_graph(
@@ -70,17 +71,17 @@ def predict(graph, is_spiral, is_Z_supervision, X_test):
 def substract_and_mask(args):
     return (args[0] - args[1]) * args[2]
 
-
 def train_on_batch(graph, is_spiral, is_Z_supervision,
                    X_batch, Y_batch, Z_batch, G_batch, masked_output):
     if is_spiral:
-        # X0 = X_batch[:, :, xrange(0*12, 2*12), :]
-        X1 = X_batch[:, :, xrange(1*12, 3*12), :]
-        X2 = X_batch[:, :, xrange(2*12, 4*12), :]
-        X3 = X_batch[:, :, xrange(3*12, 5*12), :]
-        X4 = X_batch[:, :, xrange(4*12, 6*12), :]
-        X5 = X_batch[:, :, xrange(5*12, 7*12), :]
-        # X6 = X_batch[:, :, xrange(6*12, 8*12), :]
+        Q = 12
+        X0 = X_batch * window(X_batch, Q, 1*Q)
+        X1 = X_batch * window(X_batch, Q, 2*Q)
+        X2 = X_batch * window(X_batch, Q, 3*Q)
+        X3 = X_batch * window(X_batch, Q, 4*Q)
+        X4 = X_batch * window(X_batch, Q, 5*Q)
+        X5 = X_batch * window(X_batch, Q, 6*Q)
+        X6 = X_batch * window(X_batch, Q, 7*Q)
         if is_Z_supervision:
             pass
         else:
@@ -99,3 +100,10 @@ def train_on_batch(graph, is_spiral, is_Z_supervision,
         else:
             loss = graph.train_on_batch({"X": X_batch, "Y": Y_batch})
             return loss
+
+
+def window(X_batch, half_width, center):
+    phi = np.zeros((1, 1, X_batch.shape[2], 1))
+    support = xrange(center-half_width, center+half_width)
+    phi[0, 0, support, 0] = scipy.signal.tukey(2*half_width)
+    return phi
