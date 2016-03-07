@@ -38,6 +38,8 @@ medleydb_discarded = [
     u'MusicDelta_InTheHalloftheMountainKing_STEM_07.wav',  # 2 players
     # Piano
     u'MatthewEntwistle_TheArch_STEM_18.wav',  # has huge reverb
+    # Tenor saxophone
+    # (empty)
     # Trumpet
     u'MusicDelta_FusionJazz_STEM_06.wav',  # has sordina
     # Violin
