@@ -82,7 +82,7 @@ Section 3 describes a typical deep learning architecture for spectrogram-based c
 Section 4 improves the aforementioned architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
 Section 5 discusses the effectiveness of the presented systems on a challenging dataset for music instrument recognition.
 
-
+The previous years have witnessed a renewed interest in feature learning for MIR. 
 % The problem is made difficult by the fact that factors of variability are entangled.
 
 % Deep convolutional networks have proven to disentangle factors of variability in computer
@@ -239,7 +239,9 @@ The architecture was built using the Keras library, and trained on a graphics pr
 
 
 \section{Convolutions on the pitch spiral}
-"Local neighborhoods in frequency do not share the same relationship", Humphrey acknowledges in his review of deep learning techniques for MIR.
+"Local neighborhoods in frequency do not share the same relationship", Humphrey et al. acknowledge in their review of deep learning techniques for MIR.
+
+Let $\boldsymbol{\phi}[k_1]$ be a window function of width $2Q$, that is two octaves. We have chosen a Tukey window ($\alpha=0.5$), which has a flat top of width $Q$ surrounded by cosine tapering lobes of width $Q/2$.
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_2}[t,k_1,k_2]
 = & &
