@@ -37,7 +37,7 @@ if is_spiral:
 else:
     conv1_height = 13
     conv1_width = 4
-    conv2_height = 20
+    conv2_height = 16
 pool1_height = 4
 pool1_width = 6
 conv2_channels = 32

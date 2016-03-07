@@ -85,12 +85,9 @@ def build_graph(
     drop2 = Dropout(drop2_proportion)
     graph.add_node(drop2, name="drop2", input="relu3")
 
-    dense2 = Dense(dense2_channels, init="lecun_uniform")
+    dense2 = Dense(dense2_channels,
+                   init="lecun_uniform", activation="softmax")
     graph.add_node(dense2, name="dense2", input="drop2")
-
-    bn_softmax = BatchNormalization(mode=0, activation="softmax")
-    graph.add_node(bn_softmax, name="bn_softmax",
-                   input="dense2")
 
     if is_Z_supervision:
         # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
