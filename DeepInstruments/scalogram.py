@@ -75,7 +75,7 @@ def build_graph(
     graph.add_node(dense1, name="dense1", input="drop1")
 
     relu3 = LeakyReLU()
-    graph.add_node(relu3, name="relu3", input="drop1")
+    graph.add_node(relu3, name="relu3", input="dense1")
 
     drop2 = Dropout(drop2_proportion)
     graph.add_node(drop2, name="drop2", input="relu3")
