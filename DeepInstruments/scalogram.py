@@ -48,11 +48,11 @@ def build_graph(
                           border_mode="valid", init=init)
     graph.add_node(conv1, name="conv1", input="X_bn")
 
-    # bn1 = BatchNormalization(mode=1)
-    # graph.add_node(bn1, name="bn1", input="conv1")
+    bn1 = BatchNormalization(mode=1)
+    graph.add_node(bn1, name="bn1", input="conv1")
 
     relu1 = LeakyReLU()
-    graph.add_node(relu1, name="relu1", input="conv1")
+    graph.add_node(relu1, name="relu1", input="bn1")
 
     pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
