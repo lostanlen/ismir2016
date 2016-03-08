@@ -24,9 +24,7 @@ def build_graph(
         conv2_width,
         pool2_height,
         pool2_width,
-        drop1_proportion,
         dense1_channels,
-        drop2_proportion,
         dense2_channels):
     graph = Graph()
 
