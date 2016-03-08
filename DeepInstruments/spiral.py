@@ -7,7 +7,7 @@ from keras.layers.core import Merge
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.layers.convolutional import MaxPooling1D, AveragePooling1D
 from keras.regularizers import ActivityRegularizer, WeightRegularizer
-# from keras.constraints import MaxNorm
+from keras.layers.normalization import BatchNormalization
 
 
 def build_graph(
@@ -38,24 +38,41 @@ def build_graph(
 
     # Octave-wise convolutional layers
     init = "he_normal"
+    X0_bn = BatchNormalization(mode=1)
+    graph.add_node(X0_bn, name="X0_bn", input="X0")
     conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X0, name="conv1_X0", input="X0")
+    graph.add_node(conv1_X0, name="conv1_X0", input="X0_bn")
+
+    X1_bn = BatchNormalization(mode=1)
+    graph.add_node(X1_bn, name="X1_bn", input="X1")
     conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X1, name="conv1_X1", input="X1")
+    graph.add_node(conv1_X1, name="conv1_X1", input="X1_bn")
+
+    X2_bn = BatchNormalization(mode=1)
+    graph.add_node(X2_bn, name="X2_bn", input="X2")
     conv1_X2 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X2, name="conv1_X2", input="X2")
+    graph.add_node(conv1_X2, name="conv1_X2", input="X2_bn")
+
+    X3_bn = BatchNormalization(mode=1)
+    graph.add_node(X3_bn, name="X3_bn", input="X3")
     conv1_X3 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X3, name="conv1_X3", input="X3")
+    graph.add_node(conv1_X3, name="conv1_X3", input="X3_bn")
+
+    X4_bn = BatchNormalization(mode=1)
+    graph.add_node(X4_bn, name="X4_bn", input="X4")
     conv1_X4 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X4, name="conv1_X4", input="X4")
+    graph.add_node(conv1_X4, name="conv1_X4", input="X4_bn")
+
+    X5_bn = BatchNormalization(mode=1)
+    graph.add_node(X5_bn, name="X5_bn", input="X5")
     conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X5, name="conv1_X5", input="X5")
+    graph.add_node(conv1_X5, name="conv1_X5", input="X5_bn")
 
     # Spiral concatenation and pooling
     relu1 = LeakyReLU()
