@@ -44,9 +44,7 @@ conv2_channels = 32
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
-drop1_proportion = 0.5
 dense1_channels = 32
-drop2_proportion = 0.5
 
 # Parameters for learning
 batch_size = 32
