@@ -100,7 +100,7 @@ def build_graph(
     graph.add_node(flatten, name="flatten", input="pool2")
 
     dense1 = Dense(dense1_channels, init="lecun_uniform")
-    graph.add_node(dense1, name="dense1", input="flatten1")
+    graph.add_node(dense1, name="dense1", input="flatten")
 
     relu3 = LeakyReLU()
     graph.add_node(relu3, name="relu3", input="dense1")
