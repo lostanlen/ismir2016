@@ -106,6 +106,7 @@ from keras.utils.generic_utils import Progbar
 batch_losses = np.zeros(epoch_size / batch_size)
 chunk_accuracies_history = []
 file_accuracies_history = []
+mean_loss = Inf
 
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
@@ -119,8 +120,11 @@ for epoch_id in xrange(n_epochs):
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
-    mean_loss = np.mean(batch_losses)
-    std_loss = np.std(batch_losses)
+    if np.mean(batch_losses) < mean_loss:
+        mean_loss = np.mean(batch_losses)
+        std_loss = np.std(batch_losses)
+    else:
+        break
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
     # Measure test accuracies
