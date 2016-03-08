@@ -79,11 +79,11 @@ def build_graph(
     dense1 = Dense(dense1_channels, init="lecun_uniform")
     graph.add_node(dense1, name="dense1", input="drop1")
 
-    #bn3 = BatchNormalization(mode=0)
-    #graph.add_node(bn3, name="bn3", input="dense1")
+    bn3 = BatchNormalization(mode=0)
+    graph.add_node(bn3, name="bn3", input="dense1")
 
     relu3 = LeakyReLU()
-    graph.add_node(relu3, name="relu3", input="dense1")
+    graph.add_node(relu3, name="relu3", input="bn3")
 
     drop2 = Dropout(drop2_proportion)
     graph.add_node(drop2, name="drop2", input="relu3")
