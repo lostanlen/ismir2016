@@ -26,7 +26,7 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
-is_spiral = False
+is_spiral = True
 is_Z_supervision = False
 
 conv1_channels = 32
@@ -106,7 +106,7 @@ from keras.utils.generic_utils import Progbar
 batch_losses = np.zeros(epoch_size / batch_size)
 chunk_accuracies_history = []
 file_accuracies_history = []
-mean_loss = Inf
+mean_loss = float("inf")
 
 for epoch_id in xrange(n_epochs):
     dataflow = datagen.flow(batch_size=batch_size, epoch_size=epoch_size)
@@ -211,7 +211,7 @@ if is_spiral:
         librosa.display.specshow(kernels)
         plt.savefig(export_str + "-j" + str(j) + ".png")
 else:
-    first_layer = graph.get_weights()[0]
+    first_layer = graph.get_weights()[4]
     kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
     zero_padding = -0.0 * np.ones((conv1_height, 1))
     registered_kernels = [np.concatenate((kernel, zero_padding), axis=1)
