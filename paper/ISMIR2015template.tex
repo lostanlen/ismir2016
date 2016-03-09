@@ -75,16 +75,17 @@ We extend our method to the recognition of multiple instruments playing simultan
 Among the cognitive attributes of musical tones, pitch is distinguished by a combination of three properties.
 First, it is relative: ordering pitches from low to high gives rise to intervals and melodic patterns.
 Secondly, it is intensive: multiple pitches heard simultaneously produce a chord, not a single unified tone -- contrary to loudness, which adds up with the number of sources.
-Thirdly, it is invariant to instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system.
+Thirdly, it does not depend on instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system.
 
-Tuning auditory filters to a perceptual scale of pitches provides a time-frequency representation of music signals that satisfy the first two of these properties.
+Tuning auditory filters to a perceptual scale of pitches provides a time-frequency representation of music signals that satisfies the first two of these properties.
+It is thus a starting point for a wide range of MIR applications, which can be separated in two categories: pitch-\emph{relative} (\eg chord estimation) and and pitch-\emph{invariant} (\eg instrument recognition).
 
-Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their Mel-frequency cepstra.
+
+Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their mel-frequency cepstra.
 Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.
 Section 4 improves the aforementioned architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
 Section 5 discusses the effectiveness of the presented systems on a challenging dataset for music instrument recognition.
 
-The previous years have witnessed a renewed interest in feature learning for MIR. 
 % The problem is made difficult by the fact that factors of variability are entangled.
 
 % Deep convolutional networks have proven to disentangle factors of variability in computer
