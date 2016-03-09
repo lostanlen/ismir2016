@@ -7,7 +7,7 @@ import numpy as np
 decision_length = 131072  # in samples
 fmin = 55  # in Hz
 hop_length = 1024  # in samples
-n_bins_per_octave = 12
+n_bins_per_octave = 36
 n_octaves = 8
 mask_weight = 0
 
@@ -31,9 +31,9 @@ is_Z_supervision = False
 
 conv1_channels = 32
 if is_spiral:
-    conv1_height = 4
+    conv1_height = 13
     conv1_width = 4
-    conv2_height = 20
+    conv2_height = 16
 else:
     conv1_height = 13
     conv1_width = 4
@@ -200,8 +200,8 @@ graph.save_weights(export_str + ".h5", overwrite=True)
 
 # Save images for first-layer kernels
 if is_spiral:
-    for j in range(1, 6):
-        octave_index = 2 * (j-1)
+    for j in range(6):
+        octave_index = 6 * j + 4
         octave = graph.get_weights()[octave_index]
         kernels = [octave[i, 0, :, :] for i in range(conv1_channels)]
         zero_padding = 0.0 * np.ones((conv1_height, 1))

@@ -75,8 +75,10 @@ We extend our method to the recognition of multiple instruments playing simultan
 Among the cognitive attributes of musical tones, pitch is distinguished by a combination of three properties.
 First, it is relative: ordering pitches from low to high gives rise to intervals and melodic patterns.
 Secondly, it is intensive: multiple pitches heard simultaneously produce a chord, not a single unified tone -- contrary to loudness, which adds up with the number of sources.
-Thirdly, it is invariant to instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system. 
-% Missing paragraph
+Thirdly, it is invariant to instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system.
+
+Tuning auditory filters to a perceptual scale of pitches provides a time-frequency representation of music signals that satisfy the first two of these properties.
+
 Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their Mel-frequency cepstra.
 Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.
 Section 4 improves the aforementioned architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
@@ -106,6 +108,7 @@ The previous years have witnessed a renewed interest in feature learning for MIR
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually similar pitch intervals appear equal in width over the full hearing range.
+
 %Tuning band-pass filters to the mel scale 
 % The subsequent Mel-frequency spectrum 
 We found that the MFCC cluster corresponding to each instrument is shrinked if decomposed into a mixture of same-pitch clusters, sometimes by an order of magnitude.
@@ -223,7 +226,6 @@ The above ensures that the coefficients of $\boldsymbol{x_5}$ are non-negative a
 \end{equation}
 The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set.
 
-% Random crops
 % Categorical cross-entropy
 % For music instrument classification, this objective function is a histogram of the active instruments within an audio stream.
 The network is trained on categorical cross-entropy over shuffled mini-batches of size 512 with uniform class distribution.
@@ -238,7 +240,7 @@ The architecture was built using the Keras library, and trained on a graphics pr
 
 
 \section{Convolutions on the pitch spiral}
-"Local neighborhoods in frequency do not share the same relationship", Humphrey et al. acknowledge in their review of deep learning techniques for MIR.
+"Local neighborhoods in frequency do not share the same relationship", Humphrey et al. acknowledge in their review of deep learning techniques for MIR. Indeed, since the neighboring partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each other on a mel scale. 
 
 Let $\boldsymbol{\phi}[k_1]$ be a window function of width $2Q$, that is two octaves. We have chosen a Tukey window ($\alpha=0.5$), which has a flat top of width $Q$ surrounded by cosine tapering lobes of width $Q/2$.
 \begin{IEEEeqnarray}{rCl}
@@ -265,6 +267,9 @@ In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2
 The evaluation set consists of 126 recordings of solo music collected by Joder et al. \cite{Joder2009}, to which we add 23 stems of electric guitar and female voice from MedleyDB. In doing so, guitarists and vocalists were thoroughly put either in the training set or the test set, to prevent any artist bias. We discarded recordings with extended instrumental techniques, since they are under-represented in MedleyDB.
 
 Constant-Q spectrograms from the evaluation set were split into half-overlapping, 3-second excerpts.
+% The probability distribution of labels was computed for every excerpt in a track, and then 
+
+
 \begin{table}
 	\begin{center}
 	\begin{tabular}{|c|cc|cc|}
@@ -329,7 +334,7 @@ Results are charted in Table \ref{table:multi-label-results}.
 
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of an efficient system for automated classification, tagging, and similarity retrieval in music. 
-
+We have presented a data-driven, supervised method to address pitch invariance while preserving good timbral discriminability.
 Future work will be devoted to integrating the proposed scheme with other advances in deep learning for music informatics, such as data augmentation \cite{McFee2015-muda}, multiscale representations \cite{Hamel2012, Anden2015}, and adversarial training \cite{Kereliuk2015}.
 % For bibtex users:
 \bibliography{ISMIR2015template}
