@@ -65,26 +65,28 @@ Audio-based classification of musical instruments thus requires to build signal 
 Focusing on pitch invariance, this article investigates the construction of multi-stage architectures for instrument recognition.
 % Missing sentence
 We show that Mel-frequency cepstral coefficients (MFCC) lack invariance with respect to realistic pitch shifts.
-In turn, a convolutional neural network (ConvNet) in the time-frequency domain is able to disentangle pitch variability from timbral information in a subtler way.
-We further improve the ConvNet architecture by limiting weight sharing to octave-wide frequency bands at the first layer, while allowing full weight sharing at deeper layers.
+In turn, a convolutional neural network (ConvNet) in the time-frequency domain is able to disentangle pitch from timbral information in a subtler way.
+%We further improve the ConvNet architecture by limiting weight sharing to octave-wide frequency bands at the first layer, while allowing full weight sharing at deeper layers.
 We extend our method to the recognition of multiple instruments playing simultaneously.
 \end{abstract}
-%
 
 \section{Introduction}\label{sec:introduction}
 Among the cognitive attributes of musical tones, pitch is distinguished by a combination of three properties.
 First, it is relative: ordering pitches from low to high gives rise to intervals and melodic patterns.
 Secondly, it is intensive: multiple pitches heard simultaneously produce a chord, not a single unified tone -- contrary to loudness, which adds up with the number of sources.
-Thirdly, it does not depend on instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system.
+Thirdly, it does not depend on instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system \cite{Krumhansl2001}.
 
 Tuning auditory filters to a perceptual scale of pitches provides a time-frequency representation of music signals that satisfies the first two of these properties.
-It is thus a starting point for a wide range of MIR applications, which can be separated in two categories: pitch-\emph{relative} (\eg chord estimation) and and pitch-\emph{invariant} (\eg instrument recognition).
+It is thus a starting point for a wide range of MIR applications, which can be separated in two categories: pitch-\emph{relative} (\eg chord estimation \cite{Cho2014}) and pitch-\emph{invariant} (\eg instrument recognition).
+Both aim at disentangling pitch from timbral content as independent factors of variability, a goal that is made possible by the first aforementioned property.
+This is pursued by extracting mid-level features on top of the spectrogram, be them engineered or learned from training data.
 
+Deep convolutional networks have proven to disentangle factors of variability among natural images, such as pose, color, and lighting conditions.
 
 Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their mel-frequency cepstra.
 Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.
 Section 4 improves the aforementioned architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
-Section 5 discusses the effectiveness of the presented systems on a challenging dataset for music instrument recognition.
+Sections 5 and 6 discuss the effectiveness of the presented systems on a challenging dataset for music instrument recognition.
 
 % The problem is made difficult by the fact that factors of variability are entangled.
 
@@ -107,6 +109,19 @@ Section 5 discusses the effectiveness of the presented systems on a challenging 
 % Ref to Salamon and Bello
 % Ref to Li, Qian, and Wang arXiv 2015
 
+\begin{figure}[t]
+    \begin{center}
+        \setlength{\unitlength}{1cm}
+        \begin{picture}(8.5,8.7)
+        \put(0.1,0){\includegraphics[width=8cm]{figs/mfcc_variances.png}}
+        \end{picture}
+    \end{center}
+    \protect\caption{
+Distributions of squared Euclidean distances among various clusters in the RWC dataset. Whisker ends denote lower and upper deciles. See text for details.
+\label{fig:mfcc-variances}
+}
+\end{figure}
+
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually similar pitch intervals appear equal in width over the full hearing range.
 
@@ -117,19 +132,6 @@ In other words, most of the variance in an instrument cluster of mel-frequency c
 This experiment shows that the mel-frequency cepstrum lacks invariance to realistic pitch shifts, and that there remains a lot to be gained by feature learning in this area.
 
 The MFCCs were extracted from a filterbank of 40 Mel-frequency bands and 13 discrete cosine transform coefficients.
-
-\begin{figure}[t]
-    \begin{center}
-        \setlength{\unitlength}{1cm}
-        \begin{picture}(8.5,9)
-        \put(0.1,0){\includegraphics[width=8cm]{figs/mfcc_variances.png}}
-        \end{picture}
-    \end{center}
-    \protect\caption{
-Distributions of squared Euclidean distances among various clusters in the RWC dataset. Whisker ends denote lower and upper deciles. See text for details.
-\label{fig:instrument-distribution}
-}
-\end{figure}
  
 \section{Deep convolutional networks}
 A deep learning system for classification is built by stacking multiple layers of weakly nonlinear transformations, whose parameters are jointly optimized such that the top-level layer fits a training set of labeled examples.
@@ -232,12 +234,10 @@ The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal
 The network is trained on categorical cross-entropy over shuffled mini-batches of size 512 with uniform class distribution.
 Each training example is a 3-second spectrogram whose boundaries are selected at random over non-silent regions of a song. Each spectrogram within a batch was globally normalized such that the whole batch had unit mean and unit variance.
 The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
-The architecture was built using the Keras library, and trained on a graphics processing unit within a few minutes.
+The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics processing unit within a few minutes.
 
-% Source-filter equation
 % Ref to LeCun on disentangling factors of variability
-% Ref to NIPS 2015
-% Ref to Mallat 2016
+% Ref to Newton 2012
 
 
 \section{Convolutions on the pitch spiral}

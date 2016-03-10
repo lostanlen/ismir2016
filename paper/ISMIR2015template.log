@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  9 MAR 2016 20:40
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  10 MAR 2016 13:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -230,11 +230,7 @@ Package: IEEEtrantools 2014/09/17 V1.4 by Michael Shell
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(./ISMIR2015template.aux
-
-LaTeX Warning: Label `fig:instrument-distribution' multiply defined.
-
-)
+(./ISMIR2015template.aux)
 \openout1 = `ISMIR2015template.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
@@ -250,7 +246,8 @@ LaTeX Font Info:    ... okay on input line 58.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
 LaTeX Font Info:    ... okay on input line 58.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 58.
- (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 Package caption Info: Begin \AtBeginDocument code.
@@ -297,16 +294,21 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 File: figs/mfcc_variances.png Graphic file (type QTm)
 
 <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 126--127
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 117--118
  [] 
  []
 
+[1
+
+
+
+]
 File: figs/architecture.png Graphic file (type QTm)
-<use  "figs/architecture.png" > [1
+ <use  "figs/architecture.png" >
 
+LaTeX Warning: Citation `Chollet2015' on page 2 undefined on input line 237.
 
-
-] [2]
+[2]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -316,19 +318,18 @@ Underfull \hbox (badness 7704) in paragraph at lines 16--21
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 23--27
+Underfull \hbox (badness 1377) in paragraph at lines 30--34
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 41--45
+Underfull \hbox (badness 1895) in paragraph at lines 48--52
 \OT1/ptm/m/n/10 Method for Stochas-tic Op-ti-miza-tion.  \OT1/ptm/m/it/10 In-te
 r-na-tional
  []
 
-Missing character: There is no � in font ptmr7t!
 
-Underfull \hbox (badness 1184) in paragraph at lines 52--56
+Underfull \hbox (badness 1184) in paragraph at lines 64--68
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
@@ -336,14 +337,14 @@ Underfull \hbox (badness 1184) in paragraph at lines 52--56
 
 ] (./ISMIR2015template.aux)
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4883 strings out of 493706
- 77771 string characters out of 6145769
- 175077 words of memory out of 5000000
- 8167 multiletter control sequences out of 15000+600000
+ 4887 strings out of 493706
+ 77828 string characters out of 6145769
+ 177054 words of memory out of 5000000
+ 8171 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,14n,38p,563b,340s stack positions out of 5000i,500n,10000p,200000b,80000s

@@ -25,15 +25,28 @@ http://dx.doi.org/10.1109/MLSP.2015.7324385},
 year = {2015}
 }
 
-
-@article{Bittner2014,
+@inproceedings{Bittner2014,
 abstract = {We introduce MedleyDB: a dataset of annotated, royalty-free multitrack recordings. The dataset was primarily developed to support research on melody extraction, addressing important shortcomings of existing collections. For each song we provide melody f0 annotations as well as instrument activations for evaluating automatic instrument recognition. The dataset is also useful for research on tasks that require access to the individual tracks of a song such as source separation and automatic mixing. In this paper we provide a detailed description of MedleyDB, including curation, annotation, and musical content. To gain insight into the new challenges presented by the dataset, we run a set of experiments using a state-of-the-art melody extraction algorithm and discuss the results. The dataset is shown to be considerably more challenging than the current test sets used in the MIREX evaluation campaign, thus opening new research avenues in melody extraction research.},
 author = {Bittner, Rachel and Salamon, Justin and Tierney, Mike and Mauch, Matthias and Cannam, Chris and Bello, Juan},
-journal = {International Society for Music Information Retrieval Conference},
+booktitle = {International Society for Music Information Retrieval Conference},
 title = {MedleyDB: a multitrack dataset for annotation-intensive MIR research},
 url = {http://marl.smusic.nyu.edu/medleydb{\_}webfiles/bittner{\_}medleydb{\_}ismir2014.pdf},
 year = {2014}
 }
+
+@article{Cho2014,
+author={Taemin Cho and J. P. Bello},
+journal={IEEE/ACM Transactions on Audio, Speech, and Language Processing},
+title={On the Relative Importance of Individual Components of Chord Recognition Systems},
+year={2014},
+volume={22},
+number={2},
+pages={477-492},
+abstract={Most chord recognition systems share a common architecture comprising two main stages: feature extraction and pattern matching, and two optional sub stages: pre-filtering and post-filtering. Understanding the interaction between these basic components is very important not only for achieving optimal performance, but also for assessing the potential and limitations of the system. Unfortunately, there are no studies that sufficiently evaluate the effects of the different approaches to each processing step and the interactions between these steps. In this paper we attempt to remedy this deficiency by performing a systematic evaluation encompassing a wide variety of techniques used for each processing step. In our study we find that filtering has a significant impact on performance, but providing musical context information in the transition matrix is rendered moot by the need to enforce continuity in the estimations. We discovered that the benefits of using complex chord models can be largely offset by an appropriate choice of features. In addition, the initial performance gap between different features were not fully compensated by any subsequent processing stages.},
+keywords={Gaussian processes;feature extraction;filtering theory;hidden Markov models;mixture models;music;pattern matching;synchronisation;GMM;Gaussian mixture models;HMM;automatic chord recognition system;beat-synchronization;chroma;complex chord models;feature extraction;hidden Markov models;musical context information;pattern matching;post filtering approach;prefiltering approach;systematic evaluation;transition matrix;Feature extraction;Harmonic analysis;Hidden Markov models;Pattern matching;Timbre;Vectors;Automatic chord recognition;Gaussian mixture models (GMMs);chroma;hidden Markov models (hmms)},
+doi={10.1109/TASLP.2013.2295926},
+ISSN={2329-9290},
+month={Feb},}
 
 @inproceedings{Hamel2012,
 abstract = {Low-level aspects of music audio such as timbre, loud- ness and pitch, can be relatively well modelled by features extracted from short-time windows. Higher-level aspects such as melody, harmony, phrasing and rhythm, on the other hand, are salient only at larger timescales and re- quire a better representation of time dynamics. For var- ious music information retrieval tasks, one would bene?t from modelling both low and high level aspects in a uni- ?ed feature extraction framework. By combining adaptive features computed at different timescales, short-timescale events are put in context by detecting longer timescale fea- tures. In this paper, we describe a method to obtain such multi-scale features and evaluate its effectiveness for auto- matic tag annotation.},
@@ -46,7 +59,6 @@ title = {{Building musically-relevant audio features through multiple timescale 
 url = {http://ismir2012.ismir.net/event/papers/553{\_}ISMIR{\_}2012.pdf},
 year = {2012}
 }
-
 
 @article{Joder2009,
 abstract = {Nowadays, it appears essential to design automatic indexing tools which provide meaningful and efficient means to describe the musical audio content. There is in fact a growing interest for music information retrieval (MIR) applications amongst which the most popular are related to music similarity retrieval, artist identification, musical genre or instrument recognition. Current MIR-related classification systems usually do not take into account the mid-term temporal properties of the signal (over several frames) and lie on the assumption that the observations of the features in different frames are statistically independent. The aim of this paper is to demonstrate the usefulness of the information carried by the evolution of these characteristics over time. To that purpose, we propose a number of methods for early and late temporal integration and provide an in-depth experimental study on their interest for the task of musical instrument recognition on solo musical phrases. In particular, the impact of the time horizon over which the temporal integration is performed will be assessed both for fixed and variable frame length analysis. Also, a number of proposed alignment kernels will be used for late temporal integration. For all experiments, the results are compared to a state of the art musical instrument recognition system.},
@@ -96,6 +108,13 @@ url = {http://arxiv.org/pdf/1412.6980v8.pdf},
 year = {2015}
 }
 
+@book{Krumhansl2001,
+  title={Cognitive Foundations of Musical Pitch},
+  author={Krumhansl, Carol L.},
+  year={2001},
+  publisher={Oxford University Press}
+}
+
 @article{Li2015,
 abstract = {Traditional methods to tackle many music information retrieval tasks typically follow a two-step architecture: feature engineering followed by a simple learning algorithm. In these "shallow" architectures, feature engineering and learning are typically disjoint and unrelated. Additionally, feature engineering is difficult, and typically depends on extensive domain expertise. In this paper, we present an application of convolutional neural networks for the task of automatic musical instrument identification. In this model, feature extraction and learning algorithms are trained together in an end-to-end fashion. We show that a convolutional neural network trained on raw audio can achieve performance surpassing traditional methods that rely on hand-crafted features.},
 archivePrefix = {arXiv},
@@ -121,7 +140,7 @@ year = {2015}
                   Rachel Bittner and
                   Douglas Repetto and
                   Petr Viktorin and
-                  Jo�o Felipe Santos and
+                  Jo\~{ao} Felipe Santos and
                   Adrian Holovaty},
   title        = {librosa: 0.4.1. Zenodo. 10.5281/zenodo.18369},
   month        = oct,
@@ -140,5 +159,19 @@ url = {https://bmcfee.github.io/papers/ismir2015{\_}augmentation.pdf},
 year = {2015}
 }
 
-
+@article{Newton2012,
+abstract = {Physiological evidence suggests that sound onset detection in the auditory system may be performed by specialized neurons as early as the cochlear nucleus. Psychoacoustic evidence shows that the sound onset can be important for the recognition of musical sounds. Here the sound onset is used in isolation to form tone descriptors for a musical instrument classification task. The task involves 2085 isolated musical tones from the McGill dataset across five instrument categories. A neurally inspired tone descriptor is created using a model of the auditory system's response to sound onset. A gammatone filterbank and spiking onset detectors, built from dynamic synapses and leaky integrate-and-fire neurons, create parallel spike trains that emphasize the sound onset. These are coded as a descriptor called the onset fingerprint. Classification uses a time-domain neural network, the echo state network. Reference strategies, based upon mel-frequency cepstral coefficients, evaluated either over the whole tone or only during the sound onset, provide context to the method. Classification success rates for the neurally-inspired method are around 75{\%}. The cepstral methods perform between 73{\%} and 76{\%}. Further testing with tones from the Iowa MIS collection shows that the neurally inspired method is considerably more robust when tested with data from an unrelated dataset.},
+author = {Newton, Michael J. and Smith, Leslie S.},
+doi = {10.1121/1.4707535},
+file = {:Users/vlostan/Library/Application Support/Mendeley Desktop/Downloaded/e67f5e0b6f7a8c5f649e2d22b479c2a5c12d4fbe.pdf:pdf},
+issn = {00014966},
+journal = {The Journal of the Acoustical Society of America},
+number = {6},
+pages = {4785},
+pmid = {22712950},
+title = {{A neurally inspired musical instrument classification system based upon the sound onset}},
+url = {http://dspace.stir.ac.uk/bitstream/1893/21796/1/FINAL{\_}JAS004785.pdf},
+volume = {131},
+year = {2012}
+}
 

@@ -3,44 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: ISMIR2015template.aux
 The style file: plain.bst
 Database file #1: ISMIR2015template.bib
-You've used 9 entries,
+Warning--I didn't find a database entry for "Chollet2015"
+You've used 11 entries,
             2118 wiz_defined-function locations,
-            554 strings with 5917 characters,
-and the built_in function-call counts, 3836 in all, are:
-= -- 357
-> -- 242
+            569 strings with 6244 characters,
+and the built_in function-call counts, 4410 in all, are:
+= -- 408
+> -- 262
 < -- 3
-+ -- 95
-- -- 86
-* -- 297
-:= -- 634
-add.period$ -- 26
-call.type$ -- 9
-change.case$ -- 70
++ -- 103
+- -- 92
+* -- 333
+:= -- 728
+add.period$ -- 32
+call.type$ -- 11
+change.case$ -- 78
 chr.to.int$ -- 0
-cite$ -- 9
-duplicate$ -- 126
-empty$ -- 262
-format.name$ -- 86
-if$ -- 786
+cite$ -- 11
+duplicate$ -- 153
+empty$ -- 322
+format.name$ -- 92
+if$ -- 911
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 8
-newline$ -- 47
-num.names$ -- 18
-pop$ -- 79
+int.to.str$ -- 11
+missing$ -- 11
+newline$ -- 57
+num.names$ -- 22
+pop$ -- 94
 preamble$ -- 1
-purify$ -- 61
+purify$ -- 68
 quote$ -- 0
-skip$ -- 97
+skip$ -- 110
 stack$ -- 0
-substring$ -- 215
-swap$ -- 35
+substring$ -- 246
+swap$ -- 38
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 36
+type$ -- 42
 warning$ -- 0
-while$ -- 33
-width$ -- 10
-write$ -- 96
+while$ -- 38
+width$ -- 13
+write$ -- 117
+(There was 1 warning)

@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Abdel-Hamid2014}
 Ossama Abdel-Hamid, Abdel-rahman Mohamed, Hui Jiang, Li~Deng, Gerald Penn, and
@@ -16,8 +16,15 @@ Joakim And{\'{e}}n, Vincent Lostanlen, and St{\'{e}}phane Mallat.
 Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
   Juan Bello.
 \newblock Medleydb: a multitrack dataset for annotation-intensive mir research.
-\newblock {\em International Society for Music Information Retrieval
+\newblock In {\em International Society for Music Information Retrieval
   Conference}, 2014.
+
+\bibitem{Cho2014}
+Taemin Cho and J.~P. Bello.
+\newblock On the relative importance of individual components of chord
+  recognition systems.
+\newblock {\em IEEE/ACM Transactions on Audio, Speech, and Language
+  Processing}, 22(2):477--492, Feb 2014.
 
 \bibitem{Hamel2012}
 Philippe Hamel, Yoshua Bengio, and Douglas Eck.
@@ -43,6 +50,11 @@ Diederik~P. Kingma and Jimmy~Lei Ba.
 \newblock {\em International Conference on Learning Representations}, pages
   1--13, 2015.
 
+\bibitem{Krumhansl2001}
+Carol~L. Krumhansl.
+\newblock {\em Cognitive Foundations of Musical Pitch}.
+\newblock Oxford University Press, 2001.
+
 \bibitem{McFee2015-muda}
 Brian Mcfee, Eric~J Humphrey, and Juan~P Bello.
 \newblock {A software framework for musical data augmentation}.
@@ -51,7 +63,7 @@ Brian Mcfee, Eric~J Humphrey, and Juan~P Bello.
 \bibitem{McFee2015-librosa}
 Brian McFee, Matt McVicar, Colin Raffel, Dawen Liang, Oriol Nieto, Eric
   Battenberg, Josh Moore, Dan Ellis, Ryuichi Yamamoto, Rachel Bittner, Douglas
-  Repetto, Petr Viktorin, Jo�o~Felipe Santos, and Adrian Holovaty.
+  Repetto, Petr Viktorin, Jo\~{ao}~Felipe Santos, and Adrian Holovaty.
 \newblock librosa: 0.4.1. zenodo. 10.5281/zenodo.18369, October 2015.
 
 \end{thebibliography}
