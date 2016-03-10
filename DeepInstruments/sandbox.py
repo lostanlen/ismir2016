@@ -7,7 +7,7 @@ import numpy as np
 decision_length = 131072  # in samples
 fmin = 55  # in Hz
 hop_length = 1024  # in samples
-n_bins_per_octave = 36
+n_bins_per_octave = 24
 n_octaves = 8
 mask_weight = 0
 
@@ -25,25 +25,36 @@ test_paths = di.singlelabel.get_paths("test")
 X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
-# Parameters for ConvNet
-is_spiral = True
-is_Z_supervision = False
 
 conv1_channels = 32
-if is_spiral:
-    conv1_height = 13
-    conv1_width = 4
-    conv2_height = 16
-else:
-    conv1_height = 13
-    conv1_width = 4
-    conv2_height = 16
-pool1_height = 4
-pool1_width = 6
+conv1_semitones = 6
+conv1_milliseconds = 200
+pool1_semitones = 6
+pool1_milliseconds = 200
 conv2_channels = 32
-conv2_width = 7
-pool2_height = 3
-pool2_width = 6
+conv2_milliseconds = 800
+
+# Parameters for ConvNet
+is_spiral = False
+is_Z_supervision = False
+
+X_height = n_bins_per_octave * n_octaves
+X_width = decision_length / hop_length
+
+conv1_height = conv1_semitones * n_bins_per_octave / 12
+conv1_width = int(conv1_milliseconds * 44.1 / hop_length)
+conv1_output_height = X_height - conv1_height
+conv1_output_width = X_width - conv1_width
+pool1_height = pool1_semitones * n_bins_per_octave / 12
+pool1_width = int(pool1_milliseconds * 44.1 / hop_length)
+pool1_output_height = conv1_output_height / pool1_height
+pool1_output_width = conv1_output_width / pool1_width
+conv2_height = pool1_output_height - n_bins_per_octave / pool1_height
+conv2_width = int(conv2_milliseconds * 44.1 / (hop_length * pool1_width))
+conv2_output_height = pool1_output_height - conv2_height
+conv2_output_width = pool1_output_width - conv2_width
+pool2_height = conv2_output_height
+pool2_width = conv2_output_width
 dense1_channels = 32
 
 # Parameters for learning

@@ -66,15 +66,21 @@ def build_graph(
     flatten = Flatten()
     graph.add_node(flatten, name="flatten", input="pool2")
 
+    drop1 = Dropout(0.5)
+    graph.add_node(drop1, name="drop1", input="flatten")
+
     dense1 = Dense(dense1_channels, init="lecun_uniform")
-    graph.add_node(dense1, name="dense1", input="flatten")
+    graph.add_node(dense1, name="dense1", input="drop1")
 
     relu3 = LeakyReLU()
     graph.add_node(relu3, name="relu3", input="dense1")
 
+    drop2 = Dropout(0.5)
+    graph.add_node(drop2, name="drop2", input="relu3")
+
     dense2 = Dense(dense2_channels,
                    init="lecun_uniform", activation="softmax")
-    graph.add_node(dense2, name="dense2", input="relu3")
+    graph.add_node(dense2, name="dense2", input="drop2")
 
     if is_Z_supervision:
         # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
