@@ -7,7 +7,7 @@ import numpy as np
 decision_length = 131072  # in samples
 fmin = 55  # in Hz
 hop_length = 1024  # in samples
-n_bins_per_octave = 24
+n_bins_per_octave = 12
 n_octaves = 8
 mask_weight = 0
 
@@ -20,6 +20,7 @@ datagen = di.singlelabel.ScalogramGenerator(
         n_bins_per_octave, n_octaves,
         training_stems)
 
+
 # Compute audio features on the test set
 test_paths = di.singlelabel.get_paths("test")
 X_test = datagen.get_X(test_paths)
@@ -27,12 +28,15 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 
 conv1_channels = 32
-conv1_semitones = 6
+conv1_semitones = 12
 conv1_milliseconds = 200
-pool1_semitones = 6
+pool1_semitones = 3
 pool1_milliseconds = 200
 conv2_channels = 32
-conv2_milliseconds = 800
+conv2_semitones = 36
+conv2_milliseconds = 1000
+pool2_semitones = 12
+dense1_channels = 32
 
 # Parameters for ConvNet
 is_spiral = False
@@ -49,13 +53,12 @@ pool1_height = pool1_semitones * n_bins_per_octave / 12
 pool1_width = int(pool1_milliseconds * 44.1 / hop_length)
 pool1_output_height = conv1_output_height / pool1_height
 pool1_output_width = conv1_output_width / pool1_width
-conv2_height = pool1_output_height - n_bins_per_octave / pool1_height
+conv2_height = conv2_semitones / pool1_height * n_bins_per_octave / 12
 conv2_width = int(conv2_milliseconds * 44.1 / (hop_length * pool1_width))
 conv2_output_height = pool1_output_height - conv2_height
 conv2_output_width = pool1_output_width - conv2_width
-pool2_height = conv2_output_height
+pool2_height = pool2_semitones * n_bins_per_octave / (12 * pool1_height)
 pool2_width = conv2_output_width
-dense1_channels = 32
 
 # Parameters for learning
 batch_size = 32
@@ -229,3 +232,6 @@ else:
                           for kernel in kernels]
     librosa.display.specshow(np.hstack(kernels))
     plt.savefig(export_str + ".png")
+
+# For Fig 2
+librosa.display.specshow(X_test[0][0, 0, :, :])

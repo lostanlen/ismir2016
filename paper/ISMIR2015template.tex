@@ -81,7 +81,12 @@ It is thus a starting point for a wide range of MIR applications, which can be s
 Both aim at disentangling pitch from timbral content as independent factors of variability, a goal that is made possible by the first aforementioned property.
 This is pursued by extracting mid-level features on top of the spectrogram, be them engineered or learned from training data.
 
-Deep convolutional networks have proven to disentangle factors of variability among natural images, such as pose, color, and lighting conditions.
+In this article, we strive to integrate domain-specific knowledge about musical pitch into a deep learning framework, hence bridging the gap between feature engineering and feature learning.
+% Learned features may lead to uninterpretable overfitting
+%On the other, learned features are solely derived from optimizing classification accuracy: thus, they are often less interpretable and may lead to statistical overfitting, especially in MIR when the quantity of thoroughly annotated data is relatively small.
+
+
+%Deep convolutional networks have proven to disentangle factors of variability among natural images, such as pose, color, and lighting conditions.
 
 Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their mel-frequency cepstra.
 Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.

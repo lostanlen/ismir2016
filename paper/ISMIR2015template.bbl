@@ -15,7 +15,8 @@ Joakim And{\'{e}}n, Vincent Lostanlen, and St{\'{e}}phane Mallat.
 \bibitem{Bittner2014}
 Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
   Juan Bello.
-\newblock Medleydb: a multitrack dataset for annotation-intensive mir research.
+\newblock {MedleyDB: a multitrack dataset for annotation-intensive MIR
+  research}.
 \newblock In {\em International Society for Music Information Retrieval
   Conference}, 2014.
 
@@ -25,6 +26,19 @@ Taemin Cho and J.~P. Bello.
   recognition systems.
 \newblock {\em IEEE/ACM Transactions on Audio, Speech, and Language
   Processing}, 22(2):477--492, Feb 2014.
+
+\bibitem{Chollet2015}
+Fran\c{c}ois Chollet.
+\newblock Keras: a deep learning library for theano and tensorflow.
+\newblock https://github.com/fchollet/keras, 2015.
+
+\bibitem{Eronen2000}
+Antti Eronen and Anssi Klapuri.
+\newblock Musical instrument recognition using cepstral coefficients and
+  temporal features.
+\newblock In {\em Acoustics, Speech, and Signal Processing, 2000. ICASSP'00.
+  Proceedings. 2000 IEEE International Conference on}, volume~2, pages
+  II753--II756. IEEE, 2000.
 
 \bibitem{Hamel2012}
 Philippe Hamel, Yoshua Bengio, and Douglas Eck.
