@@ -88,7 +88,7 @@ In this article, we strive to integrate domain-specific knowledge about musical 
 
 Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their mel-frequency cepstra.
 Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.
-Section 4 improves the aforementioned architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
+Section 4 improves the previous architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
 Sections 5 and 6 discuss the effectiveness of the presented systems on a challenging dataset for music instrument recognition.
 
 % The problem is made difficult by the fact that factors of variability are entangled.
@@ -127,9 +127,24 @@ Distributions of squared Euclidean distances among various MFCC clusters in the 
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually similar pitch intervals appear equal in width over the full hearing range.
-
+The time-frequency domain produced by a constant-Q filter bank tuned to the mel scale is therefore covariant with respect to frequency transposition, in the sense that a pitch interval between sine waves will appear as a translation on the mel-frequency axis.
+However, 
 %Tuning band-pass filters to the mel scale 
 % The subsequent Mel-frequency spectrum 
+
+\begin{figure}[t]
+    \begin{center}
+        \setlength{\unitlength}{1cm}
+        \begin{picture}(8.5,5.5)
+        \put(0.1,0){\includegraphics[width=8cm]{figs/fig2_spectrogram.png}}
+        \end{picture}
+    \end{center}
+    \protect\caption{
+The same property is verified for a wide class of instruments, especially brass and woodwinds. See text for details.
+\label{fig:mfcc-variances}
+}
+\end{figure}
+
 We found that the MFCC cluster corresponding to each instrument is shrinked if decomposed into a mixture of same-pitch clusters, sometimes by an order of magnitude.
 In other words, most of the variance in an instrument cluster of mel-frequency cepstra is due to pitch transposition.
 This experiment shows that the mel-frequency cepstrum lacks invariance to realistic pitch shifts, and that there remains a lot to be gained by feature learning in this area.

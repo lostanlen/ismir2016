@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  12 MAR 2016 16:30
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  12 MAR 2016 17:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -230,7 +230,11 @@ Package: IEEEtrantools 2014/09/17 V1.4 by Michael Shell
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(./ISMIR2015template.aux)
+(./ISMIR2015template.aux
+
+LaTeX Warning: Label `fig:mfcc-variances' multiply defined.
+
+)
 \openout1 = `ISMIR2015template.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
@@ -246,8 +250,7 @@ LaTeX Font Info:    ... okay on input line 58.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
 LaTeX Font Info:    ... okay on input line 58.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 58.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 Package caption Info: Begin \AtBeginDocument code.
@@ -308,8 +311,18 @@ Underfull \hbox (badness 2401) in paragraph at lines 125--125
 
 
 ]
+File: figs/fig2_spectrogram.png Graphic file (type QTm)
+ <use  "figs/fig2_spectrogram.png" >
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 140--141
+ [] 
+ []
+
 File: figs/architecture.png Graphic file (type QTm)
- <use  "figs/architecture.png" > [2] (./ISMIR2015template.bbl [3]
+<use  "figs/architecture.png" > [2]
+Underfull \vbox (badness 6708) has occurred while \output is active []
+
+ [3]
+(./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 16--22
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -340,12 +353,16 @@ Underfull \hbox (badness 1184) in paragraph at lines 78--82
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
-) [4] (./ISMIR2015template.aux) ) 
+) [4] (./ISMIR2015template.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4888 strings out of 493706
- 77840 string characters out of 6145769
- 176062 words of memory out of 5000000
- 8172 multiletter control sequences out of 15000+600000
+ 4890 strings out of 493706
+ 77885 string characters out of 6145769
+ 175101 words of memory out of 5000000
+ 8173 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,14n,38p,563b,340s stack positions out of 5000i,500n,10000p,200000b,80000s

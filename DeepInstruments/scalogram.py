@@ -4,7 +4,7 @@ from keras.models import Graph
 from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.convolutional import AveragePooling1D,\
-    Convolution2D, MaxPooling2D
+    Convolution2D, MaxPooling2D, AveragePooling2D
 from keras.regularizers import ActivityRegularizer, WeightRegularizer
 from keras.layers.normalization import BatchNormalization
 
@@ -49,7 +49,7 @@ def build_graph(
     relu1 = LeakyReLU()
     graph.add_node(relu1, name="relu1", input="conv1")
 
-    pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    pool1_X = AveragePooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_X, name="pool1_X", input="relu1")
 
     # Layers towards instrument target
@@ -60,7 +60,7 @@ def build_graph(
     relu2 = LeakyReLU()
     graph.add_node(relu2, name="relu2", input="conv2")
 
-    pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
+    pool2 = AveragePooling2D(pool_size=(pool2_height, pool2_width))
     graph.add_node(pool2, name="pool2", input="relu2")
 
     flatten = Flatten()
