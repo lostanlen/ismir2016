@@ -60,57 +60,136 @@
 \maketitle
 %
 \begin{abstract}
-Musical performance combines a wide range of pitches, nuances, and expressive techniques.
-Audio-based classification of musical instruments thus requires to build signal representations that are invariant to such transformations.
-Focusing on pitch invariance, this article investigates the construction of multi-stage architectures for instrument recognition.
+Musical performance combines a wide range of pitches, nuances,
+and expressive techniques.
+Audio-based classification of musical instruments thus requires to
+build signal representations that are invariant to such transformations.
+Focusing on pitch invariance, this article investigates the construction
+of multi-stage architectures for instrument recognition.
 % Missing sentence
-We show that Mel-frequency cepstral coefficients (MFCC) lack invariance with respect to realistic pitch shifts.
-In turn, a convolutional neural network (ConvNet) in the time-frequency domain is able to disentangle pitch from timbral information in a subtler way.
-%We further improve the ConvNet architecture by limiting weight sharing to octave-wide frequency bands at the first layer, while allowing full weight sharing at deeper layers.
+We show that Mel-frequency cepstral coefficients (MFCC) lack
+invariance with respect to realistic pitch shifts.
+In turn, a convolutional neural network (ConvNet) in the time-frequency
+domain is able to disentangle pitch from timbral information in a subtler way.
 We extend our method to the recognition of multiple instruments playing simultaneously.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
-Among the cognitive attributes of musical tones, pitch is distinguished by a combination of three properties.
-First, it is relative: ordering pitches from low to high gives rise to intervals and melodic patterns.
-Secondly, it is intensive: multiple pitches heard simultaneously produce a chord, not a single unified tone -- contrary to loudness, which adds up with the number of sources.
-Thirdly, it does not depend on instrumentation: this makes possible the transcription of polyphonic music under a single symbolic system \cite{Krumhansl2001}.
+Among the cognitive attributes of musical tones, pitch is distinguished
+by a combination of three properties.
+First, it is relative: ordering pitches from low to high gives rise to
+intervals and melodic patterns.
+Secondly, it is intensive: multiple pitches heard simultaneously produce
+a chord, not a single unified tone -- contrary to loudness, which adds
+up with the number of sources.
+Thirdly, it does not depend on instrumentation: this makes possible
+the transcription of polyphonic music under a single symbolic system \cite{Krumhansl2001}.
 
-Tuning auditory filters to a perceptual scale of pitches provides a time-frequency representation of music signals that satisfies the first two of these properties.
-It is thus a starting point for a wide range of MIR applications, which can be separated in two categories: pitch-\emph{relative} (\eg chord estimation \cite{Cho2014}) and pitch-\emph{invariant} (\eg instrument recognition \cite{Eronen2000}).
-Both aim at disentangling pitch from timbral content as independent factors of variability, a goal that is made possible by the first aforementioned property.
-This is pursued by extracting mid-level features on top of the spectrogram, be them engineered or learned from training data.
-Both approaches have their limitations: a "bag-of-features" lacks flexibility to represent fine-grain class boundaries, whereas a purely learned pipeline often leads to uninterpretable overfitting, especially in MIR where the quantity of thoroughly annotated data is relatively small.
+Tuning auditory filters to a perceptual scale of pitches provides a
+time-frequency representation of music signals that satisfies the first two of these properties.
+It is thus a starting point for a wide range of MIR applications,
+which can be separated in two categories: pitch-\emph{relative}
+(\eg chord estimation \cite{Humphrey2012})
+and pitch-\emph{invariant} (\eg instrument recognition \cite{Eronen2000}).
+Both aim at disentangling pitch from timbral content as independent
+factors of variability, a goal that is made possible by the third aforementioned property.
+This is pursued by extracting mid-level features on top of the spectrogram,
+be them engineered or learned from training data.
+Both approaches have their limitations: a "bag-of-features" lacks flexibility
+to represent fine-grain class boundaries, whereas a purely learned pipeline
+often leads to uninterpretable overfitting, especially in MIR where the quantity
+of thoroughly annotated data is relatively small.
 
-In this article, we strive to integrate domain-specific knowledge about musical pitch into a deep learning framework, hence bridging the gap between feature engineering and feature learning.
+In this article, we strive to integrate domain-specific knowledge about musical
+pitch into a deep learning framework, hence bridging the gap between feature
+engineering and feature learning.
 
-%Deep convolutional networks have proven to disentangle factors of variability among natural images, such as pose, color, and lighting conditions.
+%Deep convolutional networks have proven to disentangle factors of variability
+%among natural images, such as pose, color, and lighting conditions.
 
-Section 2 demonstrates that pitch is the major factor of variability among musical notes of a given instrument, if described by their mel-frequency cepstra.
-Section 3 describes a typical deep learning architecture for spectrogram-based classification, consisting of two convolutional layers and one densely connected layer.
-Section 4 improves the previous architecture by splitting spectrograms into octave-wide frequency bands, training specific convolutional layers over each band in parallel, and gathering feature maps at a later stage.
-Sections 5 and 6 discuss the effectiveness of the presented systems on a challenging dataset for music instrument recognition.
+Section 2 reviews the related work on feature learning for signal-based music
+classification.
+Section 3 demonstrates that pitch is the major factor of variability among musical
+notes of a given instrument, if described by their mel-frequency cepstra.
+Section 4 describes a typical deep learning architecture for spectrogram-based
+classification, consisting of two convolutional layers and one densely connected layer.
+Section 5 improves the previous architecture by splitting spectrograms into
+octave-wide frequency bands, training specific convolutional layers over each band
+in parallel, and gathering feature maps at a later stage.
+Sections 6 discusses the effectiveness of the presented systems on a challenging
+dataset for music instrument recognition.
+
+\section{Related work}
+Spurred by the growth of annotated datasets and the democratization of
+high-performance computing, feature learning has enjoyed a renewed interest
+in recent years within the MIR community.
+
 
 % The problem is made difficult by the fact that factors of variability are entangled.
-
 % Deep convolutional networks have proven to disentangle factors of variability in computer
 % vision, such as pose, color, and lighting conditions.
-
 
 % the challenge is thus two-fold
 % 1. gaining abstraction by integrating time-frequency patterns over longer time scales
 % 2. building invariants to melody while remaining highly discriminative to the instrument
 
-
 % On music instrument classification
 % Ref to Joder et al
 % Ref to Fuhrmann
-
 % On feature learning
 % Ref to Dieleman and Benjamin ICASSP 2014
 % Ref to Humphrey, Bello, LeCun 2012
 % Ref to Salamon and Bello
 % Ref to Li, Qian, and Wang arXiv 2015
+
+\section{How invariant is the Mel-frequency cepstrum ?}
+The mel scale is a quasi-logarithmic function of acoustic frequency designed such that
+perceptually similar pitch intervals appear equal in width over the full hearing range.
+This section shows that engineering transposition-invariant features from the mel
+scale does not suffice to build pitch invariants for complex sounds, thus motivating
+further inquiry.
+
+
+The time-frequency domain produced by a constant-Q filter bank tuned to the mel
+scale is therefore covariant with respect to transposition: a chromatic scale played
+at constant speed would draw parallel, diagonal lines, each of them corresponding
+to a different partial wave.
+
+This implies that realistic pitch changes cannot be modeled by translating a rigid
+spectral template along the log-frequency axis.
+The same property is verified for a wide class of instruments, especially brass and
+woodwinds. 
+     
+%Tuning band-pass filters to the mel scale 
+% The subsequent Mel-frequency spectrum 
+
+\begin{figure}[t]
+    \begin{center}
+        \setlength{\unitlength}{1cm}
+        \begin{picture}(8.5,3.2)
+        \put(0.1,0){\includegraphics[width=8cm]{figs/chromatic_scale.png}}
+        \end{picture}
+    \end{center}
+    \protect\caption{
+    Constant-Q spectrogram of a chromatic scale played by a tuba.
+    Although the harmonic partials shift progressively, the spectral envelope remains unchanged,
+    as revealed by the presence of a fixed cutoff frequency.
+    See text for details.
+\label{fig:mfcc-variances}
+}
+\end{figure}
+
+Following a well-established rule, the MFCC were extracted by computing
+the discrete cosine transform (DCT) from a mel-frequency spectrum of 40 bands
+with logarithmic compression of loudness, and keeping its 13 lowest "quefrencies".
+
+We found that the MFCC cluster corresponding to each instrument is shrinked if
+decomposed into a mixture of same-pitch clusters, sometimes by an order of
+magnitude.
+In other words, most of the variance in an instrument cluster of mel-frequency
+cepstra is due to pitch transposition.
+This experiment shows that the mel-frequency cepstrum lacks invariance to realistic
+pitch shifts, and that there remains a lot to be gained by feature learning in this area.
 
 \begin{figure}[t]
     \begin{center}
@@ -124,33 +203,6 @@ Distributions of squared Euclidean distances among various MFCC clusters in the 
 \label{fig:mfcc-variances}
 }
 \end{figure}
-
-\section{How invariant is the Mel-frequency cepstrum ?}
-The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually similar pitch intervals appear equal in width over the full hearing range.
-The time-frequency domain produced by a constant-Q filter bank tuned to the mel scale is therefore covariant with respect to transposition: a chromatic scale played at constant speed would draw parallel, diagonal lines, each of them corresponding to a different partial wave.
-%Tuning band-pass filters to the mel scale 
-% The subsequent Mel-frequency spectrum 
-
-\begin{figure}[t]
-    \begin{center}
-        \setlength{\unitlength}{1cm}
-        \begin{picture}(8.5,3.2)
-        \put(0.1,0){\includegraphics[width=8cm]{figs/chromatic_scale.png}}
-        \end{picture}
-    \end{center}
-    \protect\caption{
-    Constant-Q spectrogram of a chromatic scale played by a tuba.
-    Although the harmonic partials shift progressively, the formantic 
-The same property is verified for a wide class of instruments, especially brass and woodwinds. See text for details.
-\label{fig:mfcc-variances}
-}
-\end{figure}
-
-We found that the MFCC cluster corresponding to each instrument is shrinked if decomposed into a mixture of same-pitch clusters, sometimes by an order of magnitude.
-In other words, most of the variance in an instrument cluster of mel-frequency cepstra is due to pitch transposition.
-This experiment shows that the mel-frequency cepstrum lacks invariance to realistic pitch shifts, and that there remains a lot to be gained by feature learning in this area.
-
-The MFCCs were extracted from a filterbank of 40 Mel-frequency bands and 13 discrete cosine transform coefficients.
  
 \section{Deep convolutional networks}
 A deep learning system for classification is built by stacking multiple layers of weakly nonlinear transformations, whose parameters are jointly optimized such that the top-level layer fits a training set of labeled examples.
@@ -174,7 +226,7 @@ We used the implementation from the librosa package \cite{McFee2015-librosa} wit
 Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics.
 A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ frequency bands.
 
-Each layer in a convolutional network typically consists in the composition of three operations: two-dimensional convolutions, application of a pointwise nonlinearity, and local pooling. A convolutional operator is defined as a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of $K_2 = 32$ two-dimensional filters, whose impulse repsonses are all constrained to have width $\Delta t$ and height $\Delta k_1$. Element-wise biases $\boldsymbol{b_2}[k_2]$ are added to the convolutions, resulting in the three-way tensor 
+Each layer in a convolutional network typically consists in the composition of three operations: two-dimensional convolutions, application of a pointwise nonlinearity, and local pooling. A convolutional operator is defined as a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of $K_2$ two-dimensional filters, whose impulse repsonses are all constrained to have width $\Delta t$ and height $\Delta k_1$. Element-wise biases $\boldsymbol{b_2}[k_2]$ are added to the convolutions, resulting in the three-way tensor 
 \begin{IEEEeqnarray}{rCl}
 \IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_2}[t,k_1,k_2]} \nonumber \\
@@ -223,7 +275,7 @@ Observe that the corresponding convolutional operator $\boldsymbol{W_3}[\tau, \k
 \boldsymbol{x_2}[t,k_1,k_2].
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
-Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsymbol{y_3}$ by ReLU and pooling, with formulae similar to Eqs. (\ref{eq:relu}) and (\ref{eq:pooling}). The third layer consists of the linear projection of $\boldsymbol{x_3}$, viewed as a vector of the flattened index $(t, k_1, k_3)$, over $K_4 = 64$ units:
+Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsymbol{y_3}$ by ReLU and pooling, with formulae similar to Eqs. (\ref{eq:relu}) and (\ref{eq:pooling}). The third layer consists of the linear projection of $\boldsymbol{x_3}$, viewed as a vector of the flattened index $(t, k_1, k_3)$, over $K_4$ units:
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_4}[k_4] =
 \boldsymbol{b_4}[k_4] +
@@ -234,7 +286,7 @@ Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsym
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
 We apply a ReLU to $\boldsymbol{y_4}$, yielding $\boldsymbol{x_4}[k_4] = \boldsymbol{y_4^{+}}[k_4]$.
-$\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
+Finally, we project $\boldsymbol{x_4}$ onto a layer of output units $\boldsymbol{y_5}$ that should represent instrument activations: $\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
 \begin{equation}
 \boldsymbol{x_5}[k_5] =
 \frac{\exp \boldsymbol{y_5}[k_5]}
@@ -244,7 +296,6 @@ The above ensures that the coefficients of $\boldsymbol{x_5}$ are non-negative a
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
 - \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]
-+ \sum_{m=1}^{4} \lambda_m \Vert \boldsymbol{W_m} \Vert_2.
 \end{equation}
 The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set.
 
@@ -329,28 +380,6 @@ Results are charted in Table \ref{table:single-label-results}.
 	\end{center}
 	\caption{\label{table:single-label-results}}
 \end{table}
-
-\section{Polyphonic classification}\label{sec:polyphonic}
-\subsection{Experimental design}
-
-\subsection{Results}
-Results are charted in Table \ref{table:multi-label-results}.
-
-\begin{table}
-	\begin{center}
-	\begin{tabular}{|l|c|}
-		\hline
-		Representation & Error rate (\%) \\
-		\hline
-		MFCC \& random forest & $-$ \\
-		ConvNet, full weight sharing & $-$ \\
-		ConvNet, limited weight sharing & $-$ \\
-		\hline
-	\end{tabular}
-	\end{center}
-	\caption{\label{table:multi-label-results}}
-\end{table}
-
 
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of an efficient system for automated classification, tagging, and similarity retrieval in music. 

@@ -5,42 +5,42 @@ The style file: plain.bst
 Database file #1: ISMIR2015template.bib
 You've used 13 entries,
             2118 wiz_defined-function locations,
-            581 strings with 6635 characters,
-and the built_in function-call counts, 5170 in all, are:
-= -- 491
-> -- 282
-< -- 5
-+ -- 111
-- -- 98
-* -- 371
-:= -- 834
-add.period$ -- 39
+            580 strings with 6684 characters,
+and the built_in function-call counts, 5341 in all, are:
+= -- 513
+> -- 287
+< -- 6
++ -- 113
+- -- 100
+* -- 374
+:= -- 850
+add.period$ -- 40
 call.type$ -- 13
-change.case$ -- 87
+change.case$ -- 88
 chr.to.int$ -- 0
 cite$ -- 13
-duplicate$ -- 187
-empty$ -- 391
-format.name$ -- 98
-if$ -- 1090
+duplicate$ -- 199
+empty$ -- 405
+format.name$ -- 100
+if$ -- 1138
 int.to.chr$ -- 0
 int.to.str$ -- 13
 missing$ -- 12
 newline$ -- 67
 num.names$ -- 26
-pop$ -- 109
+pop$ -- 115
 preamble$ -- 1
-purify$ -- 75
+purify$ -- 76
 quote$ -- 0
-skip$ -- 143
+skip$ -- 153
 stack$ -- 0
-substring$ -- 304
-swap$ -- 55
-text.length$ -- 5
+substring$ -- 315
+swap$ -- 65
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 50
 warning$ -- 0
-while$ -- 45
+while$ -- 47
 width$ -- 15
-write$ -- 140
+write$ -- 141

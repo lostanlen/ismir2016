@@ -20,13 +20,6 @@ Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
 \newblock In {\em International Society for Music Information Retrieval
   Conference}, 2014.
 
-\bibitem{Cho2014}
-Taemin Cho and J.~P. Bello.
-\newblock On the relative importance of individual components of chord
-  recognition systems.
-\newblock {\em IEEE/ACM Transactions on Audio, Speech, and Language
-  Processing}, 22(2):477--492, Feb 2014.
-
 \bibitem{Chollet2015}
 Fran\c{c}ois Chollet.
 \newblock Keras: a deep learning library for theano and tensorflow.
@@ -45,6 +38,13 @@ Philippe Hamel, Yoshua Bengio, and Douglas Eck.
 \newblock {Building musically-relevant audio features through multiple
   timescale representations}.
 \newblock In {\em ISMIR}, pages 553--558, 2012.
+
+\bibitem{Humphrey2012}
+Eric~J Humphrey, Taemin Cho, and Juan~P Bello.
+\newblock Learning a robust tonnetz-space transform for automatic chord
+  recognition.
+\newblock In {\em Acoustics, Speech and Signal Processing (ICASSP), 2012 IEEE
+  International Conference on}, pages 453--456. IEEE, 2012.
 
 \bibitem{Joder2009}
 Cyril Joder, Slim Essid, and Ga{\"{e}}l Richard.
