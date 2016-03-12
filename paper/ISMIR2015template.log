@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  12 MAR 2016 16:20
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  12 MAR 2016 16:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -294,8 +294,13 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 File: figs/mfcc_variances.png Graphic file (type QTm)
 
 <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 122--123
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 120--121
  [] 
+ []
+
+
+Underfull \hbox (badness 2401) in paragraph at lines 125--125
+\OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
 [1
@@ -335,9 +340,7 @@ Underfull \hbox (badness 1184) in paragraph at lines 78--82
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
-) [4
-
-] (./ISMIR2015template.aux) ) 
+) [4] (./ISMIR2015template.aux) ) 
 Here is how much of TeX's memory you used:
  4888 strings out of 493706
  77840 string characters out of 6145769

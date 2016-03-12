@@ -80,11 +80,9 @@ Tuning auditory filters to a perceptual scale of pitches provides a time-frequen
 It is thus a starting point for a wide range of MIR applications, which can be separated in two categories: pitch-\emph{relative} (\eg chord estimation \cite{Cho2014}) and pitch-\emph{invariant} (\eg instrument recognition \cite{Eronen2000}).
 Both aim at disentangling pitch from timbral content as independent factors of variability, a goal that is made possible by the first aforementioned property.
 This is pursued by extracting mid-level features on top of the spectrogram, be them engineered or learned from training data.
+Both approaches have their limitations: a "bag-of-features" lacks flexibility to represent fine-grain class boundaries, whereas a purely learned pipeline often leads to uninterpretable overfitting, especially in MIR where the quantity of thoroughly annotated data is relatively small.
 
 In this article, we strive to integrate domain-specific knowledge about musical pitch into a deep learning framework, hence bridging the gap between feature engineering and feature learning.
-% Learned features may lead to uninterpretable overfitting
-%On the other, learned features are solely derived from optimizing classification accuracy: thus, they are often less interpretable and may lead to statistical overfitting, especially in MIR when the quantity of thoroughly annotated data is relatively small.
-
 
 %Deep convolutional networks have proven to disentangle factors of variability among natural images, such as pose, color, and lighting conditions.
 
@@ -122,7 +120,7 @@ Sections 5 and 6 discuss the effectiveness of the presented systems on a challen
         \end{picture}
     \end{center}
     \protect\caption{
-Distributions of squared Euclidean distances among various clusters in the RWC dataset. Whisker ends denote lower and upper deciles. See text for details.
+Distributions of squared Euclidean distances among various MFCC clusters in the RWC dataset. Whisker ends denote lower and upper deciles. See text for details.
 \label{fig:mfcc-variances}
 }
 \end{figure}
