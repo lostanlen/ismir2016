@@ -127,8 +127,7 @@ Distributions of squared Euclidean distances among various MFCC clusters in the 
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually similar pitch intervals appear equal in width over the full hearing range.
-The time-frequency domain produced by a constant-Q filter bank tuned to the mel scale is therefore covariant with respect to frequency transposition, in the sense that a pitch interval between sine waves will appear as a translation on the mel-frequency axis.
-However, 
+The time-frequency domain produced by a constant-Q filter bank tuned to the mel scale is therefore covariant with respect to transposition: a chromatic scale played at constant speed would draw parallel, diagonal lines, each of them corresponding to a different partial wave.
 %Tuning band-pass filters to the mel scale 
 % The subsequent Mel-frequency spectrum 
 
@@ -140,6 +139,8 @@ However,
         \end{picture}
     \end{center}
     \protect\caption{
+    Constant-Q spectrogram of a chromatic scale played by a tuba.
+    Although the harmonic partials shift progressively, the formantic 
 The same property is verified for a wide class of instruments, especially brass and woodwinds. See text for details.
 \label{fig:mfcc-variances}
 }
