@@ -234,4 +234,4 @@ else:
     plt.savefig(export_str + ".png")
 
 # For Fig 2
-librosa.display.specshow(X_test[0][0, 0, :, :])
+librosa.display.specshow(X_test[0][0, 0, :, :] - 0.5)
