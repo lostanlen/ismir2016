@@ -116,8 +116,8 @@ L. References
 5. Salamon and Bello : feature learning
 6. Li, Qian and Wang: ConvNets on raw audio for multilabel instrument recognition
 7. [DONE] McFee et al. librosa
-8. Kingma & Ba: Adam optimizer
-9. Chollet: Keras package
-10. Bittner et al. MedleyDB
+8. [DONE] Kingma & Ba: Adam optimizer
+9. [DONE] Chollet: Keras package
+10. [DONE] Bittner et al. MedleyDB
 11. Bruna, Szlam, LeCun. Learning Stable Group Invariant Representations.
 12. Mallat 2016. Understanding Deep Convolutional Networks.
