@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  13 MAR 2016 00:31
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  13 MAR 2016 18:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -294,73 +294,85 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-File: figs/chromatic_scale.png Graphic file (type QTm)
-
-<use  "figs/chromatic_scale.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 173--174
- [] 
- []
-
-[1
+ [1
 
 
 
 ]
+File: figs/chromatic_scale.png Graphic file (type QTm)
+
+<use  "figs/chromatic_scale.png" >
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 174--175
+ [] 
+ []
+
 File: figs/mfcc_variances.png Graphic file (type QTm)
- <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 201--202
+<use  "figs/mfcc_variances.png" >
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 202--203
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 206--206
+Underfull \hbox (badness 2401) in paragraph at lines 207--207
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
 File: figs/architecture.png Graphic file (type QTm)
-<use  "figs/architecture.png" > [2] (./ISMIR2015template.bbl [3]
+<use  "figs/architecture.png" > [2] [3] (./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 16--22
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--27
+Underfull \hbox (badness 4096) in paragraph at lines 24--28
+[]\OT1/ptm/m/n/10 Keunwoo Choi, George Fazekas, Mark San-dler,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--33
 []\OT1/ptm/m/n/10 Fran[]ois Chol-let.  Keras: a deep learn-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 24--27
+Underfull \hbox (badness 10000) in paragraph at lines 30--33
 \OT1/ptm/m/n/10 ing li-brary for theano and ten-sor-flow.
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 37--41
+Underfull \hbox (badness 1377) in paragraph at lines 43--47
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 62--66
+Underfull \hbox (badness 1895) in paragraph at lines 68--72
 \OT1/ptm/m/n/10 Method for Stochas-tic Op-ti-miza-tion.  \OT1/ptm/m/it/10 In-te
 r-na-tional
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 84--88
+Underfull \hbox (badness 1184) in paragraph at lines 90--94
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
-) [4] (./ISMIR2015template.aux)
+
+Underfull \hbox (badness 1242) in paragraph at lines 102--105
+[]\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
+ []
+
+[4]) [5
+
+] (./ISMIR2015template.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4891 strings out of 493706
- 77880 string characters out of 6145769
- 175097 words of memory out of 5000000
- 8174 multiletter control sequences out of 15000+600000
+ 4894 strings out of 493706
+ 77918 string characters out of 6145769
+ 175109 words of memory out of 5000000
+ 8177 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,14n,38p,558b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ISMIR2015template.pdf (4 pages).
+Output written on ISMIR2015template.pdf (5 pages).

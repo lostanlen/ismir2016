@@ -20,6 +20,12 @@ Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
 \newblock In {\em International Society for Music Information Retrieval
   Conference}, 2014.
 
+\bibitem{Choi2015}
+Keunwoo Choi, George Fazekas, Mark Sandler, Jeonghee Kim, and Naver Labs.
+\newblock {Auralisation of deep convolutional neural networks: listening to
+  learned features}.
+\newblock {\em ISMIR}, pages 4--5, 2015.
+
 \bibitem{Chollet2015}
 Fran\c{c}ois Chollet.
 \newblock Keras: a deep learning library for theano and tensorflow.
@@ -92,11 +98,21 @@ Jan Schl\"{u}ter and Sebastian Bock.
 \newblock In {\em Acoustics, Speech and Signal Processing (ICASSP), 2014 IEEE
   International Conference on}, pages 6979--6983. IEEE, 2014.
 
+\bibitem{Sigtia2015}
+Siddharth Sigtia, Emmanouil Benetos, and Simon Dixon.
+\newblock {An End-to-End Neural Network for Polyphonic Music Transcription}.
+\newblock pages 1--13, 2015.
+
 \bibitem{Ullrich2014}
 Karen Ullrich, Jan Schl{\"{u}}ter, and Thomas Grill.
 \newblock {Boundary Detection in Music Structure Analysis Using Convolutional
   Neural Networks}.
 \newblock {\em Proc. of the 15th International Society for Music Information
   Retrieval Conference}, pages 417--422, 2014.
+
+\bibitem{vandenOord2013}
+Aaron van~den Oord, Sander Dieleman, and Benjamin Schrauwen.
+\newblock Deep content-based music recommendation.
+\newblock {\em NIPS}, pages 2643--2651, 2013.
 
 \end{thebibliography}
