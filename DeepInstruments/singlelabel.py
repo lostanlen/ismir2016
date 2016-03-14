@@ -196,7 +196,8 @@ def chunk_accuracies(y_predicted, y_true):
     return test_accuracies
 
 
-def file_accuracies(test_paths, y_predicted, y_true, threshold=10):
+def file_accuracies(test_paths, y_predicted, y_true, threshold=10,
+                    method="voting"):
     names = [os.path.split(path)[1][:-13] for path in test_paths]
     unique_names = collections.Counter(names).keys()
     indices = [[i for i, name in enumerate(names) if name == unique_name]
@@ -204,12 +205,19 @@ def file_accuracies(test_paths, y_predicted, y_true, threshold=10):
     indices = [file_indices for file_indices in indices
                if len(file_indices) >= threshold]
     file_predicted = [y_predicted[file_indices] for file_indices in indices]
-    predicted_majority = [collections.Counter(index).most_common(1)[0][0]
+    if method == "voting":
+        predicted = [collections.Counter(index).most_common(1)[0][0]
                           for index in file_predicted]
+    elif method == "geometric_mean":
+        predicted = [np.argmax(np.prod(probability_distribution))
+                     for probability_distribution in file_predicted]
+    elif method == "arithmetic_mean":
+        predicted = [np.argmax(np.sum(probability_distribution))
+                     for probability_distribution in file_predicted]
     file_true = [y_true[file_indices] for file_indices in indices]
-    true_majority = [collections.Counter(index).most_common(1)[0][0]
-                     for index in file_true]
-    accuracies = chunk_accuracies(predicted_majority, true_majority)
+    true = [collections.Counter(index).most_common(1)[0][0]
+            for index in file_true]
+    accuracies = chunk_accuracies(predicted, true)
     return accuracies
 
 
