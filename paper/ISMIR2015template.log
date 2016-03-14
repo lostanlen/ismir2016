@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 19:21
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 19:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -301,18 +301,18 @@ File: figs/chromatic_scale.png Graphic file (type QTm)
 <use  "figs/chromatic_scale.png" >
 File: figs/mfcc_variances.png Graphic file (type QTm)
  <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 241--242
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 249--250
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 247--247
+Underfull \hbox (badness 2401) in paragraph at lines 255--255
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
 File: figs/architecture.png Graphic file (type QTm)
 <use  "figs/architecture.png" > [2]
-Overfull \hbox (0.61523pt too wide) in alignment at lines 304--311
+Overfull \hbox (0.61523pt too wide) in alignment at lines 312--319
  [] [][]
  []
 
@@ -336,12 +336,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--32
 \OT1/ptm/m/n/10 ing li-brary for theano and ten-sor-flow.
  []
 
-
+[4]
 Underfull \hbox (badness 10000) in paragraph at lines 48--52
 []\OT1/ptm/m/n/10 Masataka Goto, Hi-roki Hashiguchi, Takuichi
  []
 
-[4]
+
 Underfull \hbox (badness 1377) in paragraph at lines 54--58
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
