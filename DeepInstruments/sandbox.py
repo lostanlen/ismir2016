@@ -28,12 +28,12 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 
 conv1_channels = 32
-conv1_semitones = 4
-conv1_milliseconds = 200
+conv1_semitones = 12
+conv1_milliseconds = 100
 pool1_semitones = 2
 pool1_milliseconds = 50
 conv2_channels = 32
-conv2_semitones = 6
+conv2_semitones = 12
 conv2_milliseconds = 300
 pool2_semitones = 4
 dense1_channels = 32
@@ -233,5 +233,5 @@ else:
     librosa.display.specshow(np.hstack(kernels))
     plt.savefig(export_str + ".png")
 
-# For Fig 2
+# For Fig 3
 librosa.display.specshow(X_test[0][0, 0, :, :] - 0.5)
