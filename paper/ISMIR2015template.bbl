@@ -36,6 +36,12 @@ Alain de~Cheveign{\'{e}}.
 \newblock In {\em Oxford Handbook of Auditory Science: Hearing}, chapter Pitch
   perc, pages 71--104. 2005.
 
+\bibitem{Dieleman2014}
+Sander Dieleman and Benjamin Schrauwen.
+\newblock {End-to-end learning for music audio}.
+\newblock {\em ICASSP, IEEE International Conference on Acoustics, Speech and
+  Signal Processing - Proceedings}, pages 6964--6968, 2014.
+
 \bibitem{Eronen2000}
 Antti Eronen and Anssi Klapuri.
 \newblock Musical instrument recognition using cepstral coefficients and

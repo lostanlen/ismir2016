@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 19:47
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 20:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -296,8 +296,10 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 
 
 ]
-File: figs/chromatic_scale.png Graphic file (type QTm)
 
+LaTeX Warning: Citation `Dieleman2014' on page 2 undefined on input line 158.
+
+File: figs/chromatic_scale.png Graphic file (type QTm)
 <use  "figs/chromatic_scale.png" >
 File: figs/mfcc_variances.png Graphic file (type QTm)
  <use  "figs/mfcc_variances.png" >
@@ -337,37 +339,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--32
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 48--52
+Underfull \hbox (badness 10000) in paragraph at lines 54--58
 []\OT1/ptm/m/n/10 Masataka Goto, Hi-roki Hashiguchi, Takuichi
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 54--58
+Underfull \hbox (badness 1377) in paragraph at lines 60--64
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 79--83
+Underfull \hbox (badness 1895) in paragraph at lines 85--89
 \OT1/ptm/m/n/10 Method for Stochas-tic Op-ti-miza-tion.  \OT1/ptm/m/it/10 In-te
 r-na-tional
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 96--100
+Underfull \hbox (badness 1184) in paragraph at lines 102--106
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
 
-Underfull \hbox (badness 1242) in paragraph at lines 108--111
+Underfull \hbox (badness 1242) in paragraph at lines 114--117
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
-) [5] (./ISMIR2015template.aux) ) 
+) [5] (./ISMIR2015template.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4897 strings out of 493706
- 77955 string characters out of 6145769
+ 4898 strings out of 493706
+ 77969 string characters out of 6145769
  176095 words of memory out of 5000000
- 8180 multiletter control sequences out of 15000+600000
+ 8181 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,15n,38p,365b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
