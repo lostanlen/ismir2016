@@ -59,6 +59,7 @@ conv2_output_height = pool1_output_height - conv2_height
 conv2_output_width = pool1_output_width - conv2_width
 pool2_height = pool2_semitones * n_bins_per_octave / (12 * pool1_height)
 pool2_width = conv2_output_width
+pool2_width = 4
 
 # Parameters for learning
 batch_size = 64
