@@ -6,45 +6,45 @@ Database file #1: ISMIR2015template.bib
 Warning--empty publisher in deCheveigne2005
 Warning--empty booktitle in Goto2003
 Warning--empty journal in Sigtia2015
-You've used 21 entries,
+You've used 22 entries,
             2118 wiz_defined-function locations,
-            629 strings with 8313 characters,
-and the built_in function-call counts, 8879 in all, are:
-= -- 883
-> -- 436
+            636 strings with 8520 characters,
+and the built_in function-call counts, 9243 in all, are:
+= -- 920
+> -- 454
 < -- 14
-+ -- 171
-- -- 150
-* -- 597
-:= -- 1377
-add.period$ -- 66
-call.type$ -- 21
-change.case$ -- 138
++ -- 178
+- -- 156
+* -- 628
+:= -- 1438
+add.period$ -- 69
+call.type$ -- 22
+change.case$ -- 144
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 354
-empty$ -- 666
-format.name$ -- 150
-if$ -- 1926
+cite$ -- 25
+duplicate$ -- 365
+empty$ -- 693
+format.name$ -- 156
+if$ -- 1999
 int.to.chr$ -- 0
-int.to.str$ -- 21
-missing$ -- 19
-newline$ -- 107
-num.names$ -- 42
-pop$ -- 174
+int.to.str$ -- 22
+missing$ -- 20
+newline$ -- 112
+num.names$ -- 44
+pop$ -- 178
 preamble$ -- 1
-purify$ -- 117
+purify$ -- 122
 quote$ -- 0
-skip$ -- 288
+skip$ -- 295
 stack$ -- 0
-substring$ -- 569
-swap$ -- 133
+substring$ -- 599
+swap$ -- 134
 text.length$ -- 14
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 84
+type$ -- 88
 warning$ -- 3
-while$ -- 84
-width$ -- 23
-write$ -- 227
+while$ -- 88
+width$ -- 24
+write$ -- 238
 (There were 3 warnings)

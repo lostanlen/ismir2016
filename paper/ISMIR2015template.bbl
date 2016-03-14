@@ -62,6 +62,13 @@ Philippe Hamel, Yoshua Bengio, and Douglas Eck.
   timescale representations}.
 \newblock In {\em ISMIR}, pages 553--558, 2012.
 
+\bibitem{Humphrey2013}
+Eric~J. Humphrey, Juan~P. Bello, and Yann Lecun.
+\newblock {Feature learning and deep architectures: New directions for music
+  informatics}.
+\newblock {\em Journal of Intelligent Information Systems}, 41(3):461--481,
+  2013.
+
 \bibitem{Humphrey2012}
 Eric~J Humphrey, Taemin Cho, and Juan~P Bello.
 \newblock Learning a robust tonnetz-space transform for automatic chord

@@ -141,6 +141,9 @@ the whole input.
 This method, known as weight sharing, decreases the number of parameters
 of each feature map while increasing the amount of available training data.
 
+Newton and Smith \cite{Newton2012} have trained an echo-state network to
+recognize musical instrument from the raw waveform, at the scale of isolated
+notes.
 McFee \etal \cite{McFee2015-muda} have trained a deep convolutional network on
 music instruments in order to illustrate the benefits of
 artificial data augmentation.
@@ -389,17 +392,13 @@ such that the whole batch had unit mean and unit variance.
 The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015},
 a state-of-the-art online optimizer for gradient-based learning.
 The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics
-processing unit within a few minutes
-% Ref to LeCun on disentangling factors of variability
-% Ref to Newton 2012
+processing unit within a few minutes.
 
 \section{Convolutions on the pitch spiral}
 Although a dataset of music signals is unquestionably stationary over the time
 dimension -- at least at the scale of a few seconds -- it cannot be taken for granted
-that all frequency bands of a mel-frequency spectrogram would have the same local statistics.
-
-"Local neighborhoods in frequency do not share the same relationship", Humphrey \etal
-acknowledge in their review of deep learning techniques for MIR.
+that all frequency bands of a mel-frequency spectrogram would have the same
+local statistics \cite{Humphrey2013}.
 
 Indeed, since the neighboring
 partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each
