@@ -7,8 +7,8 @@ import numpy as np
 decision_length = 131072  # in samples
 fmin = 55  # in Hz
 hop_length = 1024  # in samples
-n_bins_per_octave = 12
-n_octaves = 8
+n_bins_per_octave = 36
+n_octaves = 6
 mask_weight = 0
 
 # Get single-label split (MedleyDB for training, solosDb for test
@@ -33,7 +33,7 @@ conv1_milliseconds = 200
 pool1_semitones = 2
 pool1_milliseconds = 50
 conv2_channels = 48
-conv2_semitones = 12
+conv2_semitones = 6
 conv2_milliseconds = 300
 pool2_semitones = 4
 dense1_channels = 96

@@ -80,7 +80,7 @@ def build_graph(
 
     dense2 = Dense(dense2_channels,
                    init="lecun_uniform", activation="softmax",
-                   W_regularizer=l2(0.01))
+                   W_regularizer=l2(0.02))
     graph.add_node(dense2, name="dense2", input="drop2")
 
     if is_Z_supervision:
