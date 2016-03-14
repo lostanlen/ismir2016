@@ -169,7 +169,11 @@ delineates the support of its spectral envelope.
 This elementary observation implies that realistic pitch changes cannot be modeled
 by translating a rigid spectral template along the log-frequency axis.
 The same property is verified for a wide class of instruments, especially brass and
-woodwinds.  
+woodwinds.
+As a consequence, the construction of powerful invariants to musical pitch is not amenable to
+delocalized measurements on the mel-frequency spectrum, such as a discrete cosine
+transform (DCT) which leads to the mel-frequency cepstral coefficients (MFCC)
+\cite{Eronen2000, Joder2009}.
 
 \begin{figure}[t]
     \begin{center}
@@ -187,17 +191,14 @@ woodwinds.
 }
 \end{figure}
 
-As a consequence, the construction of powerful invariants to musical pitch is not amenable to
-delocalized measurements on the mel-frequency spectrum, such as a discrete cosine
-transform (DCT).
-To demonstrate this claim, we have extracted the mel-frequency cepstral coefficients --
-which result from a DCT of the mel-frequency spectrum with logarithmic compression of
-loudness --
-of 2688 individual notes played by six instruments, with varying pitches, nuances, interprets,
-and manufacturers (see Figure \ref{fig:mfcc-variances}).
-
-Following a well-established rule, the MFCC were the 13 lowest "quefrencies" among the
-DCT coefficients extracted from a
+To validate this claim, we have extracted the MFCC
+of 2688 individual notes from the RWC dataset \cite{Goto2003},
+as played by six instruments, with varying pitches, nuances, interprets,
+and manufacturers.
+Following a well-established rule,
+the MFCC were defined the 13 lowest "quefrencies" among the
+DCT coefficients extracted from a filter bank of 40 mel-frequency bands
+\cite{Eronen2000, Joder2009}.
 
 We found that the MFCC cluster corresponding to each instrument is shrinked if
 decomposed into a mixture of same-pitch clusters, sometimes by an order of
@@ -350,7 +351,7 @@ Let $\boldsymbol{\phi}[k_1]$ be a window function of width $2Q$, that is two oct
 Compare the above with Equation (\ref{eq:convolution}).
 Limited weight sharing has been introduced by Abdel-Hamid et al. \cite{Abdel-Hamid2014}.
 
-\section{Single-instrument classification}\label{sec:single-instrument}
+\section{Applications}\label{sec:single-instrument}
 \subsection{Experimental design}
 In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments (see Table \ref{table:single-label-durations}). Stems with leaking instruments in the background were discarded.
 
@@ -391,7 +392,7 @@ Results are charted in Table \ref{table:single-label-results}.
 		\hline
 		Representation & Error rate (\%) \\
 		\hline
-		MFCC \& random forest & $-$ \\
+		MFCC \& random forrest & $-$ \\
 		ConvNet, full weight sharing & $-$ \\
 		ConvNet, limited weight sharing & $-$ \\
 		\hline

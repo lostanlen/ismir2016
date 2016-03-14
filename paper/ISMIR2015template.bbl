@@ -38,6 +38,12 @@ Antti Eronen and Anssi Klapuri.
   Proceedings. 2000 IEEE International Conference on}, volume~2, pages
   II753--II756. IEEE, 2000.
 
+\bibitem{Goto2003}
+Masataka Goto, Hiroki Hashiguchi, Takuichi Nishimura, and Ryuichi Oka.
+\newblock Rwc music database: Music genre database and musical instrument sound
+  database.
+\newblock 2003.
+
 \bibitem{Hamel2012}
 Philippe Hamel, Yoshua Bengio, and Douglas Eck.
 \newblock {Building musically-relevant audio features through multiple

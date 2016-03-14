@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 12:50
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 12:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -332,38 +332,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--32
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 42--46
+Underfull \hbox (badness 10000) in paragraph at lines 42--46
+[]\OT1/ptm/m/n/10 Masataka Goto, Hi-roki Hashiguchi, Takuichi
+ []
+
+
+Underfull \hbox (badness 1377) in paragraph at lines 48--52
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 67--71
+Underfull \hbox (badness 1895) in paragraph at lines 73--77
 \OT1/ptm/m/n/10 Method for Stochas-tic Op-ti-miza-tion.  \OT1/ptm/m/it/10 In-te
 r-na-tional
  []
 
-
-Underfull \hbox (badness 1184) in paragraph at lines 89--93
+[4]
+Underfull \hbox (badness 1184) in paragraph at lines 95--99
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
-[4]
-Underfull \hbox (badness 1242) in paragraph at lines 101--104
+
+Underfull \hbox (badness 1242) in paragraph at lines 107--110
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
 ) [5
 
-] (./ISMIR2015template.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./ISMIR2015template.aux) ) 
 Here is how much of TeX's memory you used:
- 4896 strings out of 493706
- 77943 string characters out of 6145769
- 174091 words of memory out of 5000000
- 8179 multiletter control sequences out of 15000+600000
+ 4897 strings out of 493706
+ 77953 string characters out of 6145769
+ 174095 words of memory out of 5000000
+ 8180 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,14n,38p,558b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
