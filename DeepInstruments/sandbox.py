@@ -5,7 +5,7 @@ import numpy as np
 
 # Parameters for audio
 decision_length = 131072  # in samples
-fmin = 65.4  # in Hz
+fmin = 55  # in Hz
 hop_length = 1024  # in samples
 n_bins_per_octave = 12
 n_octaves = 8
@@ -20,49 +20,35 @@ datagen = di.singlelabel.ScalogramGenerator(
         n_bins_per_octave, n_octaves,
         training_stems)
 
-
 # Compute audio features on the test set
 test_paths = di.singlelabel.get_paths("test")
 X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
-
-conv1_channels = 32
-conv1_semitones = 12
-conv1_milliseconds = 100
-pool1_semitones = 3
-pool1_milliseconds = 150
-conv2_channels = 32
-conv2_semitones = 60
-conv2_milliseconds = 1000
-pool2_semitones = 9
-dense1_channels = 32
-
 # Parameters for ConvNet
 is_spiral = False
 is_Z_supervision = False
 
-X_height = n_bins_per_octave * n_octaves
-X_width = decision_length / hop_length
-
-conv1_height = conv1_semitones * n_bins_per_octave / 12
-conv1_width = int(conv1_milliseconds * 44.1 / hop_length)
-conv1_output_height = X_height - conv1_height
-conv1_output_width = X_width - conv1_width
-pool1_height = pool1_semitones * n_bins_per_octave / 12
-pool1_width = int(pool1_milliseconds * 44.1 / hop_length)
-pool1_output_height = conv1_output_height / pool1_height
-pool1_output_width = conv1_output_width / pool1_width
-conv2_height = conv2_semitones / pool1_height * n_bins_per_octave / 12
-conv2_width = int(conv2_milliseconds * 44.1 / (hop_length * pool1_width))
-conv2_output_height = pool1_output_height - conv2_height
-conv2_output_width = pool1_output_width - conv2_width
-pool2_height = pool2_semitones * n_bins_per_octave / (12 * pool1_height)
-pool2_width = conv2_output_width
-pool2_width = 4
+conv1_channels = 32
+if is_spiral:
+    conv1_height = 3
+    conv1_width = 3
+else:
+    conv1_height = 13
+    conv1_width = 3
+pool1_height = 3
+pool1_width = 6
+conv2_channels = 32
+conv2_height = 20
+conv2_width = 7
+pool2_height = 3
+pool2_width = 6
+drop1_proportion = 0.5
+dense1_channels = 32
+drop2_proportion = 0.5
 
 # Parameters for learning
-batch_size = 64
+batch_size = 32
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
