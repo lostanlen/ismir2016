@@ -27,16 +27,16 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 
-conv1_channels = 32
-conv1_semitones = 12
+conv1_channels = 24
+conv1_semitones = 4
 conv1_milliseconds = 200
-pool1_semitones = 3
-pool1_milliseconds = 200
-conv2_channels = 32
-conv2_semitones = 36
-conv2_milliseconds = 1000
-pool2_semitones = 12
-dense1_channels = 32
+pool1_semitones = 2
+pool1_milliseconds = 50
+conv2_channels = 48
+conv2_semitones = 12
+conv2_milliseconds = 300
+pool2_semitones = 4
+dense1_channels = 96
 
 # Parameters for ConvNet
 is_spiral = False
@@ -61,7 +61,7 @@ pool2_height = pool2_semitones * n_bins_per_octave / (12 * pool1_height)
 pool2_width = conv2_output_width
 
 # Parameters for learning
-batch_size = 32
+batch_size = 64
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"

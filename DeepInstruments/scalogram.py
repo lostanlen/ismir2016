@@ -5,7 +5,7 @@ from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.convolutional import AveragePooling1D,\
     Convolution2D, MaxPooling2D, AveragePooling2D
-from keras.regularizers import ActivityRegularizer, WeightRegularizer
+from keras.regularizers import l2
 from keras.layers.normalization import BatchNormalization
 
 
@@ -79,7 +79,8 @@ def build_graph(
     graph.add_node(drop2, name="drop2", input="relu3")
 
     dense2 = Dense(dense2_channels,
-                   init="lecun_uniform", activation="softmax")
+                   init="lecun_uniform", activation="softmax",
+                   W_regularizer=l2(0.01))
     graph.add_node(dense2, name="dense2", input="drop2")
 
     if is_Z_supervision:
