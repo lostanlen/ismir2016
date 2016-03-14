@@ -8,7 +8,7 @@ from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.layers.convolutional import MaxPooling1D, AveragePooling1D
 from keras.regularizers import ActivityRegularizer, WeightRegularizer
 from keras.layers.normalization import BatchNormalization
-
+from keras.regularizers import l2
 
 def build_graph(
         is_Z_supervision,
@@ -106,7 +106,8 @@ def build_graph(
     graph.add_node(relu3, name="relu3", input="dense1")
 
     dense2 = Dense(dense2_channels,
-                   activation="softmax", init="lecun_uniform")
+                   activation="softmax", init="lecun_uniform",
+                   W_regularizer=l2(0.05))
     graph.add_node(dense2, name="dense2", input="relu3")
 
     # Output

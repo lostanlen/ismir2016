@@ -335,12 +335,10 @@ The above ensures that the coefficients of $\boldsymbol{x_5}$ are non-negative a
 \end{equation}
 The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set.
 
-% Categorical cross-entropy
-% For music instrument classification, this objective function is a histogram of the active instruments within an audio stream.
 The network is trained on categorical cross-entropy over shuffled mini-batches of size 64 with uniform class distribution.
 Each training example is a 3-second spectrogram whose boundaries are selected at random over non-silent regions of a song. Each spectrogram within a batch was globally normalized such that the whole batch had unit mean and unit variance.
 The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
-The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics processing unit within a few minutes.
+The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics processing unit within a few minutes
 % Ref to LeCun on disentangling factors of variability
 % Ref to Newton 2012
 
