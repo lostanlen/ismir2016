@@ -103,11 +103,8 @@ often leads to uninterpretable overfitting, especially in MIR where the quantity
 of thoroughly annotated data is relatively small.
 
 In this article, we strive to integrate domain-specific knowledge about musical
-pitch into a deep learning framework, hence bridging the gap between feature
-engineering and feature learning.
-
-%Deep convolutional networks have proven to disentangle factors of variability
-%among natural images, such as pose, color, and lighting conditions.
+pitch into a deep learning framework, in an effort towards bridging the gap
+between feature engineering and feature learning.
 
 Section 2 reviews the related work on feature learning for signal-based music
 classification.
@@ -125,7 +122,21 @@ dataset for music instrument recognition.
 Spurred by the growth of annotated datasets and the democratization of
 high-performance computing, feature learning has enjoyed a renewed interest
 in recent years within the MIR community.
+Whereas unsupervised learning (\eg $k$-means, Gaussian
+mixtures) is employed to fit the distribution of the data with
+few parameters of relatively low abstraction
+and high dimensionality, state-of-the-art supervised learning consists of a
+composition of multiple nonlinear transformations, jointly optimized
+to predict class labels, and whose behaviour gain in abstraction as depth
+increases \cite{vandenOord2013}.
 
+The success of convolutional representations rely on a stationarity assumption,
+which claims that the input spectrograms are made of small time-frequency patches
+whose content is statistically independent from their location.
+As a consequence, linear transformations of the data can be learned efficiently
+by enforcing the transformation of every patch to be equal across the whole input.
+This method, known as weight sharing, decreases the number of parameters
+of each feature map while increasing the amount of available training data.
 For music instrument recognition: \cite{McFee2015-muda}, \cite{Li2015}.
 
 Some other applications include onset detection \cite{Schluter2014},
@@ -237,7 +248,7 @@ Whisker ends denote lower and upper deciles. See text for details.
 \end{figure}
 \section{Deep convolutional networks}
 A deep learning system for classification is built by stacking multiple layers of weakly nonlinear
-transformations, whose parameters are jointly optimized such that the top-level layer fits a training
+transformations, whose parameters are optimized such that the top-level layer fits a training
 set of labeled examples.
 This section introduces a typical deep learning architecture for audio classification and describes
 the functioning of each layer.
@@ -375,13 +386,16 @@ processing unit within a few minutes
 % Ref to Newton 2012
 
 \section{Convolutions on the pitch spiral}
-The success of convolutional representations rely on a stationarity assumption,
-which claims that the input spectrograms are made of small time-frequency patches
-whose content is statistically independent from their location.
-Although this assumption is 
+
+
+However, although a dataset of music signals is unquestionably stationary over the time
+dimension -- at least at the scale of a few seconds -- it cannot be taken for granted
+that the frequency axis is 
 
 "Local neighborhoods in frequency do not share the same relationship", Humphrey \etal
-acknowledge in their review of deep learning techniques for MIR. Indeed, since the neighboring
+acknowledge in their review of deep learning techniques for MIR.
+
+Indeed, since the neighboring
 partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each
 other on a mel scale.
 Due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at
