@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 10:46
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 10:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -230,11 +230,7 @@ Package: IEEEtrantools 2014/09/17 V1.4 by Michael Shell
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(./ISMIR2015template.aux
-
-LaTeX Warning: Label `fig:mfcc-variances' multiply defined.
-
-)
+(./ISMIR2015template.aux)
 \openout1 = `ISMIR2015template.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
@@ -250,7 +246,8 @@ LaTeX Font Info:    ... okay on input line 59.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
 LaTeX Font Info:    ... okay on input line 59.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 59.
- (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 Package caption Info: Begin \AtBeginDocument code.
@@ -302,18 +299,14 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 File: figs/chromatic_scale.png Graphic file (type QTm)
 
 <use  "figs/chromatic_scale.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 179--180
- [] 
- []
-
 File: figs/mfcc_variances.png Graphic file (type QTm)
-<use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 207--208
+ <use  "figs/mfcc_variances.png" >
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 209--210
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 212--212
+Underfull \hbox (badness 2401) in paragraph at lines 214--214
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
@@ -361,16 +354,12 @@ Underfull \hbox (badness 1242) in paragraph at lines 101--104
 
 [4]) [5
 
-] (./ISMIR2015template.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+] (./ISMIR2015template.aux) ) 
 Here is how much of TeX's memory you used:
- 4895 strings out of 493706
- 77922 string characters out of 6145769
- 176122 words of memory out of 5000000
- 8178 multiletter control sequences out of 15000+600000
+ 4896 strings out of 493706
+ 77943 string characters out of 6145769
+ 176091 words of memory out of 5000000
+ 8179 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,14n,38p,558b,340s stack positions out of 5000i,500n,10000p,200000b,80000s

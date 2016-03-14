@@ -162,20 +162,22 @@ The time-frequency domain produced by a constant-Q filter bank tuned to the mel
 scale is covariant with respect to pitch transposition of pure tones.
 As a result, a chromatic scale played at constant speed would draw parallel,
 diagonal lines, each of them corresponding to a different partial wave.
-
 However, the physics of musical instruments constrain these partial waves to bear
 a negligible energy if their frequencies are beyond the range of acoustic resonance.
 
-This implies that realistic pitch changes cannot be modeled by translating a rigid
-spectral template along the log-frequency axis.
+As shown on Figure \ref{fig:chromatic-scale}, the constant-Q spectrogram of a
+tuba chromatic scale exhibits a fixed, cutoff frequency at about 2500 Hz, which
+delineates the support of its spectral envelope.
+This elementary observation implies that realistic pitch changes cannot be modeled
+by translating a rigid spectral template along the log-frequency axis.
 The same property is verified for a wide class of instruments, especially brass and
 woodwinds.  
 
 \begin{figure}[t]
     \begin{center}
         \setlength{\unitlength}{1cm}
-        \begin{picture}(8.5,3.2)
-        \put(0.1,0){\includegraphics[width=8cm]{figs/chromatic_scale.png}}
+        \begin{picture}(8.2,3)
+        \put(0,-0.5){\includegraphics[width=8cm]{figs/chromatic_scale.png}}
         \end{picture}
     \end{center}
     \protect\caption{
@@ -183,7 +185,7 @@ woodwinds.
     Although the harmonic partials shift progressively, the spectral envelope remains unchanged,
     as revealed by the presence of a fixed cutoff frequency.
     See text for details.
-\label{fig:mfcc-variances}
+\label{fig:chromatic-scale}
 }
 \end{figure}
 
