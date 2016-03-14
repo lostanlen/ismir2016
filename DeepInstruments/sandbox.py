@@ -30,12 +30,12 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 conv1_channels = 32
 conv1_semitones = 12
 conv1_milliseconds = 100
-pool1_semitones = 2
-pool1_milliseconds = 100
+pool1_semitones = 3
+pool1_milliseconds = 150
 conv2_channels = 32
-conv2_semitones = 12
-conv2_milliseconds = 300
-pool2_semitones = 4
+conv2_semitones = 60
+conv2_milliseconds = 1000
+pool2_semitones = 9
 dense1_channels = 32
 
 # Parameters for ConvNet
