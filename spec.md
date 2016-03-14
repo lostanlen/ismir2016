@@ -41,8 +41,8 @@ D. *Evaluation*
 
 E. *Display*
     1. [DONE] Export filters from conv1 as images.
-    2. Make a figure for the architecture.
-    3. Make a figure for the duration of training set and test set for every instrument in single-label dataset.
+    2. [DONE] Make a figure for the architecture.
+    3. [DONE] Make a figure for the duration of training set and test set for every instrument in single-label dataset.
 
 F. *Dataset*
 1. [DONE] Get the full MedleyDB dataset
@@ -114,10 +114,12 @@ L. References
 3. Dieleman and Benjamin deep learning for audio
 4. Humphrey, Bello, and LeCun deep architectures for music informatics
 5. Salamon and Bello : feature learning
-6. Li, Qian and Wang: ConvNets on raw audio for multilabel instrument recognition
+6. [DONE] Li, Qian and Wang: ConvNets on raw audio for multilabel instrument recognition
 7. [DONE] McFee et al. librosa
 8. [DONE] Kingma & Ba: Adam optimizer
 9. [DONE] Chollet: Keras package
 10. [DONE] Bittner et al. MedleyDB
-11. Bruna, Szlam, LeCun. Learning Stable Group Invariant Representations.
-12. Mallat 2016. Understanding Deep Convolutional Networks.
+11. [CLOSED] Bruna, Szlam, LeCun. Learning Stable Group Invariant Representations.
+12. [CLOSED] Mallat 2016. Understanding Deep Convolutional Networks.
+
+M. 
