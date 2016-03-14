@@ -230,13 +230,17 @@ feature learning in this area.
         \end{picture}
     \end{center}
     \protect\caption{
-Distributions of squared Euclidean distances among various MFCC clusters in the RWC dataset. Whisker ends denote lower and upper deciles. See text for details.
+Distributions of squared Euclidean distances among various MFCC clusters in the RWC dataset.
+Whisker ends denote lower and upper deciles. See text for details.
 \label{fig:mfcc-variances}
 }
 \end{figure}
 \section{Deep convolutional networks}
-A deep learning system for classification is built by stacking multiple layers of weakly nonlinear transformations, whose parameters are jointly optimized such that the top-level layer fits a training set of labeled examples.
-This section introduces a typical deep learning architecture for audio classification and describes the functioning of each layer.
+A deep learning system for classification is built by stacking multiple layers of weakly nonlinear
+transformations, whose parameters are jointly optimized such that the top-level layer fits a training
+set of labeled examples.
+This section introduces a typical deep learning architecture for audio classification and describes
+the functioning of each layer.
 
 \begin{figure*}[t]
     \begin{center}
@@ -251,12 +255,22 @@ Architecture of a convolutional network with full weight sharing. See text for d
 }
 \end{figure*}
 
-The input of our system is a constant-Q wavelet scalogram, which is very comparable to a mel-frequency spectrogram.
-We used the implementation from the librosa package \cite{McFee2015-librosa} with $Q=12$ filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9), and a hop size of 23 ms.
-Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the dynamic range between the fundamental partial and its upper harmonics.
-A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ frequency bands.
+The input of our system is a constant-Q wavelet scalogram, which is very comparable to a
+mel-frequency spectrogram.
+We used the implementation from the librosa package \cite{McFee2015-librosa} with $Q=12$
+filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9),
+and a hop size of 23 ms.
+Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the
+dynamic range between the fundamental partial and its upper harmonics.
+A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix
+$\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ frequency bands.
 
-Each layer in a convolutional network typically consists in the composition of three operations: two-dimensional convolutions, application of a pointwise nonlinearity, and local pooling. A convolutional operator is defined as a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of $K_2$ two-dimensional filters, whose impulse repsonses are all constrained to have width $\Delta t$ and height $\Delta k_1$. Element-wise biases $\boldsymbol{b_2}[k_2]$ are added to the convolutions, resulting in the three-way tensor 
+Each layer in a convolutional network typically consists in the composition of three operations:
+two-dimensional convolutions, application of a pointwise nonlinearity, and local pooling.
+A convolutional operator is defined as a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of
+$K_2$ two-dimensional filters, whose impulse repsonses are all constrained to have width
+$\Delta t$ and height $\Delta k_1$. Element-wise biases $\boldsymbol{b_2}[k_2]$ are
+added to the convolutions, resulting in the three-way tensor 
 \begin{IEEEeqnarray}{rCl}
 \IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_2}[t,k_1,k_2]} \nonumber \\
@@ -284,7 +298,9 @@ with a rectifying slope of $\alpha=0.3$ for negative inputs.
 \IEEEeqnarraynumspace
 \label{eq:relu}
  \end{IEEEeqnarray}
-The pooling step consists in retaining the maximal activation among neighboring units in the time-frequency domain $(t, k_1)$ over non-overlapping rectangles of width $\Delta t$ and height $\Delta k_1$.
+The pooling step consists in retaining the maximal activation among neighboring units in the
+time-frequency domain $(t, k_1)$ over non-overlapping rectangles of width $\Delta t$ and
+height $\Delta k_1$.
 \begin{equation}
 \boldsymbol{x_2}[t,k_1,k_2] = \! \!
 \max_{
@@ -297,8 +313,11 @@ The pooling step consists in retaining the maximal activation among neighboring 
 \right\}
 \label{eq:pooling}
 \end{equation}
-The hidden units in $\boldsymbol{x_2}$ are in turn fed to a second layer of convolutions, ReLU, and pooling.
-Observe that the corresponding convolutional operator $\boldsymbol{W_3}[\tau, \kappa_1, k_2, k_3]$ performs a linear combination of time-frequency feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
+The hidden units in $\boldsymbol{x_2}$ are in turn fed to a second layer of convolutions,
+ReLU, and pooling.
+Observe that the corresponding convolutional operator
+$\boldsymbol{W_3}[\tau, \kappa_1, k_2, k_3]$ performs a linear combination of time-frequency
+feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
 \begin{IEEEeqnarray}{rCl}
 \IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_3}[t,k_1,k_3]} \nonumber \\
@@ -310,7 +329,10 @@ Observe that the corresponding convolutional operator $\boldsymbol{W_3}[\tau, \k
 \boldsymbol{x_2}[t,k_1,k_2].
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
-Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsymbol{y_3}$ by ReLU and pooling, with formulae similar to Eqs. (\ref{eq:relu}) and (\ref{eq:pooling}). The third layer consists of the linear projection of $\boldsymbol{x_3}$, viewed as a vector of the flattened index $(t, k_1, k_3)$, over $K_4$ units:
+Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsymbol{y_3}$
+by ReLU and pooling, with formulae similar to Eqs. (\ref{eq:relu}) and (\ref{eq:pooling}).
+The third layer consists of the linear projection of $\boldsymbol{x_3}$, viewed as a vector of
+the flattened index $(t, k_1, k_3)$, over $K_4$ units:
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_4}[k_4] =
 \boldsymbol{b_4}[k_4] +
@@ -320,31 +342,55 @@ Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsym
 \label{eq:densely-connected-layer}
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
-We apply a ReLU to $\boldsymbol{y_4}$, yielding $\boldsymbol{x_4}[k_4] = \boldsymbol{y_4^{+}}[k_4]$.
-Finally, we project $\boldsymbol{x_4}$ onto a layer of output units $\boldsymbol{y_5}$ that should represent instrument activations: $\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
+We apply a ReLU to $\boldsymbol{y_4}$, yielding
+$\boldsymbol{x_4}[k_4] = \boldsymbol{y_4^{+}}[k_4]$.
+Finally, we project $\boldsymbol{x_4}$ onto a layer of output units $\boldsymbol{y_5}$ that
+should represent instrument activations:
+$\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
+The final transformation is a softmax nonlinearity, that ensures that output coefficients are
+non-negative and sum to one, hence can be fit to a probability distribution.
 \begin{equation}
 \boldsymbol{x_5}[k_5] =
 \frac{\exp \boldsymbol{y_5}[k_5]}
 {  \sum_{\kappa_5} \exp \boldsymbol{y_5}[\kappa_5] }
 \end{equation}
-The above ensures that the coefficients of $\boldsymbol{x_5}$ are non-negative and sum to one, hence can be fit to a probability distribution.
-The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set. This loss is defined as the categorical cross-entropy over shuffled mini-batches of size 64 with uniform class distribution, to which a weight decay term is added.
+The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$
+across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set. This loss is defined as
+the categorical cross-entropy over shuffled mini-batches of size 64 with uniform
+class distribution, to which a weight decay term is added.
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
 - \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]
 + \lambda_5 \Vert W_5 \Vert
 \end{equation}
-The network is trained on Each training example is a 3-second spectrogram whose boundaries are selected at random over non-silent regions of a song. Each spectrogram within a batch was globally normalized such that the whole batch had unit mean and unit variance.
-The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
-The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics processing unit within a few minutes
+%The network is trained on
+Each training example is a 3-second spectrogram whose boundaries are selected at random
+over non-silent regions of a song. Each spectrogram within a batch was globally normalized
+such that the whole batch had unit mean and unit variance.
+The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015},
+a state-of-the-art online optimizer for gradient-based learning.
+The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics
+processing unit within a few minutes
 % Ref to LeCun on disentangling factors of variability
 % Ref to Newton 2012
 
 \section{Convolutions on the pitch spiral}
-"Local neighborhoods in frequency do not share the same relationship", Humphrey \etal acknowledge in their review of deep learning techniques for MIR. Indeed, since the neighboring partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each other on a mel scale.
-Due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at lower frequencies, which results in a blurrier constant-Q spectrogram over the horizontal dimension.
+The success of convolutional representations rely on a stationarity assumption,
+which claims that the input spectrograms are made of small time-frequency patches
+whose content is statistically independent from their location.
+Although this assumption is 
 
-Let $\boldsymbol{\phi}[k_1]$ be a window function of width $3Q$, that is three octaves. We have chosen a Tukey window ($\alpha=0.33$), which has a flat top of width $Q$ surrounded by cosine tapering lobes of width $Q$.
+"Local neighborhoods in frequency do not share the same relationship", Humphrey \etal
+acknowledge in their review of deep learning techniques for MIR. Indeed, since the neighboring
+partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each
+other on a mel scale.
+Due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at
+lower frequencies, which results in a blurrier constant-Q spectrogram over
+the horizontal dimension.
+
+Let $\boldsymbol{\phi}[k_1]$ be a window function of width $3Q$, that is three octaves.
+We have chosen a Tukey window ($\alpha=0.33$), which has a flat top of width $Q$ surrounded
+by cosine tapering lobes of width $Q$.
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_2}[t,k_1,k_2]
 = & &
@@ -364,13 +410,25 @@ Limited weight sharing has been introduced by Abdel-Hamid et al. \cite{Abdel-Ham
 
 \section{Applications}\label{sec:single-instrument}
 \subsection{Experimental design}
-In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$ curves when present. We extracted the monophonic stems corresponding to a selection of eight pitched instruments (see Table \ref{table:single-label-durations}). Stems with leaking instruments in the background were discarded.
+In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a
+dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$
+curves when present. 
+We extracted the monophonic stems corresponding to a selection of eight pitched
+instruments (see Table \ref{table:single-label-durations}).
+Stems with leaking instruments in the background were discarded.
 
-The evaluation set consists of 126 recordings of solo music collected by Joder et al. \cite{Joder2009}, to which we add 23 stems of electric guitar and female voice from MedleyDB. In doing so, guitarists and vocalists were thoroughly put either in the training set or the test set, to prevent any artist bias. We discarded recordings with extended instrumental techniques, since they are very rare in MedleyDB.
+The evaluation set consists of 126 recordings of solo music collected by
+Joder \etal \cite{Joder2009}, to which we add 23 stems of electric guitar and female voice
+from MedleyDB.
+In doing so, guitarists and vocalists were thoroughly put either in the training set or the test set,
+to prevent any artist bias.
+We discarded recordings with extended instrumental techniques, since they are very rare
+in MedleyDB.
 
-Constant-Q spectrograms from the evaluation set were split into half-overlapping, 3-second excerpts.
-The predicted probability distributions were computed for every excerpt in a track, and then aggregated
-by geometric mean.
+Constant-Q spectrograms from the evaluation set were split into half-overlapping,
+3-second excerpts.
+The predicted probability distributions were computed for every excerpt in a track,
+and then aggregated by geometric mean.
 
 
 \begin{table}
@@ -414,9 +472,14 @@ Results are charted in Table \ref{table:single-label-results}.
 \end{table}
 
 \section{Conclusions}
-Understanding the influence of pitch in audio streams is paramount to the design of an efficient system for automated classification, tagging, and similarity retrieval in music. 
-We have presented a data-driven, supervised method to address pitch invariance while preserving good timbral discriminability.
-Future work will be devoted to integrating the proposed scheme with other advances in deep learning for music informatics, such as data augmentation \cite{McFee2015-muda}, multiscale representations \cite{Hamel2012, Anden2015}, and adversarial training \cite{Kereliuk2015}.
+Understanding the influence of pitch in audio streams is paramount to the design of
+an efficient system for automated classification, tagging, and similarity retrieval in music. 
+We have presented a data-driven, supervised method to address pitch invariance
+while preserving good timbral discriminability.
+Future work will be devoted to integrating the proposed scheme with other advances
+in deep learning for music informatics, such as data augmentation \cite{McFee2015-muda},
+multiscale representations \cite{Hamel2012, Anden2015},
+and adversarial training \cite{Kereliuk2015}.
 % For bibtex users:
 \bibliography{ISMIR2015template}
 

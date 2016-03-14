@@ -30,7 +30,7 @@ is_spiral = True
 is_Z_supervision = False
 
 conv1_channels = 32
-conv1_height = 13
+conv1_height = 7
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
