@@ -84,7 +84,8 @@ Secondly, it is intensive: multiple pitches heard simultaneously produce
 a chord, not a single unified tone -- contrary to loudness, which adds
 up with the number of sources.
 Thirdly, it does not depend on instrumentation: this makes possible
-the transcription of polyphonic music under a single symbolic system \cite{Krumhansl2001}.
+the transcription of polyphonic music under a single symbolic system
+\cite{deCheveigne2005}.
 
 Tuning auditory filters to a perceptual scale of pitches provides a
 time-frequency representation of music signals that satisfies the first two of these properties.
@@ -273,12 +274,16 @@ Each layer in a convolutional network typically consists in the composition of t
 \IEEEeqnarraynumspace
 \label{eq:convolution}
 \end{IEEEeqnarray}
- The pointwise nonlinearity we have chosen the \emph{rectified linear unit} (ReLU) because of its popularity in computer vision and its computational efficiency.
- \begin{equation}
- \boldsymbol{y_{2}^{+}}[t,k_1,k_2] = \max \left( \boldsymbol{y_2}[t,k_1,k_2], 0\right)
- \label{eq:relu}
- \end{equation}
- The pooling step consists in retaining the maximal activation among neighboring units in the time-frequency domain $(t, k_1)$ over non-overlapping rectangles of width $\Delta t$ and height $\Delta k_1$.
+The pointwise nonlinearity we have chosen is the rectified linear unit (ReLU),
+with a rectifying slope of $\alpha=0.3$ for negative inputs.
+\begin{IEEEeqnarray}{l}
+\boldsymbol{y_{2}^{+}}[t,k_{1},k_{2}]=\left\{ \! \! \! \begin{array}{r}
+\alpha\boldsymbol{x_{2}}[t,k_{1},k_{2}] \;\;\; \mbox{if} \;\; \boldsymbol{x_{2}}[t,k_{1},k_{2}]<0\\
+\boldsymbol{x_{2}}[t,k_{1},k_{2}] \;\;\; \mbox{if} \;\; \boldsymbol{x_{2}}[t,k_{1},k_{2}]>0
+\end{array}\right. \!
+\IEEEeqnarraynumspace
+ \end{IEEEeqnarray}
+The pooling step consists in retaining the maximal activation among neighboring units in the time-frequency domain $(t, k_1)$ over non-overlapping rectangles of width $\Delta t$ and height $\Delta k_1$.
 \begin{equation}
 \boldsymbol{x_2}[t,k_1,k_2] = \! \!
 \max_{

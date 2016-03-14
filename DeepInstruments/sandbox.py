@@ -8,7 +8,7 @@ decision_length = 131072  # in samples
 fmin = 65.4  # in Hz
 hop_length = 1024  # in samples
 n_bins_per_octave = 12
-n_octaves = 6
+n_octaves = 8
 mask_weight = 0
 
 # Get single-label split (MedleyDB for training, solosDb for test
@@ -31,7 +31,7 @@ conv1_channels = 32
 conv1_semitones = 12
 conv1_milliseconds = 100
 pool1_semitones = 2
-pool1_milliseconds = 50
+pool1_milliseconds = 100
 conv2_channels = 32
 conv2_semitones = 12
 conv2_milliseconds = 300
