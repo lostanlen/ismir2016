@@ -195,7 +195,7 @@ coefficients (MFCC) classically used in music classification
 }
 \end{figure}
 
-To validate this claim, we have extracted the MFCC
+To validate the above claim, we have extracted the MFCC
 of 2688 individual notes from the RWC dataset \cite{Goto2003},
 as played by six instruments, with varying pitches, nuances, interprets,
 and manufacturers.
@@ -207,9 +207,9 @@ between musical notes in the 13-dimensional space of MFCC features.
 
 Figure \ref{fig:mfcc-variances} summarizes our results.
 We found that restricting the cluster to one nuance, one interpret, or one manufacturer
-does not reduce intra-class distances.
+hardly reduces intra-class distances.
 This suggests that MFCC are fairly successful in building invariant representations
-to such factors of variability
+to such factors of variability.
 In contrast, the cluster corresponding to each instrument is shrinked if
 decomposed into a mixture of same-pitch clusters, sometimes by an order of
 magnitude.
@@ -221,7 +221,6 @@ inter-class discriminability, and vice versa.
 This experiment shows that the mel-frequency cepstrum is perfectible in terms
 of invariance-discriminability tradeoff, and that there remains a lot to be gained by
 feature learning in this area.
-
 \begin{figure}[t]
     \begin{center}
         \setlength{\unitlength}{1cm}
@@ -234,7 +233,6 @@ Distributions of squared Euclidean distances among various MFCC clusters in the 
 \label{fig:mfcc-variances}
 }
 \end{figure}
- 
 \section{Deep convolutional networks}
 A deep learning system for classification is built by stacking multiple layers of weakly nonlinear transformations, whose parameters are jointly optimized such that the top-level layer fits a training set of labeled examples.
 This section introduces a typical deep learning architecture for audio classification and describes the functioning of each layer.
@@ -343,7 +341,7 @@ The architecture was built using the Keras library \cite{Chollet2015}, and train
 \section{Convolutions on the pitch spiral}
 "Local neighborhoods in frequency do not share the same relationship", Humphrey \etal acknowledge in their review of deep learning techniques for MIR. Indeed, since the neighboring partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each other on a mel scale. 
 
-Let $\boldsymbol{\phi}[k_1]$ be a window function of width $2Q$, that is two octaves. We have chosen a Tukey window ($\alpha=0.5$), which has a flat top of width $Q$ surrounded by cosine tapering lobes of width $Q/2$.
+Let $\boldsymbol{\phi}[k_1]$ be a window function of width $3Q$, that is three octaves. We have chosen a Tukey window ($\alpha=0.33$), which has a flat top of width $Q$ surrounded by cosine tapering lobes of width $Q$.
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_2}[t,k_1,k_2]
 = & &

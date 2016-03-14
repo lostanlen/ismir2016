@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 13:15
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 13:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -301,12 +301,12 @@ File: figs/chromatic_scale.png Graphic file (type QTm)
 <use  "figs/chromatic_scale.png" >
 File: figs/mfcc_variances.png Graphic file (type QTm)
  <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 230--231
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 229--230
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 235--235
+Underfull \hbox (badness 2401) in paragraph at lines 234--234
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
@@ -363,11 +363,7 @@ Underfull \hbox (badness 1242) in paragraph at lines 107--110
 
 ) [5
 
-] (./ISMIR2015template.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./ISMIR2015template.aux) ) 
 Here is how much of TeX's memory you used:
  4897 strings out of 493706
  77953 string characters out of 6145769
