@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 12:59
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 13:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -301,17 +301,21 @@ File: figs/chromatic_scale.png Graphic file (type QTm)
 <use  "figs/chromatic_scale.png" >
 File: figs/mfcc_variances.png Graphic file (type QTm)
  <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 219--220
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 230--231
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 224--224
+Underfull \hbox (badness 2401) in paragraph at lines 235--235
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
 File: figs/architecture.png Graphic file (type QTm)
-<use  "figs/architecture.png" > [2] [3] (./ISMIR2015template.bbl
+<use  "figs/architecture.png" >
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2]
+[3] (./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 16--21
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -359,11 +363,15 @@ Underfull \hbox (badness 1242) in paragraph at lines 107--110
 
 ) [5
 
-] (./ISMIR2015template.aux) ) 
+] (./ISMIR2015template.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  4897 strings out of 493706
  77953 string characters out of 6145769
- 174095 words of memory out of 5000000
+ 175095 words of memory out of 5000000
  8180 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191

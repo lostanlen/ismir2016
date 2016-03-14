@@ -132,7 +132,10 @@ transcription \cite{Sigtia2015}, genre classification \cite{Choi2015},
 chord recognition \cite{Humphrey2012}, boundary detection \cite{Ullrich2014}, and
 recommendation \cite{vandenOord2013}.
 
-The most widely studied deep learning system for music information retrieval consists of two convolutional layers and two densely connected layers, with minor variations \cite{Humphrey2012, Kereliuk2015, Li2015, McFee2015-muda, Schluter2014, Ullrich2014}.
+The most widely studied deep learning system for music information retrieval
+consists of two convolutional layers and two densely connected layers,
+with minor variations \cite{Humphrey2012, Kereliuk2015, Li2015,
+McFee2015-muda, Schluter2014, Ullrich2014}.
 % The problem is made difficult by the fact that factors of variability are entangled.
 % Deep convolutional networks have proven to disentangle factors of variability in computer
 % vision, such as pose, color, and lighting conditions.
@@ -170,9 +173,10 @@ This elementary observation implies that realistic pitch changes cannot be model
 by translating a rigid spectral template along the log-frequency axis.
 The same property is verified for a wide class of instruments, especially brass and
 woodwinds.
-As a consequence, the construction of powerful invariants to musical pitch is not amenable to
-delocalized measurements on the mel-frequency spectrum, such as a discrete cosine
-transform (DCT) which leads to the mel-frequency cepstral coefficients (MFCC)
+As a consequence, the construction of powerful invariants to musical pitch is not
+amenable to delocalized operations on the mel-frequency spectrum, such as a
+discrete cosine transform (DCT) which leads to the mel-frequency cepstral
+coefficients (MFCC) classically used in music classification
 \cite{Eronen2000, Joder2009}.
 
 \begin{figure}[t]
@@ -195,12 +199,18 @@ To validate this claim, we have extracted the MFCC
 of 2688 individual notes from the RWC dataset \cite{Goto2003},
 as played by six instruments, with varying pitches, nuances, interprets,
 and manufacturers.
-Following a well-established rule,
+Following a well-established rule \cite{Eronen2000, Joder2009},
 the MFCC were defined the 13 lowest "quefrencies" among the
-DCT coefficients extracted from a filter bank of 40 mel-frequency bands
-\cite{Eronen2000, Joder2009}.
+DCT coefficients extracted from a filter bank of 40 mel-frequency bands.
+We then have computed the distribution of squared Euclidean distances
+between musical notes in the 13-dimensional space of MFCC features.
 
-We found that the MFCC cluster corresponding to each instrument is shrinked if
+Figure \ref{fig:mfcc-variances} summarizes our results.
+We found that restricting the cluster to one nuance, one interpret, or one manufacturer
+does not reduce intra-class distances.
+This suggests that MFCC are fairly successful in building invariant representations
+to such factors of variability
+In contrast, the cluster corresponding to each instrument is shrinked if
 decomposed into a mixture of same-pitch clusters, sometimes by an order of
 magnitude.
 In other words, most of the variance in an instrument cluster of mel-frequency
