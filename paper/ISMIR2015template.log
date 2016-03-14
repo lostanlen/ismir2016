@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  13 MAR 2016 18:50
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  14 MAR 2016 10:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -237,26 +237,26 @@ LaTeX Warning: Label `fig:mfcc-variances' multiply defined.
 )
 \openout1 = `ISMIR2015template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 58.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 59.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \microtypecontext on input line 58.
+LaTeX Info: Redefining \microtypecontext on input line 59.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -267,33 +267,33 @@ Package microtype Info: No adjustment of kerning.
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 61.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 60.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 61.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 61.
 File: figs/cc_by.pdf Graphic file (type QTm)
 
 <use  "figs/cc_by.pdf" >
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 60.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 61.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 61.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 61.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 63.
  [1
 
 
@@ -302,60 +302,60 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 File: figs/chromatic_scale.png Graphic file (type QTm)
 
 <use  "figs/chromatic_scale.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 174--175
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 179--180
  [] 
  []
 
 File: figs/mfcc_variances.png Graphic file (type QTm)
 <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 202--203
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 207--208
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 207--207
+Underfull \hbox (badness 2401) in paragraph at lines 212--212
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
 File: figs/architecture.png Graphic file (type QTm)
 <use  "figs/architecture.png" > [2] [3] (./ISMIR2015template.bbl
-Underfull \hbox (badness 7704) in paragraph at lines 16--22
+Underfull \hbox (badness 7704) in paragraph at lines 16--21
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
 
 
-Underfull \hbox (badness 4096) in paragraph at lines 24--28
+Underfull \hbox (badness 4096) in paragraph at lines 23--27
 []\OT1/ptm/m/n/10 Keunwoo Choi, George Fazekas, Mark San-dler,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--33
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
 []\OT1/ptm/m/n/10 Fran[]ois Chol-let.  Keras: a deep learn-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--33
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
 \OT1/ptm/m/n/10 ing li-brary for theano and ten-sor-flow.
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 43--47
+Underfull \hbox (badness 1377) in paragraph at lines 42--46
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 68--72
+Underfull \hbox (badness 1895) in paragraph at lines 67--71
 \OT1/ptm/m/n/10 Method for Stochas-tic Op-ti-miza-tion.  \OT1/ptm/m/it/10 In-te
 r-na-tional
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 90--94
+Underfull \hbox (badness 1184) in paragraph at lines 89--93
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
 
-Underfull \hbox (badness 1242) in paragraph at lines 102--105
+Underfull \hbox (badness 1242) in paragraph at lines 101--104
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
@@ -367,10 +367,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4894 strings out of 493706
- 77918 string characters out of 6145769
- 175109 words of memory out of 5000000
- 8177 multiletter control sequences out of 15000+600000
+ 4895 strings out of 493706
+ 77922 string characters out of 6145769
+ 176122 words of memory out of 5000000
+ 8178 multiletter control sequences out of 15000+600000
  15902 words of font info for 52 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,14n,38p,558b,340s stack positions out of 5000i,500n,10000p,200000b,80000s

@@ -163,6 +163,9 @@ scale is covariant with respect to pitch transposition of pure tones.
 As a result, a chromatic scale played at constant speed would draw parallel,
 diagonal lines, each of them corresponding to a different partial wave.
 
+However, the physics of musical instruments constrain these partial waves to bear
+a negligible energy if their frequencies are beyond the range of acoustic resonance.
+
 This implies that realistic pitch changes cannot be modeled by translating a rigid
 spectral template along the log-frequency axis.
 The same property is verified for a wide class of instruments, especially brass and
@@ -301,22 +304,21 @@ The above ensures that the coefficients of $\boldsymbol{x_5}$ are non-negative a
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
 - \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]
++ \lambda_5 \Vert W_5 \Vert
 \end{equation}
 The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set.
 
 % Categorical cross-entropy
 % For music instrument classification, this objective function is a histogram of the active instruments within an audio stream.
-The network is trained on categorical cross-entropy over shuffled mini-batches of size 512 with uniform class distribution.
+The network is trained on categorical cross-entropy over shuffled mini-batches of size 64 with uniform class distribution.
 Each training example is a 3-second spectrogram whose boundaries are selected at random over non-silent regions of a song. Each spectrogram within a batch was globally normalized such that the whole batch had unit mean and unit variance.
 The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
 The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics processing unit within a few minutes.
-
 % Ref to LeCun on disentangling factors of variability
 % Ref to Newton 2012
 
-
 \section{Convolutions on the pitch spiral}
-"Local neighborhoods in frequency do not share the same relationship", Humphrey et al. acknowledge in their review of deep learning techniques for MIR. Indeed, since the neighboring partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each other on a mel scale. 
+"Local neighborhoods in frequency do not share the same relationship", Humphrey \etal acknowledge in their review of deep learning techniques for MIR. Indeed, since the neighboring partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each other on a mel scale. 
 
 Let $\boldsymbol{\phi}[k_1]$ be a window function of width $2Q$, that is two octaves. We have chosen a Tukey window ($\alpha=0.5$), which has a flat top of width $Q$ surrounded by cosine tapering lobes of width $Q/2$.
 \begin{IEEEeqnarray}{rCl}

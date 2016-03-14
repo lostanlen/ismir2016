@@ -5,9 +5,9 @@ import numpy as np
 
 # Parameters for audio
 decision_length = 131072  # in samples
-fmin = 55  # in Hz
+fmin = 65.4  # in Hz
 hop_length = 1024  # in samples
-n_bins_per_octave = 36
+n_bins_per_octave = 12
 n_octaves = 6
 mask_weight = 0
 
@@ -27,16 +27,16 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 
-conv1_channels = 24
+conv1_channels = 32
 conv1_semitones = 4
 conv1_milliseconds = 200
 pool1_semitones = 2
 pool1_milliseconds = 50
-conv2_channels = 48
+conv2_channels = 32
 conv2_semitones = 6
 conv2_milliseconds = 300
 pool2_semitones = 4
-dense1_channels = 96
+dense1_channels = 32
 
 # Parameters for ConvNet
 is_spiral = False
