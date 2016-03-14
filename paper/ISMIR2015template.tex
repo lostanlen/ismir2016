@@ -328,15 +328,13 @@ Finally, we project $\boldsymbol{x_4}$ onto a layer of output units $\boldsymbol
 {  \sum_{\kappa_5} \exp \boldsymbol{y_5}[\kappa_5] }
 \end{equation}
 The above ensures that the coefficients of $\boldsymbol{x_5}$ are non-negative and sum to one, hence can be fit to a probability distribution.
+The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set. This loss is defined as the categorical cross-entropy over shuffled mini-batches of size 64 with uniform class distribution, to which a weight decay term is added.
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
 - \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]
 + \lambda_5 \Vert W_5 \Vert
 \end{equation}
-The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$ for across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set.
-
-The network is trained on categorical cross-entropy over shuffled mini-batches of size 64 with uniform class distribution.
-Each training example is a 3-second spectrogram whose boundaries are selected at random over non-silent regions of a song. Each spectrogram within a batch was globally normalized such that the whole batch had unit mean and unit variance.
+The network is trained on Each training example is a 3-second spectrogram whose boundaries are selected at random over non-silent regions of a song. Each spectrogram within a batch was globally normalized such that the whole batch had unit mean and unit variance.
 The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015}, a state-of-the-art online optimizer for gradient-based learning.
 The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics processing unit within a few minutes
 % Ref to LeCun on disentangling factors of variability
