@@ -27,7 +27,6 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
 is_spiral = True
-is_Z_supervision = False
 
 conv1_channels = 32
 conv1_height = 7
@@ -49,9 +48,7 @@ epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
 spiral_str = "sp-" if is_spiral else ""
-Z_str = "Z" + str(mask_weight) + "-" if is_Z_supervision else ""
 export_str = spiral_str +\
-             Z_str +\
              str(conv1_channels) + "x" +\
              str(conv1_height) + "x" +\
              str(conv1_width) + "-" +\
@@ -76,7 +73,6 @@ names = [name.split(" ")[0] for name in di.singlelabel.names]
 # Build ConvNet as a Keras graph, compile it with Theano
 graph = di.learning.build_graph(
     is_spiral,
-    is_Z_supervision,
     n_bins_per_octave,
     n_octaves,
     X_width,
@@ -92,11 +88,7 @@ graph = di.learning.build_graph(
     pool2_width,
     dense1_channels,
     dense2_channels)
-if is_Z_supervision:
-    graph.compile(loss={"Y": "categorical_crossentropy",
-                        "zero": "mse"}, optimizer=optimizer)
-else:
-    graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
+graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
 from keras.utils.generic_utils import Progbar
@@ -110,10 +102,8 @@ for epoch_id in xrange(n_epochs):
     print "\nEpoch ", 1 + epoch_id
     progbar = Progbar(epoch_size)
     batch_id = 0
-    for (X_batch, Y_batch, Z_batch, G_batch) in dataflow:
-        loss = di.learning.train_on_batch(graph, is_spiral, is_Z_supervision,
-                                          X_batch, Y_batch, Z_batch, G_batch,
-                                          masked_output)
+    for (X_batch, Y_batch) in dataflow:
+        loss = di.learning.train_on_batch(graph, is_spiral, X_batch, Y_batch)
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
@@ -125,8 +115,7 @@ for epoch_id in xrange(n_epochs):
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
     # Measure test accuracies
-    class_probs = di.learning.predict(graph, is_spiral, is_Z_supervision,
-                                      X_test)
+    class_probs = di.learning.predict(graph, is_spiral, X_test)
     y_predicted = np.argmax(class_probs, axis=1)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)

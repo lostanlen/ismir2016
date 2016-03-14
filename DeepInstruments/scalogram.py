@@ -10,7 +10,6 @@ from keras.layers.normalization import BatchNormalization
 
 
 def build_graph(
-        is_Z_supervision,
         n_bins_per_octave,
         n_octaves,
         X_width,
@@ -33,18 +32,11 @@ def build_graph(
     X_shape = (1, X_height, X_width)
     graph.add_input(name="X", input_shape=X_shape)
 
-    X_bn = BatchNormalization(mode=1)
-    graph.add_node(X_bn, name="X_bn", input="X")
-
-    if is_Z_supervision:
-        graph.add_input(name="Z", input_shape=X_shape)
-        graph.add_input(name="G", input_shape=X_shape)
-
     # Shared layers
     init = "he_normal"
     conv1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                           border_mode="valid", init=init)
-    graph.add_node(conv1, name="conv1", input="X_bn")
+    graph.add_node(conv1, name="conv1", input="X")
 
     relu1 = LeakyReLU()
     graph.add_node(relu1, name="relu1", input="conv1")
@@ -79,43 +71,9 @@ def build_graph(
     graph.add_node(drop2, name="drop2", input="relu3")
 
     dense2 = Dense(dense2_channels,
-                   init="lecun_uniform", activation="softmax",
-                   W_regularizer=l2(0.0))
+                   init="lecun_uniform", activation="softmax")
     graph.add_node(dense2, name="dense2", input="drop2")
-
-    if is_Z_supervision:
-        # Pooling of symbolic activations Z (piano-roll) and G (melody gate)
-        pool1_Z = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-        graph.add_node(pool1_Z, name="pool1_Z", input="Z")
-
-        pool1_G = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-        graph.add_node(pool1_G, name="pool1_G", input="G")
-
-        # Layers towards melodic target
-        flat_shape = (relu2.output_shape[1],
-                      relu2.output_shape[2] * relu2.output_shape[3])
-        reshaped_X = Reshape(dims=flat_shape)
-        graph.add_node(reshaped_X, name="reshaped_X", input="relu2")
-
-        collapsed_X = AveragePooling1D(pool_length=conv1_channels)
-        graph.add_node(collapsed_X, name="collapsed_X", input="reshaped_X")
-
-        softplus_X = ParametricSoftplus()
-        graph.add_node(softplus_X, name="softplus_X", input="collapsed_X")
-
-        rectangular_shape = (1, pool1_X.output_shape[2],
-                             pool1_X.output_shape[3])
-        toplevel_X = Reshape(dims=rectangular_shape)
-        graph.add_node(toplevel_X, name="toplevel_X", input="softplus_X")
-
-        melodic_error = LambdaMerge([toplevel_X, pool1_Z, pool1_G],
-                                    di.learning.substract_and_mask)
-        graph.add_node(melodic_error, name="melodic_error",
-                       inputs=["pool1_Z", "pool1_Z", "pool1_G"])
 
     # Outputs
     graph.add_output(name="Y", input="dense2")
-    if is_Z_supervision:
-        graph.add_output(name="zero", input="melodic_error")
-
     return graph

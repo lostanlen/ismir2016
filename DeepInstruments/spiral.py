@@ -10,8 +10,8 @@ from keras.regularizers import ActivityRegularizer, WeightRegularizer
 from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l2
 
+
 def build_graph(
-        is_Z_supervision,
         n_bins_per_octave,
         n_octaves,
         X_width,
