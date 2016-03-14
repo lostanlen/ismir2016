@@ -189,6 +189,8 @@ woodwinds.
 }
 \end{figure}
 
+%To demonstrate that the difference between a frequency transposition.
+
 Following a well-established rule, the MFCC were extracted by computing
 the discrete cosine transform (DCT) from a mel-frequency spectrum of 40 bands
 with logarithmic compression of loudness, and keeping its 13 lowest "quefrencies".
@@ -198,8 +200,12 @@ decomposed into a mixture of same-pitch clusters, sometimes by an order of
 magnitude.
 In other words, most of the variance in an instrument cluster of mel-frequency
 cepstra is due to pitch transposition.
-This experiment shows that the mel-frequency cepstrum lacks invariance to realistic
-pitch shifts, and that there remains a lot to be gained by feature learning in this area.
+
+Keeping less than 13 coefficients certainly improves invariance, yet at the cost of
+inter-class discriminability, and vice versa.
+This experiment shows that the mel-frequency cepstrum is perfectible in terms
+of invariance-discriminability tradeoff, and that there remains a lot to be gained by
+feature learning in this area.
 
 \begin{figure}[t]
     \begin{center}
