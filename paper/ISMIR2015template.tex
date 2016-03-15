@@ -410,6 +410,15 @@ Despite the fact that it could still encode hierarchical invariants, this approa
 practice to the early specialization of features in the shallower layers, thus not fully
 taking advantage of the network depth.
 
+To address this issue, Abdel-Hamid \etal \cite{Abdel-Hamid2014} have developed
+\emph{limited weight sharing} in the first convolutional layer, and shown that it improves
+the performance of an end-to-end speech recognition system.
+Limited weight sharing consists in splitting the spectrogram into subbands, whose bandwidth
+is of the order of one octave.
+Subbands are then fed in parallel to a layer of convolutions, nonlinearity, and pooling.
+The outputs of each transformed subband are finally aggregated into an unstructured
+vector, and 
+
 Let $\boldsymbol{\phi}[k_1]$ be a window function of width $3Q$, that is three octaves.
 We have chosen a Tukey window ($\alpha=0.33$), which has a flat top of width $Q$ surrounded
 by cosine tapering lobes of width $Q$.
@@ -428,7 +437,6 @@ by cosine tapering lobes of width $Q$.
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
 Compare the above with Equation (\ref{eq:convolution}).
-Limited weight sharing has been introduced by Abdel-Hamid et al. \cite{Abdel-Hamid2014}.
 
 \section{Applications}\label{sec:single-instrument}
 In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a
