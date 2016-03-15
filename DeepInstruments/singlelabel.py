@@ -109,13 +109,6 @@ class ScalogramGenerator(object):
                 for stem in class_stems
             ))
             Y.append([di.singlelabel.get_Y(stem) for stem in class_stems])
-            Z.append([di.symbolic.get_Z(fmin, hop_length, n_bins_per_octave,
-                                        n_octaves, stem)
-                      for stem in class_stems])
-            G.append([di.symbolic.get_G(hop_length, mask_weight,
-                                        n_bins_per_octave,
-                                        n_octaves, stem)
-                      for stem in class_stems])
         indices = di.singlelabel.get_indices(Y, decision_length)
         X_mat = np.hstack([X[class_id][file_id][:, indices[class_id][file_id]]
                            for class_id in range(len(X))
@@ -128,8 +121,6 @@ class ScalogramGenerator(object):
                                 for X_file in X[instrument_id]]
         self.X = X
         self.Y = Y
-        self.Z = Z
-        self.G = G
         self.indices = indices
         n_instruments = len(X)
         durations = []
@@ -149,8 +140,6 @@ class ScalogramGenerator(object):
         Y_batch = np.zeros(Y_batch_size, np.float32)
         y_epoch_size = (n_batches, batch_size)
         y_epoch = np.random.randint(0, n_instruments, size=y_epoch_size)
-        Z_batch = np.zeros(X_batch_size, np.float32)
-        G_batch = np.zeros(X_batch_size, np.float32)
         for batch_id in range(n_batches):
             for sample_id in range(batch_size):
                 instrument_id = y_epoch[batch_id, sample_id]
@@ -164,11 +153,7 @@ class ScalogramGenerator(object):
                     self.X[instrument_id][file_id][:, X_range]
                 Y_batch[sample_id, :] = \
                     self.Y[instrument_id][file_id][:, Y_id]
-                Z_batch[sample_id, :, :] = \
-                    self.Z[instrument_id][file_id][:, X_range]
-                G_batch[sample_id, :, :] = \
-                    self.G[instrument_id][file_id][:, X_range]
-            yield X_batch, Y_batch, Z_batch, G_batch
+            yield X_batch, Y_batch
 
     def get_X(self, paths):
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
