@@ -37,41 +37,29 @@ def build_graph(
 
     # Octave-wise convolutional layers
     init = "he_normal"
-    X0_bn = BatchNormalization(mode=1)
-    graph.add_node(X0_bn, name="X0_bn", input="X0")
     conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X0, name="conv1_X0", input="X0_bn")
+    graph.add_node(conv1_X0, name="conv1_X0", input="X0")
 
-    X1_bn = BatchNormalization(mode=1)
-    graph.add_node(X1_bn, name="X1_bn", input="X1")
     conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X1, name="conv1_X1", input="X1_bn")
+    graph.add_node(conv1_X1, name="conv1_X1", input="X1")
 
-    X2_bn = BatchNormalization(mode=1)
-    graph.add_node(X2_bn, name="X2_bn", input="X2")
     conv1_X2 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X2, name="conv1_X2", input="X2_bn")
+    graph.add_node(conv1_X2, name="conv1_X2", input="X2")
 
-    X3_bn = BatchNormalization(mode=1)
-    graph.add_node(X3_bn, name="X3_bn", input="X3")
     conv1_X3 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X3, name="conv1_X3", input="X3_bn")
+    graph.add_node(conv1_X3, name="conv1_X3", input="X3")
 
-    X4_bn = BatchNormalization(mode=1)
-    graph.add_node(X4_bn, name="X4_bn", input="X4")
     conv1_X4 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X4, name="conv1_X4", input="X4_bn")
+    graph.add_node(conv1_X4, name="conv1_X4", input="X4")
 
-    X5_bn = BatchNormalization(mode=1)
-    graph.add_node(X5_bn, name="X5_bn", input="X5")
     conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X5, name="conv1_X5", input="X5_bn")
+    graph.add_node(conv1_X5, name="conv1_X5", input="X5")
 
     # Spiral concatenation and pooling
     relu1 = LeakyReLU()
@@ -105,8 +93,7 @@ def build_graph(
     graph.add_node(relu3, name="relu3", input="dense1")
 
     dense2 = Dense(dense2_channels,
-                   activation="softmax", init="lecun_uniform",
-                   W_regularizer=l2(0.05))
+                   activation="softmax", init="lecun_uniform")
     graph.add_node(dense2, name="dense2", input="relu3")
 
     # Output

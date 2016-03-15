@@ -26,7 +26,7 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
-is_spiral = True
+is_spiral = False
 
 conv1_channels = 32
 conv1_height = 7
