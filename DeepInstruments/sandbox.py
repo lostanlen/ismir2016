@@ -121,8 +121,9 @@ for epoch_id in xrange(n_epochs):
     y_predicted = np.argmax(class_probs, axis=1)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
-    file_accuracies = di.singlelabel.file_accuracies(test_paths, y_predicted,
-                                                     y_test)
+    file_accuracies = di.singlelabel.file_accuracies(test_paths, class_probs,
+                                                     y_test,
+                                                     method="geometric_mean")
     file_accuracies_history.append(file_accuracies)
     mean_file_accuracy = np.mean(file_accuracies)
     std_file_accuracy = np.std(file_accuracies)

@@ -178,24 +178,30 @@ def chunk_accuracies(y_predicted, y_true):
     return test_accuracies
 
 
-def file_accuracies(test_paths, y_predicted, y_true, threshold=10,
+def file_accuracies(test_paths, class_probs, y_true, threshold=10,
                     method="voting"):
+    y_predicted = np.argmax(class_probs, axis=1)
     names = [os.path.split(path)[1][:-13] for path in test_paths]
     unique_names = collections.Counter(names).keys()
     indices = [[i for i, name in enumerate(names) if name == unique_name]
                for unique_name in unique_names]
     indices = [file_indices for file_indices in indices
                if len(file_indices) >= threshold]
-    file_predicted = [y_predicted[file_indices] for file_indices in indices]
     if method == "voting":
+        file_predicted = \
+            [y_predicted[file_indices] for file_indices in indices]
         predicted = [collections.Counter(index).most_common(1)[0][0]
                           for index in file_predicted]
     elif method == "geometric_mean":
-        predicted = [np.argmax(np.prod(probability_distribution))
-                     for probability_distribution in file_predicted]
+        file_probs = \
+            [class_probs[file_indices] for file_indices in indices]
+        predicted = [np.argmax(np.prod(probability_distribution, 0))
+                     for probability_distribution in file_probs]
     elif method == "arithmetic_mean":
-        predicted = [np.argmax(np.sum(probability_distribution))
-                     for probability_distribution in file_predicted]
+        file_probs = \
+            [class_probs[file_indices] for file_indices in indices]
+        predicted = [np.argmax(np.sum(probability_distribution, 0))
+                     for probability_distribution in file_probs]
     file_true = [y_true[file_indices] for file_indices in indices]
     true = [collections.Counter(index).most_common(1)[0][0]
             for index in file_true]
