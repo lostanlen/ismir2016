@@ -62,7 +62,7 @@ def substract_and_mask(args):
     return (args[0] - args[1]) * args[2]
 
 
-def train_on_batch(graph, is_spiral, X_batch, Y_batch, masked_output):
+def train_on_batch(graph, is_spiral, X_batch, Y_batch):
     if is_spiral:
         Q = 12
         X0 = X_batch * window(X_batch, Q, 0)
