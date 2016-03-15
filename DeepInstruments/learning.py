@@ -45,12 +45,12 @@ def build_graph(
 def predict(graph, is_spiral, X_test, offset):
     if is_spiral:
         Q = 12
-        X0 = X_test * window(X_test, Q, 0) - offset
-        X1 = X_test * window(X_test, Q, 1*Q) - offset
-        X2 = X_test * window(X_test, Q, 2*Q) - offset
-        X3 = X_test * window(X_test, Q, 3*Q) - offset
-        X4 = X_test * window(X_test, Q, 4*Q) - offset
-        X5 = X_test * window(X_test, Q, 5*Q) - offset
+        X0 = X_test * window(X_test, Q, 0) - offset/6
+        X1 = X_test * window(X_test, Q, 1*Q) - offset/6
+        X2 = X_test * window(X_test, Q, 2*Q) - offset/6
+        X3 = X_test * window(X_test, Q, 3*Q) - offset/6
+        X4 = X_test * window(X_test, Q, 4*Q) - offset/6
+        X5 = X_test * window(X_test, Q, 5*Q) - offset/6
         class_probs = graph.predict({"X0": X0, "X1": X1, "X2": X2,
                                      "X3": X3, "X4": X4, "X5": X5})["Y"]
     else:
@@ -66,15 +66,15 @@ def substract_and_mask(args):
 def train_on_batch(graph, is_spiral, X_batch, Y_batch, offset):
     if is_spiral:
         Q = 12
-        X0 = X_batch * window(X_batch, Q, 0) - offset
-        X1 = X_batch * window(X_batch, Q, 1*Q) - offset
-        X2 = X_batch * window(X_batch, Q, 2*Q) - offset
-        X3 = X_batch * window(X_batch, Q, 3*Q) - offset
-        X4 = X_batch * window(X_batch, Q, 4*Q) - offset
-        X5 = X_batch * window(X_batch, Q, 5*Q) - offset
+        X0 = X_batch * window(X_batch, Q, 0) - offset/6
+        X1 = X_batch * window(X_batch, Q, 1*Q) - offset/6
+        X2 = X_batch * window(X_batch, Q, 2*Q) - offset/6
+        X3 = X_batch * window(X_batch, Q, 3*Q) - offset/6
+        X4 = X_batch * window(X_batch, Q, 4*Q) - offset/6
+        X5 = X_batch * window(X_batch, Q, 5*Q) - offset/6
         loss = graph.train_on_batch({"X0": X0, "X1": X1, "X2": X2,
-                                         "X3": X3, "X4": X4, "X5": X5,
-                                         "Y": Y_batch})
+                                     "X3": X3, "X4": X4, "X5": X5,
+                                     "Y": Y_batch})
         return loss
     else:
         X = X_batch - offset
