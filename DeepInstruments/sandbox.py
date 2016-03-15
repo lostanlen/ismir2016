@@ -105,7 +105,7 @@ for epoch_id in xrange(n_epochs):
     batch_id = 0
     for (X_batch, Y_batch) in dataflow:
         loss = di.learning.train_on_batch(graph, is_spiral,
-                                          X_batch, offset)
+                                          X_batch, Y_batch, offset)
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1

@@ -72,7 +72,6 @@ We show that Mel-frequency cepstral coefficients (MFCC) lack
 invariance with respect to realistic pitch shifts.
 In turn, a convolutional neural network (ConvNet) in the time-frequency
 domain is able to disentangle pitch from timbral information in a subtler way.
-We extend our method to the recognition of multiple instruments playing simultaneously.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
@@ -122,8 +121,8 @@ dataset for music instrument recognition.
 Spurred by the growth of annotated datasets and the democratization of
 high-performance computing, feature learning has enjoyed a renewed interest
 in recent years within the MIR community.
-Whereas unsupervised learning (\eg $k$-means, Gaussian
-mixtures) is employed to fit the distribution of the data with
+Whereas unsupervised learning (\eg $k$-means \cite{Stowell2014}, Gaussian
+mixtures \cite{Joder2009}) is employed to fit the distribution of the data with
 few parameters of relatively low abstraction
 and high dimensionality, state-of-the-art supervised learning consists of a
 composition of multiple nonlinear transformations, jointly optimized
