@@ -9,7 +9,7 @@ from keras.layers.convolutional import MaxPooling1D, AveragePooling1D
 from keras.regularizers import ActivityRegularizer, WeightRegularizer
 from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l2
-from keras.constraint import maxnorm
+from keras.constraints import maxnorm
 
 
 def build_graph(
