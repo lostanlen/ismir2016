@@ -9,7 +9,6 @@ fmin = 55  # in Hz
 hop_length = 1024  # in samples
 n_bins_per_octave = 12
 n_octaves = 8
-mask_weight = 0
 
 # Get single-label split (MedleyDB for training, solosDb for test
 (test_stems, training_stems) = di.singlelabel.get_stems()

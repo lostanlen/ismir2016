@@ -4,45 +4,45 @@ The top-level auxiliary file: ISMIR2015template.aux
 The style file: plain.bst
 Database file #1: ISMIR2015template.bib
 Warning--empty journal in Sigtia2015
-You've used 23 entries,
+You've used 24 entries,
             2118 wiz_defined-function locations,
-            639 strings with 8433 characters,
-and the built_in function-call counts, 8818 in all, are:
-= -- 843
-> -- 467
+            646 strings with 8612 characters,
+and the built_in function-call counts, 9106 in all, are:
+= -- 871
+> -- 480
 < -- 9
-+ -- 183
-- -- 160
-* -- 601
-:= -- 1420
-add.period$ -- 71
-call.type$ -- 23
-change.case$ -- 149
++ -- 188
+- -- 164
+* -- 620
+:= -- 1471
+add.period$ -- 74
+call.type$ -- 24
+change.case$ -- 154
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 345
-empty$ -- 682
-format.name$ -- 160
-if$ -- 1876
+cite$ -- 25
+duplicate$ -- 356
+empty$ -- 705
+format.name$ -- 164
+if$ -- 1935
 int.to.chr$ -- 0
-int.to.str$ -- 23
-missing$ -- 21
-newline$ -- 117
-num.names$ -- 46
-pop$ -- 190
+int.to.str$ -- 24
+missing$ -- 22
+newline$ -- 122
+num.names$ -- 48
+pop$ -- 193
 preamble$ -- 1
-purify$ -- 126
+purify$ -- 130
 quote$ -- 0
-skip$ -- 251
+skip$ -- 259
 stack$ -- 0
-substring$ -- 480
-swap$ -- 99
+substring$ -- 497
+swap$ -- 100
 text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 92
+type$ -- 96
 warning$ -- 1
-while$ -- 79
-width$ -- 25
-write$ -- 245
+while$ -- 82
+width$ -- 26
+write$ -- 256
 (There was 1 warning)

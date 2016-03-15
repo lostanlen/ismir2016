@@ -148,8 +148,9 @@ artificial data augmentation.
 Li \etal \cite{Li2015} have trained a deep convolutional network on audio waveforms
 for polyphonic instrument recognition.
 
-Some other applications include onset detection \cite{Schluter2014},
-transcription \cite{Sigtia2015}, genre classification \cite{Choi2015},
+Some other applications of deep convolutional networks include onset
+detection \cite{Schluter2014}, transcription \cite{Sigtia2015},
+genre classification \cite{Choi2015},
 chord recognition \cite{Humphrey2012}, boundary detection \cite{Ullrich2014}, and
 recommendation \cite{vandenOord2013}.
 
@@ -349,7 +350,7 @@ feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
 \boldsymbol{x_2}[t,k_1,k_2].
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
-Tensors $\boldsymbol{y_3}^{+}$ and $\boldsymbol{x_3}$ are derived from $\boldsymbol{y_3}$
+Tensors $\boldsymbol{y_3^{+}}$ and $\boldsymbol{x_3}$ are derived from $\boldsymbol{y_3}$
 by ReLU and pooling, with formulae similar to Eqs. (\ref{eq:relu}) and (\ref{eq:pooling}).
 The third layer consists of the linear projection of $\boldsymbol{x_3}$, viewed as a vector of
 the flattened index $(t, k_1, k_3)$, over $K_4$ units:
@@ -377,7 +378,7 @@ non-negative and sum to one, hence can be fit to a probability distribution.
 The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$
 across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set. This loss is defined as
 the categorical cross-entropy over shuffled mini-batches of size 64 with uniform
-class distribution, to which a weight decay term is added.
+class distribution, to which is added a weight decay term upon the last layer.
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
 - \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]

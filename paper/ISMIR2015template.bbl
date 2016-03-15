@@ -125,6 +125,12 @@ Siddharth Sigtia, Emmanouil Benetos, and Simon Dixon.
 \newblock {An End-to-End Neural Network for Polyphonic Music Transcription}.
 \newblock pages 1--13, 2015.
 
+\bibitem{Stowell2014}
+Dan Stowell and Mark~D Plumbley.
+\newblock Automatic large-scale classification of bird sounds is strongly
+  improved by unsupervised feature learning.
+\newblock {\em PeerJ}, 2:e488, 2014.
+
 \bibitem{Ullrich2014}
 Karen Ullrich, Jan Schl{\"{u}}ter, and Thomas Grill.
 \newblock {Boundary Detection in Music Structure Analysis Using Convolutional
