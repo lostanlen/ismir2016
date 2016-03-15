@@ -25,7 +25,7 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
-is_spiral = True
+is_spiral = False
 
 conv1_channels = 32
 conv1_height = 7
@@ -207,4 +207,16 @@ else:
     plt.savefig(export_str + ".png")
 
 # For Fig 3
-librosa.display.specshow(X_test[0][0, 0, :, :] - 0.5)
+import theano
+example_id = 11000
+X = X_test[example_id:(example_id+1), :, :, :] - offset
+librosa.display.specshow(X[0, 0, :, :])
+plt.savefig("Fig3_X.png")
+pool1_f =\
+    theano.function([graph.get_input(train=False)],
+                     graph.nodes["pool1_X"].get_output(train=False))
+pool1_activations = pool1_f(X)[0]
+
+for i in range(conv1_channels):
+    librosa.display.specshow(pool1_activations[i, :, :])
+    plt.savefig("Fig3_pool1_" + str(i) + ".png")

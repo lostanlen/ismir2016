@@ -36,10 +36,11 @@ def get_X(decision_length,
             hop_length=hop_length,
             n_bins=n_bins,
             sr=sr)
-    X = librosa.perceptual_weighting(
-            CQT ** 2,
-            freqs,
-            ref_power=1.0)
+    #X = librosa.perceptual_weighting(
+    #        CQT ** 2,
+    #        freqs,
+    #        ref_power=1.0)
+    X = CQT
     X = X.astype(np.float32)
     return X
 
