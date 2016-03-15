@@ -3,14 +3,13 @@
 \bibitem{Abdel-Hamid2014}
 Ossama Abdel-Hamid, Abdel-rahman Mohamed, Hui Jiang, Li~Deng, Gerald Penn, and
   Dong Yu.
-\newblock {Convolutional Neural Networks for Speech Recognition}.
-\newblock {\em IEEE/ACM Transactions on Audio, Speech, and Language
-  Processing}, 22(10):1533--1545, 2014.
+\newblock {Convolutional neural networks for speech recognition}.
+\newblock {\em IEEE TASLP}, 22(10):1533--1545, 2014.
 
 \bibitem{Anden2015}
 Joakim And{\'{e}}n, Vincent Lostanlen, and St{\'{e}}phane Mallat.
-\newblock {Joint Time-Frequency Scattering for Audio Classification}.
-\newblock In {\em Machine Learning for Signal Processing}, 2015.
+\newblock {Joint time-frequency scattering for audio classification}.
+\newblock In {\em Proc. MLSP}, 2015.
 
 \bibitem{Bittner2014}
 Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
@@ -23,7 +22,7 @@ Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
 Keunwoo Choi, George Fazekas, Mark Sandler, Jeonghee Kim, and Naver Labs.
 \newblock {Auralisation of deep convolutional neural networks: listening to
   learned features}.
-\newblock {\em ISMIR}, pages 4--5, 2015.
+\newblock In {\em Proc. ISMIR}, pages 4--5, 2015.
 
 \bibitem{Chollet2015}
 Fran\c{c}ois Chollet.
@@ -110,6 +109,13 @@ Brian McFee, Matt McVicar, Colin Raffel, Dawen Liang, Oriol Nieto, Eric
   Battenberg, Josh Moore, Dan Ellis, Ryuichi Yamamoto, Rachel Bittner, Douglas
   Repetto, Petr Viktorin, Jo\~{ao}~Felipe Santos, and Adrian Holovaty.
 \newblock librosa: 0.4.1. zenodo. 10.5281/zenodo.18369, October 2015.
+
+\bibitem{Newton2012}
+Michael~J. Newton and Leslie~S. Smith.
+\newblock {A neurally inspired musical instrument classification system based
+  upon the sound onset}.
+\newblock {\em The Journal of the Acoustical Society of America}, 131(6):4785,
+  2012.
 
 \bibitem{Schluter2014}
 Jan Schl\"{u}ter and Sebastian Bock.
