@@ -28,7 +28,6 @@ def build_graph(
         dense1_channels,
         dense2_channels):
     graph = Graph()
-    assert not is_Z_supervision
 
     # Input
     X_height = n_octaves * n_bins_per_octave

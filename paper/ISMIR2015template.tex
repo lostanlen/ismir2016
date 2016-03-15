@@ -384,7 +384,6 @@ class distribution, to which a weight decay term is added.
 - \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]
 + \lambda_5 \Vert W_5 \Vert
 \end{equation}
-%The network is trained on
 Each training example is a 3-second spectrogram whose boundaries are selected at random
 over non-silent regions of a song. Each spectrogram within a batch was globally normalized
 such that the whole batch had unit mean and unit variance.
@@ -398,13 +397,18 @@ Although a dataset of music signals is unquestionably stationary over the time
 dimension -- at least at the scale of a few seconds -- it cannot be taken for granted
 that all frequency bands of a mel-frequency spectrogram would have the same
 local statistics \cite{Humphrey2013}.
+The objections to the stationarity assumption among local neighborhoods in frequency
+can be summarized as follows:
+the spectral envelope of musical instruments remains fixed (see Section 2) ;
+partials of a harmonic comb get closer to each other in high frequencies on a mel scale ;
+due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at
+lower frequencies.
 
-Indeed, since the neighboring
-partials of a harmonic sound are evenly spaced in frequency, they tend to get closer to each
-other on a mel scale.
-Due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at
-lower frequencies, which results in a blurrier constant-Q spectrogram over
-the horizontal dimension.
+A conservative workaround would be to increase the height $\Delta \kappa_1$ of each
+convolutional kernel up to the total number of bins $K_1$ in the spectrogram \cite{Schluter2014}.
+Despite the fact that it could still encode hierarchical invariants, this approach leads in
+practice to the early specialization of features in the shallower layers, thus not fully
+taking advantage of the network depth.
 
 Let $\boldsymbol{\phi}[k_1]$ be a window function of width $3Q$, that is three octaves.
 We have chosen a Tukey window ($\alpha=0.33$), which has a flat top of width $Q$ surrounded

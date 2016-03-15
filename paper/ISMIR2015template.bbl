@@ -22,7 +22,7 @@ Rachel Bittner, Justin Salamon, Mike Tierney, Matthias Mauch, Chris Cannam, and
 Keunwoo Choi, George Fazekas, Mark Sandler, Jeonghee Kim, and Naver Labs.
 \newblock {Auralisation of deep convolutional neural networks: listening to
   learned features}.
-\newblock In {\em Proc. ISMIR}, pages 4--5, 2015.
+\newblock In {\em Proc. ISMIR}, 2015.
 
 \bibitem{Chollet2015}
 Fran\c{c}ois Chollet.
@@ -32,34 +32,31 @@ Fran\c{c}ois Chollet.
 \bibitem{deCheveigne2005}
 Alain de~Cheveign{\'{e}}.
 \newblock {Pitch perception}.
-\newblock In {\em Oxford Handbook of Auditory Science: Hearing}, chapter Pitch
-  perc, pages 71--104. 2005.
+\newblock In {\em Oxford Handbook of Auditory Science: Hearing}, chapter~4,
+  pages 71--104. Oxford University Press, 2005.
 
 \bibitem{Dieleman2014}
 Sander Dieleman and Benjamin Schrauwen.
 \newblock {End-to-end learning for music audio}.
-\newblock {\em ICASSP, IEEE International Conference on Acoustics, Speech and
-  Signal Processing - Proceedings}, pages 6964--6968, 2014.
+\newblock In {\em Proc. ICASSP}, 2014.
 
 \bibitem{Eronen2000}
 Antti Eronen and Anssi Klapuri.
 \newblock Musical instrument recognition using cepstral coefficients and
   temporal features.
-\newblock In {\em Acoustics, Speech, and Signal Processing, 2000. ICASSP'00.
-  Proceedings. 2000 IEEE International Conference on}, volume~2, pages
-  II753--II756. IEEE, 2000.
+\newblock In {\em Proc. ICASSP}, 2000.
 
 \bibitem{Goto2003}
 Masataka Goto, Hiroki Hashiguchi, Takuichi Nishimura, and Ryuichi Oka.
-\newblock Rwc music database: Music genre database and musical instrument sound
-  database.
-\newblock 2003.
+\newblock {RWC music database: music genre database and musical instrument
+  sound database.}
+\newblock In {\em Proc. ISMIR}, 2003.
 
 \bibitem{Hamel2012}
 Philippe Hamel, Yoshua Bengio, and Douglas Eck.
 \newblock {Building musically-relevant audio features through multiple
   timescale representations}.
-\newblock In {\em ISMIR}, pages 553--558, 2012.
+\newblock In {\em Proc. ISMIR}, 2012.
 
 \bibitem{Humphrey2013}
 Eric~J. Humphrey, Juan~P. Bello, and Yann Lecun.

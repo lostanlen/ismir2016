@@ -3,48 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: ISMIR2015template.aux
 The style file: plain.bst
 Database file #1: ISMIR2015template.bib
-Warning--empty publisher in deCheveigne2005
-Warning--empty booktitle in Goto2003
 Warning--empty journal in Sigtia2015
 You've used 23 entries,
             2118 wiz_defined-function locations,
-            644 strings with 8643 characters,
-and the built_in function-call counts, 9563 in all, are:
-= -- 948
+            639 strings with 8433 characters,
+and the built_in function-call counts, 8818 in all, are:
+= -- 843
 > -- 467
-< -- 14
+< -- 9
 + -- 183
 - -- 160
-* -- 651
-:= -- 1489
-add.period$ -- 72
+* -- 601
+:= -- 1420
+add.period$ -- 71
 call.type$ -- 23
 change.case$ -- 149
 chr.to.int$ -- 0
-cite$ -- 26
-duplicate$ -- 379
-empty$ -- 726
+cite$ -- 24
+duplicate$ -- 345
+empty$ -- 682
 format.name$ -- 160
-if$ -- 2068
+if$ -- 1876
 int.to.chr$ -- 0
 int.to.str$ -- 23
 missing$ -- 21
 newline$ -- 117
 num.names$ -- 46
-pop$ -- 184
+pop$ -- 190
 preamble$ -- 1
 purify$ -- 126
 quote$ -- 0
-skip$ -- 304
+skip$ -- 251
 stack$ -- 0
-substring$ -- 616
-swap$ -- 136
-text.length$ -- 14
+substring$ -- 480
+swap$ -- 99
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 92
-warning$ -- 3
-while$ -- 91
+warning$ -- 1
+while$ -- 79
 width$ -- 25
-write$ -- 249
-(There were 3 warnings)
+write$ -- 245
+(There was 1 warning)
