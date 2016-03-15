@@ -471,24 +471,8 @@ extremely rare in MedleyDB.
 Constant-Q spectrograms from the evaluation set were split into half-overlapping,
 3-second excerpts.
 The predicted probability distributions were computed for every excerpt in a track,
-and then aggregated by geometric mean.
-
-Results are charted in Table \ref{table:single-label-results}.
-
-\begin{table}
-	\begin{center}
-	\begin{tabular}{|l|c|}
-		\hline
-		Representation & Error rate (\%) \\
-		\hline
-		MFCC \& random forrest & $-$ \\
-		ConvNet, full weight sharing & $-$ \\
-		ConvNet, limited weight sharing & $-$ \\
-		\hline
-	\end{tabular}
-	\end{center}
-	\caption{\label{table:single-label-results}}
-\end{table}
+and then aggregated by geometric mean to provide a decision at the scale of
+the entire audio file.
 
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of

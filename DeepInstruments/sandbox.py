@@ -25,7 +25,7 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
-is_spiral = True
+is_spiral = False
 
 conv1_channels = 32
 conv1_height = 7
@@ -33,7 +33,7 @@ conv1_width = 3
 pool1_height = 3
 pool1_width = 6
 conv2_channels = 32
-conv2_height = 20
+conv2_height = 21
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
@@ -88,7 +88,7 @@ graph = di.learning.build_graph(
 graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
-offset = 0.35  # measured empirically as X_batch mean
+offset = 0.75  # measured empirically as X_batch mean
 from keras.utils.generic_utils import Progbar
 batch_losses = np.zeros(epoch_size / batch_size)
 chunk_accuracies_history = []
@@ -195,7 +195,7 @@ if is_spiral:
         librosa.display.specshow(kernels)
         plt.savefig(export_str + "-j" + str(j) + ".png")
 else:
-    first_layer = graph.get_weights()[4]
+    first_layer = graph.get_weights()[0]
     kernels = [first_layer[i, 0, :, :] for i in range(conv1_channels)]
     zero_padding = -0.0 * np.ones((conv1_height, 1))
     registered_kernels = [np.concatenate((kernel, zero_padding), axis=1)
