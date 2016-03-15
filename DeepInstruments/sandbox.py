@@ -89,7 +89,7 @@ graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
 if is_spiral:
-    offset = 0.75  # measured empirically as X_batch mean
+    offset = 0.75
 else:
     offset = 0.33
 from keras.utils.generic_utils import Progbar
