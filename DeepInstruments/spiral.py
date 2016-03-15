@@ -110,11 +110,12 @@ def build_graph(
                    inputs=["conv2_X0", "conv2_X1", "conv2_X2",
                            "conv2_X3", "conv2_X4", "conv2_X5"],
                    merge_mode="sum", concat_axis=1)
+    pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
+    graph.add_node(pool2, name="pool2", input="relu2")
 
     # Multi-layer perceptron with dropout
     flatten = Flatten()
-    graph.add_node(flatten, name="flatten",
-                   input="pool2", concat_axis=1)
+    graph.add_node(flatten, name="flatten", input="pool2")
 
     drop1 = Dropout(0.5)
     graph.add_node(drop1, name="drop1", input="flatten")
