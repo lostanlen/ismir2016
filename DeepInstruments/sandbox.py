@@ -91,6 +91,8 @@ graph = di.learning.build_graph(
 graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
+offset = 0.35  # measured empirically as X_batch mean
+X_test_centered = X_test - offset
 from keras.utils.generic_utils import Progbar
 batch_losses = np.zeros(epoch_size / batch_size)
 chunk_accuracies_history = []
@@ -103,7 +105,9 @@ for epoch_id in xrange(n_epochs):
     progbar = Progbar(epoch_size)
     batch_id = 0
     for (X_batch, Y_batch) in dataflow:
-        loss = di.learning.train_on_batch(graph, is_spiral, X_batch, Y_batch)
+        X_batch_centered = X_batch - offset
+        loss = di.learning.train_on_batch(graph, is_spiral,
+                                          X_batch_centered, Y_batch)
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
@@ -115,7 +119,7 @@ for epoch_id in xrange(n_epochs):
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
     # Measure test accuracies
-    class_probs = di.learning.predict(graph, is_spiral, X_test)
+    class_probs = di.learning.predict(graph, is_spiral, X_test_centered)
     y_predicted = np.argmax(class_probs, axis=1)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
