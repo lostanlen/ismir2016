@@ -178,8 +178,8 @@ def chunk_accuracies(y_predicted, y_true):
     return test_accuracies
 
 
-def file_accuracies(test_paths, class_probs, y_true, threshold=10,
-                    method="voting"):
+def file_accuracies(test_paths, class_probs, y_true,
+                    method="geometric_mean", threshold=0):
     y_predicted = np.argmax(class_probs, axis=1)
     names = [os.path.split(path)[1][:-13] for path in test_paths]
     unique_names = collections.Counter(names).keys()
