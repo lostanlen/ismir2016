@@ -88,7 +88,6 @@ class ScalogramGenerator(object):
                  decision_length,
                  fmin,
                  hop_length,
-                 mask_weight,
                  n_bins_per_octave,
                  n_octaves,
                  training_stems):
@@ -99,8 +98,6 @@ class ScalogramGenerator(object):
         self.n_octaves = n_octaves
         X = []
         Y = []
-        Z = []
-        G = []
         delayed_get_X = joblib.delayed(di.audio.cached_get_X)
         for class_stems in training_stems:
             X.append(joblib.Parallel(n_jobs=-1, verbose=10)(

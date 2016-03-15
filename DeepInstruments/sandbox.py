@@ -15,7 +15,7 @@ n_octaves = 8
 
 # Compute audio features and retrieve melodies on the training set
 datagen = di.singlelabel.ScalogramGenerator(
-        decision_length, fmin, hop_length, mask_weight,
+        decision_length, fmin, hop_length,
         n_bins_per_octave, n_octaves,
         training_stems)
 
@@ -25,7 +25,7 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
-is_spiral = False
+is_spiral = True
 
 conv1_channels = 32
 conv1_height = 7
@@ -37,9 +37,7 @@ conv2_height = 20
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
-drop1_proportion = 0.5
 dense1_channels = 32
-drop2_proportion = 0.5
 
 # Parameters for learning
 batch_size = 32
@@ -174,7 +172,6 @@ np.savez(
     epoch_size=epoch_size,
     n_epochs=n_epochs,
     optimizer=optimizer,
-    mask_weight=mask_weight,
     chunk_accuracies_history=chunk_accuracies_history,
     file_accuracies_history=file_accuracies_history,
     final_chunk_score=final_chunk_score,

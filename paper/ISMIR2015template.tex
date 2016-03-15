@@ -431,27 +431,12 @@ Compare the above with Equation (\ref{eq:convolution}).
 Limited weight sharing has been introduced by Abdel-Hamid et al. \cite{Abdel-Hamid2014}.
 
 \section{Applications}\label{sec:single-instrument}
-\subsection{Experimental design}
 In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a
 dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$
 curves when present. 
 We extracted the monophonic stems corresponding to a selection of eight pitched
 instruments (see Table \ref{table:single-label-durations}).
 Stems with leaking instruments in the background were discarded.
-
-The evaluation set consists of 126 recordings of solo music collected by
-Joder \etal \cite{Joder2009}, to which we add 23 stems of electric guitar and female voice
-from MedleyDB.
-In doing so, guitarists and vocalists were thoroughly put either in the training set or the test set,
-to prevent any artist bias.
-We discarded recordings with extended instrumental techniques, since they are very rare
-in MedleyDB.
-
-Constant-Q spectrograms from the evaluation set were split into half-overlapping,
-3-second excerpts.
-The predicted probability distributions were computed for every excerpt in a track,
-and then aggregated by geometric mean.
-
 
 \begin{table}
 	\begin{center}
@@ -475,7 +460,19 @@ and then aggregated by geometric mean.
 	\caption{\label{table:single-label-durations}}
 \end{table}
 
-\subsection{Results}
+The evaluation set consists of 126 recordings of solo music collected by
+Joder \etal \cite{Joder2009}, to which we add 23 stems of electric guitar and female voice
+from MedleyDB.
+In doing so, guitarists and vocalists were thoroughly put either in the training set or the test set,
+to prevent any artist bias.
+We discarded recordings with extended instrumental techniques, since they are
+extremely rare in MedleyDB.
+
+Constant-Q spectrograms from the evaluation set were split into half-overlapping,
+3-second excerpts.
+The predicted probability distributions were computed for every excerpt in a track,
+and then aggregated by geometric mean.
+
 Results are charted in Table \ref{table:single-label-results}.
 
 \begin{table}
