@@ -1,7 +1,7 @@
 import DeepInstruments as di
 import keras
 from keras.models import Graph
-from keras.layers.advanced_activations import LeakyReLU
+from keras.layers.advanced_activations import LeakyReLU, PReLU
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.core import Merge
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
@@ -39,58 +39,82 @@ def build_graph(
     # Octave-wise convolutional layers
     init = "he_normal"
     conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init=init,
-                             b_constraint=maxnorm(0))
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X0, name="conv1_X0", input="X0")
+    relu1_X0 = LeakyReLU()
+    graph.add_node(relu1_X0, name="relu1_X0", input="conv1_X0")
+    pool1_X0 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_X0, name="pool1_X0", input="relu1_X0")
+    conv2_X0 = Convolution2D(conv2_channels, conv2_height, conv2_width,
+                             border_mode="valid", init=init)
+    graph.add_node(conv2_X0, name="conv2_X0", input="pool1_X0")
 
     conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init=init,
-                             b_constraint=maxnorm(0))
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X1, name="conv1_X1", input="X1")
+    relu1_X1 = LeakyReLU()
+    graph.add_node(relu1_X1, name="relu1_X1", input="conv1_X1")
+    pool1_X1 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_X1, name="pool1_X1", input="relu1_X1")
+    conv2_X1 = Convolution2D(conv2_channels, conv2_height, conv2_width,
+                             border_mode="valid", init=init)
+    graph.add_node(conv2_X1, name="conv2_X1", input="pool1_X1")
 
     conv1_X2 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init=init,
-                             b_constraint=maxnorm(0))
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X2, name="conv1_X2", input="X2")
+    relu1_X2 = LeakyReLU()
+    graph.add_node(relu1_X2, name="relu1_X2", input="conv1_X2")
+    pool1_X2 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_X2, name="pool1_X2", input="relu1_X2")
+    conv2_X2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
+                             border_mode="valid", init=init)
+    graph.add_node(conv2_X2, name="conv2_X2", input="pool1_X2")
 
     conv1_X3 = Convolution2D(conv1_channels, conv1_height, conv1_width,
                              border_mode="valid", init=init)
     graph.add_node(conv1_X3, name="conv1_X3", input="X3")
+    relu1_X3 = LeakyReLU()
+    graph.add_node(relu1_X3, name="relu1_X3", input="conv1_X3")
+    pool1_X3 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_X3, name="pool1_X3", input="relu1_X3")
+    conv2_X3 = Convolution2D(conv2_channels, conv2_height, conv2_width,
+                             border_mode="valid", init=init)
+    graph.add_node(conv2_X3, name="conv2_X3", input="pool1_X3")
 
     conv1_X4 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init=init,
-                             b_constraint=maxnorm(0))
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X4, name="conv1_X4", input="X4")
+    relu1_X4 = LeakyReLU()
+    graph.add_node(relu1_X4, name="relu1_X4", input="conv1_X4")
+    pool1_X4 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_X4, name="pool1_X4", input="relu1_X4")
+    conv2_X4 = Convolution2D(conv2_channels, conv2_height, conv2_width,
+                             border_mode="valid", init=init)
+    graph.add_node(conv2_X4, name="conv2_X4", input="pool1_X4")
 
     conv1_X5 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init=init,
-                             b_constraint=maxnorm(0))
+                             border_mode="valid", init=init)
     graph.add_node(conv1_X5, name="conv1_X5", input="X5")
+    relu1_X5 = LeakyReLU()
+    graph.add_node(relu1_X5, name="relu1_X5", input="conv1_X5")
+    pool1_X5 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_X5, name="pool1_X5", input="relu1_X5")
+    conv2_X5 = Convolution2D(conv2_channels, conv2_height, conv2_width,
+                             border_mode="valid", init=init)
+    graph.add_node(conv2_X5, name="conv2_X5", input="pool1_X5")
 
     # Spiral concatenation and pooling
-    relu1 = LeakyReLU()
-    graph.add_node(relu1, name="relu1",
-                   inputs=["conv1_X0", "conv1_X1", "conv1_X2",
-                           "conv1_X3", "conv1_X4", "conv1_X5"],
-                   merge_mode="sum", concat_axis=1)
-
-    pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_X, name="pool1_X", input="relu1")
-
-    # Time-frequency convolutions
-    conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
-                          border_mode="same", init=init)
-    graph.add_node(conv2, name="conv2", input="pool1_X")
-
     relu2 = LeakyReLU()
-    graph.add_node(relu2, name="relu2", input="conv2")
-
-    pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
-    graph.add_node(pool2, name="pool2", input="relu2")
+    graph.add_node(relu2, name="relu2",
+                   inputs=["conv2_X0", "conv2_X1", "conv2_X2",
+                           "conv2_X3", "conv2_X4", "conv2_X5"],
+                   merge_mode="sum", concat_axis=1)
 
     # Multi-layer perceptron with dropout
     flatten = Flatten()
-    graph.add_node(flatten, name="flatten", input="pool2")
+    graph.add_node(flatten, name="flatten",
+                   input="pool2", concat_axis=1)
 
     drop1 = Dropout(0.5)
     graph.add_node(drop1, name="drop1", input="flatten")
