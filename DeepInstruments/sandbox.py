@@ -25,24 +25,22 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
+conv1_channels = 32
 conv1_height = 7
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
+conv2_channels = 32
+conv2_height = 21
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
 
-is_spiral = True
+is_spiral = False
 if is_spiral:
-    conv1_channels = [16, 16, 16]
-    conv2_height = 8
-    conv2_channels = 32
-else:
-    conv1_channels = 32
+    conv1_channels = [32, 32]
     conv2_height = 21
-    conv2_channels = 32
 
 # Parameters for learning
 batch_size = 32
@@ -94,7 +92,7 @@ graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
 if is_spiral:
-    offsets = [0.362, 0.434, 0.420]
+    offsets = [0.366, 0.388]
 else:
     offsets = [0.33]
 from keras.utils.generic_utils import Progbar

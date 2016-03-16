@@ -45,13 +45,11 @@ def build_graph(
 def predict(graph, is_spiral, X_test, offsets):
     if is_spiral:
         Q = 12
-        X0 = X_test[:, :, (0*Q):(6*Q), :] - offsets[0]
-        X1 = X_test[:, :, (1*Q):(7*Q), :] - offsets[1]
-        X2 = X_test[:, :, (2*Q):(8*Q), :] - offsets[2]
+        X0 = X_test[:, :, (0*Q):(7*Q), :] - offsets[0]
+        X1 = X_test[:, :, (1*Q):(8*Q), :] - offsets[1]
         class_probs = graph.predict({
             "X0": X0,
-            "X1": X1,
-            "X2": X2})["Y"]
+            "X1": X1})["Y"]
     else:
         X = X_test - offsets[0]
         class_probs = graph.predict({"X": X})["Y"]
@@ -65,13 +63,11 @@ def substract_and_mask(args):
 def train_on_batch(graph, is_spiral, X_batch, Y_batch, offsets):
     if is_spiral:
         Q = 12
-        X0 = X_batch[:, :, (0*Q):(6*Q), :] - offsets[0]
-        X1 = X_batch[:, :, (1*Q):(7*Q), :] - offsets[1]
-        X2 = X_batch[:, :, (2*Q):(8*Q), :] - offsets[2]
+        X0 = X_batch[:, :, (0*Q):(7*Q), :] - offsets[0]
+        X1 = X_batch[:, :, (1*Q):(8*Q), :] - offsets[1]
         loss = graph.train_on_batch({
             "X0": X0,
             "X1": X1,
-            "X2": X2,
             "Y": Y_batch})
         return loss
     else:

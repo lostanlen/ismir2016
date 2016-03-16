@@ -34,7 +34,6 @@ def build_graph(
     X_height = n_octaves * n_bins_per_octave
     graph.add_input(name="X0", input_shape=(1, 6*n_bins_per_octave, X_width))
     graph.add_input(name="X1", input_shape=(1, 6*n_bins_per_octave, X_width))
-    graph.add_input(name="X2", input_shape=(1, 6*n_bins_per_octave, X_width))
 
     # Octave-wise convolutional layers
     init = "he_normal"
@@ -44,15 +43,11 @@ def build_graph(
     conv1_X1 = Convolution2D(conv1_channels[1], conv1_height, conv1_width,
                              border_mode="valid", init=init)
     graph.add_node(conv1_X1, name="conv1_X1", input="X1")
-    conv1_X2 = Convolution2D(conv1_channels[2], conv1_height, conv1_width,
-                             border_mode="valid", init=init)
-    graph.add_node(conv1_X2, name="conv1_X2", input="X2")
 
     relu1 = LeakyReLU()
     graph.add_node(relu1, name="relu1",
                    inputs=["conv1_X0",
-                           "conv1_X1",
-                           "conv1_X2"],
+                           "conv1_X1"],
                    merge_mode="concat", concat_axis=1)
 
     pool1 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
