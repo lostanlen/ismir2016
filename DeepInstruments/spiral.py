@@ -41,7 +41,7 @@ def build_graph(
                              border_mode="same", init=init)
     graph.add_node(conv1_X0, name="conv1_X0", input="X0")
 
-    conv1_X1 = Convolution2D(conv1_channels, X_height, conv1_width,
+    conv1_X1 = Convolution2D(conv1_channels, 3*conv1_height, conv1_width,
                              border_mode="same", init=init)
     graph.add_node(conv1_X1, name="conv1_X1", input="X1")
 
