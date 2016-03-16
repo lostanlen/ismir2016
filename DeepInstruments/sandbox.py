@@ -36,7 +36,7 @@ dense1_channels = 32
 
 is_spiral = True
 if is_spiral:
-    conv1_channels = [4, 6, 12, 6, 4]
+    conv1_channels = [16, 16, 16]
     conv2_height = 8
     conv2_channels = 32
 else:
