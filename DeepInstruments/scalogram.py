@@ -41,13 +41,12 @@ def build_graph(
     relu1 = LeakyReLU()
     graph.add_node(relu1, name="relu1", input="conv1")
 
-    pool1_X = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_X, name="pool1_X", input="relu1")
+    pool1 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1, name="pool1", input="relu1")
 
-    # Layers towards instrument target
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
                           border_mode="same", init=init)
-    graph.add_node(conv2, name="conv2", input="pool1_X")
+    graph.add_node(conv2, name="conv2", input="pool1")
 
     relu2 = LeakyReLU()
     graph.add_node(relu2, name="relu2", input="conv2")
