@@ -37,10 +37,10 @@ pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
 
-is_spiral = False
+is_spiral = True
 if is_spiral:
     conv1_channels = [32, 32]
-    conv2_height = 21
+    conv2_height = 18
 
 # Parameters for learning
 batch_size = 32
