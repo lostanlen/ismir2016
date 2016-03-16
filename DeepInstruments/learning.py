@@ -45,14 +45,9 @@ def build_graph(
 def predict(graph, is_spiral, X_test, offset):
     if is_spiral:
         Q = 12
-        X0 = X_test * window(X_test, Q, 0) - offset/6
-        X1 = X_test * window(X_test, Q, 1*Q) - offset/6
-        X2 = X_test * window(X_test, Q, 2*Q) - offset/6
-        X3 = X_test * window(X_test, Q, 3*Q) - offset/6
-        X4 = X_test * window(X_test, Q, 4*Q) - offset/6
-        X5 = X_test * window(X_test, Q, 5*Q) - offset/6
-        class_probs = graph.predict({"X0": X0, "X1": X1, "X2": X2,
-                                     "X3": X3, "X4": X4, "X5": X5})["Y"]
+        X0 = X_test * window(X_test, Q, 0) - offset / 2
+        X1 = X_test * window(X_test, Q, 0) - offset / 2
+        class_probs = graph.predict({"X0": X0, "X1": X1})["Y"]
     else:
         X = X_test - offset
         class_probs = graph.predict({"X": X})["Y"]
@@ -66,15 +61,9 @@ def substract_and_mask(args):
 def train_on_batch(graph, is_spiral, X_batch, Y_batch, offset):
     if is_spiral:
         Q = 12
-        X0 = X_batch * window(X_batch, Q, 0) - offset/6
-        X1 = X_batch * window(X_batch, Q, 1*Q) - offset/6
-        X2 = X_batch * window(X_batch, Q, 2*Q) - offset/6
-        X3 = X_batch * window(X_batch, Q, 3*Q) - offset/6
-        X4 = X_batch * window(X_batch, Q, 4*Q) - offset/6
-        X5 = X_batch * window(X_batch, Q, 5*Q) - offset/6
-        loss = graph.train_on_batch({"X0": X0, "X1": X1, "X2": X2,
-                                     "X3": X3, "X4": X4, "X5": X5,
-                                     "Y": Y_batch})
+        X0 = X_batch * window(X_batch, Q, 0) - offset/2
+        X1 = X_batch * window(X_batch, Q, 1*Q) - offset/2
+        loss = graph.train_on_batch({"X0": X0, "X1": X1, "Y": Y_batch})
         return loss
     else:
         X = X_batch - offset
@@ -82,8 +71,11 @@ def train_on_batch(graph, is_spiral, X_batch, Y_batch, offset):
         return loss
 
 
-def window(X_batch, top_width, start):
+def window(X_batch, start, full_width, top_width=None):
+    if not top_width:
+        top_width = full_width / 3
+    alpha = top_width / full_width
     phi = np.zeros((1, 1, X_batch.shape[2], 1))
-    support = xrange(start, start + 3*top_width)
-    phi[0, 0, support, 0] = scipy.signal.tukey(3*top_width, alpha=1.0/3)
+    support = xrange(start, start + full_width)
+    phi[0, 0, support, 0] = scipy.signal.tukey(full_width, alpha=alpha)
     return phi
