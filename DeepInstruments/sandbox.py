@@ -38,7 +38,7 @@ is_spiral = True
 if is_spiral:
     conv1_channels = [4, 6, 12, 6, 4]
     conv2_height = 4
-    conv2_channels = 64
+    conv2_channels = 32
 else:
     conv1_channels = 32
     conv2_height = 21
