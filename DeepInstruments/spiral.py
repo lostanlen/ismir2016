@@ -70,13 +70,13 @@ def build_graph(
 
     conv2 = Convolution2D(conv2_channels,
                           pool1.output_shape[2], conv2_width,
-                          border_mode="valid", init=init)
+                          border_mode="same", init=init)
     graph.add_node(conv2, name="conv2", input="pool1")
 
     relu2 = LeakyReLU()
     graph.add_node(relu2, name="relu2", input="conv2")
 
-    pool2 = MaxPooling2D(pool_size=(1, pool2_width))
+    pool2 = MaxPooling2D(pool_size=(relu2.output_shape[2], pool2_width))
     graph.add_node(pool2, name="pool2", input="relu2")
 
     # Multi-layer perceptron with dropout
