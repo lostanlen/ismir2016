@@ -26,8 +26,10 @@ y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
 is_spiral = True
-
-conv1_channels = 32
+if is_spiral:
+    conv1_channels = [8, 16, 32, 32, 16]
+else:
+    conv1_channels = 32
 conv1_height = 7
 conv1_width = 3
 pool1_height = 3
@@ -89,9 +91,9 @@ graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
 if is_spiral:
-    offset = 0.75
+    offsets = [0.306, 0.412, 0.471, 0.479, 0.431]
 else:
-    offset = 0.33
+    offsets = [0.33]
 from keras.utils.generic_utils import Progbar
 batch_losses = np.zeros(epoch_size / batch_size)
 chunk_accuracies_history = []
@@ -105,7 +107,7 @@ for epoch_id in xrange(n_epochs):
     batch_id = 0
     for (X_batch, Y_batch) in dataflow:
         loss = di.learning.train_on_batch(graph, is_spiral,
-                                          X_batch, Y_batch, offset)
+                                          X_batch, Y_batch, offsets)
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
@@ -117,7 +119,7 @@ for epoch_id in xrange(n_epochs):
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
     # Measure test accuracies
-    class_probs = di.learning.predict(graph, is_spiral, X_test, offset)
+    class_probs = di.learning.predict(graph, is_spiral, X_test, offsets)
     y_predicted = np.argmax(class_probs, axis=1)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
@@ -215,7 +217,7 @@ librosa.display.specshow(X[0, 0, :, :])
 plt.savefig("Fig3_X.png")
 pool1_f =\
     theano.function([graph.get_input(train=False)],
-                     graph.nodes["pool1_X"].get_output(train=False))
+                     graph.nodes["pool1"].get_output(train=False))
 pool1_activations = pool1_f(X)[0]
 
 for i in range(conv1_channels):

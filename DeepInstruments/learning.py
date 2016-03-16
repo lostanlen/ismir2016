@@ -42,14 +42,22 @@ def build_graph(
                 dense2_channels)
 
 
-def predict(graph, is_spiral, X_test, offset):
+def predict(graph, is_spiral, X_test, offsets):
     if is_spiral:
         Q = 12
-        X0 = X_test * window(X_test, 0, 5*Q, top_width=3*Q) - offset / 2
-        X1 = X_test * window(X_test, 4*Q, 4*Q, top_width=2*Q) - offset / 2
-        class_probs = graph.predict({"X0": X0, "X1": X1})["Y"]
+        X1 = X_test[:, :, (1*Q):(3*Q), :] - offsets[0]
+        X2 = X_test[:, :, (2*Q):(4*Q), :] - offsets[1]
+        X3 = X_test[:, :, (3*Q):(5*Q), :] - offsets[2]
+        X4 = X_test[:, :, (4*Q):(6*Q), :] - offsets[3]
+        X5 = X_test[:, :, (5*Q):(7*Q), :] - offsets[4]
+        class_probs = graph.predict({
+            "X1": X1,
+            "X2": X2,
+            "X3": X3,
+            "X4": X4,
+            "X5": X5})["Y"]
     else:
-        X = X_test - offset
+        X = X_test - offsets[0]
         class_probs = graph.predict({"X": X})["Y"]
     return class_probs
 
@@ -58,15 +66,24 @@ def substract_and_mask(args):
     return (args[0] - args[1]) * args[2]
 
 
-def train_on_batch(graph, is_spiral, X_batch, Y_batch, offset):
+def train_on_batch(graph, is_spiral, X_batch, Y_batch, offsets):
     if is_spiral:
         Q = 12
-        X0 = X_batch * window(X_batch, 0, 5*Q, top_width=3*Q) - offset / 2
-        X1 = X_batch * window(X_batch, 4*Q, 4*Q, top_width=2*Q) - offset / 2
-        loss = graph.train_on_batch({"X0": X0, "X1": X1, "Y": Y_batch})
+        X1 = X_batch[:, :, (1*Q):(3*Q), :] - offsets[0]
+        X2 = X_batch[:, :, (2*Q):(4*Q), :] - offsets[1]
+        X3 = X_batch[:, :, (3*Q):(5*Q), :] - offsets[2]
+        X4 = X_batch[:, :, (4*Q):(6*Q), :] - offsets[3]
+        X5 = X_batch[:, :, (5*Q):(7*Q), :] - offsets[4]
+        loss = graph.train_on_batch({
+            "X1": X1,
+            "X2": X2,
+            "X3": X3,
+            "X4": X4,
+            "X5": X5,
+            "Y": Y_batch})
         return loss
     else:
-        X = X_batch - offset
+        X = X_batch - offsets[0]
         loss = graph.train_on_batch({"X": X, "Y": Y_batch})
         return loss
 

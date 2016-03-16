@@ -45,7 +45,7 @@ def build_graph(
     graph.add_node(pool1, name="pool1", input="relu1")
 
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
-                          border_mode="same", init=init)
+                          border_mode="valid", init=init)
     graph.add_node(conv2, name="conv2", input="pool1")
 
     relu2 = LeakyReLU()
