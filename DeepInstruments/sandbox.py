@@ -25,21 +25,24 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
-is_spiral = False
-if is_spiral:
-    conv1_channels = [8, 16, 32, 32, 16]
-else:
-    conv1_channels = 32
 conv1_height = 7
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
-conv2_channels = 32
-conv2_height = 21
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
+
+is_spiral = True
+if is_spiral:
+    conv1_channels = [4, 6, 12, 6, 4]
+    conv2_height = 4
+    conv2_channels = 64
+else:
+    conv1_channels = 32
+    conv2_height = 21
+    conv2_channels = 32
 
 # Parameters for learning
 batch_size = 32
@@ -212,7 +215,7 @@ else:
 # For Fig 3
 import theano
 example_id = 11000
-X = X_test[example_id:(example_id+1), :, :, :] - offset
+X = X_test[example_id:(example_id+1), :, :, :] - 0.33
 librosa.display.specshow(X[0, 0, :, :])
 plt.savefig("Fig3_X.png")
 pool1_f =\
