@@ -5,6 +5,7 @@ from keras.layers.advanced_activations import LeakyReLU, PReLU
 from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
 from keras.layers.core import Merge
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.layer.convolutional import Convolution1D
 from keras.layers.convolutional import MaxPooling1D, AveragePooling1D
 from keras.regularizers import ActivityRegularizer, WeightRegularizer
 from keras.layers.normalization import BatchNormalization
@@ -38,11 +39,11 @@ def build_graph(
     # Octave-wise convolutional layers
     init = "he_normal"
     conv1_X0 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init=init)
+                             border_mode="same", init=init)
     graph.add_node(conv1_X0, name="conv1_X0", input="X0")
 
-    conv1_X1 = Convolution2D(conv1_channels, conv1_height, conv1_width,
-                             border_mode="valid", init=init)
+    conv1_X1 = Convolution2D(conv1_channels, 3*conv1_height, conv1_width,
+                             border_mode="same", init=init)
     graph.add_node(conv1_X1, name="conv1_X1", input="X1")
 
     relu1 = LeakyReLU()
