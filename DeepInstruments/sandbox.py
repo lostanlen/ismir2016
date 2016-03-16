@@ -94,7 +94,7 @@ graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
 if is_spiral:
-    offsets = [0.304, 0.389, 0.445, 0.451, 0.412]
+    offsets = [0.362, 0.434, 0.420]
 else:
     offsets = [0.33]
 from keras.utils.generic_utils import Progbar
