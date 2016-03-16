@@ -32,11 +32,11 @@ def build_graph(
 
     # Input
     X_height = n_octaves * n_bins_per_octave
-    graph.add_input(name="X1", input_shape=(1, 2*n_bins_per_octave, X_width))
-    graph.add_input(name="X2", input_shape=(1, 2*n_bins_per_octave, X_width))
-    graph.add_input(name="X3", input_shape=(1, 2*n_bins_per_octave, X_width))
-    graph.add_input(name="X4", input_shape=(1, 2*n_bins_per_octave, X_width))
-    graph.add_input(name="X5", input_shape=(1, 2*n_bins_per_octave, X_width))
+    graph.add_input(name="X1", input_shape=(1, 4*n_bins_per_octave, X_width))
+    graph.add_input(name="X2", input_shape=(1, 4*n_bins_per_octave, X_width))
+    graph.add_input(name="X3", input_shape=(1, 4*n_bins_per_octave, X_width))
+    graph.add_input(name="X4", input_shape=(1, 4*n_bins_per_octave, X_width))
+    graph.add_input(name="X5", input_shape=(1, 4*n_bins_per_octave, X_width))
 
     # Octave-wise convolutional layers
     init = "he_normal"

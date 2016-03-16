@@ -37,7 +37,7 @@ dense1_channels = 32
 is_spiral = True
 if is_spiral:
     conv1_channels = [4, 6, 12, 6, 4]
-    conv2_height = 4
+    conv2_height = 8
     conv2_channels = 32
 else:
     conv1_channels = 32
@@ -94,7 +94,7 @@ graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
 if is_spiral:
-    offsets = [0.306, 0.412, 0.471, 0.479, 0.431]
+    offsets = [0.304, 0.389, 0.445, 0.451, 0.412]
 else:
     offsets = [0.33]
 from keras.utils.generic_utils import Progbar
