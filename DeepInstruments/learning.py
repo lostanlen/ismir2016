@@ -45,8 +45,8 @@ def build_graph(
 def predict(graph, is_spiral, X_test, offset):
     if is_spiral:
         Q = 12
-        X0 = X_batch * window(X_batch, 0, 5*Q, top_width=3*Q) - offset / 2
-        X1 = X_batch * window(X_batch, 4*Q, 4*Q, top_width=2*Q) - offset / 2
+        X0 = X_test * window(X_test, 0, 5*Q, top_width=3*Q) - offset / 2
+        X1 = X_test * window(X_test, 4*Q, 4*Q, top_width=2*Q) - offset / 2
         class_probs = graph.predict({"X0": X0, "X1": X1})["Y"]
     else:
         X = X_test - offset
