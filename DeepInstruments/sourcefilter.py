@@ -10,8 +10,8 @@ from keras.layers.normalization import BatchNormalization
 
 
 def build_graph(
-        n_bins_per_octave,
-        n_octaves,
+        Q,
+        js,
         X_width,
         conv1_channels,
         conv1_height,
@@ -19,7 +19,6 @@ def build_graph(
         pool1_height,
         pool1_width,
         conv2_channels,
-        conv2_height,
         conv2_width,
         pool2_height,
         pool2_width,
@@ -28,9 +27,9 @@ def build_graph(
     graph = Graph()
 
     # Input
-    Xs_shape = (1, 8*n_bins_per_octave, X_width)
+    Xs_shape = (1, (js[0,1]-js[0,0])*Q, X_width)
     graph.add_input(name="Xs", input_shape=Xs_shape)
-    Xf_shape = (1, 3*n_bins_per_octave, X_width)
+    Xf_shape = (1, (js[1,1]-js[1,0])*Q, X_width)
     graph.add_input(name="Xf", input_shape=Xf_shape)
 
     # Source layers
@@ -117,10 +116,9 @@ def predict(graph, X_test, offsets):
     return class_probs
 
 
-def train_on_batch(graph, X_batch, Y_batch, offsets):
-    Q = 12
-    Xs = X_batch[:, :, (0*Q):(8*Q), :] - offsets[0]
-    Xf = X_batch[:, :, (5*Q):(8*Q), :] - offsets[1]
+def train_on_batch(graph, X_batch, Y_batch, Q, js, offsets):
+    Xs = X_batch[:, :, (Q*js[0,0]):(Q*js[0,1]), :] - offsets[0]
+    Xf = X_batch[:, :, (Q*js[1,0]):(Q*js[1,1]), :] - offsets[1]
     loss = graph.train_on_batch({
         "Xs": Xs,
         "Xf": Xf,
