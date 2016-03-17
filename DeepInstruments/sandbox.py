@@ -37,7 +37,7 @@ pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
 
-module = di.spiral
+module = di.scalogram
 if is_spiral:
     conv1_channels = [32, 32]
 
@@ -46,8 +46,8 @@ batch_size = 32
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-spiral_str = "sp-" if is_spiral else ""
-export_str = spiral_str +\
+
+export_str = str(module)[25:31] +\
              str(conv1_channels) + "x" +\
              str(conv1_height) + "x" +\
              str(conv1_width) + "-" +\
@@ -70,7 +70,7 @@ masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano
-graph = di.module.build_graph(
+graph = module.build_graph(
     n_bins_per_octave,
     n_octaves,
     X_width,
