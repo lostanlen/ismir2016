@@ -36,7 +36,7 @@ module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
     conv2_channels = 32
-    js = [0, 8]
+    js = [1, 8]
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
     conv1_channels = [32, 32]
