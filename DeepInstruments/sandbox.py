@@ -43,6 +43,9 @@ if module_str == "scalog":
 elif module_str == "spiral":
     conv1_channels = [32, 32]
     offsets = [0.366, 0.388]
+elif module_str == "source":
+    conv1_channels = [32, 16]
+    offsets = [0.340, 0.386]
 
 # Parameters for learning
 batch_size = 32
