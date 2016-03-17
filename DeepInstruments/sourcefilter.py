@@ -45,6 +45,7 @@ def build_graph(
     pool1_s = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_s, name="pool1_s", input="relu1_s")
 
+    conv2_height = pool1_s.output_shape[2] - 2*Q / pool1_height
     conv2_s =\
         Convolution2D(conv2_channels[0], conv2_height, conv2_width,
                       border_mode="same", init=init)
@@ -61,7 +62,7 @@ def build_graph(
 
     # Filter layers
     conv1_f = Convolution2D(conv1_channels[1], Xf_shape[1],
-        conv1_width, border_mode="valid", init=init)
+                            conv1_width, border_mode="valid", init=init)
     graph.add_node(conv1_f, name="conv1_f", input="Xf")
 
     relu1_f = LeakyReLU()
@@ -71,7 +72,7 @@ def build_graph(
     graph.add_node(pool1_f, name="pool1_f", input="relu1_f")
 
     conv2_f = Convolution2D(conv2_channels[1], 1,
-        conv2_width, border_mode="same", init=init)
+                            conv2_width, border_mode="same", init=init)
     graph.add_node(conv2_f, name="conv2_f", input="pool1_f")
 
     relu2_f = LeakyReLU()
