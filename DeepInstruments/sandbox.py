@@ -27,7 +27,7 @@ conv1_width = 3
 pool1_height = 3
 pool1_width = 6
 conv2_width = 7
-pool2_height = 3
+pool2_height = 4
 pool2_width = 6
 dense1_channels = 32
 
@@ -53,19 +53,6 @@ batch_size = 32
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
-
-export_str = module_str +\
-             str(conv1_channels) + "x" +\
-             str(conv1_height) + "x" +\
-             str(conv1_width) + "-" +\
-             str(pool1_height) + "x" +\
-             str(pool1_width) + "-" +\
-             str(conv2_channels) + "x" +\
-             str(conv2_height) + "x" +\
-             str(conv2_width) + "-" +\
-             str(pool2_height) + "x" +\
-             str(pool2_width) + "-" +\
-             str(dense1_channels)
 
 # I/O sizes
 X_width = decision_length / hop_length
