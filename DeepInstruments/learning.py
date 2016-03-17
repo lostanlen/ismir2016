@@ -6,6 +6,7 @@ import scipy.signal
 def substract_and_mask(args):
     return (args[0] - args[1]) * args[2]
 
+
 def window(X_batch, start, full_width, top_width=None):
     if not top_width:
         top_width = full_width / 3

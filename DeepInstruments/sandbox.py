@@ -8,6 +8,7 @@ fmin = 55  # in Hz
 hop_length = 1024  # in samples
 n_bins_per_octave = 12
 n_octaves = 8
+Q = n_bins_per_octave
 
 # Get single-label split (MedleyDB for training, solosDb for test
 (test_stems, training_stems) = di.singlelabel.get_stems()
@@ -35,17 +36,21 @@ pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
 
-module = di.scalogram
+module = di.sourcefilter
 module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
-    offsets = [0.33]
+    offsets = np.mean(X_test)
 elif module_str == "spiral":
     conv1_channels = [32, 32]
-    offsets = [0.366, 0.388]
+    offsets = [
+        np.mean(X_test[:, :, (0*Q):(7*Q), :]),
+        np.mean(X_test[:, :, (1*Q):(8*Q), :])]
 elif module_str == "source":
     conv1_channels = [32, 16]
-    offsets = [0.340, 0.386]
+    offsets = [
+         np.mean(X_test[:, :, (1*Q):(6*Q), :]),
+         np.mean(X_test[:, :, (5*Q):(8*Q), :])]
 
 # Parameters for learning
 batch_size = 32
