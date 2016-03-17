@@ -33,7 +33,7 @@ def build_graph(
     Xs_shape = (1, (js[0,1]-js[0,0])*Q, X_width)
     graph.add_input(name="Xs_1", input_shape=Xs_shape)
     graph.add_input(name="Xs_2", input_shape=Xs_shape)
-    Xf_shape = (1, (js[2,0]-js[2,1])*Q, X_width)
+    Xf_shape = (1, (js[2,1]-js[2,0])*Q, X_width)
     graph.add_input(name="Xf", input_shape=Xf_shape)
 
     # Octave-wise convolutional layers for the source
