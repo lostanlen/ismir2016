@@ -10,8 +10,8 @@ from keras.layers.normalization import BatchNormalization
 
 
 def build_graph(
-        n_bins_per_octave,
-        n_octaves,
+        Q,
+        js,
         X_width,
         conv1_channels,
         conv1_height,
@@ -19,7 +19,6 @@ def build_graph(
         pool1_height,
         pool1_width,
         conv2_channels,
-        conv2_height,
         conv2_width,
         pool2_height,
         pool2_width,
@@ -28,7 +27,7 @@ def build_graph(
     graph = Graph()
 
     # Input
-    X_height = n_octaves * n_bins_per_octave
+    X_height = (js[1]-js[0]) * Q
     X_shape = (1, X_height, X_width)
     graph.add_input(name="X", input_shape=X_shape)
 
@@ -44,6 +43,7 @@ def build_graph(
     pool1 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1, name="pool1", input="relu1")
 
+    conv2_height =
     conv2 = Convolution2D(conv2_channels, conv2_height, conv2_width,
                           border_mode="same", init=init)
     graph.add_node(conv2, name="conv2", input="pool1")
