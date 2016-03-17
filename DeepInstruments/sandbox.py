@@ -29,17 +29,17 @@ conv1_height = 7
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
-conv2_channels = 32
 conv2_height = 21
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
 
-module = di.scalogram
+module = di.sourcefilter
 module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
+    conv2_channels = 32
     offsets = np.mean(X_test)
 elif module_str == "spiral":
     conv1_channels = [32, 32]
@@ -48,6 +48,7 @@ elif module_str == "spiral":
         np.mean(X_test[:, :, (1*Q):(8*Q), :])]
 elif module_str == "source":
     conv1_channels = [32, 16]
+    conv2_channels = [32, 16]
     offsets = [
          np.mean(X_test[:, :, (1*Q):(6*Q), :]),
          np.mean(X_test[:, :, (5*Q):(8*Q), :])]

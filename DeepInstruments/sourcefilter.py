@@ -124,5 +124,5 @@ def train_on_batch(graph, X_batch, Y_batch, offsets):
     loss = graph.train_on_batch({
         "Xs": Xs,
         "Xf": Xf,
-        "Ys": Y_batch})
+        "Y": Y_batch})
     return loss
