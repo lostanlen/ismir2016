@@ -116,8 +116,7 @@ def build_graph(
     return graph
 
 
-def predict(graph, X_test, offsets):
-    Q = 12
+def predict(graph, X_test, Q, js, offsets):
     X0 = X_test[:, :, (0*Q):(7*Q), :] - offsets[0]
     X1 = X_test[:, :, (1*Q):(8*Q), :] - offsets[1]
     class_probs = graph.predict({
@@ -126,8 +125,7 @@ def predict(graph, X_test, offsets):
     return class_probs
 
 
-def train_on_batch(graph, X_batch, Y_batch, offsets):
-    Q = 12
+def train_on_batch(graph, X_batch, Y_batch, Q, js, offsets):
     X0 = X_batch[:, :, (0*Q):(7*Q), :] - offsets[0]
     X1 = X_batch[:, :, (1*Q):(8*Q), :] - offsets[1]
     loss = graph.train_on_batch({
