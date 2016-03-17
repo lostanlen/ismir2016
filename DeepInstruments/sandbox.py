@@ -44,13 +44,13 @@ if module_str == "scalog":
 elif module_str == "spiral":
     conv1_channels = [32, 32]
     offsets = [
-        np.mean(X_test[:, :, (0*Q):(7*Q), :]),
-        np.mean(X_test[:, :, (1*Q):(8*Q), :])]
+        np.mean(X_test[:, :, (0*Q):(8*Q), :]),
+        np.mean(X_test[:, :, (5*Q):(8*Q), :])]
 elif module_str == "source":
-    conv1_channels = [16, 16]
-    conv2_channels = [16, 16]
+    conv1_channels = [32, 0]
+    conv2_channels = [32, 0]
     offsets = [
-         np.mean(X_test[:, :, (1*Q):(5*Q), :]),
+         np.mean(X_test[:, :, (0*Q):(8*Q), :]),
          np.mean(X_test[:, :, (5*Q):(8*Q), :])]
 
 # Parameters for learning
