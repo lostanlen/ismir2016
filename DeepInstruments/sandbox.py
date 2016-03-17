@@ -37,10 +37,9 @@ pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
 
-is_spiral = True
+module = di.spiral
 if is_spiral:
     conv1_channels = [32, 32]
-    conv2_height = 18
 
 # Parameters for learning
 batch_size = 32
@@ -71,8 +70,7 @@ masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano
-graph = di.learning.build_graph(
-    is_spiral,
+graph = di.module.build_graph(
     n_bins_per_octave,
     n_octaves,
     X_width,
