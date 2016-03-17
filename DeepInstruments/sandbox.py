@@ -47,10 +47,10 @@ elif module_str == "spiral":
         np.mean(X_test[:, :, (0*Q):(7*Q), :]),
         np.mean(X_test[:, :, (1*Q):(8*Q), :])]
 elif module_str == "source":
-    conv1_channels = [32, 16]
-    conv2_channels = [32, 16]
+    conv1_channels = [32, 32]
+    conv2_channels = [32, 32]
     offsets = [
-         np.mean(X_test[:, :, (1*Q):(6*Q), :]),
+         np.mean(X_test[:, :, (0*Q):(6*Q), :]),
          np.mean(X_test[:, :, (5*Q):(8*Q), :])]
 
 # Parameters for learning

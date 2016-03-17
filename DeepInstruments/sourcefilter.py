@@ -28,7 +28,7 @@ def build_graph(
     graph = Graph()
 
     # Input
-    Xs_shape = (1, 5*n_bins_per_octave, X_width)
+    Xs_shape = (1, 6*n_bins_per_octave, X_width)
     graph.add_input(name="Xs", input_shape=Xs_shape)
     Xf_shape = (1, 3*n_bins_per_octave, X_width)
     graph.add_input(name="Xf", input_shape=Xf_shape)
@@ -109,7 +109,7 @@ def build_graph(
 
 def predict(graph, X_test, offsets):
     Q = 12
-    Xs = X_test[:, :, (1*Q):(6*Q), :] - offsets[0]
+    Xs = X_test[:, :, (0*Q):(6*Q), :] - offsets[0]
     Xf = X_test[:, :, (5*Q):(8*Q), :] - offsets[1]
     class_probs = graph.predict({
         "Xs": Xs,
@@ -119,7 +119,7 @@ def predict(graph, X_test, offsets):
 
 def train_on_batch(graph, X_batch, Y_batch, offsets):
     Q = 12
-    Xs = X_batch[:, :, (1*Q):(6*Q), :] - offsets[0]
+    Xs = X_batch[:, :, (0*Q):(6*Q), :] - offsets[0]
     Xf = X_batch[:, :, (5*Q):(8*Q), :] - offsets[1]
     loss = graph.train_on_batch({
         "Xs": Xs,
