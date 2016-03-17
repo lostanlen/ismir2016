@@ -41,7 +41,7 @@ def build_graph(
     conv1_X1 = Convolution2D(conv1_channels[0], conv1_height, conv1_width,
                              border_mode="valid", init=init)
     graph.add_node(conv1_X1, name="conv1_X1", input="Xs_1")
-    conv1_X2 = Convolution2D(conv1_channels[1], conv1_height, conv1_width,
+    conv1_X2 = Convolution2D(conv1_channels[0], conv1_height, conv1_width,
                              border_mode="valid", init=init)
     graph.add_node(conv1_X2, name="conv1_X2", input="Xs_2")
 
@@ -55,7 +55,7 @@ def build_graph(
     graph.add_node(pool1_s, name="pool1_s", input="relu1_s")
 
     conv2_height = pool1_s.output_shape[2] - 2*Q / pool1_height
-    conv2_s = Convolution2D(conv2_channels, conv2_height, conv2_width,
+    conv2_s = Convolution2D(conv2_channels[0], conv2_height, conv2_width,
                             border_mode="same", init=init)
     graph.add_node(conv2_s, name="conv2_s", input="pool1_s")
 
