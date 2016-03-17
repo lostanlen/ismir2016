@@ -84,7 +84,7 @@ def predict(graph, X_test, offsets):
     return class_probs
 
 
-def train_on_batch(graph, X_batch, Y_batch, offsets)
+def train_on_batch(graph, X_batch, Y_batch, offsets):
     X = X_batch - offsets[0]
     loss = graph.train_on_batch({"X": X, "Y": Y_batch})
     return loss
