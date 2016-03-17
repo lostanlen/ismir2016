@@ -76,3 +76,9 @@ def build_graph(
     # Outputs
     graph.add_output(name="Y", input="dense2")
     return graph
+
+
+def predict(graph, X_test, offsets):
+    X = X_test - offsets[0]
+    class_probs = graph.predict({"X": X})["Y"]
+    return class_probs

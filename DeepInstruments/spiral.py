@@ -87,3 +87,13 @@ def build_graph(
     graph.add_output(name="Y", input="dense2")
 
     return graph
+
+
+def predict(graph, X_test, offsets):
+    Q = 12
+    X0 = X_test[:, :, (0*Q):(7*Q), :] - offsets[0]
+    X1 = X_test[:, :, (1*Q):(8*Q), :] - offsets[1]
+    class_probs = graph.predict({
+        "X0": X0,
+        "X1": X1})["Y"]
+    return class_probs

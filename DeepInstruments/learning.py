@@ -3,20 +3,6 @@ import numpy as np
 import scipy.signal
 
 
-def predict(graph, is_spiral, X_test, offsets):
-    if is_spiral:
-        Q = 12
-        X0 = X_test[:, :, (0*Q):(7*Q), :] - offsets[0]
-        X1 = X_test[:, :, (1*Q):(8*Q), :] - offsets[1]
-        class_probs = graph.predict({
-            "X0": X0,
-            "X1": X1})["Y"]
-    else:
-        X = X_test - offsets[0]
-        class_probs = graph.predict({"X": X})["Y"]
-    return class_probs
-
-
 def substract_and_mask(args):
     return (args[0] - args[1]) * args[2]
 

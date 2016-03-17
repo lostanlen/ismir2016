@@ -24,7 +24,6 @@ X_test = datagen.get_X(test_paths)
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 # Parameters for ConvNet
-conv1_channels = 32
 conv1_height = 7
 conv1_width = 3
 pool1_height = 3
@@ -37,8 +36,13 @@ pool2_width = 6
 dense1_channels = 32
 
 module = di.scalogram
-if is_spiral:
+module_str = str(module)[25:31]
+if module_str == "scalog":
+    conv1_channels = 32
+    offsets = [0.33]
+elif module_str == "spiral":
     conv1_channels = [32, 32]
+    offsets = [0.366, 0.388]
 
 # Parameters for learning
 batch_size = 32
@@ -46,7 +50,7 @@ epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"
 
-export_str = str(module)[25:31] +\
+export_str = module_str +\
              str(conv1_channels) + "x" +\
              str(conv1_height) + "x" +\
              str(conv1_width) + "-" +\
@@ -88,10 +92,6 @@ graph = module.build_graph(
 graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet
-if is_spiral:
-    offsets = [0.366, 0.388]
-else:
-    offsets = [0.33]
 from keras.utils.generic_utils import Progbar
 batch_losses = np.zeros(epoch_size / batch_size)
 chunk_accuracies_history = []
