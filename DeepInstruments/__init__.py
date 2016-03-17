@@ -54,6 +54,7 @@ import DeepInstruments.descriptors
 import DeepInstruments.learning
 import DeepInstruments.singlelabel
 import DeepInstruments.scalogram
+import DeepInstruments.sourcefilter
 import DeepInstruments.spiral
 import DeepInstruments.symbolic
 import DeepInstruments.wrangling
