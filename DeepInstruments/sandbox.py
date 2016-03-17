@@ -6,18 +6,15 @@ import numpy as np
 decision_length = 131072  # in samples
 fmin = 55  # in Hz
 hop_length = 1024  # in samples
-n_bins_per_octave = 12
+Q = 12
 n_octaves = 8
-Q = n_bins_per_octave
 
 # Get single-label split (MedleyDB for training, solosDb for test
 (test_stems, training_stems) = di.singlelabel.get_stems()
 
 # Compute audio features and retrieve melodies on the training set
 datagen = di.singlelabel.ScalogramGenerator(
-        decision_length, fmin, hop_length,
-        n_bins_per_octave, n_octaves,
-        training_stems)
+        decision_length, fmin, hop_length, Q, n_octaves, training_stems)
 
 # Compute audio features on the test set
 test_paths = di.singlelabel.get_paths("test")
@@ -29,13 +26,12 @@ conv1_height = 7
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
-conv2_height = 21
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
 
-module = di.sourcefilter
+module = di.scalogram
 module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
@@ -43,15 +39,13 @@ if module_str == "scalog":
     offsets = np.mean(X_test)
 elif module_str == "spiral":
     conv1_channels = [32, 32]
-    offsets = [
-        np.mean(X_test[:, :, (0*Q):(8*Q), :]),
-        np.mean(X_test[:, :, (5*Q):(8*Q), :])]
 elif module_str == "source":
-    conv1_channels = [32, 0]
-    conv2_channels = [32, 0]
+    conv1_channels = [32, 16]
+    conv2_channels = [32, 16]
+    js = np.matrix([[0, 7], [5, 8]])
     offsets = [
-         np.mean(X_test[:, :, (0*Q):(8*Q), :]),
-         np.mean(X_test[:, :, (5*Q):(8*Q), :])]
+         np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
+         np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :])]
 
 # Parameters for learning
 batch_size = 32
@@ -75,7 +69,7 @@ export_str = module_str +\
 # I/O sizes
 X_width = decision_length / hop_length
 dense2_channels = 8
-X_height = n_bins_per_octave * n_octaves
+X_height = Q * n_octaves
 mask_width = X_width / pool1_width
 mask_height = X_height / pool1_height
 masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
@@ -83,8 +77,8 @@ names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano
 graph = module.build_graph(
-    n_bins_per_octave,
-    n_octaves,
+    Q,
+    js,
     X_width,
     conv1_channels,
     conv1_height,
@@ -92,7 +86,6 @@ graph = module.build_graph(
     pool1_height,
     pool1_width,
     conv2_channels,
-    conv2_height,
     conv2_width,
     pool2_height,
     pool2_width,
