@@ -26,7 +26,6 @@ conv1_height = 7
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
-conv2_height = 21
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
