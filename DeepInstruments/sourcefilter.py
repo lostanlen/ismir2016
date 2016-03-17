@@ -106,10 +106,9 @@ def build_graph(
     return graph
 
 
-def predict(graph, X_test, offsets):
-    Q = 12
-    Xs = X_test[:, :, (0*Q):(8*Q), :] - offsets[0]
-    Xf = X_test[:, :, (5*Q):(8*Q), :] - offsets[1]
+def predict(graph, X_test, Q, js, offsets):
+    Xs = X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
+    Xf = X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[1]
     class_probs = graph.predict({
         "Xs": Xs,
         "Xf": Xf})["Y"]
@@ -117,8 +116,8 @@ def predict(graph, X_test, offsets):
 
 
 def train_on_batch(graph, X_batch, Y_batch, Q, js, offsets):
-    Xs = X_batch[:, :, (Q*js[0,0]):(Q*js[0,1]), :] - offsets[0]
-    Xf = X_batch[:, :, (Q*js[1,0]):(Q*js[1,1]), :] - offsets[1]
+    Xs = X_batch[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
+    Xf = X_batch[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[1]
     loss = graph.train_on_batch({
         "Xs": Xs,
         "Xf": Xf,

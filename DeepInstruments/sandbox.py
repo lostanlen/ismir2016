@@ -26,6 +26,7 @@ conv1_height = 7
 conv1_width = 3
 pool1_height = 3
 pool1_width = 6
+conv2_height = 21
 conv2_width = 7
 pool2_height = 3
 pool2_width = 6
@@ -36,7 +37,8 @@ module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
     conv2_channels = 32
-    offsets = np.mean(X_test)
+    js = [0, 8]
+    offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
     conv1_channels = [32, 32]
 elif module_str == "source":
