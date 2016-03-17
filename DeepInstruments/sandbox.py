@@ -39,13 +39,15 @@ if module_str == "scalog":
     js = [1, 8]
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
-    conv1_channels = [16, 32]
-    conv2_channels = [32, 32]
-    js = np.matrix([[1, 6], [2, 7], [6, 8]])
+    conv1_channels = [4, 16, 4]
+    conv2_channels = [4, 16, 4]
+    js = np.matrix([[1, 7], [6, 8], [1, 4], [2, 5], [3, 6]])
     offsets = [
          np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
          np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :]),
-         np.mean(X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :])]
+         np.mean(X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :]),
+         np.mean(X_test[:, :, (js[3,0]*Q):(js[3,1]*Q), :]),
+         np.mean(X_test[:, :, (js[4,0]*Q):(js[4,1]*Q), :])]
 elif module_str == "source":
     conv1_channels = [32, 16]
     conv2_channels = [32, 16]

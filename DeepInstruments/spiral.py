@@ -30,72 +30,104 @@ def build_graph(
     graph = Graph()
 
     # Inputs
-    Xs_shape = (1, (js[0,1]-js[0,0])*Q, X_width)
-    graph.add_input(name="Xs_1", input_shape=Xs_shape)
-    graph.add_input(name="Xs_2", input_shape=Xs_shape)
-    Xf_shape = (1, (js[2,1]-js[2,0])*Q, X_width)
-    graph.add_input(name="Xf", input_shape=Xf_shape)
+    X2d_shape = (1, (js[0,1]-js[0,0])*Q, X_width)
+    graph.add_input(name="X2d", input_shape=X2d_shape)
 
-    # Octave-wise convolutional layers for the source
+    X1d_shape = (1, (js[1,1]-js[1,0])*Q, X_width)
+    graph.add_input(name="X1d", input_shape=X1d_shape)
+
+    Xsp_shape = (1, (js[2,1]-js[2,0])*Q, X_width)
+    graph.add_input(name="Xsp_1", input_shape=Xsp_shape)
+    graph.add_input(name="Xsp_2", input_shape=Xsp_shape)
+    graph.add_input(name="Xsp_3", input_shape=Xsp_shape)
+
+    # 2D convolutions (typically for the whole spectrum)
     init = "he_normal"
-    conv1_X1 = Convolution2D(conv1_channels[0], conv1_height, conv1_width,
+    conv1_2d = Convolution2D(conv1_channels[0], conv1_height, conv1_width,
                              border_mode="valid", init=init)
-    graph.add_node(conv1_X1, name="conv1_X1", input="Xs_1")
-    conv1_X2 = Convolution2D(conv1_channels[0], conv1_height, conv1_width,
-                             border_mode="valid", init=init)
-    graph.add_node(conv1_X2, name="conv1_X2", input="Xs_2")
+    graph.add_node(conv1_2d, name="conv1_2d", input="X2d")
 
-    relu1_s = LeakyReLU()
-    graph.add_node(relu1_s, name="relu1_s",
-                   inputs=["conv1_X1",
-                           "conv1_X2"],
-                   merge_mode="concat", concat_axis=1)
+    relu1_2d = LeakyReLU()
+    graph.add_node(relu1_2d, name="relu1_2d", input="conv1_2d")
 
-    pool1_s = MaxPooling2D(pool_size=(pool1_height, pool1_width))
-    graph.add_node(pool1_s, name="pool1_s", input="relu1_s")
+    pool1_2d = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_2d, name="pool1_2d", input="relu1_2d")
 
-    conv2_height = pool1_s.output_shape[2] - 2*Q / pool1_height
-    conv2_s = Convolution2D(conv2_channels[0], conv2_height, conv2_width,
-                            border_mode="same", init=init)
-    graph.add_node(conv2_s, name="conv2_s", input="pool1_s")
+    conv2_2d = Convolution2D(conv2_channels[0], conv1_height, conv1_width,
+                             border_mode="same", init=init)
+    graph.add_node(conv2_2d, name="conv2_2d", input="pool2_2d")
 
-    relu2_s = LeakyReLU()
-    graph.add_node(relu2_s, name="relu2_s", input="conv2_s")
+    relu2_2d = LeakyReLU()
+    graph.add_node(relu2_2d, name="relu2_2d", input="conv2_2d")
 
-    pool2_s = MaxPooling2D(pool_size=(relu2_s.output_shape[2], pool2_width))
-    graph.add_node(pool2_s, name="pool2_s", input="relu2_s")
+    pool2_2d = MaxPooling2D(pool_size=(pool2_height, pool2_width))
+    graph.add_node(pool2_2d, name="pool2_2d", input="relu2_2d")
 
-    flatten_s = Flatten()
-    graph.add_node(flatten_s, name="flatten_s", input="pool2_s")
+    flatten_2d = Flatten()
+    graph.add_node(flatten_2d, name="flatten_2d", input="pool2_2d")
 
-    # Filter layers
-    conv1_f = Convolution2D(conv1_channels[1], Xf_shape[1],
-                            conv1_width, border_mode="valid", init=init)
-    graph.add_node(conv1_f, name="conv1_f", input="Xf")
+    # 1D convolutions (typically for the filter only)
+    conv1_1d = Convolution2D(conv1_channels[1], X1d_shape[1],
+                             conv1_width, border_mode="valid", init=init)
+    graph.add_node(conv1_1d, name="conv1_1d", input="X1d")
 
-    relu1_f = LeakyReLU()
-    graph.add_node(relu1_f, name="relu1_f", input="conv1_f")
+    relu1_1d = LeakyReLU()
+    graph.add_node(relu1_1d, name="relu1_1d", input="conv1_1d")
 
-    pool1_f = MaxPooling2D(pool_size=(1, pool1_width))
-    graph.add_node(pool1_f, name="pool1_f", input="relu1_f")
+    pool1_1d = MaxPooling2D(pool_size=(1, pool1_width))
+    graph.add_node(pool1_1d, name="pool1_1d", input="relu1_1d")
 
-    conv2_f = Convolution2D(conv2_channels[1], 1,
-                            conv2_width, border_mode="same", init=init)
-    graph.add_node(conv2_f, name="conv2_f", input="pool1_f")
+    conv2_1d = Convolution2D(conv2_channels[1], 1,
+                             conv2_width, border_mode="same", init=init)
+    graph.add_node(conv2_1d, name="conv2_1d", input="pool1_1d")
 
-    relu2_f = LeakyReLU()
-    graph.add_node(relu2_f, name="relu2_f", input="conv2_f")
+    relu2_1d = LeakyReLU()
+    graph.add_node(relu2_1d, name="relu2_1d", input="conv2_1d")
 
-    pool2_f = MaxPooling2D(pool_size=(1, pool2_width))
-    graph.add_node(pool2_f, name="pool2_f", input="relu2_f")
+    pool2_1d = MaxPooling2D(pool_size=(1, pool2_width))
+    graph.add_node(pool2_1d, name="pool2_1d", input="relu2_1d")
 
-    flatten_f = Flatten()
-    graph.add_node(flatten_f, name="flatten_f", input="pool2_f")
+    flatten_1d = Flatten()
+    graph.add_node(flatten_1d, name="flatten_1d", input="pool2_1d")
+
+    # Spiral convolutions (typically for the source only)
+    conv1_sp1 = Convolution2D(conv1_channels[2], conv1_height,
+                              conv1_width, border_mode="valid", init=init)
+    graph.add_node(conv1_sp1, name="conv1_sp1", input="Xsp_1")
+
+    conv1_sp2 = Convolution2D(conv1_channels[2], conv1_height,
+                              conv1_width, border_mode="valid", init=init)
+    graph.add_node(conv1_sp2, name="conv1_sp2", input="Xsp_2")
+
+    conv1_sp3 = Convolution2D(conv1_channels[2], conv1_height,
+                              conv1_width, border_mode="valid", init=init)
+    graph.add_node(conv1_sp3, name="conv1_sp3", input="Xsp_3")
+
+    relu1_sp = LeakyReLU()
+    graph.add_node(relu1_sp, name="relu_sp",
+                   inputs=["conv1_sp1", "conv1_sp2", "conv1_sp3"],
+                   merge_mode="sum")
+
+    pool1_sp = MaxPooling2D(pool_size=(pool1_height, pool1_width))
+    graph.add_node(pool1_sp, name="pool1_sp", input="relu1_sp")
+
+    conv2_sp = Convolution2D(conv2_channels[2], pool1_sp.output_shape[2],
+                             conv2_width, border_mode="same", init=init)
+    graph.add_node(conv2_sp, name="conv2_sp", input="pool1_sp")
+
+    relu2_sp = LeakyReLU()
+    graph.add_node(relu2_sp, name="relu2_sp", input="conv2_sp")
+
+    pool2_sp = MaxPooling2D(pool_size=(1, pool2_width))
+    graph.add_node(pool2_sp, name="pool2_sp", input="relu2_sp")
+
+    flatten_sp = Flatten()
+    graph.add_node(flatten_sp, name="flatten_sp", input="pool2_sp")
 
     # Multi-layer perceptron with dropout
     drop1 = Dropout(0.5)
     graph.add_node(drop1, name="drop1",
-                   inputs=["flatten_s", "flatten_f"])
+                   inputs=["flatten_2d", "flatten_1d", "flatten_sp"])
 
     dense1 = Dense(dense1_channels, init="lecun_uniform")
     graph.add_node(dense1, name="dense1", input="drop1")
@@ -117,23 +149,31 @@ def build_graph(
 
 
 def predict(graph, X_test, Q, js, offsets):
-    Xs_1 = X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
-    Xs_2 = X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[1]
-    Xf = X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[2]
+    X2d = X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
+    X1d = X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[2]
+    Xsp_1 = X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[0]
+    Xsp_2 = X_test[:, :, (js[3,0]*Q):(js[3,1]*Q), :] - offsets[1]
+    Xsp_3 = X_test[:, :, (js[4,0]*Q):(js[4,1]*Q), :] - offsets[1]
     class_probs = graph.predict({
-        "Xs_1": Xs_1,
-        "Xs_2": Xs_2,
-        "Xf": Xf})["Y"]
+        "X2d": X2d,
+        "X1d": X1d,
+        "Xsp_1": Xsp_1,
+        "Xsp_2": Xsp_2,
+        "Xsp_3": Xsp_3})["Y"]
     return class_probs
 
 
 def train_on_batch(graph, X_batch, Y_batch, Q, js, offsets):
-    Xs_1 = X_batch[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
-    Xs_2 = X_batch[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[1]
-    Xf = X_batch[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[2]
+    X2d = X_batch[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
+    X1d = X_batch[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[2]
+    Xsp_1 = X_batch[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[0]
+    Xsp_2 = X_batch[:, :, (js[3,0]*Q):(js[3,1]*Q), :] - offsets[1]
+    Xsp_3 = X_batch[:, :, (js[4,0]*Q):(js[4,1]*Q), :] - offsets[1]
     loss = graph.train_on_batch({
-        "Xs_1": Xs_1,
-        "Xs_2": Xs_2,
-        "Xf": Xf,
+        "X2d": X2d,
+        "X1d": X1d,
+        "Xsp_1": Xsp_1,
+        "Xsp_2": Xsp_2,
+        "Xsp_3": Xsp_3,
         "Y": Y_batch})
     return loss
