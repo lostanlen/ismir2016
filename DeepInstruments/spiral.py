@@ -56,7 +56,7 @@ def build_graph(
 
     conv2_height = pool1_s.output_shape[2] - 2*Q / pool1_height
     conv2_s = Convolution2D(conv2_channels, conv2_height, conv2_width,
-                          border_mode="same", init=init)
+                            border_mode="same", init=init)
     graph.add_node(conv2_s, name="conv2_s", input="pool1_s")
 
     relu2_s = LeakyReLU()
