@@ -117,19 +117,23 @@ def build_graph(
 
 
 def predict(graph, X_test, Q, js, offsets):
-    X0 = X_test[:, :, (0*Q):(7*Q), :] - offsets[0]
-    X1 = X_test[:, :, (1*Q):(8*Q), :] - offsets[1]
+    Xs_1 = X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
+    Xs_2 = X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[1]
+    Xf = X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[2]
     class_probs = graph.predict({
-        "X0": X0,
-        "X1": X1})["Y"]
+        "Xs_1": Xs_1,
+        "Xs_2": Xs_2,
+        "Xf": Xf})["Y"]
     return class_probs
 
 
 def train_on_batch(graph, X_batch, Y_batch, Q, js, offsets):
-    X0 = X_batch[:, :, (0*Q):(7*Q), :] - offsets[0]
-    X1 = X_batch[:, :, (1*Q):(8*Q), :] - offsets[1]
+    Xs_1 = X_batch[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
+    Xs_2 = X_batch[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[1]
+    Xf = X_batch[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[2]
     loss = graph.train_on_batch({
-        "X0": X0,
-        "X1": X1,
+        "Xs_1": Xs_1,
+        "Xs_2": Xs_2,
+        "Xf": Xf,
         "Y": Y_batch})
     return loss
