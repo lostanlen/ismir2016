@@ -108,7 +108,7 @@ for epoch_id in xrange(n_epochs):
     progbar = Progbar(epoch_size)
     batch_id = 0
     for (X_batch, Y_batch) in dataflow:
-        loss = module.train_on_batch(graph, X_batch, Y_batch, offsets)
+        loss = module.train_on_batch(graph, X_batch, Y_batch, Q, js, offsets)
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
@@ -120,7 +120,7 @@ for epoch_id in xrange(n_epochs):
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
     # Measure test accuracies
-    class_probs = module.predict(graph, X_test, offsets)
+    class_probs = module.predict(graph, X_test, Q, js, offsets)
     y_predicted = np.argmax(class_probs, axis=1)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
