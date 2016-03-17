@@ -36,7 +36,7 @@ pool2_height = 3
 pool2_width = 6
 dense1_channels = 32
 
-module = di.sourcefilter
+module = di.scalogram
 module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
