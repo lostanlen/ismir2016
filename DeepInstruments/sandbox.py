@@ -30,7 +30,7 @@ pool2_height = 4
 pool2_width = 6
 dense1_channels = 32
 
-module = di.spiral
+module = di.scalogram
 module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
@@ -38,9 +38,9 @@ if module_str == "scalog":
     js = [1, 8]
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
-    conv1_channels = [24, 16, 16]
-    conv2_channels = [24, 16, 16]
-    js = np.matrix([[1, 8], [5, 8], [1, 3], [2, 4], [3, 5]])
+    conv1_channels = [24, 32, 32]
+    conv2_channels = [24, 32, 32]
+    js = np.matrix([[1, 7], [6, 8], [2, 4], [3, 5], [4, 6]])
     offsets = [
          np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
          np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :]),
