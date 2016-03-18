@@ -84,15 +84,16 @@ def build_graph(
     graph.add_node(flatten_1d, name="flatten_1d", input="pool2_1d")
 
     # Spiral convolutions (typically for the source only)
-    conv1_sp1 = Convolution2D(conv1_channels[2], conv1_height,
+    conv1_height_spiral = 3
+    conv1_sp1 = Convolution2D(conv1_channels[2], conv1_height_spiral,
                               conv1_width, border_mode="valid", init=init)
     graph.add_node(conv1_sp1, name="conv1_sp1", input="Xsp_1")
 
-    conv1_sp2 = Convolution2D(conv1_channels[2], conv1_height,
+    conv1_sp2 = Convolution2D(conv1_channels[2], conv1_height_spiral,
                               conv1_width, border_mode="valid", init=init)
     graph.add_node(conv1_sp2, name="conv1_sp2", input="Xsp_2")
 
-    conv1_sp3 = Convolution2D(conv1_channels[2], conv1_height,
+    conv1_sp3 = Convolution2D(conv1_channels[2], conv1_height_spiral,
                               conv1_width, border_mode="valid", init=init)
     graph.add_node(conv1_sp3, name="conv1_sp3", input="Xsp_3")
 
