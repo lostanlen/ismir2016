@@ -36,7 +36,9 @@ def get_X(decision_length,
             hop_length=hop_length,
             n_bins=n_bins,
             sr=sr)
-    X = np.log1p(1000.0*CQT)
+    A_weights_dB = librosa.A_weighting(freqs, min_db=-80.0)
+    A_weights = (10.0 ** (A_weights_dB/10))
+    X = np.log1p(1000.0 * CQT * A_weights[:, np.newaxis])
     X = X.astype(np.float32)
     return X
 
