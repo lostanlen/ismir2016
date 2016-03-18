@@ -3,6 +3,7 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 
+
 def build_graph(
         Q,
         js,
