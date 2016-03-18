@@ -1,13 +1,7 @@
-import DeepInstruments as di
-import keras
 from keras.models import Graph
-from keras.layers.advanced_activations import LeakyReLU, ParametricSoftplus
-from keras.layers.core import Dense, Dropout, Flatten, LambdaMerge, Reshape
-from keras.layers.convolutional import AveragePooling1D,\
-    Convolution2D, MaxPooling2D, AveragePooling2D
-from keras.regularizers import l2
-from keras.layers.normalization import BatchNormalization
-
+from keras.layers.advanced_activations import LeakyReLU
+from keras.layers.core import Dense, Dropout, Flatten
+from keras.layers.convolutional import Convolution2D, MaxPooling2D
 
 def build_graph(
         Q,

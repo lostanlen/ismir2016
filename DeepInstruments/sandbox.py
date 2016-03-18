@@ -1,5 +1,4 @@
 import DeepInstruments as di
-import librosa
 import numpy as np
 
 # Parameters for audio
@@ -39,8 +38,8 @@ if module_str == "scalog":
     js = [1, 8]
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
-    conv1_channels = [32, 1, 1]
-    conv2_channels = [32, 1, 1]
+    conv1_channels = [24, 16, 16]
+    conv2_channels = [24, 16, 16]
     js = np.matrix([[1, 8], [5, 8], [1, 3], [2, 4], [3, 5]])
     offsets = [
          np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
