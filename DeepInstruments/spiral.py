@@ -14,6 +14,7 @@ def build_graph(
         pool1_height,
         pool1_width,
         conv2_channels,
+        conv2_height,
         conv2_width,
         pool2_height,
         pool2_width,
@@ -36,7 +37,7 @@ def build_graph(
 
     # 2D convolutions (typically for the whole spectrum)
     init = "he_normal"
-    conv1_2d = Convolution2D(conv1_channels[0], conv1_height, conv1_width,
+    conv1_2d = Convolution2D(conv1_channels[0], conv2_height[0], conv1_width,
                              border_mode="valid", init=init)
     graph.add_node(conv1_2d, name="conv1_2d", input="X2d")
 
@@ -46,8 +47,7 @@ def build_graph(
     pool1_2d = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_2d, name="pool1_2d", input="relu1_2d")
 
-    conv2_height = pool1_2d.output_shape[2] - 2*Q / pool1_height
-    conv2_2d = Convolution2D(conv2_channels[0], conv2_height, conv2_width,
+    conv2_2d = Convolution2D(conv2_channels[0], conv2_height[0], conv2_width,
                              border_mode="same", init=init)
     graph.add_node(conv2_2d, name="conv2_2d", input="pool1_2d")
 
@@ -86,15 +86,15 @@ def build_graph(
 
     # Spiral convolutions (typically for the source only)
     conv1_height_spiral = 3
-    conv1_sp1 = Convolution2D(conv1_channels[2], conv1_height_spiral,
+    conv1_sp1 = Convolution2D(conv1_channels[2], conv1_height[1],
                               conv1_width, border_mode="valid", init=init)
     graph.add_node(conv1_sp1, name="conv1_sp1", input="Xsp_1")
 
-    conv1_sp2 = Convolution2D(conv1_channels[2], conv1_height_spiral,
+    conv1_sp2 = Convolution2D(conv1_channels[2], conv1_height[1],
                               conv1_width, border_mode="valid", init=init)
     graph.add_node(conv1_sp2, name="conv1_sp2", input="Xsp_2")
 
-    conv1_sp3 = Convolution2D(conv1_channels[2], conv1_height_spiral,
+    conv1_sp3 = Convolution2D(conv1_channels[2], conv1_height[1],
                               conv1_width, border_mode="valid", init=init)
     graph.add_node(conv1_sp3, name="conv1_sp3", input="Xsp_3")
 
@@ -106,7 +106,8 @@ def build_graph(
     pool1_sp = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_sp, name="pool1_sp", input="relu1_sp")
 
-    conv2_sp = Convolution2D(conv2_channels[2], pool1_sp.output_shape[2],
+    conv2_sp = Convolution2D(conv2_channels[2],
+                             conv2_height[1],
                              conv2_width, border_mode="same", init=init)
     graph.add_node(conv2_sp, name="conv2_sp", input="pool1_sp")
 

@@ -1,19 +1,8 @@
 import DeepInstruments as di
 import numpy as np
 
-# Parameters for audio
-decision_length = 131072  # in samples
-fmin = 55  # in Hz
-hop_length = 1024  # in samples
-Q = 12
-n_octaves = 8
-
-# Get single-label split (MedleyDB for training, solosDb for test
-(test_stems, training_stems) = di.singlelabel.get_stems()
-
 # Parameters for ConvNet
-conv1_height = 7
-conv1_width = 3
+conv1_width = 6
 pool1_height = 3
 pool1_width = 6
 conv2_width = 7
@@ -21,16 +10,22 @@ pool2_height = 4
 pool2_width = 6
 dense1_channels = 32
 
+alpha = 0.3
+
 module = di.scalogram
 module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
+    conv1_height = 5
     conv2_channels = 32
+    conv2_height = 21
     js = [1, 8]
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
     conv1_channels = [24, 32, 32]
+    conv1_height = [7, 3]
     conv2_channels = [24, 32, 32]
+    conv2_height = [21, 3]
     js = np.matrix([[1, 7], [5, 8], [1, 4], [2, 5], [3, 6]])
     offsets = [
          np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
@@ -62,21 +57,10 @@ masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano
-graph = module.build_graph(
-    Q,
-    js,
-    X_width,
-    conv1_channels,
-    conv1_height,
-    conv1_width,
-    pool1_height,
-    pool1_width,
-    conv2_channels,
-    conv2_width,
-    pool2_height,
-    pool2_width,
-    dense1_channels,
-    dense2_channels)
+graph = module.build_graph(Q, js, X_width,
+    conv1_channels, conv1_height, conv1_width, pool1_height, pool1_width,
+    conv2_channels, conv2_height, conv2_width, pool2_height, pool2_width,
+    dense1_channels, dense2_channels, alpha)
 graph.compile(loss={"Y": "categorical_crossentropy"}, optimizer=optimizer)
 
 # Train ConvNet

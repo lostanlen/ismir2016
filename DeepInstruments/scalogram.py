@@ -14,6 +14,7 @@ def build_graph(
         pool1_height,
         pool1_width,
         conv2_channels,
+        conv2_height,
         conv2_width,
         pool2_height,
         pool2_width,
