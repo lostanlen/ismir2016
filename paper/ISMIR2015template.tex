@@ -65,13 +65,21 @@ Musical performance combines a wide range of pitches, nuances,
 and expressive techniques.
 Audio-based classification of musical instruments thus requires to
 build signal representations that are invariant to such transformations.
-Focusing on pitch invariance, this article investigates the construction
-of multi-stage architectures for instrument recognition.
-% Missing sentence
-We show that Mel-frequency cepstral coefficients (MFCC) lack
-invariance with respect to realistic pitch shifts.
-In turn, a convolutional neural network (ConvNet) in the time-frequency
-domain is able to disentangle pitch from timbral information in a subtler way.
+This article investigates the construction
+of multi-stage architectures for instrument recognition,
+given a limited amount of annotated training data.
+We show that the main drawback of mel-frequency cepstral
+coefficients (MFCC) resides in their lack of invariance with respect to
+realistic pitch shifts, despite being designed to be invariant
+to the frequency transposition of pure tones.
+In turn, a deep convolutional network (ConvNet)
+in the time-frequency domain is able to disentangle pitch from
+timbral information, hence yielding better classification accuracy.
+By recombining convolutional feature maps over the Shepard pitch spiral,
+we further improve the learned representation
+by introducing weight sharing strategies dedicated to
+quasi-harmonic sounds with fixed spectral envelope,
+which are archetypal of musical notes.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
