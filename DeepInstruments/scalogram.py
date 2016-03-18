@@ -18,7 +18,8 @@ def build_graph(
         pool2_height,
         pool2_width,
         dense1_channels,
-        dense2_channels):
+        dense2_channels,
+        alpha):
     graph = Graph()
 
     # Input
@@ -32,7 +33,7 @@ def build_graph(
                           border_mode="valid", init=init)
     graph.add_node(conv1, name="conv1", input="X")
 
-    relu1 = LeakyReLU()
+    relu1 = LeakyReLU(alpha=alpha)
     graph.add_node(relu1, name="relu1", input="conv1")
 
     pool1 = MaxPooling2D(pool_size=(pool1_height, pool1_width))
@@ -43,7 +44,7 @@ def build_graph(
                           border_mode="same", init=init)
     graph.add_node(conv2, name="conv2", input="pool1")
 
-    relu2 = LeakyReLU()
+    relu2 = LeakyReLU(alpha=alpha)
     graph.add_node(relu2, name="relu2", input="conv2")
 
     pool2 = MaxPooling2D(pool_size=(pool2_height, pool2_width))
@@ -58,7 +59,7 @@ def build_graph(
     dense1 = Dense(dense1_channels, init="lecun_uniform")
     graph.add_node(dense1, name="dense1", input="drop1")
 
-    relu3 = LeakyReLU()
+    relu3 = LeakyReLU(alpha=alpha)
     graph.add_node(relu3, name="relu3", input="dense1")
 
     drop2 = Dropout(0.5)
