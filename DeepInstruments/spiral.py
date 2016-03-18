@@ -1,5 +1,5 @@
 from keras.models import Graph
-from keras.layers.advanced_activations import LeakyReLU, PReLU
+from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.core import Dense, Dropout, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 
@@ -96,7 +96,7 @@ def build_graph(
     graph.add_node(conv1_sp3, name="conv1_sp3", input="Xsp_3")
 
     relu1_sp = LeakyReLU()
-    graph.add_node(relu1_sp, name="relu_sp",
+    graph.add_node(relu1_sp, name="relu1_sp",
                    inputs=["conv1_sp1", "conv1_sp2", "conv1_sp3"],
                    merge_mode="sum")
 
