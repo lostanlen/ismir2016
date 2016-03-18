@@ -143,10 +143,10 @@ def build_graph(
 
 def predict(graph, X_test, Q, js, offsets):
     X2d = X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
-    X1d = X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[2]
-    Xsp_1 = X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[0]
-    Xsp_2 = X_test[:, :, (js[3,0]*Q):(js[3,1]*Q), :] - offsets[1]
-    Xsp_3 = X_test[:, :, (js[4,0]*Q):(js[4,1]*Q), :] - offsets[1]
+    X1d = X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[1]
+    Xsp_1 = X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[2]
+    Xsp_2 = X_test[:, :, (js[3,0]*Q):(js[3,1]*Q), :] - offsets[3]
+    Xsp_3 = X_test[:, :, (js[4,0]*Q):(js[4,1]*Q), :] - offsets[4]
     class_probs = graph.predict({
         "X2d": X2d,
         "X1d": X1d,
@@ -158,10 +158,10 @@ def predict(graph, X_test, Q, js, offsets):
 
 def train_on_batch(graph, X_batch, Y_batch, Q, js, offsets):
     X2d = X_batch[:, :, (js[0,0]*Q):(js[0,1]*Q), :] - offsets[0]
-    X1d = X_batch[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[2]
-    Xsp_1 = X_batch[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[0]
-    Xsp_2 = X_batch[:, :, (js[3,0]*Q):(js[3,1]*Q), :] - offsets[1]
-    Xsp_3 = X_batch[:, :, (js[4,0]*Q):(js[4,1]*Q), :] - offsets[1]
+    X1d = X_batch[:, :, (js[1,0]*Q):(js[1,1]*Q), :] - offsets[1]
+    Xsp_1 = X_batch[:, :, (js[2,0]*Q):(js[2,1]*Q), :] - offsets[2]
+    Xsp_2 = X_batch[:, :, (js[3,0]*Q):(js[3,1]*Q), :] - offsets[3]
+    Xsp_3 = X_batch[:, :, (js[4,0]*Q):(js[4,1]*Q), :] - offsets[4]
     loss = graph.train_on_batch({
         "X2d": X2d,
         "X1d": X1d,
