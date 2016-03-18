@@ -45,7 +45,7 @@ def build_graph(
     pool1_2d = MaxPooling2D(pool_size=(pool1_height, pool1_width))
     graph.add_node(pool1_2d, name="pool1_2d", input="relu1_2d")
 
-    conv2_height = pool1.output_shape[2] - 2*Q / pool1_height
+    conv2_height = pool1_2d.output_shape[2] - 2*Q / pool1_height
     conv2_2d = Convolution2D(conv2_channels[0], conv2_height, conv2_width,
                              border_mode="same", init=init)
     graph.add_node(conv2_2d, name="conv2_2d", input="pool1_2d")
