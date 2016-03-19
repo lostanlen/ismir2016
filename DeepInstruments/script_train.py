@@ -2,8 +2,8 @@ import DeepInstruments as di
 import numpy as np
 
 # Parameters for ConvNet
-conv1_width = 6
-pool1_height = 3
+conv1_width = 3
+pool1_height = 6
 pool1_width = 6
 conv2_width = 7
 pool2_height = 4
@@ -18,8 +18,8 @@ if module_str == "scalog":
     conv1_channels = 32
     conv1_height = 5
     conv2_channels = 32
-    conv2_height = 21
-    js = [1, 8]
+    conv2_height = 18
+    js = [0, 8]
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
     conv1_channels = [24, 32, 32]
