@@ -428,11 +428,8 @@ Limited weight sharing consists in splitting the spectrogram into subbands, whos
 is of the order of one octave.
 Subbands are then fed in parallel to a layer of convolutions, nonlinearity, and pooling.
 The outputs of each transformed subband are finally aggregated into an unstructured
-vector, and 
+vector.
 
-Let $\boldsymbol{\phi}[k_1]$ be a window function of width $3Q$, that is three octaves.
-We have chosen a Tukey window ($\alpha=0.33$), which has a flat top of width $Q$ surrounded
-by cosine tapering lobes of width $Q$.
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_2}[t,k_1,k_2]
 = & &
@@ -442,9 +439,7 @@ by cosine tapering lobes of width $Q$.
 \! \sum_{\tau, \kappa_1, j_1} \! &
 \boldsymbol{W_2}[\tau, \kappa_1, j_1, k_2] \nonumber \\
 & &\times
-\boldsymbol{x_1}[t - \tau, k_1 - \kappa_1] \nonumber \\
-& & \times
-\boldsymbol{\phi}[k_1 - \kappa_1 - Q j_1].
+\boldsymbol{x_1}[t - \tau, k_1 - \kappa_1 - Q j_1]
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
 Compare the above with Equation (\ref{eq:convolution}).
