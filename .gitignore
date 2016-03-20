@@ -7,5 +7,6 @@ glennq-instrument-recognition/*
 pip-selfcheck.json
 
 *.pyc
+*.mat
 
 DeepInstruments/gitbot.py
