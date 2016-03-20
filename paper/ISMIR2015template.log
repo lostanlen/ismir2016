@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  20 MAR 2016 13:45
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  20 MAR 2016 13:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -360,12 +360,6 @@ Underfull \hbox (badness 1184) in paragraph at lines 105--109
 
 Underfull \hbox (badness 1242) in paragraph at lines 124--127
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
- []
-
-
-Underfull \hbox (badness 2393) in paragraph at lines 140--145
-\OT1/ptm/m/it/10 NIPS\OT1/ptm/m/n/10 , pages 2643--2651. Cur-ran As-so-ciates, 
-Inc.,
  []
 
 ) [5] (./ISMIR2015template.aux) ) 

@@ -7,43 +7,43 @@ Warning--empty journal in Sigtia2015
 Warning--empty title in Ullrich2014
 You've used 24 entries,
             2118 wiz_defined-function locations,
-            643 strings with 8476 characters,
-and the built_in function-call counts, 9071 in all, are:
-= -- 851
-> -- 497
-< -- 8
-+ -- 193
-- -- 169
-* -- 627
-:= -- 1475
-add.period$ -- 74
+            640 strings with 8360 characters,
+and the built_in function-call counts, 8759 in all, are:
+= -- 816
+> -- 480
+< -- 7
++ -- 188
+- -- 164
+* -- 601
+:= -- 1434
+add.period$ -- 73
 call.type$ -- 24
 change.case$ -- 153
 chr.to.int$ -- 0
 cite$ -- 26
-duplicate$ -- 353
-empty$ -- 711
-format.name$ -- 169
-if$ -- 1922
+duplicate$ -- 342
+empty$ -- 694
+format.name$ -- 164
+if$ -- 1847
 int.to.chr$ -- 0
 int.to.str$ -- 24
 missing$ -- 22
 newline$ -- 121
-num.names$ -- 50
-pop$ -- 201
+num.names$ -- 48
+pop$ -- 203
 preamble$ -- 1
 purify$ -- 130
 quote$ -- 0
-skip$ -- 246
+skip$ -- 231
 stack$ -- 0
-substring$ -- 465
-swap$ -- 93
-text.length$ -- 8
+substring$ -- 425
+swap$ -- 82
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 96
 warning$ -- 2
-while$ -- 80
+while$ -- 76
 width$ -- 26
-write$ -- 254
+write$ -- 252
 (There were 2 warnings)

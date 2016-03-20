@@ -139,8 +139,6 @@ Karen Ullrich, Jan Schl{\"{u}}ter, and Thomas Grill.
 \bibitem{vandenOord2013}
 Aaron van~den Oord, Sander Dieleman, and Benjamin Schrauwen.
 \newblock Deep content-based music recommendation.
-\newblock In C.~J.~C. Burges, L.~Bottou, M.~Welling, Z.~Ghahramani, and K.~Q.
-  Weinberger, editors, {\em Proc. NIPS}, pages 2643--2651. Curran Associates,
-  Inc., 2013.
+\newblock In {\em Proc. NIPS}, 2013.
 
 \end{thebibliography}
