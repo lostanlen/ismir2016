@@ -1,10 +1,9 @@
-function features = load_features(setting, summarization_str)
+function features = load_features(setting, batches, summarization_str)
 % Generate prefix string
 prefix = setting2prefix(setting);
-nBatches = 32;
-batch_features = cell(nBatches,1);
+batch_features = cell(length(batches),1);
 % Load batches
-for batch_id = 1:nBatches
+for batch_id = batches
     disp(['loading batch #', num2str(batch_id, '%0.2d')])
     batch_id_str = num2str(batch_id, '%1.2d');
     file_name = ['batch', batch_id_str];
