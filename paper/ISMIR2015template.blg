@@ -4,37 +4,36 @@ The top-level auxiliary file: ISMIR2015template.aux
 The style file: plain.bst
 Database file #1: ISMIR2015template.bib
 Warning--empty journal in Sigtia2015
-Warning--empty title in Ullrich2014
 You've used 24 entries,
             2118 wiz_defined-function locations,
-            640 strings with 8360 characters,
-and the built_in function-call counts, 8759 in all, are:
-= -- 816
+            640 strings with 8358 characters,
+and the built_in function-call counts, 8764 in all, are:
+= -- 818
 > -- 480
 < -- 7
 + -- 188
 - -- 164
-* -- 601
-:= -- 1434
-add.period$ -- 73
+* -- 598
+:= -- 1436
+add.period$ -- 74
 call.type$ -- 24
-change.case$ -- 153
+change.case$ -- 154
 chr.to.int$ -- 0
-cite$ -- 26
+cite$ -- 25
 duplicate$ -- 342
 empty$ -- 694
 format.name$ -- 164
-if$ -- 1847
+if$ -- 1849
 int.to.chr$ -- 0
 int.to.str$ -- 24
 missing$ -- 22
-newline$ -- 121
+newline$ -- 122
 num.names$ -- 48
-pop$ -- 203
+pop$ -- 201
 preamble$ -- 1
 purify$ -- 130
 quote$ -- 0
-skip$ -- 231
+skip$ -- 232
 stack$ -- 0
 substring$ -- 425
 swap$ -- 82
@@ -42,8 +41,8 @@ text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 96
-warning$ -- 2
+warning$ -- 1
 while$ -- 76
 width$ -- 26
-write$ -- 252
-(There were 2 warnings)
+write$ -- 254
+(There was 1 warning)

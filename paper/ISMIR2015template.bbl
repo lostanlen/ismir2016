@@ -133,8 +133,9 @@ Dan Stowell and Mark~D Plumbley.
 
 \bibitem{Ullrich2014}
 Karen Ullrich, Jan Schl{\"{u}}ter, and Thomas Grill.
-\newblock In {\em {Boundary detection in music structure analysis using
-  convolutional neural networks}}, 2014.
+\newblock Boundary detection in music structure analysis using convolutional
+  neural networks.
+\newblock In {\em Proc. ISMIR}, 2014.
 
 \bibitem{vandenOord2013}
 Aaron van~den Oord, Sander Dieleman, and Benjamin Schrauwen.
