@@ -226,12 +226,12 @@ coefficients (MFCC) classically used in music classification
 \end{figure}
 
 To validate the above claim, we have extracted the MFCC
-of 1512 individual notes from the RWC dataset \cite{Goto2003},
+of 1116 individual notes from the RWC dataset \cite{Goto2003},
 as played by 6 instruments, with
-28 pitches, 3 nuances,
-and 3 interprets and manufacturers.
+32 pitches, 3 nuances,
+and 2 interprets and manufacturers.
 Following a well-established rule \cite{Eronen2000, Joder2009},
-the MFCC were defined the 13 lowest "quefrencies" among the
+the MFCC were defined the 12 lowest nonzero "quefrencies" among the
 DCT coefficients extracted from a filter bank of 40 mel-frequency bands.
 We then have computed the distribution of squared Euclidean distances
 between musical notes in the 13-dimensional space of MFCC features.
