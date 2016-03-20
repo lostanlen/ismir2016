@@ -1,5 +1,6 @@
-function rwcbatch = compute_batch(batch_id, file_metas, setting)
-% Filter folder according to specified batch
+function rwcbatch = ...
+    compute_batch(batch_id, file_metas, setting, pitch_min, pitch_max, rwc_path)
+%% Filter folder according to specified batch
 rwcbatch = file_metas([file_metas.batch_id] == batch_id);
 
 % Narrow the pitch range to pitches that have 3 nuances
@@ -10,11 +11,6 @@ pitches = intersect(intersect(p_pitches, mf_pitches), f_pitches);
 
 % Assert that pitches are along a chromatic scale
 assert(isequal(pitches, (min(pitches):max(pitches))))
-
-% Narrow the pitch range to 28 pitches
-pitch_median = median(pitches);
-pitch_min = (pitch_median-14);
-pitch_max = (pitch_median+13);
 rwcbatch = rwcbatch([rwcbatch.pitch_id] >= pitch_min);
 rwcbatch = rwcbatch([rwcbatch.pitch_id] <= pitch_max);
 
@@ -23,18 +19,17 @@ rwcbatch = rwcbatch([rwcbatch.pitch_id] <= pitch_max);
 [rwcbatch.data] = deal(0);
 [rwcbatch.S] = deal(0);
 [rwcbatch.setting] = deal(setting);
-
 nFiles = length(rwcbatch);
 
-% Measure elapsed time with tic() and toc()
+%% Measure elapsed time with tic() and toc()
 tic();
 numcep = setting.numcep;
 parfor file_index = 1:nFiles
     file_meta = rwcbatch(file_index);
     subfolder = file_meta.subfolder;
     wavfile_name = file_meta.wavfile_name;
-    file_path = ['~/datasets/rwc/', subfolder, '/', wavfile_name];
-    [signal, sample_rate] = audioread_compat(file_path);
+    file_path = [rwc_path, '/', subfolder, '/', wavfile_name];
+    [signal, sample_rate] = audioread(file_path);
     mfcc = melfcc(signal, sample_rate , ...
         'wintime', 0.016, ...
         'lifterexp', 0, ...
@@ -60,7 +55,7 @@ date = datestr(now());
 
 % Save
 batch_id_str = num2str(batch_id, '%1.2d');
-prefix = setting2prefix(setting);
+prefix = ['rwcmfcc_numcep', num2str(setting.numcep, '%0.2d')];
 savefile_name = ['batch', batch_id_str];
 if ~exist(prefix,'dir')
     mkdir(prefix);
