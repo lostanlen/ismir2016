@@ -62,22 +62,19 @@ Philippe Hamel, Yoshua Bengio, and Douglas Eck.
 Eric~J. Humphrey, Juan~P. Bello, and Yann Lecun.
 \newblock {Feature learning and deep architectures: New directions for music
   informatics}.
-\newblock {\em Journal of Intelligent Information Systems}, 41(3):461--481,
-  2013.
+\newblock {\em JIIS}, 41(3):461--481, 2013.
 
 \bibitem{Humphrey2012}
 Eric~J. Humphrey, Taemin Cho, and Juan~P. Bello.
 \newblock Learning a robust tonnetz-space transform for automatic chord
   recognition.
-\newblock In {\em Acoustics, Speech and Signal Processing (ICASSP), 2012 IEEE
-  International Conference on}, pages 453--456. IEEE, 2012.
+\newblock In {\em Proc. ICASSP}, pages 453--456. IEEE, 2012.
 
 \bibitem{Joder2009}
 Cyril Joder, Slim Essid, and Ga{\"{e}}l Richard.
 \newblock Temporal integration for audio classification with application to
   musical instrument classification.
-\newblock {\em IEEE Transactions on Audio, Speech and Language Processing},
-  17(1):174--186, 2009.
+\newblock {\em IEEE TASLP}, 17(1):174--186, 2009.
 
 \bibitem{Kereliuk2015}
 Corey Kereliuk, Bob~L. Sturm, and Jan Larsen.
@@ -86,20 +83,17 @@ Corey Kereliuk, Bob~L. Sturm, and Jan Larsen.
 
 \bibitem{Kingma2015}
 Diederik~P. Kingma and Jimmy~Lei Ba.
-\newblock {Adam: a Method for Stochastic Optimization}.
-\newblock {\em International Conference on Learning Representations}, pages
-  1--13, 2015.
+\newblock Adam: a method for stochastic optimization.
+\newblock In {\em Proc. ICML}, 2015.
 
 \bibitem{Li2015}
 Peter Li, Jiyuan Qian, and Tian Wang.
-\newblock {Automatic Instrument Recognition in Polyphonic Music Using
-  Convolutional Neural Networks}.
-\newblock {\em arXiv preprint}, 2015.
+\newblock {\em arXiv preprint}, (1511.05520).
 
 \bibitem{McFee2015-muda}
-Brian Mcfee, Eric~J Humphrey, and Juan~P Bello.
-\newblock {A software framework for musical data augmentation}.
-\newblock In {\em ISMIR}, pages 248--254, 2015.
+Brian McFee, Eric~J. Humphrey, and Juan~P. Bello.
+\newblock A software framework for musical data augmentation.
+\newblock In {\em Proc. ISMIR}, 2015.
 
 \bibitem{McFee2015-librosa}
 Brian McFee, Matt McVicar, Colin Raffel, Dawen Liang, Oriol Nieto, Eric
@@ -109,21 +103,19 @@ Brian McFee, Matt McVicar, Colin Raffel, Dawen Liang, Oriol Nieto, Eric
 
 \bibitem{Newton2012}
 Michael~J. Newton and Leslie~S. Smith.
-\newblock {A neurally inspired musical instrument classification system based
-  upon the sound onset}.
-\newblock {\em The Journal of the Acoustical Society of America}, 131(6):4785,
-  2012.
+\newblock A neurally inspired musical instrument classification system based
+  upon the sound onset.
+\newblock {\em JASA}, 131(6):4785, 2012.
 
 \bibitem{Schluter2014}
 Jan Schl\"{u}ter and Sebastian Bock.
 \newblock Improved musical onset detection with convolutional neural networks.
-\newblock In {\em Acoustics, Speech and Signal Processing (ICASSP), 2014 IEEE
-  International Conference on}, pages 6979--6983. IEEE, 2014.
+\newblock In {\em Proc. ICASSP}, 2014.
 
 \bibitem{Sigtia2015}
 Siddharth Sigtia, Emmanouil Benetos, and Simon Dixon.
-\newblock {An End-to-End Neural Network for Polyphonic Music Transcription}.
-\newblock pages 1--13, 2015.
+\newblock An end-to-end neural network for polyphonic music transcription.
+\newblock {\em arXiv preprint}, page 1508.01774, 2015.
 
 \bibitem{Stowell2014}
 Dan Stowell and Mark~D Plumbley.
