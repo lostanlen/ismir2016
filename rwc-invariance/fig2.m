@@ -1,9 +1,13 @@
-%% Load features
-setting.arch = 'mfcc';
+% MFCC settings
 setting.numcep = 13;
+
 % Parse RWC folder
 file_metas = parse_rwc('~/datasets/rwc');
 nBatches = length(unique([file_metas.batch_id]));
+%% Compute MFCC features
+for batch_id = 1:nBatches
+    compute_batch(batch_id, file_metas, setting);
+end
 
 %% Measure intra-class distances at fixed nuance, pitch, and style
 feature_range = 2:13;
