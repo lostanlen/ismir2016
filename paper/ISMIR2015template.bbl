@@ -133,14 +133,14 @@ Dan Stowell and Mark~D Plumbley.
 
 \bibitem{Ullrich2014}
 Karen Ullrich, Jan Schl{\"{u}}ter, and Thomas Grill.
-\newblock {Boundary Detection in Music Structure Analysis Using Convolutional
-  Neural Networks}.
-\newblock {\em Proc. of the 15th International Society for Music Information
-  Retrieval Conference}, pages 417--422, 2014.
+\newblock In {\em {Boundary detection in music structure analysis using
+  convolutional neural networks}}, 2014.
 
 \bibitem{vandenOord2013}
 Aaron van~den Oord, Sander Dieleman, and Benjamin Schrauwen.
 \newblock Deep content-based music recommendation.
-\newblock {\em NIPS}, pages 2643--2651, 2013.
+\newblock In C.~J.~C. Burges, L.~Bottou, M.~Welling, Z.~Ghahramani, and K.~Q.
+  Weinberger, editors, {\em Proc. NIPS}, pages 2643--2651. Curran Associates,
+  Inc., 2013.
 
 \end{thebibliography}
