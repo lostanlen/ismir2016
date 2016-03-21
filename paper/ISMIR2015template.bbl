@@ -26,8 +26,7 @@ Keunwoo Choi, George Fazekas, Mark Sandler, Jeonghee Kim, and Naver Labs.
 
 \bibitem{Chollet2015}
 Fran\c{c}ois Chollet.
-\newblock Keras: a deep learning library for theano and tensorflow.
-\newblock https://github.com/fchollet/keras, 2015.
+\newblock {Keras: a deep learning library for Theano and TensorFlow}, 2015.
 
 \bibitem{deCheveigne2005}
 Alain de~Cheveign{\'{e}}.
@@ -59,7 +58,7 @@ Philippe Hamel, Yoshua Bengio, and Douglas Eck.
 \newblock In {\em Proc. ISMIR}, 2012.
 
 \bibitem{Humphrey2013}
-Eric~J. Humphrey, Juan~P. Bello, and Yann Lecun.
+Eric~J. Humphrey, Juan~P. Bello, and Yann Le~Cun.
 \newblock {Feature learning and deep architectures: New directions for music
   informatics}.
 \newblock {\em JIIS}, 41(3):461--481, 2013.
@@ -68,7 +67,7 @@ Eric~J. Humphrey, Juan~P. Bello, and Yann Lecun.
 Eric~J. Humphrey, Taemin Cho, and Juan~P. Bello.
 \newblock Learning a robust tonnetz-space transform for automatic chord
   recognition.
-\newblock In {\em Proc. ICASSP}, pages 453--456. IEEE, 2012.
+\newblock In {\em Proc. ICASSP}, 2012.
 
 \bibitem{Joder2009}
 Cyril Joder, Slim Essid, and Ga{\"{e}}l Richard.
@@ -79,7 +78,7 @@ Cyril Joder, Slim Essid, and Ga{\"{e}}l Richard.
 \bibitem{Kereliuk2015}
 Corey Kereliuk, Bob~L. Sturm, and Jan Larsen.
 \newblock {Deep Learning and Music Adversaries}.
-\newblock {\em IEEE Transactions on Multimedia}, 17(11):2059--2071, 2015.
+\newblock {\em IEEE Trans. Multimedia}, 17(11):2059--2071, 2015.
 
 \bibitem{Kingma2015}
 Diederik~P. Kingma and Jimmy~Lei Ba.
