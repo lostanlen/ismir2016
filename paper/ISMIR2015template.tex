@@ -490,11 +490,14 @@ The predicted probability distributions were computed for every excerpt in a tra
 and then aggregated by geometric mean to provide a decision at the scale of
 the entire audio file.
 
-In order to compare the results against feature engineering methods, we also
-trained a random forest of 100 decision trees on a typical "bag-of-features"
-comprising spectral bandwidth, centroid, contrast and rolloff, zero-crossing
-rate, MFCC features 
-
+In order to compare the results against shallow classifiers, we also extracted a typical
+"bag-of-features" over half-overlapping, 3-second excerpts in the training set.
+These features consist of the temporal averages and standard
+deviations of spectral shape descriptors, \ie centroid, bandwidth, skewness,
+and rolloff, as well a zero-crossing rate ;
+supplemented with the temporal averages of MFCC and its first and second derivatives.
+We trained a random forest of 100 decision trees on the resulting feature vector
+of dimension 
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of
 an efficient system for automated classification, tagging, and similarity retrieval in music. 
