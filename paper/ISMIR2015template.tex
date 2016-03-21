@@ -379,7 +379,7 @@ $\boldsymbol{x_4}[k_4] = \boldsymbol{y_4^{+}}[k_4]$.
 Finally, we project $\boldsymbol{x_4}$ onto a layer of output units $\boldsymbol{y_5}$ that
 should represent instrument activations:
 $\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
-The final transformation is a softmax nonlinearity, that ensures that output coefficients are
+The final transformation is a softmax nonlinearity, which ensures that output coefficients are
 non-negative and sum to one, hence can be fit to a probability distribution.
 \begin{equation}
 \boldsymbol{x_5}[k_5] =
@@ -396,29 +396,41 @@ class distribution, to which is added a weight decay term upon the last layer.
 + \lambda_5 \Vert W_5 \Vert_2
 \end{equation}
 Each training example is a 3-second spectrogram whose boundaries are selected at random
-over non-silent regions of a song. Each spectrogram within a batch was globally normalized
-such that the whole batch had unit mean and unit variance.
-The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015},
+over non-silent regions of a song.
+Each spectrogram within a batch was globally normalized
+such that the whole batch had zero mean and unit variance.
+The learning rate policy for each scalar weight in the network is Adam \cite{Kingma2015},
 a state-of-the-art online optimizer for gradient-based learning.
 Mini-batch training was stopped after the average training loss stopped
 decreasing over one full epoch of size 8192.
 The architecture was built using the Keras library \cite{Chollet2015},
 and trained on a graphics processing unit within a few minutes.
 
-\section{Convolutions on the pitch spiral}
+\section{Weight sharing strategies}
 Although a dataset of music signals is unquestionably stationary over the time
 dimension -- at least at the scale of a few seconds -- it cannot be taken for granted
 that all frequency bands of a mel-frequency spectrogram would have the same
 local statistics \cite{Humphrey2013}.
-The objections to the stationarity assumption among local neighborhoods in frequency
-can be summarized as follows:
-the spectral envelope of musical instruments remains fixed (see Section 2) ;
+In this section, we introduce two alternative architectures to address
+nonstationarity of music on the mel-frequency axis,
+while still leveraging the efficiency of convolutional representations in the
+time-frequency domain.
+ 
+Some objections the stationarity assumption among local neighborhoods in frequency
+are the following:
+the spectral envelope of musical instruments remains fixed in spite of
+pitch changes (see Section 2) ;
 partials of a harmonic comb get closer to each other in high frequencies on a mel scale ;
 due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at
 lower frequencies.
 
-A conservative workaround would be to increase the height $\Delta \kappa_1$ of each
-convolutional kernel up to the total number of bins $K_1$ in the spectrogram \cite{Schluter2014}.
+A conservative workaround is to increase the height $\Delta \kappa_1$ of each
+convolutional kernel up to the total number of bins $K_1$ in the spectrogram
+\cite{Schluter2014}.
+As a result, $\boldsymbol{W_1}$ and $\boldsymbol{W_2}$ are no longer transposed
+over adjacent frequency bands, since convolutions are merely performed over
+the time variable.
+
 Despite the fact that it could still encode hierarchical invariants, this approach leads in
 practice to the early specialization of features in the shallower layers, thus not fully
 taking advantage of the network depth.
