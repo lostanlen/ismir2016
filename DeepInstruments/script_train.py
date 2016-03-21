@@ -12,21 +12,21 @@ dense1_channels = 32
 
 alpha = 0.3
 
-module = di.spiral
+module = di.scalogram
 module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
     conv1_height = 5
     conv2_channels = 32
-    conv2_height = 20
-    js = [1, 7]
+    conv2_height = 5
+    js = [0, 8]
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
-    conv1_channels = [24, 32, 32]
+    conv1_channels = [24, 48, 32]
     conv1_height = [5, 3]
-    conv2_channels = [24, 32, 32]
-    conv2_height = [20, 3]
-    js = np.matrix([[1, 7], [5, 8], [1, 4], [2, 5], [3, 6]])
+    conv2_channels = [24, 48, 32]
+    conv2_height = [5, 3]
+    js = np.matrix([[0, 8], [5, 8], [1, 4], [2, 5], [3, 6]])
     offsets = [
          np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
          np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :]),
