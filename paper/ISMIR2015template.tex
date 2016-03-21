@@ -388,20 +388,22 @@ non-negative and sum to one, hence can be fit to a probability distribution.
 \end{equation}
 The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$
 across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set. This loss is defined as
-the categorical cross-entropy over shuffled mini-batches of size 64 with uniform
+the categorical cross-entropy over shuffled mini-batches of size 32 with uniform
 class distribution, to which is added a weight decay term upon the last layer.
 \begin{equation}
 \mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
 - \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]
-+ \lambda_5 \Vert W_5 \Vert
++ \lambda_5 \Vert W_5 \Vert_2
 \end{equation}
 Each training example is a 3-second spectrogram whose boundaries are selected at random
 over non-silent regions of a song. Each spectrogram within a batch was globally normalized
 such that the whole batch had unit mean and unit variance.
 The learning rate policy for each scalar weight in the network is \emph{Adam} \cite{Kingma2015},
 a state-of-the-art online optimizer for gradient-based learning.
-The architecture was built using the Keras library \cite{Chollet2015}, and trained on a graphics
-processing unit within a few minutes.
+Mini-batch training was stopped after the average training loss stopped
+decreasing over one full epoch of size 8192.
+The architecture was built using the Keras library \cite{Chollet2015},
+and trained on a graphics processing unit within a few minutes.
 
 \section{Convolutions on the pitch spiral}
 Although a dataset of music signals is unquestionably stationary over the time
