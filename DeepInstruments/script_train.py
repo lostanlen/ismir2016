@@ -3,7 +3,7 @@ import numpy as np
 
 # Parameters for ConvNet
 conv1_width = 3
-pool1_height = 3
+pool1_height = 2
 pool1_width = 6
 conv2_width = 7
 pool2_height = 2
@@ -23,7 +23,7 @@ if module_str == "scalog":
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
     conv1_channels = [24, 32, 32]
-    conv1_height = [7, 3]
+    conv1_height = [5, 3]
     conv2_channels = [24, 32, 32]
     conv2_height = [20, 3]
     js = np.matrix([[1, 7], [5, 8], [1, 4], [2, 5], [3, 6]])

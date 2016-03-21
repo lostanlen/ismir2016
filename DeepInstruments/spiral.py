@@ -108,7 +108,7 @@ def build_graph(
 
     conv2_sp = Convolution2D(conv2_channels[2],
                              conv2_height[1],
-                             conv2_width, border_mode="same", init=init)
+                             conv2_width, border_mode="valid", init=init)
     graph.add_node(conv2_sp, name="conv2_sp", input="pool1_sp")
 
     relu2_sp = LeakyReLU(alpha=alpha)
