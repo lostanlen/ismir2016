@@ -6,26 +6,26 @@ conv1_width = 3
 pool1_height = 3
 pool1_width = 6
 conv2_width = 7
-pool2_height = 4
+pool2_height = 2
 pool2_width = 6
-dense1_channels = 96
+dense1_channels = 32
 
 alpha = 0.3
 
-module = di.scalogram
+module = di.spiral
 module_str = str(module)[25:31]
 if module_str == "scalog":
     conv1_channels = 32
-    conv1_height = 7
+    conv1_height = 5
     conv2_channels = 32
-    conv2_height = 16
+    conv2_height = 20
     js = [1, 7]
     offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
 elif module_str == "spiral":
     conv1_channels = [24, 32, 32]
     conv1_height = [7, 3]
     conv2_channels = [24, 32, 32]
-    conv2_height = [21, 3]
+    conv2_height = [20, 3]
     js = np.matrix([[1, 7], [5, 8], [1, 4], [2, 5], [3, 6]])
     offsets = [
          np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
@@ -42,7 +42,7 @@ elif module_str == "source":
          np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :])]
 
 # Parameters for learning
-batch_size = 64
+batch_size = 32
 epoch_size = 8192
 n_epochs = 20
 optimizer = "adam"

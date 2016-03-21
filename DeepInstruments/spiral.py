@@ -114,7 +114,7 @@ def build_graph(
     relu2_sp = LeakyReLU(alpha=alpha)
     graph.add_node(relu2_sp, name="relu2_sp", input="conv2_sp")
 
-    pool2_sp = MaxPooling2D(pool_size=(1, pool2_width))
+    pool2_sp = MaxPooling2D(pool_size=(relu2_sp.input_shape[2], pool2_width))
     graph.add_node(pool2_sp, name="pool2_sp", input="relu2_sp")
 
     flatten_sp = Flatten()
