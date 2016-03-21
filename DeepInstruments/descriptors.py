@@ -32,7 +32,7 @@ def get_descriptors(path):
              np.mean(bandwidth),
              np.std(bandwidth),
              np.mean(centroid),
-             np.mean(centroid),
+             np.std(centroid),
              np.mean(contrast),
              np.std(contrast),
              np.mean(rolloff),

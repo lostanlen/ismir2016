@@ -490,6 +490,11 @@ The predicted probability distributions were computed for every excerpt in a tra
 and then aggregated by geometric mean to provide a decision at the scale of
 the entire audio file.
 
+In order to compare the results against feature engineering methods, we also
+trained a random forest of 100 decision trees on a typical "bag-of-features"
+comprising spectral bandwidth, centroid, contrast and rolloff, zero-crossing
+rate, MFCC features 
+
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of
 an efficient system for automated classification, tagging, and similarity retrieval in music. 
