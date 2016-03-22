@@ -424,6 +424,7 @@ partials of a harmonic comb get closer to each other in high frequencies on a me
 due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at
 lower frequencies.
 
+\subsection{One-dimensional convolutions at high frequencies}
 Facing nonstationary constant-Q spectra,
 the most conservative workaround is to increase the height $\Delta \kappa_1$ of each
 convolutional kernel up to the total number of bins $K_1$ in the spectrogram.
@@ -466,14 +467,15 @@ The combination of these two phenomena implies that the correlation between
 constant-Q spectra of different pitches is greater towards high frequencies, and that
 the learning of polyvalent feature maps becomes tractable.
 
+\subsection{Convolutions on the pitch spiral at low frequencies}
 The weight sharing strategy presented above exploits the facts that,
 at high frequencies, quasi-harmonic partials are numerous, and that the
 amount of energy within a frequency band is independent of pitch.
 At low frequencies, we make the exact opposite assumptions: we claim
-that the harmonic comb is sparse and covariant with respect pitch shift.
+that the harmonic comb is sparse and covariant with respect to pitch shift.
+Observe that, for two harmonic partials taken at random between $1$ and $n$,
+the probability that they are in octave relation is proportional to $1/n$.
 
-For two harmonic partials taken at random between $1$ and $n$,
-the probability that they are in octave relation is $1/n$.
 Leveraging the fact that power-of-two harmonics are one octave apart, we roll
 up the log-frequency into a Shepard pitch spiral, such that octave intervals
 correspond to full turns.
@@ -505,9 +507,9 @@ of the spectral envelope.
 Resorting to one-dimensional convolutions allows to disregard nonstationarity,
 but does not yield a pitch-invariant representation per se:
 thus, we only apply them at the topmost frequencies, \ie where the
-invariance-to-stationarity ratio in the data is favorable.
+invariance-to-stationarity ratio in the data is already favorable.
 Conversely, two-dimensional convolutions on the pitch spiral addresses
-the invariant representation of sparse, quasi-harmonic spectra:
+the invariant representation of sparse, transposition-covariant spectra:
 they are best suited to the lowest frequencies, \ie where partials
 are further apart and pitch changes can be approximated by log-frequency
 translations.

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  22 MAR 2016 18:47
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  22 MAR 2016 19:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -320,15 +320,11 @@ Overfull \hbox (0.61523pt too wide) in alignment at lines 325--332
  []
 
 [3]
-Underfull \hbox (badness 4927) in paragraph at lines 454--468
+Underfull \hbox (badness 4927) in paragraph at lines 455--469
 []\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4]
-(./ISMIR2015template.bbl
+[4] (./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
