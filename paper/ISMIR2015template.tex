@@ -440,14 +440,14 @@ The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrite as
 \boldsymbol{b_2}[k_2] + 
 \sum_{\substack{0 \leq \tau < \Delta t}}
 \! \! \! \! \!
-\boldsymbol{W_2}[\tau, \kappa_1, k_2]
+\boldsymbol{W_2}[\tau, k_1, k_2]
 \boldsymbol{x_1}[t-\tau, k_1],
 \IEEEeqnarraynumspace
 \label{eq:convolution}
 \end{IEEEeqnarray}
 and similarly for $\boldsymbol{y_3}[t, k_1, k_3]$.
 While this approach is theoretically capable of encoding pitch invariants, it could
-only be made possible by growing the number of feature maps $K_1$ to be of the
+only be made possible by growing the number of feature maps $K_2$ to be of the
 order of the number of pitches in the tessitura (width increase) ; or,
 alternatively, by growing the number
 of convolutional layers to be of the order of the number of frequency bands between
@@ -458,24 +458,46 @@ kernels are restricted to the highest frequencies of the constant-Q spectrum.
 On a log-frequency scale, around the $n^{\textrm{th}}$ partial of a quasi-harmonic sound,
 the distance between neighboring partials decays like $1/n$, and the unevenness
 between those distances decays like $1/n^2$.
-Consequently, at the topmost octaves of the constant-Q spectrum,
-where $n$ is typically above 10, the partials appear close to each other and almost
+Consequently, at the topmost octaves of the constant-Q spectrum, 
+where $n$ is of the order of $Q$, the partials appear close to each other and almost
 evenly spaced.
-The correlation between constant-Q spectra of different pitches is thus
-greater towards high frequencies.
+Furthermore, due to the logarithmic compression of loudness, the polynomial decay
+of the spectral envelope is linearized: thus, at high frequencies, transposed pitches
+have similar spectra up to some additive bias.
+The combination of these two phenomena implies that the correlation between
+constant-Q spectra of different pitches is greater towards high frequencies, and that
+the learning of polyvalent feature maps remains tractable.
+
+At low frequencies, we make the exact opposite assumption.
 
 
+In summary, the classical two-dimensional convolutions make a stationarity assumption
+among frequency neighborhoods. This approach gives a coarse approximation
+of the spectral envelope.
+Resorting to one-dimensional convolutions allows to disregard nonstationarity,
+but does not yield a pitch-invariant representation per se:
+thus, we only apply them at the topmost frequencies, \ie where the
+invariance-to-stationarity ratio in the data is favorable.
+Conversely, two-dimensional convolutions on the pitch spiral addresses
+the invariant representation of sparse, quasi-harmonic spectra:
+they are best suited to the lowest frequencies, \ie where partials
+are further apart and pitch changes can be approximated by log-frequency
+translations.
+
+%Whereas the resort to one-dimensional convolutions
+%leverages the fact that quasi-harmonic partials are more numerous towards
+%high frequencies, we make the exact opposite assumption at low frequencies.
 
 %Despite the fact that it could still encode hierarchical invariants, this approach leads in
 %practice to the early specialization of features in the shallower layers, thus not fully
 %taking advantage of the network depth.
 
-To address this issue, Abdel-Hamid \etal \cite{Abdel-Hamid2014} have developed
-limited weight sharing in the first convolutional layer, and shown that it improves
-the performance of an end-to-end speech recognition system.
-Limited weight sharing consists in splitting the spectrogram into subbands, whose bandwidth
-is of the order of one octave.
-Subbands are then fed in parallel to a layer of convolutions, nonlinearity, and pooling.
+%To address this issue, Abdel-Hamid \etal \cite{Abdel-Hamid2014} have developed
+%limited weight sharing in the first convolutional layer, and shown that it improves
+%the performance of an end-to-end speech recognition system.
+%Limited weight sharing consists in splitting the spectrogram into subbands, whose bandwidth
+%is of the order of one octave.
+%Subbands are then fed in parallel to a layer of convolutions, nonlinearity, and pooling.
 The outputs of each transformed subband are finally aggregated into an unstructured
 vector.
 
@@ -550,6 +572,8 @@ Understanding the influence of pitch in audio streams is paramount to the design
 an efficient system for automated classification, tagging, and similarity retrieval in music. 
 We have presented a data-driven, supervised method to address pitch invariance
 while preserving good timbral discriminability.
+
+
 Future work will be devoted to integrating the proposed scheme with other advances
 in deep learning for music informatics, such as data augmentation \cite{McFee2015-muda},
 multiscale representations \cite{Hamel2012, Anden2015},
