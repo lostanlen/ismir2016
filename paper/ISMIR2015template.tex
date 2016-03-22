@@ -468,8 +468,31 @@ The combination of these two phenomena implies that the correlation between
 constant-Q spectra of different pitches is greater towards high frequencies, and that
 the learning of polyvalent feature maps remains tractable.
 
-At low frequencies, we make the exact opposite assumption.
+At low frequencies, we make the exact opposite assumptions.
+Leveraging the fact that power-of-two harmonics are one octave apart, we roll
+up the log-frequency into a Shepard pitch spiral, such that octave intervals
+correspond to full turns.
 
+\begin{IEEEeqnarray}{rCl}
+\boldsymbol{y_2}[t,k_1,k_2]
+= & &
+\! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \!
+\boldsymbol{b_2}[k_2]  \nonumber \\
+& +
+\! \sum_{\tau, \kappa_1, j_1} \! &
+\boldsymbol{W_2}[\tau, \kappa_1, j_1, k_2] \nonumber \\
+& &\times
+\boldsymbol{x_1}[t - \tau, k_1 - \kappa_1 - Q j_1]
+\IEEEeqnarraynumspace
+\end{IEEEeqnarray}
+
+The linear combinations of frequency bands that are one octave apart,
+as proposed here,
+bears a resemblance with engineered features for music instrument
+recognition, such as tristimulus, 
+empirical inharmonicity, harmonic spectral deviation,
+odd-to-even harmonic energy ratio \cite{Peeters2003}, and
+octave band signal intensities (OBSI) \cite{Joder2009},
 
 In summary, the classical two-dimensional convolutions make a stationarity assumption
 among frequency neighborhoods. This approach gives a coarse approximation
@@ -500,20 +523,6 @@ translations.
 %Subbands are then fed in parallel to a layer of convolutions, nonlinearity, and pooling.
 The outputs of each transformed subband are finally aggregated into an unstructured
 vector.
-
-\begin{IEEEeqnarray}{rCl}
-\boldsymbol{y_2}[t,k_1,k_2]
-= & &
-\! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \! \!
-\boldsymbol{b_2}[k_2]  \nonumber \\
-& +
-\! \sum_{\tau, \kappa_1, j_1} \! &
-\boldsymbol{W_2}[\tau, \kappa_1, j_1, k_2] \nonumber \\
-& &\times
-\boldsymbol{x_1}[t - \tau, k_1 - \kappa_1 - Q j_1]
-\IEEEeqnarraynumspace
-\end{IEEEeqnarray}
-Compare the above with Equation (\ref{eq:convolution}).
 
 \section{Applications}\label{sec:single-instrument}
 In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a
