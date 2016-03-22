@@ -3,53 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: ISMIR2015template.aux
 The style file: plain.bst
 Database file #1: ISMIR2015template.bib
-I was expecting a `,' or a `}'---line 179 of file ISMIR2015template.bib
- : 
- : title = {Automatic Instrument Recognition in Polyphonic Music Using Convolutional Neural Networks},
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-Warning--empty title in Li2015
 Warning--there's a number but no volume in Li2015
-Warning--empty year in Li2015
 You've used 24 entries,
             2118 wiz_defined-function locations,
-            632 strings with 7853 characters,
-and the built_in function-call counts, 8187 in all, are:
-= -- 728
-> -- 480
+            631 strings with 7892 characters,
+and the built_in function-call counts, 7912 in all, are:
+= -- 707
+> -- 454
 < -- 3
-+ -- 191
-- -- 164
-* -- 559
-:= -- 1366
-add.period$ -- 70
++ -- 181
+- -- 154
+* -- 516
+:= -- 1328
+add.period$ -- 71
 call.type$ -- 24
-change.case$ -- 153
+change.case$ -- 150
 chr.to.int$ -- 0
-cite$ -- 27
-duplicate$ -- 327
-empty$ -- 657
-format.name$ -- 164
-if$ -- 1702
+cite$ -- 25
+duplicate$ -- 324
+empty$ -- 643
+format.name$ -- 154
+if$ -- 1652
 int.to.chr$ -- 0
 int.to.str$ -- 24
-missing$ -- 22
-newline$ -- 120
+missing$ -- 21
+newline$ -- 121
 num.names$ -- 48
-pop$ -- 211
+pop$ -- 203
 preamble$ -- 1
-purify$ -- 130
+purify$ -- 125
 quote$ -- 0
 skip$ -- 209
 stack$ -- 0
-substring$ -- 306
-swap$ -- 66
+substring$ -- 275
+swap$ -- 65
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 96
-warning$ -- 3
-while$ -- 62
+warning$ -- 1
+while$ -- 60
 width$ -- 26
-write$ -- 245
-(There was 1 error message)
+write$ -- 248
+(There was 1 warning)

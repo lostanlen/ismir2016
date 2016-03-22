@@ -1,11 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{Abdel-Hamid2014}
-Ossama Abdel-Hamid, Abdel-rahman Mohamed, Hui Jiang, Li~Deng, Gerald Penn, and
-  Dong Yu.
-\newblock {Convolutional neural networks for speech recognition}.
-\newblock {\em IEEE TASLP}, 22(10):1533--1545, 2014.
-
 \bibitem{Anden2015}
 Joakim And{\'{e}}n, Vincent Lostanlen, and St{\'{e}}phane Mallat.
 \newblock {Joint time-frequency scattering for audio classification}.
@@ -87,7 +81,9 @@ Diederik~P. Kingma and Jimmy~Lei Ba.
 
 \bibitem{Li2015}
 Peter Li, Jiyuan Qian, and Tian Wang.
-\newblock {\em arXiv preprint}, (1511.05520).
+\newblock Automatic instrument recognition in polyphonic music using
+  convolutional neural networks.
+\newblock {\em arXiv preprint}, (1511.05520), 2015.
 
 \bibitem{McFee2015-muda}
 Brian McFee, Eric~J. Humphrey, and Juan~P. Bello.
@@ -105,6 +101,12 @@ Michael~J. Newton and Leslie~S. Smith.
 \newblock A neurally inspired musical instrument classification system based
   upon the sound onset.
 \newblock {\em JASA}, 131(6):4785, 2012.
+
+\bibitem{Peeters2004}
+Geoffroy Peeters.
+\newblock {A large set of audio features for sound description (similarity and
+  classification) in the CUIDADO project}.
+\newblock Technical report, Ircam, 2004.
 
 \bibitem{Schluter2014}
 Jan Schl\"{u}ter and Sebastian Bock.
