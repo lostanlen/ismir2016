@@ -424,7 +424,8 @@ partials of a harmonic comb get closer to each other in high frequencies on a me
 due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at
 lower frequencies.
 
-A conservative workaround is to increase the height $\Delta \kappa_1$ of each
+Facing nonstationary constant-Q spectra,
+the most conservative workaround is to increase the height $\Delta \kappa_1$ of each
 convolutional kernel up to the total number of bins $K_1$ in the spectrogram.
 As a result, $\boldsymbol{W_1}$ and $\boldsymbol{W_2}$ are no longer transposed
 over adjacent frequency bands, since convolutions are merely performed over
@@ -446,18 +447,15 @@ The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrite as
 \label{eq:convolution}
 \end{IEEEeqnarray}
 and similarly for $\boldsymbol{y_3}[t, k_1, k_3]$.
-While this approach is theoretically capable of encoding pitch invariants, it could
-only be made possible by growing the number of feature maps $K_2$ to be of the
-order of the number of pitches in the tessitura (width increase) ; or,
-alternatively, by growing the number
-of convolutional layers to be of the order of the number of frequency bands between
-the lowest and highest partial (depth increase).
+While this approach is theoretically capable of encoding pitch invariants, it is
+prone to early specialization of low-level features, thus
+not fully taking advantage of the network depth.
 
-However, it should be observed that this situation is improved if the one-dimensional
+However, the situation is improved if the one-dimensional
 kernels are restricted to the highest frequencies of the constant-Q spectrum.
-On a log-frequency scale, around the $n^{\textrm{th}}$ partial of a quasi-harmonic sound,
-the distance between neighboring partials decays like $1/n$, and the unevenness
-between those distances decays like $1/n^2$.
+It should be observed that, around the $n^{\textrm{th}}$ partial of a quasi-harmonic sound,
+the distance in log-frequency between neighboring partials decays like $1/n$,
+and the unevenness between those distances decays like $1/n^2$.
 Consequently, at the topmost octaves of the constant-Q spectrum, 
 where $n$ is of the order of $Q$, the partials appear close to each other and almost
 evenly spaced.
@@ -489,10 +487,10 @@ correspond to full turns.
 The linear combinations of frequency bands that are one octave apart,
 as proposed here,
 bears a resemblance with engineered features for music instrument
-recognition, such as tristimulus, 
+recognition \cite{Peeters2004}, such as tristimulus, 
 empirical inharmonicity, harmonic spectral deviation,
-odd-to-even harmonic energy ratio \cite{Peeters2004}, as well as
-octave band signal intensities (OBSI) \cite{Joder2009},
+odd-to-even harmonic energy ratio, as well as
+octave band signal intensities (OBSI) \cite{Joder2009}.
 
 In summary, the classical two-dimensional convolutions make a stationarity assumption
 among frequency neighborhoods. This approach gives a coarse approximation
@@ -510,10 +508,6 @@ translations.
 %Whereas the resort to one-dimensional convolutions
 %leverages the fact that quasi-harmonic partials are more numerous towards
 %high frequencies, we make the exact opposite assumption at low frequencies.
-
-%Despite the fact that it could still encode hierarchical invariants, this approach leads in
-%practice to the early specialization of features in the shallower layers, thus not fully
-%taking advantage of the network depth.
 
 %To address this issue, Abdel-Hamid \etal \cite{Abdel-Hamid2014} have developed
 %limited weight sharing in the first convolutional layer, and shown that it improves
