@@ -18,7 +18,7 @@
 \usepackage{xspace}
 \newcommand*{\eg}{e.g.\@\xspace}
 \newcommand*{\ie}{i.e.\@\xspace}
-\newcommand*{\etal}{\emph{et al.}\@\xspace}
+\newcommand*{\etal}{et al.\@\xspace}
 
 % Title.
 % ------
@@ -425,8 +425,7 @@ due to the Heisenberg principle, the temporal resolution of auditory filters is 
 lower frequencies.
 
 A conservative workaround is to increase the height $\Delta \kappa_1$ of each
-convolutional kernel up to the total number of bins $K_1$ in the spectrogram
-\cite{Schluter2014}.
+convolutional kernel up to the total number of bins $K_1$ in the spectrogram.
 As a result, $\boldsymbol{W_1}$ and $\boldsymbol{W_2}$ are no longer transposed
 over adjacent frequency bands, since convolutions are merely performed over
 the time variable.
@@ -447,6 +446,11 @@ The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrite as
 \label{eq:convolution}
 \end{IEEEeqnarray}
 and similarly for $\boldsymbol{y_3}[t, k_1, k_3]$.
+While this approach is theoretically capable of encoding pitch invariants, it could
+only be made possible by growing the number of feature maps $K_1$ to be of the
+order of the number of pitches in the tessitura ; or, alternatively, by growing the number
+of convolutional layers to be of the order of the 
+
 Despite the fact that it could still encode hierarchical invariants, this approach leads in
 practice to the early specialization of features in the shallower layers, thus not fully
 taking advantage of the network depth.
