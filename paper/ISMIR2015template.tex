@@ -448,12 +448,27 @@ The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrite as
 and similarly for $\boldsymbol{y_3}[t, k_1, k_3]$.
 While this approach is theoretically capable of encoding pitch invariants, it could
 only be made possible by growing the number of feature maps $K_1$ to be of the
-order of the number of pitches in the tessitura ; or, alternatively, by growing the number
-of convolutional layers to be of the order of the 
+order of the number of pitches in the tessitura (width increase) ; or,
+alternatively, by growing the number
+of convolutional layers to be of the order of the number of frequency bands between
+the lowest and highest partial (depth increase).
 
-Despite the fact that it could still encode hierarchical invariants, this approach leads in
-practice to the early specialization of features in the shallower layers, thus not fully
-taking advantage of the network depth.
+However, it should be observed that this situation is improved if the one-dimensional
+kernels are restricted to the highest frequencies of the constant-Q spectrum.
+On a log-frequency scale, around the $n^{\textrm{th}}$ partial of a quasi-harmonic sound,
+the distance between neighboring partials decays like $1/n$, and the unevenness
+between those distances decays like $1/n^2$.
+Consequently, at the topmost octaves of the constant-Q spectrum,
+where $n$ is typically above 10, the partials appear close to each other and almost
+evenly spaced.
+The correlation between constant-Q spectra of different pitches is thus
+greater towards high frequencies.
+
+
+
+%Despite the fact that it could still encode hierarchical invariants, this approach leads in
+%practice to the early specialization of features in the shallower layers, thus not fully
+%taking advantage of the network depth.
 
 To address this issue, Abdel-Hamid \etal \cite{Abdel-Hamid2014} have developed
 limited weight sharing in the first convolutional layer, and shown that it improves
