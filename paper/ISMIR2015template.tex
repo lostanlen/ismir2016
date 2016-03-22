@@ -457,7 +457,7 @@ It should be observed that, around the $n^{\textrm{th}}$ partial of a quasi-harm
 the distance in log-frequency between neighboring partials decays like $1/n$,
 and the unevenness between those distances decays like $1/n^2$.
 Consequently, at the topmost octaves of the constant-Q spectrum, 
-where $n$ is of the order of $Q$, the partials appear close to each other and almost
+where $n$ is equal or greater than $Q$, the partials appear close to each other and almost
 evenly spaced.
 Furthermore, due to the logarithmic compression of loudness, the polynomial decay
 of the spectral envelope is linearized: thus, at high frequencies, transposed pitches
@@ -466,7 +466,9 @@ The combination of these two phenomena implies that the correlation between
 constant-Q spectra of different pitches is greater towards high frequencies, and that
 the learning of polyvalent feature maps becomes tractable.
 
-At low frequencies, we make the exact opposite assumptions.
+At low frequencies, we make the exact opposite assumption. 
+For two harmonic partials taken at random between $1$ and $n$,
+the probability that they are in octave relation is $1/n$.
 Leveraging the fact that power-of-two harmonics are one octave apart, we roll
 up the log-frequency into a Shepard pitch spiral, such that octave intervals
 correspond to full turns.
