@@ -466,7 +466,12 @@ The combination of these two phenomena implies that the correlation between
 constant-Q spectra of different pitches is greater towards high frequencies, and that
 the learning of polyvalent feature maps becomes tractable.
 
-At low frequencies, we make the exact opposite assumption. 
+The weight sharing strategy presented above exploits the facts that,
+at high frequencies, quasi-harmonic partials are numerous, and that the
+amount of energy within a frequency band is independent of pitch.
+At low frequencies, we make the exact opposite assumptions: we claim
+that the harmonic comb is sparse and covariant with respect pitch shift.
+
 For two harmonic partials taken at random between $1$ and $n$,
 the probability that they are in octave relation is $1/n$.
 Leveraging the fact that power-of-two harmonics are one octave apart, we roll
