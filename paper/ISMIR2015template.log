@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.12.7)  23 MAR 2016 15:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.12.7)  23 MAR 2016 21:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -380,17 +380,17 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 File: figs/chromatic_scale.png Graphic file (type png)
 
 <use figs/chromatic_scale.png>
-Package pdftex.def Info: figs/chromatic_scale.png used on input line 261.
+Package pdftex.def Info: figs/chromatic_scale.png used on input line 263.
 (pdftex.def)             Requested size: 227.62204pt x 91.59467pt.
  [2 <./figs/chromatic_scale.png>]
 <figs/mfcc_variances.png, id=21, 186.63727pt x 202.53668pt>
 File: figs/mfcc_variances.png Graphic file (type png)
 
 <use figs/mfcc_variances.png>
-Package pdftex.def Info: figs/mfcc_variances.png used on input line 306.
+Package pdftex.def Info: figs/mfcc_variances.png used on input line 308.
 (pdftex.def)             Requested size: 227.62204pt x 247.02638pt.
 
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 307--308
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 309--310
  [] 
  []
 
@@ -398,22 +398,19 @@ Overfull \hbox (8.53572pt too wide) in paragraph at lines 307--308
 File: figs/architecture.png Graphic file (type png)
 
 <use figs/architecture.png>
-Package pdftex.def Info: figs/architecture.png used on input line 326.
+Package pdftex.def Info: figs/architecture.png used on input line 328.
 (pdftex.def)             Requested size: 483.69684pt x 89.91884pt.
 
-Overfull \hbox (0.61523pt too wide) in alignment at lines 370--377
+Overfull \hbox (0.61523pt too wide) in alignment at lines 372--379
  [] [][]
  []
 
 [3 <./figs/mfcc_variances.png>]
-Underfull \hbox (badness 3792) in paragraph at lines 500--514
+Underfull \hbox (badness 3792) in paragraph at lines 502--516
 []\OT1/ptm/m/n/10 (+20) However, the sit-u-a-tion is im-proved if the one-
  []
 
-
-Underfull \vbox (badness 1231) has occurred while \output is active []
-
- [4 <./figs/architecture.png>] (./ISMIR2015template.bbl
+[4 <./figs/architecture.png>] (./ISMIR2015template.bbl
 Underfull \hbox (badness 2735) in paragraph at lines 16--20
 []\OT1/ptm/m/n/10 (+20) Keunwoo Choi, George Fazekas, Mark San-dler,
  []
@@ -431,7 +428,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  6177 strings out of 493089
  97349 string characters out of 6134842
- 205371 words of memory out of 5000000
+ 206371 words of memory out of 5000000
  9394 multiletter control sequences out of 15000+600000
  33463 words of font info for 166 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -452,7 +449,7 @@ ist/fonts/type1/public/rsfs/rsfs10.pfb></usr/local/texlive/2015/texmf-dist/font
 s/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/ur
 w/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on ISMIR2015template.pdf (6 pages, 856254 bytes).
+Output written on ISMIR2015template.pdf (6 pages, 856409 bytes).
 PDF statistics:
  93 PDF objects out of 1000 (max. 8388607)
  65 compressed objects within 1 object stream
