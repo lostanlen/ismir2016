@@ -4,45 +4,46 @@ The top-level auxiliary file: ISMIR2015template.aux
 The style file: plain.bst
 Database file #1: ISMIR2015template.bib
 Warning--there's a number but no volume in Li2015
-You've used 24 entries,
+Warning--there's a number but no volume in Mallat2015
+You've used 25 entries,
             2118 wiz_defined-function locations,
-            631 strings with 7893 characters,
-and the built_in function-call counts, 7912 in all, are:
-= -- 707
-> -- 454
+            637 strings with 7986 characters,
+and the built_in function-call counts, 8127 in all, are:
+= -- 728
+> -- 461
 < -- 3
-+ -- 181
-- -- 154
-* -- 516
-:= -- 1328
-add.period$ -- 71
-call.type$ -- 24
-change.case$ -- 150
++ -- 184
+- -- 156
+* -- 529
+:= -- 1368
+add.period$ -- 74
+call.type$ -- 25
+change.case$ -- 154
 chr.to.int$ -- 0
-cite$ -- 25
-duplicate$ -- 324
-empty$ -- 643
-format.name$ -- 154
-if$ -- 1652
+cite$ -- 27
+duplicate$ -- 334
+empty$ -- 661
+format.name$ -- 156
+if$ -- 1695
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 21
-newline$ -- 121
-num.names$ -- 48
-pop$ -- 203
+int.to.str$ -- 25
+missing$ -- 22
+newline$ -- 126
+num.names$ -- 50
+pop$ -- 206
 preamble$ -- 1
-purify$ -- 125
+purify$ -- 128
 quote$ -- 0
-skip$ -- 209
+skip$ -- 215
 stack$ -- 0
-substring$ -- 275
-swap$ -- 65
+substring$ -- 280
+swap$ -- 66
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 96
-warning$ -- 1
-while$ -- 60
-width$ -- 26
-write$ -- 248
-(There was 1 warning)
+type$ -- 100
+warning$ -- 2
+while$ -- 62
+width$ -- 27
+write$ -- 259
+(There were 2 warnings)
