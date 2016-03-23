@@ -129,6 +129,11 @@ dataset for music instrument recognition.
 Spurred by the growth of annotated datasets and the democratization of
 high-performance computing, feature learning has enjoyed a renewed interest
 in recent years within the MIR community.
+Hand-crafted features, a mainstream method in MIR that requires human expert 
+knowledge, tend to not generalize
+well to large scale problems. This has been an important motivation for the design 
+of efficient feature learning techniques,
+both in supervised and unsupervised manners.
 Whereas unsupervised learning (\eg $k$-means \cite{Stowell2014}, Gaussian
 mixtures \cite{Joder2009}) is employed to fit the distribution of the data with
 few parameters of relatively low abstraction
@@ -147,14 +152,30 @@ by limiting their support to a small kernel which is convolved over
 the whole input.
 This method, known as weight sharing, decreases the number of parameters
 of each feature map while increasing the amount of available training data.
+In order to clarify the importance of learning in feature design, we will describe
+some effective approaches on music and audio signals in general.
 
-Newton and Smith \cite{Newton2012} have built a neurally inspired echo-state
-network to represent the temporal dynamics of isolated musical notes.
+Newton and Smith \cite{Newton2012} have built a network to represent the temporal 
+dynamics of isolated musical notes.
+They created a neurally inspired tone descriptor using a model of the auditory system's 
+response to sound onset, based on dynamic synapses and leaky integrate-and-fire neurons.  
+Final classification is then performed using a specific time-domain neural network, 
+called echo state network.
+
 McFee \etal \cite{McFee2015-muda} have trained a deep convolutional network on
-music instruments in order to illustrate the benefits of
-artificial data augmentation.
-Li \etal \cite{Li2015} have trained a deep convolutional network on audio waveforms
-for polyphonic instrument recognition.
+constant-Q representations of music instruments in order to illustrate the benefits of
+artificial data augmentation. Using two convolutional layers followed by two fully-connected
+layers, the authors successfully proved that the overfitting of the network is
+greatly reduced by applying augmentation on data by means of pitch shift, 
+time stretch and noise addition.
+
+Li \etal \cite{Li2015} have also used a deep convolutional network but trained directly 
+on raw audio waveforms
+for polyphonic instrument recognition. Their aim was to prove that and end-to-end approach
+(from the learning of features to the classification task) outperform more traditional
+approaches.
+The authors also remark that the filters learned in the first layer seem to be 
+frequency selective and similar to an auditory scale filter bank.
 
 Some other applications of deep convolutional networks include onset
 detection \cite{Schluter2014}, transcription \cite{Sigtia2015},
@@ -162,10 +183,34 @@ genre classification \cite{Choi2015},
 chord recognition \cite{Humphrey2012}, boundary detection \cite{Ullrich2014}, and
 recommendation \cite{vandenOord2013}.
 
-The most widely studied deep learning system for music information retrieval
+As a matter of facts, the most widely studied deep learning system for music information retrieval
 consists of two convolutional layers and two densely connected layers,
 with minor variations \cite{Dieleman2014, Humphrey2012, Kereliuk2015, Li2015,
 McFee2015-muda, Schluter2014, Ullrich2014}.
+
+There is little to none theoretical examination on this kind of networks and the reason
+for which the discussed architecture is the most accepted for audio analysis is not 
+totally clear.
+Convolutional layers are aimed at learning factors of variability with different degree 
+of abstraction.
+The joint action of convolution filters and non linear operators seems to implement the so-called
+\emph{contraction} and \emph{separation} properties of deep convolutional networks \cite{Mallat2015}: 
+the former creates a non-linear reduction of the feature space to decrease the data variability 
+along local symmetries. The latter, on the other hand, avoids that elements belonging 
+to different classes clash together
+as consequence of the contraction.
+
+The deepness of the network is a mean of controlling the ratio between contraction and separation and, indirectly,
+the abstraction level of the representation: we advance the hypothesis, in this context, that two layers 
+of convolutions (with related non linearities) are the optimal trade-off for the complexity of the signals 
+treated and for the size of the dataset used.
+
+Many challenges, however, remain to be addressed. The process of gaining abstraction is somehow related,
+in deep networks, to the change of scale by means of pooling operators. 
+In musical signals, therefore, it would be interesting to find specific time-frequency patterns 
+over longer time scales. Moreover, in the context of music instrument classification, it would be
+interesting to build invariants to pitch and melody that preserve the separation among the instruments.
+
 % The problem is made difficult by the fact that factors of variability are entangled.
 % Deep convolutional networks have proven to disentangle factors of variability in computer
 % vision, such as pose, color, and lighting conditions.
