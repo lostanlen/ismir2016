@@ -2,44 +2,26 @@ import DeepInstruments as di
 import numpy as np
 
 # Parameters for ConvNet
+conv1_channels = [24, 48, 32] # resp for 2d, 1d, spiral
+conv1_height = [5, 3] # resp for 2d, spiral
 conv1_width = 3
 pool1_height = 2
 pool1_width = 6
+conv2_channels = [24, 48, 32] # resp for 2d, 1d, spiral
+conv2_height = [5, 3] # resp for 2d, 1d, spiral
 conv2_width = 7
 pool2_height = 2
 pool2_width = 6
 dense1_channels = 32
-
-alpha = 0.3
-
-module = di.scalogram
-module_str = str(module)[25:31]
-if module_str == "scalog":
-    conv1_channels = 32
-    conv1_height = 5
-    conv2_channels = 32
-    conv2_height = 5
-    js = [0, 8]
-    offsets = np.mean(X_test[:, :, (js[0]*Q):(js[1]*Q), :])
-elif module_str == "spiral":
-    conv1_channels = [24, 48, 32]
-    conv1_height = [5, 3]
-    conv2_channels = [24, 48, 32]
-    conv2_height = [5, 3]
-    js = np.matrix([[0, 8], [5, 8], [1, 4], [2, 5], [3, 6]])
-    offsets = [
-         np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
-         np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :]),
-         np.mean(X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :]),
-         np.mean(X_test[:, :, (js[3,0]*Q):(js[3,1]*Q), :]),
-         np.mean(X_test[:, :, (js[4,0]*Q):(js[4,1]*Q), :])]
-elif module_str == "source":
-    conv1_channels = [32, 16]
-    conv2_channels = [32, 16]
-    js = np.matrix([[1, 7], [6, 8]])
-    offsets = [
-         np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
-         np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :])]
+alpha = 0.3 # for LeakyReLU
+js = np.matrix([[0, 8], [5, 8], [1, 4], [2, 5], [3, 6]])
+# resp for 2d, 1d, spiral, spiral, spiral
+offsets = [
+     np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
+     np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :]),
+     np.mean(X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :]),
+     np.mean(X_test[:, :, (js[3,0]*Q):(js[3,1]*Q), :]),
+     np.mean(X_test[:, :, (js[4,0]*Q):(js[4,1]*Q), :])]
 
 # Parameters for learning
 batch_size = 32
@@ -57,7 +39,7 @@ masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano
-graph = module.build_graph(Q, js, X_width,
+graph = learning.build_graph(Q, js, X_width,
     conv1_channels, conv1_height, conv1_width, pool1_height, pool1_width,
     conv2_channels, conv2_height, conv2_width, pool2_height, pool2_width,
     dense1_channels, dense2_channels, alpha)

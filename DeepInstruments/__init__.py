@@ -52,9 +52,5 @@ shutil.copyfile(source_path, destination_path)
 import DeepInstruments.audio
 import DeepInstruments.descriptors
 import DeepInstruments.learning
-import DeepInstruments.singlelabel
-import DeepInstruments.scalogram
-import DeepInstruments.sourcefilter
-import DeepInstruments.spiral
 import DeepInstruments.symbolic
 import DeepInstruments.wrangling
