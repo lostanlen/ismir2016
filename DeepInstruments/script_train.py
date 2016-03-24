@@ -4,8 +4,8 @@ import warnings
 
 # Parameters for learning
 batch_size = 32
-epoch_size = 256
-n_epochs = 2
+epoch_size = 8192
+n_epochs = 20
 optimizer = "adam"
 
 # I/O sizes
@@ -32,7 +32,7 @@ file_report = []
 
 for trial in range(n_trials):
     print "*********************************************************"
-    print "                           TRIAL", trial
+    print "                           TRIAL", 1+trial
     loss_trial = []
     chunk_trial = []
     file_trial = []
@@ -65,6 +65,7 @@ for trial in range(n_trials):
             js[1, :] = 0
         if not is_sp:
             js[2:, :] = 0
+        print js
 
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", category=RuntimeWarning)
