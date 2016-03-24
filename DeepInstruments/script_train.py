@@ -9,20 +9,20 @@ is_spiral = False
 # Parameters for ConvNet
 arch = is_2d * 4 + is_1d * 2 + is_spiral
 
-if   arch == 1:  # spiral
-    conv1_channels = [0, 0, 68] # 103k parameters
+if arch == 1:  # spiral
+    conv1_channels = [0, 0, 68]  # 103k parameters
 elif arch == 2:  # 1d
-    conv1_channels = [0, 104, 0] # 97k parameters
+    conv1_channels = [0, 104, 0]  # 97k parameters
 elif arch == 3:  # sp & 1d
-    conv1_channels = [0, 72, 48] # 104k parameters
+    conv1_channels = [0, 72, 48]  # 104k parameters
 elif arch == 4:  # 2d
-    conv1_channels = [36, 0, 0] # 95k parameters
+    conv1_channels = [36, 0, 0]  # 95k parameters
 elif arch == 5:  # 2d & spiral
-    conv1_channels = [32, 0, 40] # 104k parameters
+    conv1_channels = [32, 0, 40]  # 104k parameters
 elif arch == 6:  # 2d & 1d
-    conv1_channels = [28, 56, 0] # 99k parameters
+    conv1_channels = [28, 56, 0]  # 99k parameters
 elif arch == 7:  # 2d & 1d & spiral
-    conv1_channels = [24, 48, 32] # 104k parameters
+    conv1_channels = [24, 48, 32]  # 104k parameters
 
 
 conv1_height = [5, 3] # resp for 2d, spiral
