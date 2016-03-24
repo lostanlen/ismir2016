@@ -128,12 +128,8 @@ dataset for music instrument recognition.
 \section{Related work}
 Spurred by the growth of annotated datasets and the democratization of
 high-performance computing, feature learning has enjoyed a renewed interest
-in recent years within the MIR community.
-Hand-crafted features, a mainstream method in MIR that requires human expert 
-knowledge, tend to not generalize
-well to large scale problems. This has been an important motivation for the design 
-of efficient feature learning techniques,
-both in supervised and unsupervised manners.
+in recent years within the MIR community, both in supervised and unsupervised
+settings.
 Whereas unsupervised learning (\eg $k$-means \cite{Stowell2014}, Gaussian
 mixtures \cite{Joder2009}) is employed to fit the distribution of the data with
 few parameters of relatively low abstraction
@@ -142,20 +138,22 @@ composition of multiple nonlinear transformations, jointly optimized
 to predict class labels, and whose behaviour gain in abstraction as depth
 increases \cite{vandenOord2013}.
 
-Among the supervised methods, convolutional representations provided the more
-convincing results. The success of convolutional methods is probably motivated
-by the translation invariant properties they implement by definition. A convolutional
-representation, indeed, relies on the stationarity assumption for which the inputs are made
-of small patches whose content is statistically independent
-from their location within the signal, be it a one-dimensional waveform or
-a two-dimensional spectrogram.
-As a consequence, linear transformations of the data can be learned efficiently
+Among the existing deep learning techniques for audio processing,
+convolutional networks happen to strike the balance between
+learning capacity and robustness.
+The convolutional structure of learned transformations is derived from
+the assumption that input data, be it a one-dimensional waveform
+or a two-dimensional spectrogram, is stationary ; which means that
+content is independent from location.
+Moreover, the most informative dependencies between signal coefficients
+are assumed to be concentrated to neighborhoods in time and/or frequency.
+Under such hypotheses, linear transformations of the data can be learned efficiently
 by limiting their support to a small kernel which is convolved over
 the whole input.
 This method, known as weight sharing, decreases the number of parameters
 of each feature map while increasing the amount of available training data.
-In order to clarify the importance of learning in feature design, we will describe
-some effective approaches on music and audio signals in general.
+%In order to clarify the importance of learning in feature design, we will describe
+%some effective approaches on music and audio signals in general.
 
 Newton and Smith \cite{Newton2012} have built a network to represent the temporal 
 dynamics of isolated musical notes.
