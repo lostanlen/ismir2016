@@ -506,6 +506,9 @@ At low frequencies, we make the exact opposite assumptions: we claim
 that the harmonic comb is sparse and covariant with respect to pitch shift.
 Observe that, for any two distinct partials taken at random between $1$ and $n$,
 the probability that they are in octave relation is slightly above $1/n$.
+Thus, for $n$ relatively low, the structure of harmonic sounds is well
+described by merely measuring correlations between partials one octave apart,
+\ie log-frequency bands $\gamma$ and $\gamma \pm Q$.
 
 Leveraging the fact that power-of-two harmonics are one octave apart, we roll
 up the log-frequency into a Shepard pitch spiral, such that octave intervals
@@ -523,6 +526,13 @@ correspond to full turns.
 \boldsymbol{x_1}[t - \tau, k_1 - \kappa_1 - Q j_1]
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
+
+Guaranteeing the partial index $n$ to remain low is achieved by
+restricting the pitch spiral to its lowest frequencies.
+This operation also partially circumvents the problem of fixed spectral envelope
+in musical sounds, thus improving the validness of the stationarity assumption.
+In our experiments, the pitch spiral ranges from $55\,\mathrm{Hz}$ to
+$3.5\,\mathrm{kHz}$.
 
 The linear combinations of frequency bands that are one octave apart,
 as proposed here,
@@ -544,19 +554,6 @@ the invariant representation of sparse, transposition-covariant spectra:
 they are best suited to the lowest frequencies, \ie where partials
 are further apart and pitch changes can be approximated by log-frequency
 translations.
-
-%Whereas the resort to one-dimensional convolutions
-%leverages the fact that quasi-harmonic partials are more numerous towards
-%high frequencies, we make the exact opposite assumption at low frequencies.
-
-%To address this issue, Abdel-Hamid \etal \cite{Abdel-Hamid2014} have developed
-%limited weight sharing in the first convolutional layer, and shown that it improves
-%the performance of an end-to-end speech recognition system.
-%Limited weight sharing consists in splitting the spectrogram into subbands, whose bandwidth
-%is of the order of one octave.
-%Subbands are then fed in parallel to a layer of convolutions, nonlinearity, and pooling.
-The outputs of each transformed subband are finally aggregated into an unstructured
-vector.
 
 \section{Applications}\label{sec:single-instrument}
 In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  24 MAR 2016 05:03
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  24 MAR 2016 06:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -328,7 +328,11 @@ Underfull \hbox (badness 4927) in paragraph at lines 486--500
 []\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
  []
 
-[4] (./ISMIR2015template.bbl
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+(./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -338,7 +342,7 @@ Underfull \hbox (badness 4096) in paragraph at lines 16--20
 []\OT1/ptm/m/n/10 Keunwoo Choi, George Fazekas, Mark San-dler,
  []
 
-
+[5]
 Underfull \hbox (badness 10000) in paragraph at lines 43--47
 []\OT1/ptm/m/n/10 Masataka Goto, Hi-roki Hashiguchi, Takuichi
  []
@@ -348,13 +352,13 @@ Underfull \hbox (badness 1377) in paragraph at lines 49--53
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
 
-[5]
-Underfull \hbox (badness 1184) in paragraph at lines 99--103
+
+Underfull \hbox (badness 1184) in paragraph at lines 94--98
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
 
-Underfull \hbox (badness 1242) in paragraph at lines 122--125
+Underfull \hbox (badness 1242) in paragraph at lines 117--120
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
@@ -364,10 +368,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4905 strings out of 493706
- 78058 string characters out of 6145769
- 174143 words of memory out of 5000000
- 8188 multiletter control sequences out of 15000+600000
+ 4904 strings out of 493706
+ 78046 string characters out of 6145769
+ 175139 words of memory out of 5000000
+ 8187 multiletter control sequences out of 15000+600000
  16916 words of font info for 54 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,15n,38p,365b,340s stack positions out of 5000i,500n,10000p,200000b,80000s

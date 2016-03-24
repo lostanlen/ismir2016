@@ -85,11 +85,6 @@ Peter Li, Jiyuan Qian, and Tian Wang.
   convolutional neural networks.
 \newblock {\em arXiv preprint}, (1511.05520), 2015.
 
-\bibitem{Mallat2015}
-St\'ethane Mallat.
-\newblock Understanding deep convolution networks.
-\newblock {\em arXiv preprint}, (1601.04920v1), 2016.
-
 \bibitem{McFee2015-muda}
 Brian McFee, Eric~J. Humphrey, and Juan~P. Bello.
 \newblock A software framework for musical data augmentation.
