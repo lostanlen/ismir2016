@@ -2,9 +2,9 @@ import DeepInstruments as di
 import numpy as np
 import warnings
 
-is_2d = True
-is_1d = False
-is_spiral = True
+is_2d = False
+is_1d = True
+is_spiral = False
 
 # Parameters for ConvNet
 conv1_channels = [24, 48, 32] # resp for 2d, 1d, spiral
