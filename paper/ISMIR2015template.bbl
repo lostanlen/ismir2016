@@ -51,13 +51,19 @@ Philippe Hamel, Yoshua Bengio, and Douglas Eck.
   timescale representations}.
 \newblock In {\em Proc. ISMIR}, 2012.
 
+\bibitem{Humphrey2012rethinking}
+Eric~J. Humphrey and Juan~P. Bello.
+\newblock {Rethinking automatic chord recognition with convolutional neural
+  networks}.
+\newblock In {\em Proc. ICMLA}, 2012.
+
 \bibitem{Humphrey2013}
 Eric~J. Humphrey, Juan~P. Bello, and Yann Le~Cun.
 \newblock {Feature learning and deep architectures: New directions for music
   informatics}.
 \newblock {\em JIIS}, 41(3):461--481, 2013.
 
-\bibitem{Humphrey2012}
+\bibitem{Humphrey2012tonnetz}
 Eric~J. Humphrey, Taemin Cho, and Juan~P. Bello.
 \newblock Learning a robust tonnetz-space transform for automatic chord
   recognition.
@@ -83,7 +89,7 @@ Diederik~P. Kingma and Jimmy~Lei Ba.
 Peter Li, Jiyuan Qian, and Tian Wang.
 \newblock Automatic instrument recognition in polyphonic music using
   convolutional neural networks.
-\newblock {\em arXiv preprint}, (1511.05520), 2015.
+\newblock {\em arXiv preprint}, 1511.05520, 2015.
 
 \bibitem{McFee2015-muda}
 Brian McFee, Eric~J. Humphrey, and Juan~P. Bello.

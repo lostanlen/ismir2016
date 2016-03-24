@@ -98,7 +98,7 @@ Tuning auditory filters to a perceptual scale of pitches provides a
 time-frequency representation of music signals that satisfies the first two of these properties.
 It is thus a starting point for a wide range of MIR applications,
 which can be separated in two categories: pitch-\emph{relative}
-(\eg chord estimation \cite{Humphrey2012})
+(\eg chord estimation \cite{Humphrey2012tonnetz})
 and pitch-\emph{invariant} (\eg instrument recognition \cite{Eronen2000}).
 Both aim at disentangling pitch from timbral content as independent
 factors of variability, a goal that is made possible by the third aforementioned property.
@@ -180,13 +180,15 @@ frequency-selective, hence resembling an auditory filter bank.
 Some other applications of deep convolutional networks include onset
 detection \cite{Schluter2014}, transcription \cite{Sigtia2015},
 genre classification \cite{Choi2015},
-chord recognition \cite{Humphrey2012}, boundary detection \cite{Ullrich2014}, and
+chord recognition \cite{Humphrey2012rethinking, Humphrey2012tonnetz},
+boundary detection \cite{Ullrich2014}, and
 recommendation \cite{vandenOord2013}.
 
 Interestingly, many research teams in MIR have converged to employ the same
 architecture, consisting of two convolutional layers and two densely connected layers,
-with only minor variations \cite{Dieleman2014, Humphrey2012, Kereliuk2015, Li2015,
-McFee2015-muda, Schluter2014, Ullrich2014}.
+with only minor variations
+\cite{Dieleman2014, Humphrey2012rethinking, Humphrey2012tonnetz,
+Kereliuk2015, Li2015, McFee2015-muda, Schluter2014, Ullrich2014}.
 With the aim of understanding the purpose of convolutional weight sharing in such
 systems, this article makes no exception.
 
@@ -296,6 +298,12 @@ Architecture of a convolutional network with full weight sharing. See text for d
 }
 \end{figure*}
 
+Each layer in a convolutional network typically consists in the composition of three operations:
+two-dimensional convolutions, application of a pointwise nonlinearity, and local pooling.
+The deep feed-forward network made of two convolutional layers and two densely connected
+layers, on which our experiment are conducted, has become a \emph{de facto} standard in the MIR community. This ubiquity in the literature suggests that it is well adapted to supervised audio
+classifiication problems of moderate size.
+
 The input of our system is a constant-Q wavelet scalogram, which is very comparable to a
 mel-frequency spectrogram.
 We used the implementation from the librosa package \cite{McFee2015-librosa} with $Q=12$
@@ -306,8 +314,6 @@ dynamic range between the fundamental partial and its upper harmonics.
 A $3$-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix
 $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ frequency bands.
 
-Each layer in a convolutional network typically consists in the composition of three operations:
-two-dimensional convolutions, application of a pointwise nonlinearity, and local pooling.
 A convolutional operator is defined as a family $\boldsymbol{W_2}[\tau,\kappa_1,k_2]$ of
 $K_2$ two-dimensional filters, whose impulse repsonses are all constrained to have width
 $\Delta t$ and height $\Delta k_1$. Element-wise biases $\boldsymbol{b_2}[k_2]$ are

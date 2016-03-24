@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  24 MAR 2016 17:38
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  24 MAR 2016 20:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -304,32 +304,34 @@ File: figs/chromatic_scale.png Graphic file (type QTm)
 <use  "figs/chromatic_scale.png" >
 File: figs/mfcc_variances.png Graphic file (type QTm)
  <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 271--272
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 273--274
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 277--277
+Underfull \hbox (badness 2401) in paragraph at lines 279--279
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
 [2]
 File: figs/architecture.png Graphic file (type QTm)
  <use  "figs/architecture.png" >
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \hbox (badness 3492) in paragraph at lines 317--321
+[]\OT1/ptm/m/n/10 A con-vo-lu-tional op-er-a-tor is de-fined as a fam-ily
+ []
 
 
-Overfull \hbox (0.61523pt too wide) in alignment at lines 334--341
+Overfull \hbox (0.61523pt too wide) in alignment at lines 340--347
  [] [][]
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 397--412
+Underfull \hbox (badness 1968) in paragraph at lines 403--418
 \OT1/ptm/m/n/10 Given a train-ing set of spectrogram-instrument pairs
  []
 
 [3]
-Underfull \hbox (badness 4927) in paragraph at lines 459--473
+Underfull \hbox (badness 4927) in paragraph at lines 465--479
 []\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
  []
 
@@ -358,12 +360,12 @@ Underfull \hbox (badness 1377) in paragraph at lines 49--53
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 94--98
+Underfull \hbox (badness 1184) in paragraph at lines 100--104
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
 
-Underfull \hbox (badness 1242) in paragraph at lines 117--120
+Underfull \hbox (badness 1242) in paragraph at lines 123--126
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
@@ -373,10 +375,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4905 strings out of 493706
- 78061 string characters out of 6145769
- 178147 words of memory out of 5000000
- 8188 multiletter control sequences out of 15000+600000
+ 4906 strings out of 493706
+ 78092 string characters out of 6145769
+ 178151 words of memory out of 5000000
+ 8189 multiletter control sequences out of 15000+600000
  16916 words of font info for 54 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,15n,38p,365b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
