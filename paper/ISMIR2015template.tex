@@ -187,30 +187,31 @@ Interestingly, many research teams in MIR have converged to employ the same
 architecture, consisting of two convolutional layers and two densely connected layers,
 with only minor variations \cite{Dieleman2014, Humphrey2012, Kereliuk2015, Li2015,
 McFee2015-muda, Schluter2014, Ullrich2014}.
-This article makes no exception.
-
-There is little to none theoretical examination on this kind of networks and the reason
-for which the discussed architecture is the most accepted for audio analysis is not 
-totally clear.
-Convolutional layers are aimed at learning factors of variability with different degree 
-of abstraction.
-The joint action of convolution filters and non linear operators seems to implement the so-called
-\emph{contraction} and \emph{separation} properties of deep convolutional networks \cite{Mallat2015}: 
-the former creates a non-linear reduction of the feature space to decrease the data variability 
-along local symmetries. The latter, on the other hand, avoids that elements belonging 
-to different classes clash together
-as consequence of the contraction.
-
-The deepness of the network is a mean of controlling the ratio between contraction and separation and, indirectly,
-the abstraction level of the representation: we advance the hypothesis, in this context, that two layers 
-of convolutions (with related non linearities) are the optimal trade-off for the complexity of the signals 
-treated and for the size of the dataset used.
-
-Many challenges, however, remain to be addressed. The process of gaining abstraction is somehow related,
-in deep networks, to the change of scale by means of pooling operators. 
-In musical signals, therefore, it would be interesting to find specific time-frequency patterns 
-over longer time scales. Moreover, in the context of music instrument classification, it would be
-interesting to build invariants to pitch and melody that preserve the separation among the instruments.
+With the aim of understanding the purpose of convolutional weight sharing in such
+systems, this article makes no exception.
+ 
+%There is little to none theoretical examination on this kind of networks and the reason
+%for which the discussed architecture is the most accepted for audio analysis is not 
+%totally clear.
+%Convolutional layers are aimed at learning factors of variability with different degree 
+%of abstraction.
+%The joint action of convolution filters and non linear operators seems to implement the so-called
+%\emph{contraction} and \emph{separation} properties of deep convolutional networks \cite{Mallat2015}: 
+%the former creates a non-linear reduction of the feature space to decrease the data variability 
+%along local symmetries. The latter, on the other hand, avoids that elements belonging 
+%to different classes clash together
+%as consequence of the contraction.
+%
+%The depth of the network is a mean of controlling the ratio between contraction and separation and, indirectly,
+%the abstraction level of the representation: we advance the hypothesis, in this context, that two layers 
+%of convolutions (with related non linearities) are the optimal trade-off for the complexity of the signals 
+%treated and for the size of the dataset used.
+%
+%Many challenges, however, remain to be addressed. The process of gaining abstraction is somehow related,
+%in deep networks, to the change of scale by means of pooling operators. 
+%In musical signals, therefore, it would be interesting to find specific time-frequency patterns 
+%over longer time scales. Moreover, in the context of music instrument classification, it would be
+%interesting to build invariants to pitch and melody that preserve the separation among the instruments.
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that
