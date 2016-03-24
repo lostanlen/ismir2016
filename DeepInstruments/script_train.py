@@ -38,7 +38,7 @@ for trial in range(n_trials):
     file_trial = []
     for arch in range(1, 7):
         print "========================================================="
-        print "                           ARCH ", arch
+        print "                      TRIAL ", 1+trial, " ARCH ", arch
         if arch == 1:  # spiral
             conv1_channels = [0, 0, 68]  # 103k parameters
         elif arch == 2:  # 1d
