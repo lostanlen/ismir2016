@@ -586,6 +586,33 @@ and rolloff, as well a zero-crossing rate ;
 supplemented with the temporal averages of MFCC and its first and second derivatives.
 We trained a random forest of 100 decision trees on the resulting feature vector
 of dimension 
+
+\begin{table*}[t]
+	\begin{center}
+	\setlength{\unitlength}{1cm}
+	\begin{tabular}{|c|cccccccc|c|}
+		\hline
+		& clarinet & distorted & female & flute & piano & tenor & trumpet & violin & average \\
+		\hline
+		2-d
+		& 59.9 & 94.0 & 90.5 & 30.4 & 99.7 & 56.3 & 61.6 & 79.4 & 71.5 \\
+		1-d
+		& - & - & - & - & - & - & - & - & -\\
+		spiral
+		& - & - & - & - & - & - & - & - & -\\
+		2-d \& 1-d
+		& - & - & - & - & - & - & - & - & -\\
+		2-d \& spiral
+		& - & - & - & - & - & - & - & - & -\\
+		2-d \& 1-d \& spiral
+		& 75.7 & 92.6 & 91.2 & 50.0 & 99.0 & 60.0 & 55.7 & 57.6 & 72.7 \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\caption{\label{table:results}}
+\end{table*}
+
+
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of
 an efficient system for automated classification, tagging, and similarity retrieval in music. 

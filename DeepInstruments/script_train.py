@@ -4,7 +4,7 @@ import warnings
 
 is_2d = True
 is_1d = False
-is_spiral = False
+is_spiral = True
 
 # Parameters for ConvNet
 conv1_channels = [24, 48, 32] # resp for 2d, 1d, spiral
@@ -48,7 +48,7 @@ dense2_channels = 8
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano
-graph = learning.build_graph(Q, js, X_width,
+graph = di.learning.build_graph(Q, js, X_width,
     conv1_channels, conv1_height, conv1_width, pool1_height, pool1_width,
     conv2_channels, conv2_height, conv2_width, pool2_height, pool2_width,
     dense1_channels, dense2_channels, alpha)
@@ -67,7 +67,7 @@ for epoch_id in xrange(n_epochs):
     progbar = Progbar(epoch_size)
     batch_id = 0
     for (X_batch, Y_batch) in dataflow:
-        loss = module.train_on_batch(graph, X_batch, Y_batch, Q, js, offsets)
+        loss = di.learning.train_on_batch(graph, X_batch, Y_batch, Q, js, offsets)
         batch_losses[batch_id] = loss[0]
         progbar.update(batch_id * batch_size)
         batch_id += 1
@@ -79,7 +79,7 @@ for epoch_id in xrange(n_epochs):
     print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
     # Measure test accuracies
-    class_probs = module.predict(graph, X_test, Q, js, offsets)
+    class_probs = di.learning.predict(graph, X_test, Q, js, offsets)
     y_predicted = np.argmax(class_probs, axis=1)
     chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
     chunk_accuracies_history.append(chunk_accuracies)
