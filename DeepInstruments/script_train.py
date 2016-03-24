@@ -1,6 +1,10 @@
 import DeepInstruments as di
 import numpy as np
 
+is_2d = False
+is_1d = False
+is_spiral = False
+
 # Parameters for ConvNet
 conv1_channels = [24, 48, 32] # resp for 2d, 1d, spiral
 conv1_height = [5, 3] # resp for 2d, spiral
@@ -14,7 +18,14 @@ pool2_height = 2
 pool2_width = 6
 dense1_channels = 32
 alpha = 0.3 # for LeakyReLU
-js = np.matrix([[0, 8], [5, 8], [1, 4], [2, 5], [3, 6]])
+js = np.matrix([[0, 8], [5, 8], [1, 3], [2, 4], [3, 5]])
+if not is_2d:
+    js[0, :] = 0
+if not is_1d:
+    js[1, :] = 0
+if not is_spiral:
+    js[2:, :] = 0
+
 # resp for 2d, 1d, spiral, spiral, spiral
 offsets = [
      np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
