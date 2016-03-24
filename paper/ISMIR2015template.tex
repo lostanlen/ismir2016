@@ -462,7 +462,7 @@ convolutional kernel up to the total number of bins $K_1$ in the spectrogram.
 As a result, $\boldsymbol{W_1}$ and $\boldsymbol{W_2}$ are no longer transposed
 over adjacent frequency bands, since convolutions are merely performed over
 the time variable.
-The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrite as
+The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \begin{IEEEeqnarray}{rCl}
 \IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_2}[t,k_1,k_2]} \nonumber \\
@@ -498,6 +498,11 @@ The combination of these two phenomena implies that the correlation between
 constant-Q spectra of different pitches is greater towards high frequencies, and that
 the learning of polyvalent feature maps becomes tractable.
 
+In our experiments, the one-dimensional convolutions over the time variable
+range from
+$\mathrm{A_6}$ ($1,76\,\mathrm{kHz}$) to
+$\mathrm{A_9}$ ($14\,\mathrm{kHz}$).
+
 \subsection{Convolutions on the pitch spiral at low frequencies}
 The weight sharing strategy presented above exploits the facts that,
 at high frequencies, quasi-harmonic partials are numerous, and that the
@@ -513,7 +518,7 @@ described by merely measuring correlations between partials one octave apart,
 Leveraging the fact that power-of-two harmonics are one octave apart, we roll
 up the log-frequency into a Shepard pitch spiral, such that octave intervals
 correspond to full turns.
-
+The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_2}[t,k_1,k_2]
 = & &
@@ -527,13 +532,6 @@ correspond to full turns.
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
 
-Guaranteeing the partial index $n$ to remain low is achieved by
-restricting the pitch spiral to its lowest frequencies.
-This operation also partially circumvents the problem of fixed spectral envelope
-in musical sounds, thus improving the validness of the stationarity assumption.
-In our experiments, the pitch spiral ranges from $55\,\mathrm{Hz}$ to
-$3.5\,\mathrm{kHz}$.
-
 The linear combinations of frequency bands that are one octave apart,
 as proposed here,
 bears a resemblance with engineered features for music instrument
@@ -541,6 +539,14 @@ recognition \cite{Peeters2004}, such as tristimulus,
 empirical inharmonicity, harmonic spectral deviation,
 odd-to-even harmonic energy ratio, as well as
 octave band signal intensities (OBSI) \cite{Joder2009}.
+
+Guaranteeing the partial index $n$ to remain low is achieved by
+restricting the pitch spiral to its lowest frequencies.
+This operation also partially circumvents the problem of fixed spectral envelope
+in musical sounds, thus improving the validness of the stationarity assumption.
+In our experiments, the pitch spiral ranges from
+$\mathrm{A_2}$ ($110\,\mathrm{Hz}$) to
+$\mathrm{A_6}$ ($1,76\,\mathrm{kHz}$).
 
 In summary, the classical two-dimensional convolutions make a stationarity assumption
 among frequency neighborhoods. This approach gives a coarse approximation
