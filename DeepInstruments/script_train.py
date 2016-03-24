@@ -1,7 +1,7 @@
 import DeepInstruments as di
 import numpy as np
 
-is_2d = False
+is_2d = True
 is_1d = False
 is_spiral = False
 
