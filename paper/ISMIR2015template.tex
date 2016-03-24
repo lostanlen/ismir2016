@@ -138,7 +138,7 @@ composition of multiple nonlinear transformations, jointly optimized
 to predict class labels, and whose behaviour gain in abstraction as depth
 increases \cite{vandenOord2013}.
 
-Among the existing deep learning techniques for audio processing,
+As compared to other deep learning techniques for audio processing,
 convolutional networks happen to strike the balance between
 learning capacity and robustness.
 The convolutional structure of learned transformations is derived from
@@ -159,23 +159,23 @@ Newton and Smith \cite{Newton2012} have built a network to represent the tempora
 dynamics of isolated musical notes.
 They created a neurally inspired tone descriptor using a model of the auditory system's 
 response to sound onset, based on dynamic synapses and leaky integrate-and-fire neurons.  
-Final classification is then performed using a specific time-domain neural network, 
-called echo state network.
+Final classification is then performed using an echo-state network in the time domain.
 
 McFee \etal \cite{McFee2015-muda} have trained a deep convolutional network on
 constant-Q representations of music instruments in order to illustrate the benefits of
-artificial data augmentation. Using two convolutional layers followed by two fully-connected
+artificial data augmentation.
+Using two convolutional layers followed by two densely connected
 layers, the authors successfully proved that the overfitting of the network is
-greatly reduced by applying augmentation on data by means of pitch shift, 
-time stretch and noise addition.
+greatly reduced by randomly manipulating the data with digital audio effects, such as
+frequency transposition, time stretching, and the addition of realistic background noise.
 
-Li \etal \cite{Li2015} have also used a deep convolutional network but trained directly 
-on raw audio waveforms
-for polyphonic instrument recognition. Their aim was to prove that and end-to-end approach
-(from the learning of features to the classification task) outperform more traditional
-approaches.
+Li \etal \cite{Li2015} have also trained a deep convolutional network, whose input is
+the raw audio waveform instead of the spectrogram.
+Their aim was to prove that an end-to-end approach,
+from the learning of features to the classification task, outperform more traditional
+approaches in a challenging task of polyphonic instrument recognition.
 The authors also remark that the filters learned in the first layer seem to be 
-frequency selective and similar to an auditory scale filter bank.
+frequency-selective, hence resembling an auditory filter bank.
 
 Some other applications of deep convolutional networks include onset
 detection \cite{Schluter2014}, transcription \cite{Sigtia2015},
@@ -183,10 +183,11 @@ genre classification \cite{Choi2015},
 chord recognition \cite{Humphrey2012}, boundary detection \cite{Ullrich2014}, and
 recommendation \cite{vandenOord2013}.
 
-As a matter of facts, the most widely studied deep learning system for music information retrieval
-consists of two convolutional layers and two densely connected layers,
-with minor variations \cite{Dieleman2014, Humphrey2012, Kereliuk2015, Li2015,
+Interestingly, many research teams in MIR have converged to employ the same
+architecture, consisting of two convolutional layers and two densely connected layers,
+with only minor variations \cite{Dieleman2014, Humphrey2012, Kereliuk2015, Li2015,
 McFee2015-muda, Schluter2014, Ullrich2014}.
+This article makes no exception.
 
 There is little to none theoretical examination on this kind of networks and the reason
 for which the discussed architecture is the most accepted for audio analysis is not 
@@ -210,22 +211,6 @@ in deep networks, to the change of scale by means of pooling operators.
 In musical signals, therefore, it would be interesting to find specific time-frequency patterns 
 over longer time scales. Moreover, in the context of music instrument classification, it would be
 interesting to build invariants to pitch and melody that preserve the separation among the instruments.
-
-% The problem is made difficult by the fact that factors of variability are entangled.
-% Deep convolutional networks have proven to disentangle factors of variability in computer
-% vision, such as pose, color, and lighting conditions.
-
-% the challenge is thus two-fold
-% 1. gaining abstraction by integrating time-frequency patterns over longer time scales
-% 2. building invariants to melody while remaining highly discriminative to the instrument
-
-% On music instrument classification
-% Ref to Joder et al
-% Ref to Fuhrmann
-% On feature learning
-% Ref to Dieleman and Benjamin ICASSP 2014
-% Ref to Humphrey, Bello, LeCun 2012
-% Ref to Salamon and Bello
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that
