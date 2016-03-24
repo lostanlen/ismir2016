@@ -135,7 +135,7 @@ mixtures \cite{Joder2009}) is employed to fit the distribution of the data with
 few parameters of relatively low abstraction
 and high dimensionality, state-of-the-art supervised learning consists of a
 composition of multiple nonlinear transformations, jointly optimized
-to predict class labels, and whose behaviour gain in abstraction as depth
+to predict class labels, and whose behaviour tend to gain in abstraction as depth
 increases \cite{vandenOord2013}.
 
 As compared to other deep learning techniques for audio processing,
@@ -174,7 +174,7 @@ the raw audio waveform instead of the spectrogram.
 Their aim was to prove that an end-to-end approach,
 from the learning of features to the classification task, outperform more traditional
 approaches in a challenging task of polyphonic instrument recognition.
-The authors also remark that the filters learned in the first layer seem to be 
+The authors also remark that the filters learned in the first layer are
 frequency-selective, hence resembling an auditory filter bank.
 
 Some other applications of deep convolutional networks include onset
@@ -189,29 +189,6 @@ with only minor variations \cite{Dieleman2014, Humphrey2012, Kereliuk2015, Li201
 McFee2015-muda, Schluter2014, Ullrich2014}.
 With the aim of understanding the purpose of convolutional weight sharing in such
 systems, this article makes no exception.
- 
-%There is little to none theoretical examination on this kind of networks and the reason
-%for which the discussed architecture is the most accepted for audio analysis is not 
-%totally clear.
-%Convolutional layers are aimed at learning factors of variability with different degree 
-%of abstraction.
-%The joint action of convolution filters and non linear operators seems to implement the so-called
-%\emph{contraction} and \emph{separation} properties of deep convolutional networks \cite{Mallat2015}: 
-%the former creates a non-linear reduction of the feature space to decrease the data variability 
-%along local symmetries. The latter, on the other hand, avoids that elements belonging 
-%to different classes clash together
-%as consequence of the contraction.
-%
-%The depth of the network is a mean of controlling the ratio between contraction and separation and, indirectly,
-%the abstraction level of the representation: we advance the hypothesis, in this context, that two layers 
-%of convolutions (with related non linearities) are the optimal trade-off for the complexity of the signals 
-%treated and for the size of the dataset used.
-%
-%Many challenges, however, remain to be addressed. The process of gaining abstraction is somehow related,
-%in deep networks, to the change of scale by means of pooling operators. 
-%In musical signals, therefore, it would be interesting to find specific time-frequency patterns 
-%over longer time scales. Moreover, in the context of music instrument classification, it would be
-%interesting to build invariants to pitch and melody that preserve the separation among the instruments.
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that
@@ -228,7 +205,8 @@ However, the physics of musical instruments constrain these partial waves to bea
 a negligible energy if their frequencies are beyond the range of acoustic resonance.
 
 As shown on Figure \ref{fig:chromatic-scale}, the constant-Q spectrogram of a
-tuba chromatic scale exhibits a fixed, cutoff frequency at about 2500 Hz, which
+tuba chromatic scale exhibits a fixed,
+cutoff frequency at about $2.5\,\mathrm{kHz}$, which
 delineates the support of its spectral envelope.
 This elementary observation implies that realistic pitch changes cannot be modeled
 by translating a rigid spectral template along the log-frequency axis.
@@ -267,7 +245,7 @@ Following a well-established rule \cite{Eronen2000, Joder2009},
 the MFCC were defined the 12 lowest nonzero "quefrencies" among the
 DCT coefficients extracted from a filter bank of 40 mel-frequency bands.
 We then have computed the distribution of squared Euclidean distances
-between musical notes in the 13-dimensional space of MFCC features.
+between musical notes in the 12-dimensional space of MFCC features.
 
 Figure \ref{fig:mfcc-variances} summarizes our results.
 We found that restricting the cluster to one nuance, one interpret, or one manufacturer
@@ -280,7 +258,7 @@ magnitude.
 In other words, most of the variance in an instrument cluster of mel-frequency
 cepstra is due to pitch transposition.
 
-Keeping less than 13 coefficients certainly improves invariance, yet at the cost of
+Keeping less than 12 coefficients certainly improves invariance, yet at the cost of
 inter-class discriminability, and vice versa.
 This experiment shows that the mel-frequency cepstrum is perfectible in terms
 of invariance-discriminability tradeoff, and that there remains a lot to be gained by
@@ -321,11 +299,11 @@ Architecture of a convolutional network with full weight sharing. See text for d
 The input of our system is a constant-Q wavelet scalogram, which is very comparable to a
 mel-frequency spectrogram.
 We used the implementation from the librosa package \cite{McFee2015-librosa} with $Q=12$
-filters per octave, center frequencies ranging from 55 Hz to 14 kHz (8 octaves from A1 to A9),
-and a hop size of 23 ms.
+filters per octave, center frequencies ranging from $\mathrm{A_1}$ ($55\,\mathrm{Hz}$)
+to $\mathrm{A_9}$ ($14\,\mathrm{kHz}$), and a hop size of $23\,\mathrm{ms}$.
 Furthermore, we applied nonlinear perceptual weighting of loudness in order to reduce the
 dynamic range between the fundamental partial and its upper harmonics.
-A 3-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix
+A $3$-second sound excerpt $\boldsymbol{x}[t]$ is represented by a time-frequency matrix
 $\boldsymbol{x_1}[t,k_1]$ of width $T=128$ samples and height $K_1=96$ frequency bands.
 
 Each layer in a convolutional network typically consists in the composition of three operations:
@@ -411,29 +389,24 @@ Finally, we project $\boldsymbol{x_4}$ onto a layer of output units $\boldsymbol
 should represent instrument activations:
 $\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
 The final transformation is a softmax nonlinearity, which ensures that output coefficients are
-non-negative and sum to one, hence can be fit to a probability distribution.
+non-negative and sum to one, hence can be fit to a probability distribution:
 \begin{equation}
 \boldsymbol{x_5}[k_5] =
 \frac{\exp \boldsymbol{y_5}[k_5]}
-{  \sum_{\kappa_5} \exp \boldsymbol{y_5}[\kappa_5] }
+{  \sum_{\kappa_5} \exp \boldsymbol{y_5}[\kappa_5] }.
 \end{equation}
-The goal is to minimize the average loss $\mathscr{L}(\boldsymbol{x_5}, \mathcal{I})$
-across all pairs $(\boldsymbol{x}, \mathcal{I})$ in the training set. This loss is defined as
-the categorical cross-entropy over shuffled mini-batches of size 32 with uniform
-class distribution, to which is added a weight decay term upon the last layer.
-\begin{equation}
-\mathscr{L}(\boldsymbol{x_5}, \mathcal{I}) =
-- \sum_{k_5 \in \mathcal{I}} \log \boldsymbol{x_5}[k_5]
-+ \lambda_5 \Vert W_5 \Vert_2
-\end{equation}
-Each training example is a 3-second spectrogram whose boundaries are selected at random
-over non-silent regions of a song.
-Each spectrogram within a batch was globally normalized
-such that the whole batch had zero mean and unit variance.
+Given a training set of spectrogram-instrument pairs $(\boldsymbol{x_1}, k)$,
+all weigths in the network are iteratively updated to minimize the cross-entropy loss
+$\mathscr{L}(\boldsymbol{x_5}, k) = - \log \boldsymbol{x_5}[k]$
+over shuffled mini-batches of size $32$ with uniform class distribution.
+The pairs $(\boldsymbol{x_1}, k)$ are extracted on the fly by selecting non-silent
+regions at random within a dataset of single-instrument audio recordings.
+Each $3$-second spectrogram $\boldsymbol{x_1}[t, k_1]$ within a batch is
+globally normalized such that the whole batch had zero mean and unit variance.
 The learning rate policy for each scalar weight in the network is Adam \cite{Kingma2015},
 a state-of-the-art online optimizer for gradient-based learning.
 Mini-batch training was stopped after the average training loss stopped
-decreasing over one full epoch of size 8192.
+decreasing over one full epoch of size $8192$.
 The architecture was built using the Keras library \cite{Chollet2015},
 and trained on a graphics processing unit within a few minutes.
 
