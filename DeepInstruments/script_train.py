@@ -1,5 +1,6 @@
 import DeepInstruments as di
 import numpy as np
+import warnings
 
 is_2d = True
 is_1d = False
@@ -26,13 +27,14 @@ if not is_1d:
 if not is_spiral:
     js[2:, :] = 0
 
-# resp for 2d, 1d, spiral, spiral, spiral
-offsets = [
-     np.mean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
-     np.mean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :]),
-     np.mean(X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :]),
-     np.mean(X_test[:, :, (js[3,0]*Q):(js[3,1]*Q), :]),
-     np.mean(X_test[:, :, (js[4,0]*Q):(js[4,1]*Q), :])]
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore", category=RuntimeWarning)
+    offsets = [
+         np.nanmean(X_test[:, :, (js[0,0]*Q):(js[0,1]*Q), :]),
+         np.nanmean(X_test[:, :, (js[1,0]*Q):(js[1,1]*Q), :]),
+         np.nanmean(X_test[:, :, (js[2,0]*Q):(js[2,1]*Q), :]),
+         np.nanmean(X_test[:, :, (js[3,0]*Q):(js[3,1]*Q), :]),
+         np.nanmean(X_test[:, :, (js[4,0]*Q):(js[4,1]*Q), :])]
 
 # Parameters for learning
 batch_size = 32
@@ -43,10 +45,6 @@ optimizer = "adam"
 # I/O sizes
 X_width = decision_length / hop_length
 dense2_channels = 8
-X_height = Q * n_octaves
-mask_width = X_width / pool1_width
-mask_height = X_height / pool1_height
-masked_output = np.zeros((batch_size, 1, mask_height, mask_width))
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 # Build ConvNet as a Keras graph, compile it with Theano

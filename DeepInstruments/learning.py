@@ -111,7 +111,10 @@ def build_graph(
         inputs.append("flatten_1d")
     if is_sp:
         inputs.append("flatten_sp")
-    graph.add_node(drop1, name="drop1", inputs=inputs)
+    if len(inputs)>1:
+        graph.add_node(drop1, name="drop1", inputs=inputs)
+    else:
+        graph.add_node(drop1, name="drop1", input=inputs[0])
     dense1 = Dense(dense1_channels, init="lecun_uniform")
     graph.add_node(dense1, name="dense1", input="drop1")
     relu3 = LeakyReLU(alpha=alpha)
