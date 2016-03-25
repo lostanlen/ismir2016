@@ -44,7 +44,7 @@ for trial in range(n_trials):
         elif arch == 2:  # 1d
             conv1_channels = [0, 320, 0]  # 835k
         elif arch == 3:  # spiral & 1d
-            conv1_channels = [0, 128, 128]  # 772k
+            conv1_channels = [0, 128, 128]  # 773k
         elif arch == 4:  # 2d
             conv1_channels = [96, 0, 0]  # 841k
         elif arch == 5:  # 2d & spiral
