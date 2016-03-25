@@ -584,6 +584,9 @@ The predicted probability distributions were computed for every excerpt in a tra
 and then aggregated by geometric mean to provide a decision at the scale of
 the entire audio file.
 
+Standard deviations for the test accuracies were estimated by training all architectures
+ten times with random initialization \cite{He2015}.
+
 In order to compare the results against shallow classifiers, we also extracted a typical
 "bag-of-features" over half-overlapping, 3-second excerpts in the training set.
 These features consist of the temporal averages and standard

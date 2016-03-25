@@ -72,7 +72,7 @@ G. Single-label classification
 6. [DONE] Standardize X in the generator
 7. [DONE] Train deep neural network on X and Y
 8. [DONE] Memoize test X with joblib
-9. Report class-wise accuracy with error bars
+9. [DONE] Report class-wise accuracy with error bars
 
 H.  Descriptors + Random forests baseline
 1. [DONE] Compute MFCCs on the training data

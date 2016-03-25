@@ -49,12 +49,12 @@ for trial in range(n_trials):
         elif arch == 4:  # 2d
             conv1_channels = [48, 0, 0]    # 146k
         elif arch == 5:  # 2d & spiral
-            conv1_channels = [48, 0, 48]   # 200k
+            conv1_channels = [48, 0, 48]   # 199k
         elif arch == 6:  # 2d & 1d
             conv1_channels = [48, 48, 0]   # 172k
         elif arch == 7:  # 2d & 1d & spiral
             conv1_channels = [48, 48, 48]  # 225k
-        elif arch == 8:
+        elif arch == 8: # 2d (more parameters)
             conv1_channels = [64, 0, 0]    # 230k
 
         conv2_channels = conv1_channels
@@ -91,15 +91,11 @@ for trial in range(n_trials):
                       optimizer=optimizer)
         print graph.summary()
 
-
         # Train ConvNet
         from keras.utils.generic_utils import Progbar
         batch_losses = np.zeros(epoch_size / batch_size)
-        chunk_accuracies_history = []
-        file_accuracies_history = []
         loss_history = []
         mean_loss = float("inf")
-
         for epoch_id in xrange(n_epochs):
             dataflow = datagen.flow(batch_size=batch_size,
                                     epoch_size=epoch_size)
@@ -119,35 +115,31 @@ for trial in range(n_trials):
                 break
             print "\nTraining loss = ", mean_loss, " +/- ", std_loss
 
-            # Measure test accuracies
-            class_probs = di.learning.predict(graph, X_test, Q, js, offsets)
-            y_predicted = np.argmax(class_probs, axis=1)
-            chunk_accuracies =\
-                di.singlelabel.chunk_accuracies(y_predicted, y_test)
-            chunk_accuracies_history.append(chunk_accuracies)
-            file_accuracies = di.singlelabel.file_accuracies(test_paths,
-                class_probs, y_test, method="geometric_mean")
-            file_accuracies_history.append(file_accuracies)
-            mean_file_accuracy = np.mean(file_accuracies)
-            mean_chunk_accuracy = np.mean(chunk_accuracies)
-            loss_history.append(mean_loss)
-            print "----------------------------"
-            print "            CHUNK     FILE  "
-            for name_index in range(len(names)):
-                print names[name_index],\
-                    " " * (9 - len(names[name_index])),\
-                    " " * (chunk_accuracies[name_index] < 100.0),\
-                    round(chunk_accuracies[name_index], 1), "  ",\
-                    " " * (file_accuracies[name_index] < 100.0),\
-                    round(file_accuracies[name_index], 1), "  "
-            print "----------------------------"
-            print "GLOBAL      ",\
-                round(mean_chunk_accuracy, 1), "    ",\
-                round(mean_file_accuracy, 1)
-
+        # Measure test accuracies
+        class_probs = di.learning.predict(graph, X_test, Q, js, offsets)
+        y_predicted = np.argmax(class_probs, axis=1)
+        chunk_accuracies = di.singlelabel.chunk_accuracies(y_predicted, y_test)
+        file_accuracies = di.singlelabel.file_accuracies(test_paths,
+            class_probs, y_test, method="geometric_mean")
+        mean_file_accuracy = np.mean(file_accuracies)
+        mean_chunk_accuracy = np.mean(chunk_accuracies)
+        loss_history.append(mean_loss)
+        print "----------------------------"
+        print "            CHUNK     FILE  "
+        for name_index in range(len(names)):
+            print names[name_index],\
+                " " * (9 - len(names[name_index])),\
+                " " * (chunk_accuracies[name_index] < 100.0),\
+                round(chunk_accuracies[name_index], 1), "  ",\
+                " " * (file_accuracies[name_index] < 100.0),\
+                round(file_accuracies[name_index], 1), "  "
+        print "----------------------------"
+        print "GLOBAL      ",\
+            round(mean_chunk_accuracy, 1), "    ",\
+            round(mean_file_accuracy, 1)
         loss_trial.append(loss_history)
-        chunk_trial.append(chunk_accuracies_history)
-        file_trial.append(file_accuracies_history)
+        chunk_trial.append(chunk_accuracies)
+        file_trial.append(file_accuracies)
     loss_report.append(loss_trial)
     chunk_report.append(chunk_trial)
     file_report.append(file_trial)
