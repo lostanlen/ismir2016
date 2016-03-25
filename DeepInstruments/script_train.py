@@ -143,4 +143,4 @@ for trial in range(n_trials):
         file_trial.append(file_accuracies_history)
     loss_report.append(loss_trial)
     chunk_report.append(chunk_trial)
-    file_trial.append(file_trial)
+    file_report.append(file_trial)
