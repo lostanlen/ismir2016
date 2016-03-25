@@ -37,7 +37,7 @@ for trial in range(n_trials):
     loss_trial = []
     chunk_trial = []
     file_trial = []
-    for arch in range(1,9):
+    for arch in range(4,9):
         print "========================================================="
         print "                      TRIAL ", 1+trial, " ARCH ", arch
         if arch == 1:  # spiral
@@ -47,15 +47,15 @@ for trial in range(n_trials):
         elif arch == 3:  # spiral & 1d
             conv1_channels = [0, 72, 64]   # 143k
         elif arch == 4:  # 2d
-            conv1_channels = [48, 0, 0]    # 146k
+            conv1_channels = [64, 0, 0]
         elif arch == 5:  # 2d & spiral
-            conv1_channels = [48, 0, 48]   # 199k
+            conv1_channels = [64, 0, 64]
         elif arch == 6:  # 2d & 1d
-            conv1_channels = [48, 48, 0]   # 172k
+            conv1_channels = [64, 64, 0]
         elif arch == 7:  # 2d & 1d & spiral
-            conv1_channels = [48, 48, 48]  # 225k
+            conv1_channels = [64, 64, 64]  # 365k
         elif arch == 8: # 2d (more parameters)
-            conv1_channels = [64, 0, 0]    # 230k
+            conv1_channels = [85, 0, 0]    # 369k
 
         conv2_channels = conv1_channels
 

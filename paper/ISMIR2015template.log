@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  25 MAR 2016 18:07
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  25 MAR 2016 18:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -340,7 +340,7 @@ Underfull \vbox (badness 7504) has occurred while \output is active []
 
  [4]
 
-LaTeX Warning: Citation `He2015' on page 5 undefined on input line 588.
+LaTeX Warning: Citation `He2015' on page 5 undefined on input line 593.
 
 (./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
@@ -387,6 +387,6 @@ Here is how much of TeX's memory you used:
  8190 multiletter control sequences out of 15000+600000
  16916 words of font info for 54 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 36i,15n,38p,365b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,15n,38p,392b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on ISMIR2015template.pdf (6 pages).
