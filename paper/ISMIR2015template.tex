@@ -509,7 +509,8 @@ described by merely measuring correlations between partials one octave apart,
 %the octave variable $j_1$ and the chroma variable $q_1$.
 %Conceptually, this corresponds to rolling up the log-frequency axis
 %into a Shepard pitch spiral, such that octave intervals correspond to full turns.
-For each destination feature map $k_2$, we 
+Each feature map $k_2$ results from the sum of $j_1$ convolutions between
+time-frequency kernels of size $(\Delta t \times \Delta k_1)$.
 The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_2}[t,k_1,k_2]
