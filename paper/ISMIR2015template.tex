@@ -179,18 +179,24 @@ frequency-selective, hence resembling an auditory filter bank.
 
 Some other applications of deep convolutional networks include onset
 detection \cite{Schluter2014}, transcription \cite{Sigtia2015},
+chord recognition \cite{Humphrey2012tonnetz},
 genre classification \cite{Choi2015},
-chord recognition \cite{Humphrey2012rethinking, Humphrey2012tonnetz},
+downbeat tracking \cite{Durand2016},
 boundary detection \cite{Ullrich2014}, and
 recommendation \cite{vandenOord2013}.
 
 Interestingly, many research teams in MIR have converged to employ the same
-architecture, consisting of two convolutional layers and two densely connected layers,
-with only minor variations
-\cite{Dieleman2014, Humphrey2012rethinking, Humphrey2012tonnetz,
-Kereliuk2015, Li2015, McFee2015-muda, Schluter2014, Ullrich2014}.
-With the aim of understanding the purpose of convolutional weight sharing in such
-systems, this article makes no exception.
+architecture, consisting of two convolutional layers and two densely connected layers
+\cite{Dieleman2014, Humphrey2012tonnetz,
+Kereliuk2015, Li2015, McFee2015-muda, Schluter2014, Ullrich2014}, and this
+article makes no exception.
+However, there is no clear consensus regarding the
+weight sharing strategies that should be applied to musical audio streams:
+convolutions in time or in time-frequency coexist in the recent literature.
+A promising paradigm \cite{Dieleman2011, Durand2016} is to extract various
+low-level modalities, train specific convolutional layers on each modality
+to learn mid-level features, and aggregate information at the top level.
+
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that
@@ -301,8 +307,12 @@ Architecture of a convolutional network with full weight sharing. See text for d
 Each layer in a convolutional network typically consists in the composition of three operations:
 two-dimensional convolutions, application of a pointwise nonlinearity, and local pooling.
 The deep feed-forward network made of two convolutional layers and two densely connected
-layers, on which our experiment are conducted, has become a \emph{de facto} standard in the MIR community. This ubiquity in the literature suggests that it is well adapted to supervised audio
-classifiication problems of moderate size.
+layers, on which our experiment are conducted,
+has become a \emph{de facto} standard in the MIR community
+\cite{Dieleman2014, Humphrey2012tonnetz,
+Kereliuk2015, Li2015, McFee2015-muda, Schluter2014, Ullrich2014}.
+This ubiquity in the literature suggests that the a four-layer network with two convolutional
+layers is well adapted to supervised audio classification problems of moderate size.
 
 The input of our system is a constant-Q wavelet scalogram, which is very comparable to a
 mel-frequency spectrogram.
@@ -333,7 +343,7 @@ added to the convolutions, resulting in the three-way tensor
 \boldsymbol{W_2}[\tau, \kappa_1, k_2]
 \boldsymbol{x_1}[t-\tau, k_1-\kappa_1].
 \IEEEeqnarraynumspace
-\label{eq:convolution}
+\label{eq:convolution2d}
 \end{IEEEeqnarray}
 The pointwise nonlinearity we have chosen is the rectified linear unit (ReLU),
 with a rectifying slope of $\alpha=0.3$ for negative inputs.
@@ -411,9 +421,9 @@ Each $3$-second spectrogram $\boldsymbol{x_1}[t, k_1]$ within a batch is
 globally normalized such that the whole batch had zero mean and unit variance.
 The learning rate policy for each scalar weight in the network is Adam \cite{Kingma2015},
 a state-of-the-art online optimizer for gradient-based learning.
-Mini-batch training was stopped after the average training loss stopped
+Mini-batch training is stopped after the average training loss stopped
 decreasing over one full epoch of size $8192$.
-The architecture was built using the Keras library \cite{Chollet2015},
+The architecture is built using the Keras library \cite{Chollet2015},
 and trained on a graphics processing unit within a few minutes.
 
 \section{Improved weight sharing strategies}
@@ -455,7 +465,7 @@ The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \boldsymbol{W_2}[\tau, k_1, k_2]
 \boldsymbol{x_1}[t-\tau, k_1],
 \IEEEeqnarraynumspace
-\label{eq:convolution}
+\label{eq:convolution1d}
 \end{IEEEeqnarray}
 and similarly for $\boldsymbol{y_3}[t, k_1, k_3]$.
 While this approach is theoretically capable of encoding pitch invariants, it is
@@ -492,11 +502,14 @@ Observe that, for any two distinct partials taken at random between $1$ and $n$,
 the probability that they are in octave relation is slightly above $1/n$.
 Thus, for $n$ relatively low, the structure of harmonic sounds is well
 described by merely measuring correlations between partials one octave apart,
-\ie log-frequency bands $\gamma$ and $\gamma \pm Q$.
+\ie between log-frequency bands $k_1$ and $k_1 \pm Q$.
 
-Leveraging the fact that power-of-two harmonics are one octave apart, we roll
-up the log-frequency into a Shepard pitch spiral, such that octave intervals
-correspond to full turns.
+To leverage the fact that power-of-two harmonics are one octave apart,
+we make the Euclidean division $k_1 = Q \times j_1 + q_1$, hence revealing
+the octave variable $j_1$ and the chroma variable $q_1$.
+Conceptually, this corresponds to rolling up the log-frequency axis
+into a Shepard pitch spiral, such that octave intervals correspond to full turns.
+
 The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_2}[t,k_1,k_2]
@@ -536,14 +549,16 @@ thus, we only apply them at the topmost frequencies, \ie where the
 invariance-to-stationarity ratio in the data is already favorable.
 Conversely, two-dimensional convolutions on the pitch spiral addresses
 the invariant representation of sparse, transposition-covariant spectra:
-they are best suited to the lowest frequencies, \ie where partials
+as such, they are best suited to the lowest frequencies,
+\ie where partials
 are further apart and pitch changes can be approximated by log-frequency
 translations.
+The next section reports experiments on instrument recognition that capitalize
+on these considerations.
 
 \section{Applications}\label{sec:single-instrument}
 In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a
-dataset of 122 multitracks annotated with instrument activations as well as melodic $f_0$
-curves when present. 
+dataset of 122 multitracks annotated with instrument activations. 
 We extracted the monophonic stems corresponding to a selection of eight pitched
 instruments (see Table \ref{table:single-label-durations}).
 Stems with leaking instruments in the background were discarded.
@@ -610,9 +625,10 @@ Results are summarized in Table \ref{table:results}.
 		\hline
 		& clarinet & distorted & female & flute & piano & tenor & trumpet & violin & average \\
 		\hline
-		bag-of-features \& MFCC
+		bag-of-features
 		& 49.9 & 92.7 & 81.6 & 22.5 & \textbf{99.7} & \hphantom{0}4.4 & 63.7 & 76.2 & 61.3 \\
 		\hline
+		
 		2-d
 		& 59.9 & \textbf{94.0} & 90.5 & 30.4 & \textbf{99.7} & 56.3 & 61.6 & 79.4 & 71.5 \\
 		1-d
@@ -637,14 +653,20 @@ Results are summarized in Table \ref{table:results}.
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of
 an efficient system for automated classification, tagging, and similarity retrieval in music. 
-We have presented a data-driven, supervised method to address pitch invariance
+We have presented a supervised, end-to-end learning method to address pitch invariance
 while preserving good timbral discriminability.
+It consists in training a feed-forward convolutional network over the constant-Q spectrogram,
+with three different weight sharing strategies according to the type of input:
+along time at high frequencies (above $2\,\mathrm{kHz}$), on a pitch spiral at low frequencies.
+and in time-frequency over both high and low frequencies.
 
-
+This method resembles \cite{Dieleman2011} \cite{Durand2016}
 Future work will be devoted to integrating the proposed scheme with other advances
 in deep learning for music informatics, such as data augmentation \cite{McFee2015-muda},
 multiscale representations \cite{Hamel2012, Anden2015},
 and adversarial training \cite{Kereliuk2015}.
+
+\clearpage
 % For bibtex users:
 \bibliography{ISMIR2015template}
 

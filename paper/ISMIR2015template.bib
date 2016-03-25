@@ -62,6 +62,16 @@ year = {2005},
 publisher = {Oxford University Press}
 }
 
+@inproceedings{Dieleman2011,
+abstract = {Recently the ?Million Song Dataset?, containing audio features and metadata for one million songs, was made available. In this paper, we build a convolutional network that is then trained to perform artist recognition, genre recognition and key detection. The network is tailored to summarize the audio features over musically significant timescales. It is infeasible to train the network on all available data in a supervised fashion, so we use unsupervised pretraining to be able to harness the entire dataset: we train a convolutional deep belief network on all data, and then use the learnt parameters to initialize a convolutional multilayer perceptron with the same architecture. The MLP is then trained on a labeled subset of the data for each task. We also train the same MLP with randomly initialized weights. We find that our convolutional approach improves accuracy for the genre recognition and artist recognition tasks. Unsupervised pretraining improves convergence speed in all cases. For artist recognition it improves accuracy as well.},
+author = {Dieleman, Sander and Brakel, Phil\'{e}mon and Schrauwen, Benjamin},
+isbn = {9780615548654},
+booktitle = {Proc. ISMIR},
+title = {{Audio-based music classification with a pretrained convolutional network}},
+url = {https://biblio.ugent.be/publication/1989534},
+year = {2011}
+}
+
 @inproceedings{Dieleman2014,
 abstract = {Content-based music information retrieval tasks have traditionally been solved using engineered features and shallow processing architectures. In recent years, there has been increasing interest in using feature learning and deep architectures instead, thus reducing the required engineering effort and the need for prior knowledge. However, this new approach typically still relies on mid-level representations of music audio, e.g. spectrograms, instead of raw audio signals. In this paper, we investigate whether it is possible to apply feature learning directly to raw audio signals. We train convolutional neural networks using both approaches and compare their performance on an automatic tagging task. Although they do not outperform a spectrogram-based approach, the networks are able to autonomously discover frequency decompositions from raw audio, as well as phase-and translation-invariant feature representations. � 2014 IEEE.},
 author = {Dieleman, Sander and Schrauwen, Benjamin},
@@ -74,6 +84,12 @@ title = {{End-to-end learning for music audio}},
 url = {http://www.redes.unb.br/lasp/files/events/ICASSP2014/papers/p7014-dieleman.pdf},
 year = {2014}
 }
+
+@inproceedings{Durand2016,
+title = {Feature-adapted convolutional neural networks for downbeat tracking},
+author = {Durand, Simon and Bello, Juan P. and David, Bertrand and Richard, Ga\"{e}l},
+booktitle = {Proc. ICASSP},
+year = {2016}}
 
 @inproceedings{Eronen2000,
   title={Musical instrument recognition using cepstral coefficients and temporal features},
@@ -104,17 +120,6 @@ author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
 title = {Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification},
 booktitle = {Proc. ICCV},
 year = {2015}
-}
-
-@inproceedings{Humphrey2012rethinking,
-abstract = {Despite early success in automatic chord recognition, recent efforts are yielding diminishing returns while basically iterating over the same fundamental approach. Here, we abandon typical conventions and adopt a different perspective of the problem, where several seconds of pitch spectra are classified directly by a convolutional neural network. Using labeled data to train the system in a supervised manner, we achieve state of the art performance through this initial effort in an otherwise unexplored area. Subsequent error analysis provides insight into potential areas of improvement, and this approach to chord recognition shows promise for future harmonic analysis systems.},
-author = {Humphrey, Eric J. and Bello, Juan P.},
-doi = {10.1109/ICMLA.2012.220},
-isbn = {9780769549132},
-booktitle = {Proc. ICMLA},
-keywords = {automatic music transcription,chord recognition,convolutional neural nets},
-title = {{Rethinking automatic chord recognition with convolutional neural networks}},
-year = {2012}
 }
 
 @inproceedings{Humphrey2012tonnetz,

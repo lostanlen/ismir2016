@@ -14,18 +14,17 @@ X_width = decision_length / hop_length
 dense2_channels = 8
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
-n_trials = 10
+n_trials = 1
 conv1_height = [5, 3] # resp for 2d, spiral
 conv1_width = 3
 pool1_height = 2
 pool1_width = 6
-conv2_height = [5, 3] # resp for 2d, 1d, spiral
+conv2_height = [5, 5] # resp for 2d, spiral
 conv2_width = 7
 pool2_height = 2
-pool2_width = 6
-dense1_channels = 32
+pool2_width = 7
 alpha = 0.3  # for LeakyReLU
-js = np.matrix([[0, 8], [5, 8], [0, 3], [1, 4], [2, 5]])
+js = np.matrix([[0, 8], [5, 8], [1, 3], [2, 4], [3, 5]])
 
 loss_report = []
 chunk_report = []
@@ -41,23 +40,24 @@ for trial in range(n_trials):
         print "========================================================="
         print "                      TRIAL ", 1+trial, " ARCH ", arch
         if arch == 1:  # spiral
-            conv1_channels = [0, 0, 80]    # 142k
+            conv1_channels = [0, 0, 160]
         elif arch == 2:  # 1d
-            conv1_channels = [0, 128, 0]   # 141k
+            conv1_channels = [0, 224, 0]
         elif arch == 3:  # spiral & 1d
-            conv1_channels = [0, 72, 64]   # 143k
+            conv1_channels = [0, 128, 128]
         elif arch == 4:  # 2d
-            conv1_channels = [64, 0, 0]
+            conv1_channels = [96, 0, 0]
         elif arch == 5:  # 2d & spiral
-            conv1_channels = [64, 0, 64]
+            conv1_channels = [96, 0, 96]
         elif arch == 6:  # 2d & 1d
-            conv1_channels = [64, 64, 0]
+            conv1_channels = [96, 96, 0]
         elif arch == 7:  # 2d & 1d & spiral
-            conv1_channels = [64, 64, 64]  # 365k
+            conv1_channels = [96, 96, 96] # 1.3M
         elif arch == 8: # 2d (more parameters)
-            conv1_channels = [85, 0, 0]    # 369k
+            conv1_channels = [144, 0, 0] # 1.5M
 
         conv2_channels = conv1_channels
+        dense1_channels = 128
 
         is_sp = arch in [1,    3,    5,    7]
         is_1d = arch in [   2, 3,       6, 7]
@@ -87,9 +87,10 @@ for trial in range(n_trials):
             conv2_channels, conv2_height, conv2_width,
             pool2_height, pool2_width,
             dense1_channels, dense2_channels, alpha)
+        print graph.summary()
         graph.compile(loss={"Y": "categorical_crossentropy"},
                       optimizer=optimizer)
-        print graph.summary()
+
 
         # Train ConvNet
         from keras.utils.generic_utils import Progbar

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  25 MAR 2016 18:28
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  25 MAR 2016 22:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -230,11 +230,7 @@ Package: IEEEtrantools 2014/09/17 V1.4 by Michael Shell
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(./ISMIR2015template.aux
-
-LaTeX Warning: Label `eq:convolution' multiply defined.
-
-)
+(./ISMIR2015template.aux)
 \openout1 = `ISMIR2015template.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
@@ -250,7 +246,8 @@ LaTeX Font Info:    ... okay on input line 59.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
 LaTeX Font Info:    ... okay on input line 59.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 59.
- (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 Package caption Info: Begin \AtBeginDocument code.
@@ -304,45 +301,38 @@ File: figs/chromatic_scale.png Graphic file (type QTm)
 <use  "figs/chromatic_scale.png" >
 File: figs/mfcc_variances.png Graphic file (type QTm)
  <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 273--274
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 279--280
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 279--279
+Underfull \hbox (badness 2401) in paragraph at lines 285--285
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
 [2]
 File: figs/architecture.png Graphic file (type QTm)
  <use  "figs/architecture.png" >
-Underfull \hbox (badness 3492) in paragraph at lines 317--321
+Underfull \hbox (badness 3492) in paragraph at lines 327--331
 []\OT1/ptm/m/n/10 A con-vo-lu-tional op-er-a-tor is de-fined as a fam-ily
  []
 
 
-Overfull \hbox (0.61523pt too wide) in alignment at lines 340--347
+Overfull \hbox (0.61523pt too wide) in alignment at lines 350--357
  [] [][]
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 403--418
+Underfull \hbox (badness 1968) in paragraph at lines 413--428
 \OT1/ptm/m/n/10 Given a train-ing set of spectrogram-instrument pairs
  []
 
 [3]
-Underfull \hbox (badness 4927) in paragraph at lines 465--479
+Underfull \hbox (badness 4927) in paragraph at lines 475--489
 []\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
  []
 
-
-Underfull \vbox (badness 7504) has occurred while \output is active []
-
- [4]
-
-LaTeX Warning: Citation `He2015' on page 5 undefined on input line 593.
-
-(./ISMIR2015template.bbl
+[4] [5] [6] (./ISMIR2015template.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -352,41 +342,47 @@ Underfull \hbox (badness 4096) in paragraph at lines 16--20
 []\OT1/ptm/m/n/10 Keunwoo Choi, George Fazekas, Mark San-dler,
  []
 
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 43--47
+
+Underfull \hbox (badness 1424) in paragraph at lines 32--36
+\OT1/ptm/m/n/10 pre-trained con-vo-lu-tional net-work.  In \OT1/ptm/m/it/10 Pro
+c. IS-MIR\OT1/ptm/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--58
 []\OT1/ptm/m/n/10 Masataka Goto, Hi-roki Hashiguchi, Takuichi
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 49--53
+Underfull \hbox (badness 1377) in paragraph at lines 60--64
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 100--104
+Underfull \vbox (badness 6625) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1184) in paragraph at lines 111--115
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
 
-Underfull \hbox (badness 1242) in paragraph at lines 123--126
+Underfull \hbox (badness 1242) in paragraph at lines 134--137
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
-) [6] (./ISMIR2015template.aux)
+[7
 
-LaTeX Warning: There were undefined references.
+]) [8
 
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+] (./ISMIR2015template.aux) ) 
 Here is how much of TeX's memory you used:
- 4907 strings out of 493706
- 78100 string characters out of 6145769
- 178151 words of memory out of 5000000
- 8190 multiletter control sequences out of 15000+600000
+ 4909 strings out of 493706
+ 78122 string characters out of 6145769
+ 178128 words of memory out of 5000000
+ 8192 multiletter control sequences out of 15000+600000
  16916 words of font info for 54 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 36i,15n,38p,392b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,15n,38p,376b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ISMIR2015template.pdf (6 pages).
+Output written on ISMIR2015template.pdf (8 pages).

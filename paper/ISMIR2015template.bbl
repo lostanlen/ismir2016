@@ -28,10 +28,21 @@ Alain de~Cheveign{\'{e}}.
 \newblock In {\em Oxford Handbook of Auditory Science: Hearing}, chapter~4,
   pages 71--104. Oxford University Press, 2005.
 
+\bibitem{Dieleman2011}
+Sander Dieleman, Phil\'{e}mon Brakel, and Benjamin Schrauwen.
+\newblock {Audio-based music classification with a pretrained convolutional
+  network}.
+\newblock In {\em Proc. ISMIR}, 2011.
+
 \bibitem{Dieleman2014}
 Sander Dieleman and Benjamin Schrauwen.
 \newblock {End-to-end learning for music audio}.
 \newblock In {\em Proc. ICASSP}, 2014.
+
+\bibitem{Durand2016}
+Simon Durand, Juan~P. Bello, Bertrand David, and Ga\"{e}l Richard.
+\newblock Feature-adapted convolutional neural networks for downbeat tracking.
+\newblock In {\em Proc. ICASSP}, 2016.
 
 \bibitem{Eronen2000}
 Antti Eronen and Anssi Klapuri.
@@ -51,11 +62,11 @@ Philippe Hamel, Yoshua Bengio, and Douglas Eck.
   timescale representations}.
 \newblock In {\em Proc. ISMIR}, 2012.
 
-\bibitem{Humphrey2012rethinking}
-Eric~J. Humphrey and Juan~P. Bello.
-\newblock {Rethinking automatic chord recognition with convolutional neural
-  networks}.
-\newblock In {\em Proc. ICMLA}, 2012.
+\bibitem{He2015}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Delving deep into rectifiers: Surpassing human-level performance on
+  imagenet classification.
+\newblock In {\em Proc. ICCV}, 2015.
 
 \bibitem{Humphrey2013}
 Eric~J. Humphrey, Juan~P. Bello, and Yann Le~Cun.
