@@ -16,4 +16,4 @@ X = di.audio.get_X(decision_length,
                    "research/1395.wav")
 
 X = (X - np.min(X)) / (np.max(X) - np.min(X))
-librosa.display.specshow(X - 0.5)
+librosa.display.specshow(1 - np.sqrt(X), cmap="gray")
