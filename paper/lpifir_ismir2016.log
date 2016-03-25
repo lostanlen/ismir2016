@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  25 MAR 2016 23:32
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  25 MAR 2016 23:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**ISMIR2015template.tex
-(./ISMIR2015template.tex
+**lpifir_ismir2016.tex
+(./lpifir_ismir2016.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
@@ -230,8 +230,8 @@ Package: IEEEtrantools 2014/09/17 V1.4 by Michael Shell
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(./ISMIR2015template.aux)
-\openout1 = `ISMIR2015template.aux'.
+(./lpifir_ismir2016.aux)
+\openout1 = `lpifir_ismir2016.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
 LaTeX Font Info:    ... okay on input line 59.
@@ -277,8 +277,12 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 61.
-File: figs/cc_by.pdf Graphic file (type QTm)
 
+Overfull \hbox (12.0pt too wide) in paragraph at lines 61--61
+ [][] 
+ []
+
+File: figs/cc_by.pdf Graphic file (type QTm)
 <use  "figs/cc_by.pdf" >
 LaTeX Font Info:    Try loading font information for OMS+ptm on input line 61.
 
@@ -332,7 +336,7 @@ Underfull \hbox (badness 4927) in paragraph at lines 475--489
 []\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
  []
 
-[4] (./ISMIR2015template.bbl [5]
+[4] (./lpifir_ismir2016.bbl [5]
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -370,14 +374,14 @@ Underfull \hbox (badness 1242) in paragraph at lines 134--137
 
 ) [7
 
-] (./ISMIR2015template.aux) ) 
+] (./lpifir_ismir2016.aux) ) 
 Here is how much of TeX's memory you used:
- 4909 strings out of 493706
- 78122 string characters out of 6145769
- 178128 words of memory out of 5000000
- 8192 multiletter control sequences out of 15000+600000
+ 4910 strings out of 493706
+ 78121 string characters out of 6145769
+ 178156 words of memory out of 5000000
+ 8193 multiletter control sequences out of 15000+600000
  16916 words of font info for 54 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 36i,15n,38p,376b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,15n,38p,375b,357s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ISMIR2015template.pdf (7 pages).
+Output written on lpifir_ismir2016.pdf (7 pages).
