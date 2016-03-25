@@ -504,12 +504,12 @@ Thus, for $n$ relatively low, the structure of harmonic sounds is well
 described by merely measuring correlations between partials one octave apart,
 \ie between log-frequency bands $k_1$ and $k_1 \pm Q$.
 
-To leverage the fact that power-of-two harmonics are one octave apart,
-we make the Euclidean division $k_1 = Q \times j_1 + q_1$, hence revealing
-the octave variable $j_1$ and the chroma variable $q_1$.
-Conceptually, this corresponds to rolling up the log-frequency axis
-into a Shepard pitch spiral, such that octave intervals correspond to full turns.
-
+%To leverage the fact that power-of-two harmonics are one octave apart,
+%we make the Euclidean division $k_1 = Q \times j_1 + q_1$, hence revealing
+%the octave variable $j_1$ and the chroma variable $q_1$.
+%Conceptually, this corresponds to rolling up the log-frequency axis
+%into a Shepard pitch spiral, such that octave intervals correspond to full turns.
+For each destination feature map $k_2$, we 
 The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \begin{IEEEeqnarray}{rCl}
 \boldsymbol{y_2}[t,k_1,k_2]
@@ -523,6 +523,9 @@ The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \boldsymbol{x_1}[t - \tau, k_1 - \kappa_1 - Q j_1]
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
+The above is different from training two-dimensional kernel on
+a time-chroma-octave tensor, since it does not suffer from border effects
+at octave boundaries.
 
 The linear combinations of frequency bands that are one octave apart,
 as proposed here,
