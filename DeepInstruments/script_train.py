@@ -36,7 +36,7 @@ for trial in range(n_trials):
     loss_trial = []
     chunk_trial = []
     file_trial = []
-    for arch in range(4,9):
+    for arch in range(4, 9):
         print "========================================================="
         print "                      TRIAL ", 1+trial, " ARCH ", arch
         if arch == 1:  # spiral
