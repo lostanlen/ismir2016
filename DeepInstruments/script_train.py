@@ -1,6 +1,7 @@
 import DeepInstruments as di
 import numpy as np
 import warnings
+import pickle
 
 # Parameters for learning
 batch_size = 32
@@ -24,7 +25,7 @@ pool2_height = 2
 pool2_width = 6
 dense1_channels = 32
 alpha = 0.3  # for LeakyReLU
-js = np.matrix([[0, 8], [5, 8], [1, 3], [2, 4], [3, 5]])
+js = np.matrix([[0, 8], [5, 8], [0, 3], [1, 4], [2, 5]])
 
 loss_report = []
 chunk_report = []
@@ -36,28 +37,31 @@ for trial in range(n_trials):
     loss_trial = []
     chunk_trial = []
     file_trial = []
-    for arch in range(1, 7):
+    for arch in range(1,9):
         print "========================================================="
         print "                      TRIAL ", 1+trial, " ARCH ", arch
         if arch == 1:  # spiral
-            conv1_channels = [0, 0, 68]  # 103k parameters
+            conv1_channels = [0, 0, 80]    # 142k
         elif arch == 2:  # 1d
-            conv1_channels = [0, 104, 0]  # 97k parameters
+            conv1_channels = [0, 128, 0]   # 141k
         elif arch == 3:  # spiral & 1d
-            conv1_channels = [0, 72, 48]  # 104k parameters
+            conv1_channels = [0, 72, 64]   # 143k
         elif arch == 4:  # 2d
-            conv1_channels = [36, 0, 0]  # 95k parameters
+            conv1_channels = [48, 0, 0]    # 146k
         elif arch == 5:  # 2d & spiral
-            conv1_channels = [32, 0, 40]  # 104k parameters
+            conv1_channels = [48, 0, 48]   # 200k
         elif arch == 6:  # 2d & 1d
-            conv1_channels = [28, 56, 0]  # 99k parameters
+            conv1_channels = [48, 48, 0]   # 172k
         elif arch == 7:  # 2d & 1d & spiral
-            conv1_channels = [24, 48, 32]  # 104k parameters
+            conv1_channels = [48, 48, 48]  # 225k
+        elif arch == 8:
+            conv1_channels = [64, 0, 0]    # 230k
+
         conv2_channels = conv1_channels
 
         is_sp = arch in [1,    3,    5,    7]
         is_1d = arch in [   2, 3,       6, 7]
-        is_2d = arch in [         4, 5, 6, 7]
+        is_2d = arch in [         4, 5, 6, 7, 8]
         js = np.matrix([[0, 8], [5, 8], [1, 3], [2, 4], [3, 5]])
         if not is_2d:
             js[0, :] = 0
@@ -85,6 +89,8 @@ for trial in range(n_trials):
             dense1_channels, dense2_channels, alpha)
         graph.compile(loss={"Y": "categorical_crossentropy"},
                       optimizer=optimizer)
+        print graph.summary()
+
 
         # Train ConvNet
         from keras.utils.generic_utils import Progbar
@@ -121,6 +127,7 @@ for trial in range(n_trials):
             chunk_accuracies_history.append(chunk_accuracies)
             file_accuracies = di.singlelabel.file_accuracies(test_paths,
                 class_probs, y_test, method="geometric_mean")
+            file_accuracies_history.append(file_accuracies)
             mean_file_accuracy = np.mean(file_accuracies)
             mean_chunk_accuracy = np.mean(chunk_accuracies)
             loss_history.append(mean_loss)
@@ -144,3 +151,4 @@ for trial in range(n_trials):
     loss_report.append(loss_trial)
     chunk_report.append(chunk_trial)
     file_report.append(file_trial)
+    pickle.dump(loss_report, open("Table2.p", "wb"))
