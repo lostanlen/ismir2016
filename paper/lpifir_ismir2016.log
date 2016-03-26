@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 08:35
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 08:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -372,7 +372,7 @@ Underfull \hbox (badness 1424) in paragraph at lines 32--36
 c. IS-MIR\OT1/ptm/m/n/10 ,
  []
 
-
+[6]
 Underfull \hbox (badness 10000) in paragraph at lines 54--58
 []\OT1/ptm/m/n/10 Masataka Goto, Hi-roki Hashiguchi, Takuichi
  []
@@ -382,7 +382,7 @@ Underfull \hbox (badness 1377) in paragraph at lines 60--64
 \OT1/ptm/m/n/10 Build-ing musically-relevant au-dio fea-tures through
  []
 
-[6]
+
 Underfull \hbox (badness 1184) in paragraph at lines 111--115
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
@@ -396,7 +396,7 @@ Underfull \hbox (badness 1242) in paragraph at lines 139--142
 Here is how much of TeX's memory you used:
  5038 strings out of 493706
  80262 string characters out of 6145769
- 180678 words of memory out of 5000000
+ 182678 words of memory out of 5000000
  8295 multiletter control sequences out of 15000+600000
  21613 words of font info for 74 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
