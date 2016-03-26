@@ -445,7 +445,7 @@ in the constant-Q spectrogram.
 Yet, this can only be achieved by exploiting long-range correlations in frequency,
 such as harmonic and formantic structures.
 Besides, the harmonic comb created by the Fourier series of the source makes an
-irregular pattern on the log-frequency axis, which is hard to characterize from local
+irregular pattern on the log-frequency axis, which is hard to characterize by local
 statistics.
 
 
@@ -697,7 +697,7 @@ deviations of spectral shape descriptors, \ie centroid, bandwidth, skewness,
 and rolloff ; the mean and standard deviation of the zero-crossing rate in the time domain ;
 the mean MFCC as well their first and second derivative.
 We trained a random forest of $100$ decision trees on the resulting feature vector
-of dimension $70$.
+of dimension $70$, with uniform class probability.
 
 Results are summarized in Table \ref{table:results}.
 First of all, the bag-of-features approach presents large accuracy variations
