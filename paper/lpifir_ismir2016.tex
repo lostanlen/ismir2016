@@ -543,7 +543,7 @@ The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
 The above is different from training two-dimensional kernel on
-a time-chroma-octave tensor, since it does not suffer from border effects
+a time-chroma-octave tensor, since it does not suffer from artifacts
 at octave boundaries.
 
 The linear combinations of frequency bands that are one octave apart,
@@ -572,15 +572,14 @@ invariance-to-stationarity ratio in the data is already favorable.
 Conversely, two-dimensional convolutions on the pitch spiral addresses
 the invariant representation of sparse, transposition-covariant spectra:
 as such, they are best suited to the lowest frequencies,
-\ie where partials
-are further apart and pitch changes can be approximated by log-frequency
+\ie where partials are further apart and pitch changes can be approximated by log-frequency
 translations.
 The next section reports experiments on instrument recognition that capitalize
 on these considerations.
 
 \section{Applications}\label{sec:single-instrument}
-In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a
-dataset of 122 multitracks annotated with instrument activations. 
+The proposed algorithms are trained on a subset of MedleyDB v1.1. \cite{Bittner2014},
+a dataset of 122 multitracks annotated with instrument activations. 
 We extracted the monophonic stems corresponding to a selection of eight pitched
 instruments (see Table \ref{table:single-label-durations}).
 Stems with leaking instruments in the background were discarded.
@@ -656,21 +655,24 @@ Constant-Q spectrograms from the evaluation set were split into half-overlapping
 3-second excerpts.
 
 For the two-dimensional convolutional network, each of the two layers consists of
-$32$ kernels of width $5$ and height $5$, and a max-pooling of width $5$
+$32$ kernels of width $5$ and height $5$, followed by a max-pooling of width $5$
 and height $3$. In physical units, the supports of the kernels are respectively equal to
 $116\,\mathrm{ms}$ and $580\,\mathrm{ms}$ in time, $5$ and $10$ semitones in frequency.
 
 For the one-dimensional convolutional network, each of two layers consists of
-$32$ kernels of width $3$, and a max-pooling of width $5$. Observe that the temporal
-supports match the two-dimensional convolutional network.
+$32$ kernels of width $3$, followed by a max-pooling of width $5$. Observe that the temporal
+supports match those of the two-dimensional convolutional network.
 
 For the convolutional network on the pitch spiral, the first layer consists of $32$ kernels
 of width $5$, height $3$ semitones, and a radial length of $3$ octaves in the spiral.
 The second layer is the same as in the two-dimensional convolutional network. Pooling sizes
 also remain the same.
 
+In addition to the three architectures above, we build hybrid networks implementing
+more than one of the weight sharing strategy presented above.
 In all architectures, the densely connected layers have $K_4=64$ hidden units
 and $K_5=8$ output units.
+
 
 In order to compare the results against shallow classifiers, we also extracted a typical
 "bag-of-features" over half-overlapping, 3-second excerpts in the training set.
