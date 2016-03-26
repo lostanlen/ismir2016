@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 09:30
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 11:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -314,51 +314,57 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 64.
- [1
+
+Underfull \hbox (badness 1052) in paragraph at lines 116--128
+\OT1/ptm/m/n/10 mu-si-cal notes of a given in-stru-ment, if de-scribed by
+ []
+
+[1
 
 
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 File: figs/chromatic_scale.png Graphic file (type QTm)
-
-<use  "figs/chromatic_scale.png" > [2]
+ <use  "figs/chromatic_scale.png" >
 File: figs/mfcc_variances.png Graphic file (type QTm)
  <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 289--290
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 272--273
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 295--295
+Underfull \hbox (badness 2401) in paragraph at lines 278--278
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
+[2]
 File: figs/architecture.png Graphic file (type QTm)
-<use  "figs/architecture.png" >
-Underfull \hbox (badness 3492) in paragraph at lines 337--341
+ <use  "figs/architecture.png" >
+Underfull \hbox (badness 3492) in paragraph at lines 320--324
 []\OT1/ptm/m/n/10 A con-vo-lu-tional op-er-a-tor is de-fined as a fam-ily
  []
 
 
-Overfull \hbox (0.61523pt too wide) in alignment at lines 360--367
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (0.61523pt too wide) in alignment at lines 343--350
  [] [][]
  []
 
-[3]
-Underfull \hbox (badness 1968) in paragraph at lines 423--440
+
+Underfull \hbox (badness 1968) in paragraph at lines 406--423
 \OT1/ptm/m/n/10 Given a train-ing set of spectrogram-instrument pairs
  []
 
-
-Underfull \hbox (badness 4927) in paragraph at lines 494--508
+[3]
+Underfull \hbox (badness 4927) in paragraph at lines 481--495
 []\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
  []
 
 [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 626.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 617.
  [5] (./lpifir_ismir2016.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
@@ -369,13 +375,13 @@ Underfull \hbox (badness 4096) in paragraph at lines 16--20
 []\OT1/ptm/m/n/10 Keunwoo Choi, George Fazekas, Mark San-dler,
  []
 
-
+[6]
 Underfull \hbox (badness 1424) in paragraph at lines 32--36
 \OT1/ptm/m/n/10 pre-trained con-vo-lu-tional net-work.  In \OT1/ptm/m/it/10 Pro
 c. IS-MIR\OT1/ptm/m/n/10 ,
  []
 
-[6]
+
 Underfull \hbox (badness 10000) in paragraph at lines 54--58
 []\OT1/ptm/m/n/10 Masataka Goto, Hi-roki Hashiguchi, Takuichi
  []
@@ -399,7 +405,7 @@ Underfull \hbox (badness 1242) in paragraph at lines 139--142
 Here is how much of TeX's memory you used:
  5059 strings out of 493706
  80568 string characters out of 6145769
- 184703 words of memory out of 5000000
+ 185703 words of memory out of 5000000
  8310 multiletter control sequences out of 15000+600000
  23978 words of font info for 81 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
