@@ -70,3 +70,13 @@ pool1_activations = pool1_f(X)[0]
 for i in range(conv1_channels[0]):
     librosa.display.specshow(pool1_activations[i, :, :])
     plt.savefig("Fig3_pool1_" + str(i) + ".png")
+
+
+
+pool2_f =\
+    theano.function([graph.get_input(train=False)],
+                     graph.nodes["pool2_2d"].get_output(train=False))
+pool2_activations = pool2_f(X)[0]
+for i in range(conv2_channels[0]):
+    librosa.display.specshow(pool2_activations[i, :, :])
+    plt.savefig("Fig3_pool2_" + str(i) + ".png")
