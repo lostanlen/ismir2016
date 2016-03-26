@@ -29,18 +29,16 @@
 % Single address
 % To use with only one author or several with the same address
 % ---------------
-%\oneauthor
-%{Names should be omitted for double-blind reviewing}
-%{Affiliations should be omitted for double-blind reviewing}
-%\oneauthor
-%{Vincent Lostanlen, Carmine Emanuele Cella, and St\'{e}phane Mallat}
-%{\'{E}cole normale sup\'{e}rieure}
+\oneauthor
+{Names should be omitted for double-blind reviewing}
+{Affiliations should be omitted for double-blind reviewing}
+
 
 % Two addresses
 % --------------
-\twoauthors
-{First author} {School \\ Department}
-{Second author} {Company \\ Address}
+%\twoauthors
+%{First author} {School \\ Department}
+%{Second author} {Company \\ Address}
 
 % Three addresses
 % --------------
@@ -447,14 +445,21 @@ In this section, we introduce two alternative architectures to address
 nonstationarity of music on the mel-frequency axis,
 while still leveraging the efficiency of convolutional representations in the
 time-frequency domain.
- % ELABORATE ?
-Some objections the stationarity assumption among local neighborhoods in frequency
-are the following:
-the spectral envelope of musical instruments remains fixed in spite of
-pitch changes (see Section 2) ;
-partials of a harmonic comb get closer to each other in high frequencies on a mel scale ;
-due to the Heisenberg principle, the temporal resolution of auditory filters is lessened at
-lower frequencies.
+
+Many are the objections to the stationarity assumption among local neighborhoods
+in mel frequency.
+Notably enough, one of the most compelling is derived from the classical source-filter
+model of sound production.
+The filter, which carries the overall spectral envelope, is affected by intensity and
+playing style, but not by pitch.
+Conversely, the source, which consists of a pseudo-periodic wave, is transposed
+in frequency under the action of pitch.
+In order to extract the discriminative information present in both terms, it is first
+necessary to disentangle the contributions of source and filter
+in the constant-Q spectrogram.
+Yet, this can only be achieved by exploiting long-range correlations in frequency,
+such as neighboring partials.
+% Irregular pattern
 
 \subsection{One-dimensional convolutions at high frequencies}
 Facing nonstationary constant-Q spectra,
@@ -538,7 +543,7 @@ The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
 \IEEEeqnarraynumspace
 \end{IEEEeqnarray}
 The above is different from training two-dimensional kernel on
-a time-chroma-octave tensor, since it does not suffer from border effects
+a time-chroma-octave tensor, since it does not suffer from artifacts
 at octave boundaries.
 
 The linear combinations of frequency bands that are one octave apart,
@@ -567,15 +572,14 @@ invariance-to-stationarity ratio in the data is already favorable.
 Conversely, two-dimensional convolutions on the pitch spiral addresses
 the invariant representation of sparse, transposition-covariant spectra:
 as such, they are best suited to the lowest frequencies,
-\ie where partials
-are further apart and pitch changes can be approximated by log-frequency
+\ie where partials are further apart and pitch changes can be approximated by log-frequency
 translations.
 The next section reports experiments on instrument recognition that capitalize
 on these considerations.
 
 \section{Applications}\label{sec:single-instrument}
-In order to train the proposed algorithms, we used MedleyDB v1.1. \cite{Bittner2014}, a
-dataset of 122 multitracks annotated with instrument activations. 
+The proposed algorithms are trained on a subset of MedleyDB v1.1. \cite{Bittner2014},
+a dataset of 122 multitracks annotated with instrument activations. 
 We extracted the monophonic stems corresponding to a selection of eight pitched
 instruments (see Table \ref{table:single-label-durations}).
 Stems with leaking instruments in the background were discarded.
@@ -607,28 +611,6 @@ Stems with leaking instruments in the background were discarded.
 	\label{table:single-label-durations}}
 \end{table}
 
-The evaluation set consists of 126 recordings of solo music collected by
-Joder \etal \cite{Joder2009}, supplemented with
-23 stems of electric guitar and female voice from MedleyDB.
-In doing so, guitarists and vocalists were thoroughly put either in the training set or the test set,
-to prevent any artist bias.
-We discarded recordings with extended instrumental techniques, since they are
-extremely rare in MedleyDB.
-
-Constant-Q spectrograms from the evaluation set were split into half-overlapping,
-3-second excerpts.
-
-
-In order to compare the results against shallow classifiers, we also extracted a typical
-"bag-of-features" over half-overlapping, 3-second excerpts in the training set.
-These features consist of the means and standard
-deviations of spectral shape descriptors, \ie centroid, bandwidth, skewness,
-and rolloff ; the mean and standard deviation of the zero-crossing rate in the time domain ;
-the mean MFCC as well their first and second derivative.
-We trained a random forest of $100$ decision trees on the resulting feature vector
-of dimension $70$.
-
-Results are summarized in Table \ref{table:results}.
 
 \begin{table*}[t]
 	\begin{center}
@@ -661,6 +643,47 @@ Results are summarized in Table \ref{table:results}.
 	\caption{\label{table:results}}
 \end{table*}
 
+
+The evaluation set consists of 126 recordings of solo music collected by
+Joder \etal \cite{Joder2009}, supplemented with
+23 stems of electric guitar and female voice from MedleyDB.
+In doing so, guitarists and vocalists were thoroughly put either in the training set or the test set,
+to prevent any artist bias.
+We discarded recordings with extended instrumental techniques, since they are
+extremely rare in MedleyDB.
+Constant-Q spectrograms from the evaluation set were split into half-overlapping,
+3-second excerpts.
+
+For the two-dimensional convolutional network, each of the two layers consists of
+$32$ kernels of width $5$ and height $5$, followed by a max-pooling of width $5$
+and height $3$. In physical units, the supports of the kernels are respectively equal to
+$116\,\mathrm{ms}$ and $580\,\mathrm{ms}$ in time, $5$ and $10$ semitones in frequency.
+
+For the one-dimensional convolutional network, each of two layers consists of
+$32$ kernels of width $3$, followed by a max-pooling of width $5$. Observe that the temporal
+supports match those of the two-dimensional convolutional network.
+
+For the convolutional network on the pitch spiral, the first layer consists of $32$ kernels
+of width $5$, height $3$ semitones, and a radial length of $3$ octaves in the spiral.
+The second layer is the same as in the two-dimensional convolutional network. Pooling sizes
+also remain the same.
+
+In addition to the three architectures above, we build hybrid networks implementing
+more than one of the weight sharing strategy presented above.
+In all architectures, the densely connected layers have $K_4=64$ hidden units
+and $K_5=8$ output units.
+
+
+In order to compare the results against shallow classifiers, we also extracted a typical
+"bag-of-features" over half-overlapping, 3-second excerpts in the training set.
+These features consist of the means and standard
+deviations of spectral shape descriptors, \ie centroid, bandwidth, skewness,
+and rolloff ; the mean and standard deviation of the zero-crossing rate in the time domain ;
+the mean MFCC as well their first and second derivative.
+We trained a random forest of $100$ decision trees on the resulting feature vector
+of dimension $70$.
+
+Results are summarized in Table \ref{table:results}.
 
 \section{Conclusions}
 Understanding the influence of pitch in audio streams is paramount to the design of
