@@ -14,15 +14,15 @@ X_width = decision_length / hop_length
 dense2_channels = 8
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
-n_trials = 10
+n_trials = 5
 conv1_height = [5, 3]  # resp for 2d, spiral
 conv1_width = 5
-pool1_height = 2
-pool1_width = 6
+pool1_height = 3
+pool1_width = 5
 conv2_height = [5, 5]  # resp for 2d, spiral
 conv2_width = 5
-pool2_height = 2
-pool2_width = 7
+pool2_height = 3
+pool2_width = 5
 alpha = 0.3  # for LeakyReLU
 js = np.matrix([[0, 8], [5, 8], [1, 3], [2, 4], [3, 5]])
 
@@ -37,7 +37,7 @@ for trial in range(0, n_trials):
     loss_trial = []
     chunk_trial = []
     file_trial = []
-    for arch in range(4, 9):
+    for arch in range(1, 9):
         print "========================================================="
         print "                      TRIAL ", 1+trial, " ARCH ", arch
         if arch == 1:  # spiral
@@ -55,10 +55,10 @@ for trial in range(0, n_trials):
         elif arch == 7:  # 2d & 1d & spiral
             conv1_channels = [32, 32, 32]
         elif arch == 8: # 2d (more parameters)
-            conv1_channels = [64, 0, 0]
+            conv1_channels = [48, 0, 0]
 
         conv2_channels = conv1_channels
-        dense1_channels = 128
+        dense1_channels = 64
 
         is_sp = arch in [1,    3,    5,    7]
         is_1d = arch in [   2, 3,       6, 7]

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 05:27
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 07:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -352,7 +352,7 @@ Underfull \hbox (badness 1968) in paragraph at lines 421--438
  []
 
 
-Underfull \hbox (badness 4927) in paragraph at lines 485--499
+Underfull \hbox (badness 4927) in paragraph at lines 492--506
 []\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
  []
 
@@ -392,9 +392,11 @@ Underfull \hbox (badness 1242) in paragraph at lines 139--142
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
-) [7
+) [7] (./lpifir_ismir2016.aux)
 
-] (./lpifir_ismir2016.aux) ) 
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  5018 strings out of 493706
  79967 string characters out of 6145769
