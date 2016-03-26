@@ -15,12 +15,12 @@ dense2_channels = 8
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
 n_trials = 10
-conv1_height = [5, 3] # resp for 2d, spiral
-conv1_width = 3
+conv1_height = [5, 3]  # resp for 2d, spiral
+conv1_width = 5
 pool1_height = 2
 pool1_width = 6
-conv2_height = [5, 5] # resp for 2d, spiral
-conv2_width = 7
+conv2_height = [5, 5]  # resp for 2d, spiral
+conv2_width = 5
 pool2_height = 2
 pool2_width = 7
 alpha = 0.3  # for LeakyReLU
@@ -31,31 +31,31 @@ chunk_report = []
 file_report = []
 report = {}
 
-for trial in range(4, n_trials):
+for trial in range(0, n_trials):
     print "*********************************************************"
     print "                           TRIAL", 1+trial
     loss_trial = []
     chunk_trial = []
     file_trial = []
-    for arch in range(1, 9):
+    for arch in range(4, 9):
         print "========================================================="
         print "                      TRIAL ", 1+trial, " ARCH ", arch
         if arch == 1:  # spiral
-            conv1_channels = [0, 0, 144]  # 768k
+            conv1_channels = [0, 0, 32]
         elif arch == 2:  # 1d
-            conv1_channels = [0, 320, 0]  # 835k
+            conv1_channels = [0, 32, 0]
         elif arch == 3:  # spiral & 1d
-            conv1_channels = [0, 128, 128]  # 773k
+            conv1_channels = [0, 32, 32]
         elif arch == 4:  # 2d
-            conv1_channels = [96, 0, 0]  # 841k
+            conv1_channels = [32, 0, 0]
         elif arch == 5:  # 2d & spiral
-            conv1_channels = [96, 0, 96]
+            conv1_channels = [32, 0, 32]
         elif arch == 6:  # 2d & 1d
-            conv1_channels = [96, 96, 0]
+            conv1_channels = [32, 32, 0]
         elif arch == 7:  # 2d & 1d & spiral
-            conv1_channels = [96, 96, 96] # 1.3M
+            conv1_channels = [32, 32, 32]
         elif arch == 8: # 2d (more parameters)
-            conv1_channels = [144, 0, 0] # 1.5M
+            conv1_channels = [64, 0, 0]
 
         conv2_channels = conv1_channels
         dense1_channels = 128
@@ -148,4 +148,4 @@ for trial in range(4, n_trials):
     report["loss"] = loss_report
     report["chunk"] = chunk_report
     report["file"] = file_report
-    pickle.dump(report, open("Table2.p", "wb"))
+    #pickle.dump(report, open("Table2_K32.p", "wb"))
