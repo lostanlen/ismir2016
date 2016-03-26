@@ -15,6 +15,7 @@
 \usepackage{IEEEtrantools}
 \sloppy
 
+\usepackage{amsfonts}
 \usepackage{xspace}
 \newcommand*{\eg}{e.g.\@\xspace}
 \newcommand*{\ie}{i.e.\@\xspace}
@@ -28,18 +29,18 @@
 % Single address
 % To use with only one author or several with the same address
 % ---------------
-\oneauthor
-{Names should be omitted for double-blind reviewing}
-{Affiliations should be omitted for double-blind reviewing}
+%\oneauthor
+%{Names should be omitted for double-blind reviewing}
+%{Affiliations should be omitted for double-blind reviewing}
 %\oneauthor
 %{Vincent Lostanlen, Carmine Emanuele Cella, and St\'{e}phane Mallat}
 %{\'{E}cole normale sup\'{e}rieure}
 
 % Two addresses
 % --------------
-%\twoauthors
-%  {First author} {School \\ Department}
-%  {Second author} {Company \\ Address}
+\twoauthors
+{First author} {School \\ Department}
+{Second author} {Company \\ Address}
 
 % Three addresses
 % --------------
@@ -75,8 +76,7 @@ to the frequency transposition of pure tones.
 In turn, a deep convolutional network (ConvNet)
 in the time-frequency domain is able to disentangle pitch from
 timbral information, hence yielding better classification accuracy.
-By recombining convolutional feature maps over the Shepard pitch spiral,
-we further improve the learned representation
+We further improve the learned representation
 by introducing weight sharing strategies dedicated to
 quasi-harmonic sounds with fixed spectral envelope,
 which are archetypal of musical notes.
@@ -118,10 +118,11 @@ classification.
 Section 3 demonstrates that pitch is the major factor of variability among musical
 notes of a given instrument, if described by their mel-frequency cepstra.
 Section 4 describes a typical deep learning architecture for spectrogram-based
-classification, consisting of two convolutional layers and one densely connected layer.
-Section 5 improves the previous architecture by splitting spectrograms into
-octave-wide frequency bands, training specific convolutional layers over each band
-in parallel, and gathering feature maps at a later stage.
+classification, consisting of two convolutional layers in the time-frequency
+domain and one densely connected layer.
+Section 5 introduces alternative convolutional architectures,
+namely along time and along a Shepard pitch spiral, as well as
+aggregation of mid-level features in the deepest layers.
 Sections 6 discusses the effectiveness of the presented systems on a challenging
 dataset for music instrument recognition.
 
@@ -133,7 +134,7 @@ settings.
 Whereas unsupervised learning (\eg $k$-means \cite{Stowell2014}, Gaussian
 mixtures \cite{Joder2009}) is employed to fit the distribution of the data with
 few parameters of relatively low abstraction
-and high dimensionality, state-of-the-art supervised learning consists of a
+and high dimensionality, state-of-the-art supervised learning consists of a deep
 composition of multiple nonlinear transformations, jointly optimized
 to predict class labels, and whose behaviour tend to gain in abstraction as depth
 increases \cite{vandenOord2013}.
@@ -142,18 +143,25 @@ As compared to other deep learning techniques for audio processing,
 convolutional networks happen to strike the balance between
 learning capacity and robustness.
 The convolutional structure of learned transformations is derived from
-the assumption that input data, be it a one-dimensional waveform
-or a two-dimensional spectrogram, is stationary ; which means that
+the assumption that the input signal, be it a one-dimensional waveform
+or a two-dimensional spectrogram, is stationary --- which means that
 content is independent from location.
 Moreover, the most informative dependencies between signal coefficients
-are assumed to be concentrated to neighborhoods in time and/or frequency.
-Under such hypotheses, linear transformations of the data can be learned efficiently
+are assumed to be concentrated to temporal or spectrotemporal neighborhoods.
+Under such hypotheses, linear transformations can be learned efficiently
 by limiting their support to a small kernel which is convolved over
 the whole input.
 This method, known as weight sharing, decreases the number of parameters
-of each feature map while increasing the amount of available training data.
-%In order to clarify the importance of learning in feature design, we will describe
-%some effective approaches on music and audio signals in general.
+of each feature map while increasing the amount of data on which kernels are
+trained.
+
+By design, convolutional networks seem well adapted to the task of
+instrument recognition, as it does not require precise timing of the activation function,
+and is thus essentially a challenge of temporal integration \cite{Eronen2000, Joder2009}.
+Furthermore, it benefits from an unequivocal annotation, and may be simplified
+to a single-label classification problem by leveraging multitrack datasets \cite{Bittner2014}.
+As such, it is often used a test bed for the development of new algorithms,
+as well as in computational studies in music cognition \cite{Patil2012}.
 
 Newton and Smith \cite{Newton2012} have built a network to represent the temporal 
 dynamics of isolated musical notes.
@@ -162,18 +170,15 @@ response to sound onset, based on dynamic synapses and leaky integrate-and-fire 
 Final classification is then performed using an echo-state network in the time domain.
 
 McFee \etal \cite{McFee2015-muda} have trained a deep convolutional network on
-constant-Q representations of music instruments in order to illustrate the benefits of
-artificial data augmentation.
-Using two convolutional layers followed by two densely connected
-layers, the authors successfully proved that the overfitting of the network is
-greatly reduced by randomly manipulating the data with digital audio effects, such as
+constant-Q spectrograms in order to illustrate the benefits of artificial data augmentation.
+The authors successfully proved that the overfitting is reduced by randomly
+manipulating the data with digital audio effects, such as
 frequency transposition, time stretching, and the addition of realistic background noise.
 
 Li \etal \cite{Li2015} have also trained a deep convolutional network, whose input is
 the raw audio waveform instead of the spectrogram.
-Their aim was to prove that an end-to-end approach,
-from the learning of features to the classification task, outperform more traditional
-approaches in a challenging task of polyphonic instrument recognition.
+Their aim was to prove that an end-to-end approach could match shallow classifiers
+in a challenging context of multilabel classification.
 The authors also remark that the filters learned in the first layer are
 frequency-selective, hence resembling an auditory filter bank.
 
@@ -193,10 +198,15 @@ article makes no exception.
 However, there is no clear consensus regarding the
 weight sharing strategies that should be applied to musical audio streams:
 convolutions in time or in time-frequency coexist in the recent literature.
-A promising paradigm \cite{Dieleman2011, Durand2016} is to extract various
-low-level modalities, train specific convolutional layers on each modality
+A promising paradigm \cite{Dieleman2011, Durand2016}, at the interaction
+between feature engineering and feature learning, is to extract
+temporal or spectrotemporal descriptors of various low-level modalities,
+train specific convolutional layers on each modality
 to learn mid-level features, and aggregate information at the top level.
-
+While this idea has been successfully applied to large-scale artist
+recognition \cite{Dieleman2011} as well as downbeat tracking
+\cite{Durand2016}, we aim to proceed in a comparable way for instrument
+recognition.
 
 \section{How invariant is the Mel-frequency cepstrum ?}
 The mel scale is a quasi-logarithmic function of acoustic frequency designed such that
@@ -299,7 +309,7 @@ the functioning of each layer.
         \end{picture}
     \end{center}
     \protect\caption{
-Architecture of a convolutional network with full weight sharing. See text for details.
+A two-dimensional deep convolutional network trained on constant-Q spectrograms. See text for details.
 \label{fig:instrument-distribution}
 }
 \end{figure*}
@@ -419,11 +429,13 @@ The pairs $(\boldsymbol{x_1}, k)$ are extracted on the fly by selecting non-sile
 regions at random within a dataset of single-instrument audio recordings.
 Each $3$-second spectrogram $\boldsymbol{x_1}[t, k_1]$ within a batch is
 globally normalized such that the whole batch had zero mean and unit variance.
+At training time, a random dropout of 50\% is applied to the activations of
+$\boldsymbol{x_3}$ and $\boldsymbol{x_4}$.
 The learning rate policy for each scalar weight in the network is Adam \cite{Kingma2015},
 a state-of-the-art online optimizer for gradient-based learning.
 Mini-batch training is stopped after the average training loss stopped
 decreasing over one full epoch of size $8192$.
-The architecture is built using the Keras library \cite{Chollet2015},
+The architecture is built using the Keras library \cite{Chollet2015}
 and trained on a graphics processing unit within a few minutes.
 
 \section{Improved weight sharing strategies}
@@ -435,7 +447,7 @@ In this section, we introduce two alternative architectures to address
 nonstationarity of music on the mel-frequency axis,
 while still leveraging the efficiency of convolutional representations in the
 time-frequency domain.
- 
+ % ELABORATE ?
 Some objections the stationarity assumption among local neighborhoods in frequency
 are the following:
 the spectral envelope of musical instruments remains fixed in spite of
@@ -473,7 +485,7 @@ prone to early specialization of low-level features, thus
 not fully taking advantage of the network depth.
 
 However, the situation is improved if the one-dimensional
-kernels are restricted to the highest frequencies of the constant-Q spectrum.
+kernels are restricted to the highest frequencies in the constant-Q spectrum.
 It should be observed that, around the $n^{\textrm{th}}$ partial of a quasi-harmonic sound,
 the distance in log-frequency between neighboring partials decays like $1/n$,
 and the unevenness between those distances decays like $1/n^2$.
@@ -486,6 +498,7 @@ have similar spectra up to some additive bias.
 The combination of these two phenomena implies that the correlation between
 constant-Q spectra of different pitches is greater towards high frequencies, and that
 the learning of polyvalent feature maps becomes tractable.
+
 
 In our experiments, the one-dimensional convolutions over the time variable
 range from
@@ -501,14 +514,14 @@ that the harmonic comb is sparse and covariant with respect to pitch shift.
 Observe that, for any two distinct partials taken at random between $1$ and $n$,
 the probability that they are in octave relation is slightly above $1/n$.
 Thus, for $n$ relatively low, the structure of harmonic sounds is well
-described by merely measuring correlations between partials one octave apart,
-\ie between log-frequency bands $k_1$ and $k_1 \pm Q$.
+described by merely measuring correlations between partials one octave apart.
+This idea consists in rolling up the log-frequency axis into a Shepard pitch spiral,
+such that octave intervals correspond to full turns, hence aligning all coefficients
+of the form $\boldsymbol{x_1}[t, k_1 + Q \times j_1]$ for $j_1 \in \mathbb{Z}$
+onto the same radius of the spiral.
+Henceforth, correlations between power-of-two harmonics are revealed by
+the octave variable $j_1$.
 
-%To leverage the fact that power-of-two harmonics are one octave apart,
-%we make the Euclidean division $k_1 = Q \times j_1 + q_1$, hence revealing
-%the octave variable $j_1$ and the chroma variable $q_1$.
-%Conceptually, this corresponds to rolling up the log-frequency axis
-%into a Shepard pitch spiral, such that octave intervals correspond to full turns.
 Each feature map $k_2$ results from the sum of $j_1 = 3$ convolutions between
 time-frequency kernels of size $(\Delta t \times \Delta k_1)$.
 The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
@@ -604,19 +617,14 @@ extremely rare in MedleyDB.
 
 Constant-Q spectrograms from the evaluation set were split into half-overlapping,
 3-second excerpts.
-The predicted probability distributions were computed for every excerpt in a track,
-and then aggregated by geometric mean to provide a decision at the scale of
-the entire audio file.
 
-Standard deviations for the test accuracies were estimated by training all architectures
-ten times with random initialization \cite{He2015}.
 
 In order to compare the results against shallow classifiers, we also extracted a typical
 "bag-of-features" over half-overlapping, 3-second excerpts in the training set.
-These features consist of the temporal averages and standard
+These features consist of the means and standard
 deviations of spectral shape descriptors, \ie centroid, bandwidth, skewness,
-and rolloff, as well a zero-crossing rate ;
-supplemented with the temporal averages of MFCC and its first and second derivatives.
+and rolloff ; the mean and standard deviation of the zero-crossing rate in the time domain ;
+the mean MFCC as well their first and second derivative.
 We trained a random forest of $100$ decision trees on the resulting feature vector
 of dimension $70$.
 
@@ -661,17 +669,20 @@ We have presented a supervised, end-to-end learning method to address pitch inva
 while preserving good timbral discriminability.
 It consists in training a feed-forward convolutional network over the constant-Q spectrogram,
 with three different weight sharing strategies according to the type of input:
-along time at high frequencies (above $2\,\mathrm{kHz}$), on a pitch spiral at low frequencies.
+along time at high frequencies (above $2\,\mathrm{kHz}$),
+on a pitch spiral at low frequencies (below $2\,\mathrm{kHz}$),
 and in time-frequency over both high and low frequencies.
 
-This method resembles \cite{Dieleman2011} \cite{Durand2016}
-Future work will be devoted to integrating the proposed scheme with other advances
-in deep learning for music informatics, such as data augmentation \cite{McFee2015-muda},
+A possible improvement of the presented architecture would be to
+place a third convolutional layer in the time domain before performing long-term
+max-pooling, hence modelling the joint dynamics of the three mid-level feature maps.
+Future work will investigate the association of the presented weight sharing strategies
+with recent advances in deep learning for music informatics,
+such as data augmentation \cite{McFee2015-muda},
 multiscale representations \cite{Hamel2012, Anden2015},
 and adversarial training \cite{Kereliuk2015}.
 
-\clearpage
 % For bibtex users:
-\bibliography{ISMIR2015template}
+\bibliography{lpifir_ismir2016}
 
 \end{document}

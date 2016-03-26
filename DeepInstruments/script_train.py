@@ -14,7 +14,7 @@ X_width = decision_length / hop_length
 dense2_channels = 8
 names = [name.split(" ")[0] for name in di.singlelabel.names]
 
-n_trials = 1
+n_trials = 10
 conv1_height = [5, 3] # resp for 2d, spiral
 conv1_width = 3
 pool1_height = 2
@@ -29,8 +29,9 @@ js = np.matrix([[0, 8], [5, 8], [1, 3], [2, 4], [3, 5]])
 loss_report = []
 chunk_report = []
 file_report = []
+report = {}
 
-for trial in range(n_trials):
+for trial in range(4, n_trials):
     print "*********************************************************"
     print "                           TRIAL", 1+trial
     loss_trial = []
@@ -44,7 +45,7 @@ for trial in range(n_trials):
         elif arch == 2:  # 1d
             conv1_channels = [0, 320, 0]  # 835k
         elif arch == 3:  # spiral & 1d
-            conv1_channels = [0, 128, 128]  # 772k
+            conv1_channels = [0, 128, 128]  # 773k
         elif arch == 4:  # 2d
             conv1_channels = [96, 0, 0]  # 841k
         elif arch == 5:  # 2d & spiral
@@ -144,4 +145,7 @@ for trial in range(n_trials):
     loss_report.append(loss_trial)
     chunk_report.append(chunk_trial)
     file_report.append(file_trial)
-    pickle.dump(loss_report, open("Table2.p", "wb"))
+    report["loss"] = loss_report
+    report["chunk"] = chunk_report
+    report["file"] = file_report
+    pickle.dump(report, open("Table2.p", "wb"))
