@@ -15,6 +15,7 @@
 \usepackage{IEEEtrantools}
 \sloppy
 
+\usepackage{amsfonts}
 \usepackage{xspace}
 \newcommand*{\eg}{e.g.\@\xspace}
 \newcommand*{\ie}{i.e.\@\xspace}
@@ -117,10 +118,11 @@ classification.
 Section 3 demonstrates that pitch is the major factor of variability among musical
 notes of a given instrument, if described by their mel-frequency cepstra.
 Section 4 describes a typical deep learning architecture for spectrogram-based
-classification, consisting of two convolutional layers and one densely connected layer.
-Section 5 improves the previous architecture by splitting spectrograms into
-octave-wide frequency bands, training specific convolutional layers over each band
-in parallel, and gathering feature maps at a later stage.
+classification, consisting of two convolutional layers in the time-frequency
+domain and one densely connected layer.
+Section 5 introduces alternative convolutional architectures,
+namely along time and along a Shepard pitch spiral, as well as
+aggregation of mid-level features in the deepest layers.
 Sections 6 discusses the effectiveness of the presented systems on a challenging
 dataset for music instrument recognition.
 
@@ -512,14 +514,14 @@ that the harmonic comb is sparse and covariant with respect to pitch shift.
 Observe that, for any two distinct partials taken at random between $1$ and $n$,
 the probability that they are in octave relation is slightly above $1/n$.
 Thus, for $n$ relatively low, the structure of harmonic sounds is well
-described by merely measuring correlations between partials one octave apart,
-\ie between log-frequency bands $k_1$ and $k_1 \pm Q$.
+described by merely measuring correlations between partials one octave apart.
+This idea consists in rolling up the log-frequency axis into a Shepard pitch spiral,
+such that octave intervals correspond to full turns, hence aligning all coefficients
+of the form $\boldsymbol{x_1}[t, k_1 + Q \times j_1]$ for $j_1 \in \mathbb{Z}$
+onto the same radius of the spiral.
+Henceforth, correlations between power-of-two harmonics are revealed by
+the octave variable $j_1$.
 
-%To leverage the fact that power-of-two harmonics are one octave apart,
-%we make the Euclidean division $k_1 = Q \times j_1 + q_1$, hence revealing
-%the octave variable $j_1$ and the chroma variable $q_1$.
-%Conceptually, this corresponds to rolling up the log-frequency axis
-%into a Shepard pitch spiral, such that octave intervals correspond to full turns.
 Each feature map $k_2$ results from the sum of $j_1 = 3$ convolutions between
 time-frequency kernels of size $(\Delta t \times \Delta k_1)$.
 The definition of $\boldsymbol{y_2}[t, k_1, k_2]$ rewrites as
@@ -615,12 +617,7 @@ extremely rare in MedleyDB.
 
 Constant-Q spectrograms from the evaluation set were split into half-overlapping,
 3-second excerpts.
-The predicted probability distributions were computed for every excerpt in a track,
-and then aggregated by geometric mean to provide a decision at the scale of
-the entire audio file.
 
-Standard deviations for the test accuracies were estimated by training all architectures
-ten times with random initialization \cite{He2015}.
 
 In order to compare the results against shallow classifiers, we also extracted a typical
 "bag-of-features" over half-overlapping, 3-second excerpts in the training set.
