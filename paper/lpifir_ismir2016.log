@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 09:00
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 09:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -358,7 +358,7 @@ Underfull \hbox (badness 4927) in paragraph at lines 494--508
 
 [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 635.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 630.
  [5] (./lpifir_ismir2016.bbl
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
@@ -399,7 +399,7 @@ Underfull \hbox (badness 1242) in paragraph at lines 139--142
 Here is how much of TeX's memory you used:
  5059 strings out of 493706
  80568 string characters out of 6145769
- 183703 words of memory out of 5000000
+ 184703 words of memory out of 5000000
  8310 multiletter control sequences out of 15000+600000
  23978 words of font info for 81 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
