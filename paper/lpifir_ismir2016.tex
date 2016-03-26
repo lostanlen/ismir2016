@@ -120,8 +120,8 @@ notes of a given instrument, if described by their mel-frequency cepstra.
 Section 4 describes a typical deep learning architecture for spectrogram-based
 classification, consisting of two convolutional layers in the time-frequency
 domain and one densely connected layer.
-Section 5 introduces alternative convolutional architectures,
-namely along time and along a Shepard pitch spiral, as well as
+Section 5 introduces alternative convolutional architectures for learning
+mid-level features, along time and along a Shepard pitch spiral, as well as
 aggregation of mid-level features in the deepest layers.
 Sections 6 discusses the effectiveness of the presented systems on a challenging
 dataset for music instrument recognition.
@@ -622,7 +622,8 @@ Stems with leaking instruments in the background were discarded.
 		& clarinet & distorted & female & flute & piano & tenor & trumpet & violin & average \\
 		\hline
 		bag-of-features
-		& 49.9 & 92.7 & 81.6 & 22.5 & \textbf{99.7} & \hphantom{0}4.4 & 63.7 & \textbf{76.2} & 61.3 \\
+		& 49.9 & 92.7 & 81.6 & 22.5 & \textbf{99.7} & \hphantom{0}4.4 & 63.7 & \textbf{76.2} & 61.4 \\
+		&\s{0.8}&\s{0.4}&\s{1.5}&\s{0.8}&\g{0.1}&\s{1.1}&\s{2.1}&\s{3.1}&\s{0.5}\\
 		\hline
 		1-d
 		& 28.8 & \textbf{91.8} & 82.9 & \textbf{51.3} & 73.3 & \textbf{59.0} & 63.3 & 43.9 & 61.8 \\
