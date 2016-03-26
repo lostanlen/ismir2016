@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 11:21
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 11:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -370,12 +370,12 @@ Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
 
-
+[6]
 Underfull \hbox (badness 4096) in paragraph at lines 16--20
 []\OT1/ptm/m/n/10 Keunwoo Choi, George Fazekas, Mark San-dler,
  []
 
-[6]
+
 Underfull \hbox (badness 1424) in paragraph at lines 32--36
 \OT1/ptm/m/n/10 pre-trained con-vo-lu-tional net-work.  In \OT1/ptm/m/it/10 Pro
 c. IS-MIR\OT1/ptm/m/n/10 ,

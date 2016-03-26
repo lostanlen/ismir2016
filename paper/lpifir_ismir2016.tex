@@ -716,9 +716,12 @@ Hybridizing 2-d with either 1-d or spiral convolutions provide consistent, albei
 small improvements with respect to 2-d alone. The best overall accuracy is reached
 by the full hybridization of all three weight sharing strategies, because of a performance boost for the rarest classes.
 
-Experiments with broader frequency ranges of 1-d and spiral convolutions lead to a degraded performance, and are thus not reported.
-Likewise, increasing the number of kernels caused the models to often under-fit,
-hence an increase in variance.
+The accuracy gain by combining multiple models could simply be the result of
+a greater number of parameters. To refute this hypothesis, we train a 2-d convolutional
+network with $48$ kernels instead of $32$, so as to match the budget of the full hybrid model, \ie about 150k parameters. The performance is certainly increased, but not up to the hybrid models involving 2-d convolutions, which have less parameters. Increasing the number of kernels even more cause the accuracy to level out and the
+variance between trials to increase.
+
+Running the same experiments with broader frequency ranges of 1-d and spiral convolutions often lead to a degraded performance, and are thus not reported.
 
 
 \section{Conclusions}
