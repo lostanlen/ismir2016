@@ -148,4 +148,4 @@ for trial in range(0, n_trials):
     report["loss"] = loss_report
     report["chunk"] = chunk_report
     report["file"] = file_report
-    #pickle.dump(report, open("Table2_K32.p", "wb"))
+    pickle.dump(report, open("Table2_K32.p", "wb"))

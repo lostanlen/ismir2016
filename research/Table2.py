@@ -1,7 +1,7 @@
 import numpy as np
 import pickle
 
-report = pickle.load(open("Table2.p", "r"))
+report = pickle.load(open("Table2_K32.p", "r"))
 loss_report = report["loss"]
 chunk_report = report["chunk"]
 file_report = report["file"]
