@@ -342,8 +342,8 @@ The pointwise nonlinearity we have chosen is the rectified linear unit (ReLU),
 with a rectifying slope of $\alpha=0.3$ for negative inputs.
 \begin{IEEEeqnarray}{l}
 \boldsymbol{y_{2}^{+}}[t,k_{1},k_{2}]=\left\{ \! \! \! \begin{array}{r}
-\alpha\boldsymbol{x_{2}}[t,k_{1},k_{2}] \;\;\; \mbox{if} \;\; \boldsymbol{x_{2}}[t,k_{1},k_{2}]<0\\
-\boldsymbol{x_{2}}[t,k_{1},k_{2}] \;\;\; \mbox{if} \;\; \boldsymbol{x_{2}}[t,k_{1},k_{2}]>0
+\alpha\boldsymbol{y_{2}}[t,k_{1},k_{2}] \;\;\; \mbox{if} \;\; \boldsymbol{y_{2}}[t,k_{1},k_{2}]<0\\
+\boldsymbol{y_{2}}[t,k_{1},k_{2}] \;\;\; \mbox{if} \;\; \boldsymbol{y_{2}}[t,k_{1},k_{2}]>0
 \end{array}\right. \!
 \IEEEeqnarraynumspace
 \label{eq:relu}
@@ -367,7 +367,7 @@ The hidden units in $\boldsymbol{x_2}$ are in turn fed to a second layer of conv
 ReLU, and pooling.
 Observe that the corresponding convolutional operator
 $\boldsymbol{W_3}[\tau, \kappa_1, k_2, k_3]$ performs a linear combination of time-frequency
-feature maps in $\boldsymbol{x_2}$ along the channel variable $k_2$.
+feature maps in $\boldsymbol{x_2}$ along the variable $k_2$.
 \begin{IEEEeqnarray}{rCl}
 \IEEEeqnarraymulticol{3}{l}{
 \boldsymbol{y_3}[t,k_1,k_3]} \nonumber \\

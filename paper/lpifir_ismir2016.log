@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  26 MAR 2016 11:58
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  3 APR 2016 19:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -346,11 +346,6 @@ Underfull \hbox (badness 3492) in paragraph at lines 320--324
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (0.61523pt too wide) in alignment at lines 343--350
- [] [][]
- []
 
 
 Underfull \hbox (badness 1968) in paragraph at lines 406--423
