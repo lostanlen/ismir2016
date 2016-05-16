@@ -216,8 +216,7 @@ woodwinds.
 As a consequence, the construction of powerful invariants to musical pitch is not
 amenable to delocalized operations on the mel-frequency spectrum, such as a
 discrete cosine transform (DCT) which leads to the mel-frequency cepstral
-coefficients (MFCC) classically used in music classification
-\cite{Eronen2000, Joder2009}.
+coefficients (MFCC), often used in audio classification \cite{Eronen2000, Joder2009}.
 
 \begin{figure}[t]
     \begin{center}
@@ -721,7 +720,7 @@ a greater number of parameters. To refute this hypothesis, we train a 2-d convol
 network with $48$ kernels instead of $32$, so as to match the budget of the full hybrid model, \ie about 150k parameters. The performance is certainly increased, but not up to the hybrid models involving 2-d convolutions, which have less parameters. Increasing the number of kernels even more cause the accuracy to level out and the
 variance between trials to increase.
 
-Running the same experiments with broader frequency ranges of 1-d and spiral convolutions often lead to a degraded performance, and are thus not reported.
+Running the same experiments with broader frequency ranges of 1-d and spiral convolutions often led to a degraded performance, and are thus not reported.
 
 
 \section{Conclusions}
