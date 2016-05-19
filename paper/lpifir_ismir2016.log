@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  19 MAY 2016 19:52
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  19 MAY 2016 21:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -362,19 +362,14 @@ Underfull \hbox (badness 3492) in paragraph at lines 346--350
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 432--449
+Underfull \hbox (badness 1968) in paragraph at lines 434--451
 \OT1/ptm/m/n/10 Given a train-ing set of spectrogram-instrument pairs
  []
 
-[3]
-Underfull \hbox (badness 4927) in paragraph at lines 507--521
-[]\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
- []
-
-[4]
+[3] [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 644.
- [5] [6] (./lpifir_ismir2016.bbl
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 645.
+ [5] (./lpifir_ismir2016.bbl [6]
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
