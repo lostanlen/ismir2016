@@ -18,9 +18,9 @@ X_test = (X_test - X_means) / X_stds
 y_test = np.hstack(map(di.descriptors.get_y, test_paths))
 
 y_counter = collections.Counter(y_test)
-y_counts = [ y_counter[i] for i in range(y_counter.__len__())]
+y_counts = [y_counter[i] for i in range(y_counter.__len__())]
 y_weights = map(float, y_counts) / np.sum(y_counts)
-y_dict = { i: y_weights[i] for i in range(8)}
+y_dict = {i: y_weights[i] for i in range(8)}
 
 n_trials = 10
 confusion_matrices = []
@@ -28,7 +28,8 @@ confusion_matrices = []
 for trial_index in range(n_trials):
     clf = sklearn.ensemble.RandomForestClassifier(
             n_jobs=-1,
-            n_estimators=100)
+            n_estimators=100,
+            class_weight="balanced")
     clf = clf.fit(X_training, y_training)
     y_predicted = clf.predict(X_test)
 

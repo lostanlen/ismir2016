@@ -29,13 +29,14 @@ def get_X(decision_length,
             bins_per_octave=n_bins_per_octave,
             fmin=fmin,
             n_bins=n_bins)
-    CQT = librosa.cqt(
+    CQT = np.abs(librosa.cqt(
             x_mono,
             bins_per_octave=n_bins_per_octave,
             fmin=fmin,
             hop_length=hop_length,
             n_bins=n_bins,
-            sr=sr)
+            sr=sr,
+            real=False))
     A_weights_dB = librosa.A_weighting(freqs, min_db=-80.0)
     A_weights = (10.0 ** (A_weights_dB/10))
     X = np.log1p(1000.0 * CQT * A_weights[:, np.newaxis])
