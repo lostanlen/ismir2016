@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: lpifir_ismir2016.aux
 The style file: plain.bst
 Database file #1: lpifir_ismir2016.bib
-You've used 28 entries,
+You've used 27 entries,
             2118 wiz_defined-function locations,
-            654 strings with 8628 characters,
-and the built_in function-call counts, 9267 in all, are:
-= -- 822
-> -- 541
-< -- 3
-+ -- 215
-- -- 184
-* -- 609
-:= -- 1560
-add.period$ -- 83
-call.type$ -- 28
-change.case$ -- 177
+            649 strings with 8457 characters,
+and the built_in function-call counts, 8712 in all, are:
+= -- 765
+> -- 518
+< -- 2
++ -- 206
+- -- 176
+* -- 585
+:= -- 1491
+add.period$ -- 80
+call.type$ -- 27
+change.case$ -- 170
 chr.to.int$ -- 0
-cite$ -- 28
-duplicate$ -- 377
-empty$ -- 754
-format.name$ -- 184
-if$ -- 1931
+cite$ -- 27
+duplicate$ -- 341
+empty$ -- 713
+format.name$ -- 176
+if$ -- 1795
 int.to.chr$ -- 0
-int.to.str$ -- 28
-missing$ -- 25
-newline$ -- 141
-num.names$ -- 56
-pop$ -- 239
+int.to.str$ -- 27
+missing$ -- 24
+newline$ -- 136
+num.names$ -- 54
+pop$ -- 225
 preamble$ -- 1
-purify$ -- 148
+purify$ -- 142
 quote$ -- 0
-skip$ -- 239
+skip$ -- 204
 stack$ -- 0
-substring$ -- 319
-swap$ -- 72
-text.length$ -- 3
+substring$ -- 294
+swap$ -- 49
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 112
+type$ -- 108
 warning$ -- 0
-while$ -- 69
-width$ -- 30
-write$ -- 289
+while$ -- 66
+width$ -- 29
+write$ -- 279

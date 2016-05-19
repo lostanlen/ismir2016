@@ -62,12 +62,6 @@ Philippe Hamel, Yoshua Bengio, and Douglas Eck.
   timescale representations}.
 \newblock In {\em Proc. ISMIR}, 2012.
 
-\bibitem{He2015}
-Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
-\newblock Delving deep into rectifiers: Surpassing human-level performance on
-  imagenet classification.
-\newblock In {\em Proc. ICCV}, 2015.
-
 \bibitem{Humphrey2013}
 Eric~J. Humphrey, Juan~P. Bello, and Yann Le~Cun.
 \newblock {Feature learning and deep architectures: New directions for music
@@ -131,14 +125,14 @@ Geoffroy Peeters.
 \newblock Technical report, Ircam, 2004.
 
 \bibitem{Schluter2014}
-Jan Schl\"{u}ter and Sebastian Bock.
+Jan Schl\"{u}ter and Sebastian B\"{o}ck.
 \newblock Improved musical onset detection with convolutional neural networks.
 \newblock In {\em Proc. ICASSP}, 2014.
 
 \bibitem{Sigtia2015}
 Siddharth Sigtia, Emmanouil Benetos, and Simon Dixon.
 \newblock An end-to-end neural network for polyphonic music transcription.
-\newblock {\em arXiv preprint}, page 1508.01774, 2015.
+\newblock {\em arXiv preprint}, 1508.01774, 2015.
 
 \bibitem{Stowell2014}
 Dan Stowell and Mark~D. Plumbley.

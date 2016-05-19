@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  19 MAY 2016 12:07
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  19 MAY 2016 12:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -318,7 +318,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 65.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 86.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 87.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
@@ -328,7 +328,7 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 1052) in paragraph at lines 132--144
+Underfull \hbox (badness 1052) in paragraph at lines 133--145
 \OT1/ptm/m/n/10 mu-si-cal notes of a given in-stru-ment, if de-scribed by
  []
 
@@ -341,24 +341,24 @@ File: figs/chromatic_scale.png Graphic file (type QTm)
  <use  "figs/chromatic_scale.png" >
 File: figs/mfcc_variances.png Graphic file (type QTm)
  <use  "figs/mfcc_variances.png" >
-Overfull \hbox (8.53572pt too wide) in paragraph at lines 287--288
+Overfull \hbox (8.53572pt too wide) in paragraph at lines 288--289
  [] 
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 293--293
+Underfull \hbox (badness 2401) in paragraph at lines 294--294
 \OT1/ptm/m/n/10 among var-i-ous MFCC clus-ters in the RWC dataset.
  []
 
 [2]
 File: figs/architecture.png Graphic file (type QTm)
  <use  "figs/architecture.png" >
-Underfull \hbox (badness 3492) in paragraph at lines 335--339
+Underfull \hbox (badness 3492) in paragraph at lines 336--340
 []\OT1/ptm/m/n/10 A con-vo-lu-tional op-er-a-tor is de-fined as a fam-ily
  []
 
 
-Underfull \hbox (badness 1968) in paragraph at lines 421--438
+Underfull \hbox (badness 1968) in paragraph at lines 422--439
 \OT1/ptm/m/n/10 Given a train-ing set of spectrogram-instrument pairs
  []
 
@@ -366,13 +366,13 @@ Underfull \hbox (badness 1968) in paragraph at lines 421--438
 Underfull \vbox (badness 3386) has occurred while \output is active []
 
 
-Underfull \hbox (badness 4927) in paragraph at lines 496--510
+Underfull \hbox (badness 4927) in paragraph at lines 497--511
 []\OT1/ptm/m/n/10 However, the sit-u-a-tion is im-proved if the one-
  []
 
 [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 633.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 634.
  [5] (./lpifir_ismir2016.bbl [6]
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
@@ -400,21 +400,21 @@ Underfull \hbox (badness 1377) in paragraph at lines 60--64
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 111--115
+Underfull \hbox (badness 1184) in paragraph at lines 105--109
 \OT1/ptm/m/n/10 Liang, Oriol Ni-eto, Eric Bat-ten-berg, Josh Moore,
  []
 
 
-Underfull \hbox (badness 1242) in paragraph at lines 139--142
+Underfull \hbox (badness 1242) in paragraph at lines 133--136
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
 ) [7] (./lpifir_ismir2016.aux) ) 
 Here is how much of TeX's memory you used:
- 5173 strings out of 493706
- 82074 string characters out of 6145769
- 186843 words of memory out of 5000000
- 8415 multiletter control sequences out of 15000+600000
+ 5172 strings out of 493706
+ 82066 string characters out of 6145769
+ 186839 words of memory out of 5000000
+ 8414 multiletter control sequences out of 15000+600000
  24701 words of font info for 83 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  36i,15n,38p,375b,372s stack positions out of 5000i,500n,10000p,200000b,80000s
