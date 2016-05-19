@@ -13,6 +13,7 @@
 \usepackage{subfig, color}
 \usepackage{microtype}
 \usepackage{IEEEtrantools}
+\usepackage{url}
 \sloppy
 
 \usepackage{amsfonts}
@@ -25,16 +26,18 @@
 
 % Title.
 % ------
-\title{Learning pitch invariants for instrument recognition}
+\title{Deep convolutional networks on the pitch spiral for instrument recognition}
 
 
 % Single address
 % To use with only one author or several with the same address
 % ---------------
 \oneauthor
-{Names should be omitted for double-blind reviewing}
-{Affiliations should be omitted for double-blind reviewing}
-
+{Vincent Lostanlen and Carmine Emanuele Cella}
+{\'{E}cole normale sup\'{e}rieure,
+PSL Research University,
+CNRS,
+Paris, France}
 
 % Two addresses
 % --------------
@@ -67,19 +70,32 @@ and expressive techniques.
 Audio-based classification of musical instruments thus requires to
 build signal representations that are invariant to such transformations.
 This article investigates the construction
-of multi-stage architectures for instrument recognition,
+of deep learning architectures for instrument recognition,
 given a limited amount of annotated training data.
-We show that the main drawback of mel-frequency cepstral
-coefficients (MFCC) resides in their lack of invariance with respect to
-realistic pitch shifts, despite being designed to be invariant
-to the frequency transposition of pure tones.
-In turn, a deep convolutional network (ConvNet)
-in the time-frequency domain is able to disentangle pitch from
-timbral information, hence yielding better classification accuracy.
-We further improve the learned representation
-by introducing novel weight sharing strategies dedicated to
-quasi-harmonic sounds with fixed spectral envelope,
-which are archetypal of musical notes.
+In this context, we benchmark three different weight sharing
+strategies for deep convolutional networks in the
+time-frequency domain: temporal kernels ;
+time-frequency kernels ;
+and a linear combination of time-frequency
+kernels which are one octave apart, akin to a Shepard pitch spiral.
+We provide an acoustical interpretation of these strategies
+within the source-filter framework of quasi-harmonic sounds with
+a fixed spectral envelope, which are archetypal of musical notes.
+\footnote{This work is supported by the ERC InvariantClass grant 320959.
+The source code to reproduce figures and experiments is available at
+\url{www.github.com/lostanlen/ismir2016}}
+
+%We show that the main drawback of mel-frequency cepstral
+%coefficients (MFCC) resides in their lack of invariance with respect to
+%realistic pitch shifts, despite being designed to be invariant
+%to the frequency transposition of pure tones.
+%In turn, a deep convolutional network (ConvNet)
+%in the time-frequency domain is able to disentangle pitch from
+%timbral information, hence yielding better classification accuracy.
+%We further improve the learned representation
+%by introducing novel weight sharing strategies dedicated to
+%quasi-harmonic sounds with fixed spectral envelope,
+%which are archetypal of musical notes.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
@@ -393,7 +409,7 @@ the flattened index $(t, k_1, k_3)$, over $K_4$ units:
 \end{IEEEeqnarray}
 We apply a ReLU to $\boldsymbol{y_4}$, yielding
 $\boldsymbol{x_4}[k_4] = \boldsymbol{y_4^{+}}[k_4]$.
-Finally, we project $\boldsymbol{x_4}$ onto a layer of output units $\boldsymbol{y_5}$ that
+Finally, we project $\boldsymbol{x_4}$, onto a layer of output units $\boldsymbol{y_5}$ that
 should represent instrument activations:
 $\boldsymbol{y_5}[k_5] = \sum_{k_4} \boldsymbol{W_5}[k_4, k_5] \boldsymbol{x_4}[k_4]$.
 The final transformation is a softmax nonlinearity, which ensures that output coefficients are
@@ -495,7 +511,7 @@ the learning of polyvalent feature maps becomes tractable.
 
 In our experiments, the one-dimensional convolutions over the time variable
 range from
-$\mathrm{A_6}$ ($1,76\,\mathrm{kHz}$) to
+$\mathrm{A_6}$ ($1.76\,\mathrm{kHz}$) to
 $\mathrm{A_9}$ ($14\,\mathrm{kHz}$).
 
 \subsection{Convolutions on the pitch spiral at low frequencies}
@@ -512,7 +528,7 @@ This idea consists in rolling up the log-frequency axis into a Shepard pitch spi
 such that octave intervals correspond to full turns, hence aligning all coefficients
 of the form $\boldsymbol{x_1}[t, k_1 + Q \times j_1]$ for $j_1 \in \mathbb{Z}$
 onto the same radius of the spiral.
-Henceforth, correlations between power-of-two harmonics are revealed by
+Therefore, correlations between power-of-two harmonics are revealed by
 the octave variable $j_1$.
 
 To implement a convolutional network on the pitch spiral, we crop the constant-Q
@@ -551,7 +567,7 @@ This operation also partially circumvents the problem of fixed spectral envelope
 in musical sounds, thus improving the validness of the stationarity assumption.
 In our experiments, the pitch spiral ranges from
 $\mathrm{A_2}$ ($110\,\mathrm{Hz}$) to
-$\mathrm{A_6}$ ($1,76\,\mathrm{kHz}$).
+$\mathrm{A_6}$ ($1.76\,\mathrm{kHz}$).
 
 In summary, the classical two-dimensional convolutions make a stationarity assumption
 among frequency neighborhoods. This approach gives a coarse approximation
@@ -608,7 +624,8 @@ Stems with leaking instruments in the background were discarded.
     \setlength{\unitlength}{1cm}
     \begin{tabular}{|c|cccccccc|c|}
         \hline
-        & clarinet & distorted & female & flute & piano & tenor & trumpet & violin & average \\
+        & clarinet & dist. & female & flute & piano & tenor & trumpet & violin & average \\
+        &             & guitar & singer &        &           &          &              &          &                \\
         \hline
         bag-of-features
         & 49.9 & \textbf{92.7} & 81.6 & 22.5 & \textbf{99.7} & \hphantom{0}4.4 & 63.7 & \textbf{76.2} & 61.4 \\
@@ -694,9 +711,9 @@ In order to compare the results against shallow classifiers, we also extracted a
 These features consist of the means and standard
 deviations of spectral shape descriptors, \ie centroid, bandwidth, skewness,
 and rolloff ; the mean and standard deviation of the zero-crossing rate in the time domain ;
-the mean MFCC as well their first and second derivative.
+and the means of MFCC as well as their first and second derivative.
 We trained a random forest of $100$ decision trees on the resulting feature vector
-of dimension $70$, with uniform class probability.
+of dimension $70$, with balanced class probability.
 
 Results are summarized in Table \ref{table:results}.
 First of all, the bag-of-features approach presents large accuracy variations
@@ -731,7 +748,7 @@ while preserving good timbral discriminability.
 It consists in training a feed-forward convolutional network over the constant-Q spectrogram,
 with three different weight sharing strategies according to the type of input:
 along time at high frequencies (above $2\,\mathrm{kHz}$),
-on a pitch spiral at low frequencies (below $2\,\mathrm{kHz}$),
+on a Shepard pitch spiral at low frequencies (below $2\,\mathrm{kHz}$),
 and in time-frequency over both high and low frequencies.
 
 A possible improvement of the presented architecture would be to
