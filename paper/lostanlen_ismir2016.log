@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  19 MAY 2016 21:46
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.18)  20 MAY 2016 15:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**lpifir_ismir2016.tex
-(./lpifir_ismir2016.tex
+**lostanlen_ismir2016.tex
+(./lostanlen_ismir2016.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
@@ -245,8 +245,8 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count117
 )
-(./lpifir_ismir2016.aux)
-\openout1 = `lpifir_ismir2016.aux'.
+(./lostanlen_ismir2016.aux)
+\openout1 = `lostanlen_ismir2016.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
 LaTeX Font Info:    ... okay on input line 72.
@@ -308,9 +308,9 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
-File: figs/cc_by.pdf Graphic file (type QTm)
+File: cc_by.pdf Graphic file (type QTm)
 
-<use  "figs/cc_by.pdf" >
+<use  "cc_by.pdf" >
 LaTeX Font Info:    Try loading font information for OMS+ptm on input line 74.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsptm.fd
@@ -341,10 +341,10 @@ Underfull \hbox (badness 1052) in paragraph at lines 143--155
 
 
 ]
-File: figs/chromatic_scale.png Graphic file (type QTm)
- <use  "figs/chromatic_scale.png" >
-File: figs/mfcc_variances.png Graphic file (type QTm)
- <use  "figs/mfcc_variances.png" >
+File: fig1.png Graphic file (type QTm)
+ <use  "fig1.png" >
+File: fig2.png Graphic file (type QTm)
+ <use  "fig2.png" >
 Overfull \hbox (8.53572pt too wide) in paragraph at lines 298--299
  [] 
  []
@@ -355,8 +355,8 @@ Underfull \hbox (badness 2401) in paragraph at lines 304--304
  []
 
 [2]
-File: figs/architecture.png Graphic file (type QTm)
- <use  "figs/architecture.png" >
+File: fig3.png Graphic file (type QTm)
+ <use  "fig3.png" >
 Underfull \hbox (badness 3492) in paragraph at lines 346--350
 []\OT1/ptm/m/n/10 A con-vo-lu-tional op-er-a-tor is de-fined as a fam-ily
  []
@@ -369,7 +369,7 @@ Underfull \hbox (badness 1968) in paragraph at lines 434--451
 [3] [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 645.
- [5] (./lpifir_ismir2016.bbl [6]
+ [5] (./lostanlen_ismir2016.bbl [6]
 Underfull \hbox (badness 7704) in paragraph at lines 9--14
 []\OT1/ptm/m/n/10 Rachel Bit-tner, Justin Sala-mon, Mike Tier-ney,
  []
@@ -405,14 +405,14 @@ Underfull \hbox (badness 1242) in paragraph at lines 133--136
 []\OT1/ptm/m/n/10 Siddharth Sig-tia, Em-manouil Bene-tos, and Si-mon
  []
 
-) [7] (./lpifir_ismir2016.aux) ) 
+) [7] (./lostanlen_ismir2016.aux) ) 
 Here is how much of TeX's memory you used:
- 5364 strings out of 493706
- 84365 string characters out of 6145769
- 287739 words of memory out of 5000000
+ 5363 strings out of 493706
+ 84315 string characters out of 6145769
+ 287737 words of memory out of 5000000
  8602 multiletter control sequences out of 15000+600000
  24701 words of font info for 83 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 36i,15n,38p,375b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,15n,38p,378b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on lpifir_ismir2016.pdf (7 pages).
+Output written on lostanlen_ismir2016.pdf (7 pages).
