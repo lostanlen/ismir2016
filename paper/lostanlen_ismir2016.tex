@@ -35,7 +35,7 @@
 
 % Title.
 % ------
-\title{Deep convolutional networks on the pitch spiral for music instrument recognition}
+\title{Deep convolutional networks on the pitch spiral for musical instrument recognition}
 
 
 % Single address
@@ -151,7 +151,7 @@ Section 5 introduces alternative convolutional architectures for learning
 mid-level features, along time and along a Shepard pitch spiral, as well as
 aggregation of multiple models in the deepest layers.
 Sections 6 discusses the effectiveness of the presented systems on a challenging
-dataset for music instrument recognition.
+dataset for musical instrument recognition.
 
 \section{Related work}
 Spurred by the growth of annotated datasets and the democratization of
@@ -530,7 +530,8 @@ $\mathrm{A_9}$ ($14\,\mathrm{kHz}$).
 The weight sharing strategy presented above exploits the facts that,
 at high frequencies, quasi-harmonic partials are numerous, and that the
 amount of energy within a frequency band is independent of pitch.
-At low frequencies, we make the exact opposite assumptions: we claim
+
+At low frequencies, we claim
 that the harmonic comb is sparse and covariant with respect to pitch shift.
 Observe that, for any two distinct partials taken at random between $1$ and $n$,
 the probability that they are in octave relation is slightly above $1/n$.
@@ -567,7 +568,7 @@ at octave boundaries.
 
 The linear combinations of frequency bands that are one octave apart,
 as proposed here,
-bears a resemblance with engineered features for music instrument
+bears a resemblance with engineered features for musical instrument
 recognition \cite{Peeters2004}, such as tristimulus,
 empirical inharmonicity, harmonic spectral deviation,
 odd-to-even harmonic energy ratio, as well as
