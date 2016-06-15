@@ -439,7 +439,7 @@ over shuffled mini-batches of size $32$ with uniform class distribution.
 The pairs $(\boldsymbol{x_1}, k)$ are extracted on the fly by selecting non-silent
 regions at random within a dataset of single-instrument audio recordings.
 Each $3$-second spectrogram $\boldsymbol{x_1}[t, k_1]$ within a batch is
-globally normalized such that the whole batch had zero mean and unit variance.
+globally normalized such that the whole batch has zero mean and unit variance.
 At training time, a random dropout of 50\% is applied to the activations of
 $\boldsymbol{x_3}$ and $\boldsymbol{x_4}$.
 The learning rate policy for each scalar weight in the network is Adam \cite{Kingma2015},
